@@ -2,21 +2,25 @@ function in = localResetFcnFurutaCurriculum(in)
 %LOCALRESETFCNFURUTACURRICULUM Curriculum reset function for Simulink RL.
 %
 % The base workspace must contain curriculumParams with fields:
-%   AlphaRange, AlphaDotRange
+%   Theta2ErrorRange, Omega2Range
 %
 % Update the variable names below to match the Simulink model.
 
 curriculumParams = evalin("base", "curriculumParams");
 
-alpha0 = sampleUniform(curriculumParams.AlphaRange);
-alphaDot0 = sampleUniform(curriculumParams.AlphaDotRange);
-theta0 = 0;
-thetaDot0 = 0;
+theta1_0 = 0;
+theta2Error0 = sampleUniform(curriculumParams.Theta2ErrorRange);
+theta2_0 = pi + theta2Error0;
+omega1_0 = 0;
+omega2_0 = sampleUniform(curriculumParams.Omega2Range);
 
-in = setVariable(in, "theta0", theta0);
-in = setVariable(in, "alpha0", alpha0);
-in = setVariable(in, "thetaDot0", thetaDot0);
-in = setVariable(in, "alphaDot0", alphaDot0);
+in = setVariable(in, "theta1_0", theta1_0);
+in = setVariable(in, "theta2_0", theta2_0);
+in = setVariable(in, "omega1_0", omega1_0);
+in = setVariable(in, "omega2_0", omega2_0);
+
+% Many reference scripts use theta0 as a 2-vector of initial joint angles.
+in = setVariable(in, "theta0", [theta1_0; theta2_0]);
 end
 
 function value = sampleUniform(range)

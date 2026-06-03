@@ -20,9 +20,9 @@ cfg.Limits.VoltageMax = 24;
 cfg.Limits.CurrentMax = 1;
 cfg.Limits.MotorSpeedMax = 200;
 
-% Observation convention: [theta; alpha; theta_dot; alpha_dot].
-% Define alpha = 0 as upright unless the hardware/model uses another convention.
-cfg.Observation.Names = ["theta", "alpha", "theta_dot", "alpha_dot"];
+% Observation convention follows the Simulink/reference material:
+% [theta1; theta2; omega1; omega2], with theta2 = pi at upright.
+cfg.Observation.Names = ["theta1", "theta2", "omega1", "omega2"];
 cfg.Observation.Dimension = 4;
 
 % Replace with hardware-safe limits.
@@ -42,8 +42,8 @@ cfg.Training.StopTrainingCriteria = "AverageReward";
 cfg.Training.StopTrainingValue = 450;
 cfg.Training.ScoreAveragingWindowLength = 20;
 
-cfg.Reward.alphaScale = deg2rad(12);
-cfg.Reward.thetaScale = deg2rad(45);
+cfg.Reward.theta2Scale = deg2rad(12);
+cfg.Reward.theta1Scale = deg2rad(45);
 cfg.Reward.velocityScale = 10.0;
 cfg.Reward.lambda_u = 1e-3;
 cfg.Reward.lambda_du = 5e-3;
@@ -59,19 +59,19 @@ stages = struct([]);
 
 stages(1).Name = "local_small_angle";
 stages(1).MaxEpisodes = 300;
-stages(1).Reset.AlphaRange = deg2rad([-5 5]);
-stages(1).Reset.AlphaDotRange = [-1 1];
+stages(1).Reset.Theta2ErrorRange = deg2rad([-5 5]);
+stages(1).Reset.Omega2Range = [-1 1];
 stages(1).NoiseStd = 0.20;
 
 stages(2).Name = "medium_angle";
 stages(2).MaxEpisodes = 500;
-stages(2).Reset.AlphaRange = deg2rad([-12 12]);
-stages(2).Reset.AlphaDotRange = [-3 3];
+stages(2).Reset.Theta2ErrorRange = deg2rad([-12 12]);
+stages(2).Reset.Omega2Range = [-3 3];
 stages(2).NoiseStd = 0.15;
 
 stages(3).Name = "robust_near_upright";
 stages(3).MaxEpisodes = 700;
-stages(3).Reset.AlphaRange = deg2rad([-20 20]);
-stages(3).Reset.AlphaDotRange = [-5 5];
+stages(3).Reset.Theta2ErrorRange = deg2rad([-20 20]);
+stages(3).Reset.Omega2Range = [-5 5];
 stages(3).NoiseStd = 0.10;
 end
