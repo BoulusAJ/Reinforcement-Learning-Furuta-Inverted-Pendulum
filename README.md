@@ -27,6 +27,7 @@ The current 20-day plan is captured in `docs/20_day_plan.md`.
 | `models/` | Simulink models, MATLAB plant models, and derived linearizations. |
 | `scripts/` | Training, reward, reset, baseline, and evaluation scripts. |
 | `hardware/` | Hardware interface notes, safety checks, and dry-run scripts. |
+| `references/` | External ZHAW rotary pendulum lab/course material used as source references. |
 | `data/` | Logged experiment data. Large generated files are ignored by default. |
 | `results/` | Training curves, comparison plots, videos, and exported metrics. |
 | `docs/` | Planning notes, model details, experiment design, and lab notes. |

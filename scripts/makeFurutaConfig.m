@@ -4,9 +4,21 @@ function cfg = makeFurutaConfig()
 cfg.ProjectName = "FurutaRL";
 
 % Fill these in after the lab model details are known.
-cfg.Model.Name = "furuta_pendulum_model";
+cfg.Model.Name = "inv_rot_pen_analytical_sim";
 cfg.Model.AgentBlock = cfg.Model.Name + "/RL Agent";
-cfg.Model.SampleTime = 0.01;
+cfg.Model.SampleTime = 1 / 20e3;
+
+cfg.Reference.Root = fullfile(pwd, "references", "zhaw_rotary_pendulum_lab");
+cfg.Reference.LabModelDir = fullfile(cfg.Reference.Root, "lab_model");
+cfg.Reference.CourseLabDir = fullfile(cfg.Reference.Root, "course_lab_p5");
+
+% Values from the ZHAW lab/course reference scripts.
+cfg.Motor.R = 4.12 * 1.1;
+cfg.Motor.L = 1.31e-3;
+cfg.Motor.km = 97.5e-3;
+cfg.Limits.VoltageMax = 24;
+cfg.Limits.CurrentMax = 1;
+cfg.Limits.MotorSpeedMax = 200;
 
 % Observation convention: [theta; alpha; theta_dot; alpha_dot].
 % Define alpha = 0 as upright unless the hardware/model uses another convention.
@@ -19,8 +31,10 @@ cfg.Action.Min = -1.0;
 cfg.Action.Max = 1.0;
 
 cfg.Safety.MaxAbsArmAngle = deg2rad(90);
-cfg.Safety.MaxAbsPendulumAngle = deg2rad(35);
-cfg.Safety.MaxAbsAngularVelocity = 25.0;
+cfg.Safety.MaxAbsPendulumAngle = deg2rad(30);
+cfg.Safety.MaxAbsAngularVelocity = cfg.Limits.MotorSpeedMax;
+cfg.Safety.PendulumEnableAngle = deg2rad(30);
+cfg.Safety.PendulumDisableAngle = deg2rad(10);
 
 cfg.Training.SavePrefix = "FurutaDDPG_near_upright";
 cfg.Training.ResultsDir = fullfile(pwd, "results");
