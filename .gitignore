@@ -1,0 +1,24 @@
+# MATLAB / Simulink generated files
+*.asv
+*.slxc
+slprj/
+*.autosave
+*.m~
+
+# Training artifacts
+results/*.mat
+results/*.csv
+results/*.png
+results/*.mp4
+data/*.mat
+data/*.csv
+
+# Python / tooling if added later
+__pycache__/
+.venv/
+*.pyc
+
+# OS / editor
+.DS_Store
+Thumbs.db
+.vscode/
