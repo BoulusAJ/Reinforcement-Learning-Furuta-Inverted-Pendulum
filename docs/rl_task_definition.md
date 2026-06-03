@@ -35,42 +35,65 @@ The policy should:
 
 ## Observation Vector And Angle Convention
 
-Use the same naming convention as the Simulink material:
+Use the same naming convention as the Simulink material, but pass controller-facing errors to the RL agent:
 
 ```matlab
-obs = [theta1; theta2; omega1; omega2]
+obs = [theta1Error; theta2Error; omega1; omega2]
 ```
 
 where:
 
 | Variable | Meaning | Convention |
 |---|---|---|
-| `theta1` | Rotary arm angle | rad, viewed from above, counter-clockwise is positive. |
-| `theta2` | Pendulum angle | rad, `pi` means upright. Viewed from the side where the rotary part points toward the observer, counter-clockwise is positive. |
+| `theta1Error` | Rotary arm angle error | rad, usually `theta1Ref - theta1` or `theta1 - theta1Ref` after the sign is matched to the baseline controller. Initial reference is `theta1Ref = 0`. |
+| `theta2Error` | Pendulum upright error | rad, same error signal used by the hardware state-space controller. |
 | `omega1` | Rotary arm angular velocity | rad/s |
 | `omega2` | Pendulum angular velocity | rad/s |
 
 The scripts sometimes use `theta` and `phi` naming interchangeably. In this project, use `theta1/theta2/omega1/omega2` in documentation and project code unless an imported reference file already uses another convention.
 
-For stabilization and reward calculations, compute the upright pendulum error explicitly:
+Raw angle conventions:
 
-```matlab
-theta2Error = atan2(sin(theta2 - pi), cos(theta2 - pi));
+- `theta1` is the rotary arm angle. Viewed from above, counter-clockwise is positive.
+- `theta2` is the pendulum angle. `theta2 = pi` means upright. Viewed from the side where the rotary part points toward the observer, counter-clockwise is positive.
+
+The hardware controller transforms the pendulum encoder angle into an upright error like this:
+
+```text
+theta2 [rad]
+-> subtract pi
+-> short angle wrap
+-> subtract wrapped value from 0
 ```
 
-This keeps the RL observation convention close to the Simulink model while still giving the reward and termination logic a clean near-upright error.
-
-Known angle wrapping from the course material:
+The short angle wrap block is:
 
 ```matlab
-phi2Wrapped = atan2(sin(phi2), cos(phi2));
+atan2(sin(u), cos(u))
 ```
+
+It maps any angle to the equivalent shortest signed angle in `[-pi, pi]`. This avoids discontinuities such as treating `2*pi - 0.01` as a huge error instead of a small negative/positive angle around the circle.
+
+Therefore, the controller-facing pendulum error is:
+
+```matlab
+theta2WrappedFromUpright = atan2(sin(theta2 - pi), cos(theta2 - pi));
+theta2Error = 0 - theta2WrappedFromUpright;
+```
+
+or equivalently:
+
+```matlab
+theta2Error = -atan2(sin(theta2 - pi), cos(theta2 - pi));
+```
+
+Initial RL recommendation: pass this same `theta2Error` signal to the RL agent instead of raw `theta2`. This keeps the RL controller aligned with the state-space baseline and with the hardware signal path.
 
 Open checks:
 
 - Confirm where angle wrapping occurs in the Simulink models.
-- Confirm whether `theta2` is logged raw, wrapped, or shifted before individual controller blocks.
-- Confirm whether the RL observation should include raw `theta2`, `theta2Error`, or both.
+- Confirm the `theta1Error` sign used by the baseline controller. For reward terms only the magnitude matters, but for RL policy learning the sign must be consistent.
+- Confirm whether raw `theta2` should also be logged for debugging, even if it is not part of the RL observation.
 
 ## Velocity And Encoder Fidelity
 
@@ -132,7 +155,7 @@ For the first RL simulation task, start with conservative termination:
 
 ```matlab
 abs(theta2Error) > deg2rad(30)
-abs(theta1) > deg2rad(90)
+abs(theta1Error) > deg2rad(90)
 abs(omega1) > 200
 abs(omega2) > 200
 ```
@@ -160,7 +183,7 @@ Starter interpretation:
 
 ```matlab
 theta2_error_term    = (theta2Error / theta2Scale)^2
-rotary_arm_term      = 0.1 * (theta1 / theta1Scale)^2
+rotary_arm_term      = 0.1 * (theta1Error / theta1Scale)^2
 velocity_term        = 0.01 * ((omega1 / velocityScale)^2 + (omega2 / velocityScale)^2)
 action_effort_term   = lambda_u * u^2
 action_smoothness    = lambda_du * (u - u_prev)^2
@@ -232,5 +255,5 @@ At minimum log:
 
 - Which Simulink model is the first RL training model: analytical, Simscape, or adapted course model?
 - Should the first model expose ideal velocities, or should Stage 1 already include encoder quantization and low-pass differentiated velocity?
-- Should the RL observation include raw `theta2`, computed `theta2Error`, or both?
+- What exact `theta1Error` sign should be used to match the baseline controller?
 - Should the baseline be LQR first, PI first, or both?

@@ -20,9 +20,11 @@ cfg.Limits.VoltageMax = 24;
 cfg.Limits.CurrentMax = 1;
 cfg.Limits.MotorSpeedMax = 200;
 
-% Observation convention follows the Simulink/reference material:
-% [theta1; theta2; omega1; omega2], with theta2 = pi at upright.
-cfg.Observation.Names = ["theta1", "theta2", "omega1", "omega2"];
+% Observation convention for RL:
+% [theta1Error; theta2Error; omega1; omega2].
+% theta2Error follows the hardware state-space controller convention:
+% theta2Error = -atan2(sin(theta2 - pi), cos(theta2 - pi)).
+cfg.Observation.Names = ["theta1Error", "theta2Error", "omega1", "omega2"];
 cfg.Observation.Dimension = 4;
 
 % Replace with hardware-safe limits.

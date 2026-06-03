@@ -10,7 +10,7 @@ curriculumParams = evalin("base", "curriculumParams");
 
 theta1_0 = 0;
 theta2Error0 = sampleUniform(curriculumParams.Theta2ErrorRange);
-theta2_0 = pi + theta2Error0;
+theta2_0 = pi - theta2Error0;
 omega1_0 = 0;
 omega2_0 = sampleUniform(curriculumParams.Omega2Range);
 
