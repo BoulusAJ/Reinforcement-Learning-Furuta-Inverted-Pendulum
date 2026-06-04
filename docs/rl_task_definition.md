@@ -125,6 +125,23 @@ Initial recommendation:
 
 This gives a staged sim-to-real path instead of making the first RL training run fight model dynamics, reward design, and sensor implementation at the same time.
 
+## Sample Times
+
+Use separate sample times for the plant/model and the RL agent:
+
+```matlab
+cfg.Model.PlantSampleTime = 1/20e3;
+cfg.Agent.SampleTime = 1e-3;
+```
+
+The plant sample time keeps the Simulink model aligned with the detailed hardware/current-loop timing. The agent sample time controls how often the RL policy acts. The first RL training setup should not force the agent to act at the `20 kHz` plant/PWM rate.
+
+Training episode length should be defined by duration, then converted to agent steps:
+
+```matlab
+MaxStepsPerEpisode = ceil(cfg.Training.EpisodeDuration / cfg.Agent.SampleTime);
+```
+
 ## Candidate Action Interface
 
 This is the most important unresolved design choice.
@@ -276,6 +293,34 @@ At minimum log:
 5. Make `evaluateFurutaController.m` extract real logged signals.
 6. Train only Stage 1 of the upright curriculum.
 7. Compare Stage 1 RL against the baseline before widening the reset distribution.
+
+## Pre-Training Smoke Test
+
+Before calling `train(...)`, run the Simulink model with a zero-action RL agent. This tests the model wiring, workspace variables, RL Agent block path, observation dimensions, reward function call, and solver setup without letting an untrained random actor command the plant.
+
+```matlab
+cd("C:\Users\abuj\Code\Reinforcement-Learning-Furuta-Inverted-Pendulum")
+addpath(genpath("scripts"))
+
+cfg = makeFurutaConfig();
+initFurutaModelWorkspace(cfg);
+assignin("base", "rewardParams", cfg.Reward);
+assignin("base", "safetyParams", cfg.Safety);
+
+obsInfo = rlNumericSpec([cfg.Observation.Dimension 1], Name="observations");
+actInfo = rlNumericSpec([1 1], ...
+    LowerLimit=cfg.Action.Min, ...
+    UpperLimit=cfg.Action.Max, ...
+    Name=cfg.Action.Name);
+
+agent = createZeroActionDDPGAgentFuruta(obsInfo, actInfo, cfg.Agent.SampleTime);
+assignin("base", "agent", agent);
+
+open_system(cfg.Model.Name)
+simOut = sim(cfg.Model.Name, StopTime=string(cfg.Training.EpisodeDuration));
+```
+
+Expected outcome: the model runs to completion or terminates through the intended safety logic. This does not test control performance; it only checks that the simulation can run end to end with the RL interface connected.
 
 ## Open Decisions
 

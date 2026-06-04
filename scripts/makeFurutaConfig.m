@@ -3,12 +3,17 @@ function cfg = makeFurutaConfig()
 
 cfg.ProjectName = "FurutaRL";
 
-% Fill these in after the lab model details are known.
-cfg.Model.Name = "inv_rot_pen_analytical_sim";
-cfg.Model.AgentBlock = cfg.Model.Name + "/RL Agent";
-cfg.Model.SampleTime = 1 / 20e3;
+scriptDir = fileparts(mfilename("fullpath"));
+cfg.ProjectRoot = fileparts(scriptDir);
 
-cfg.Reference.Root = fullfile(pwd, "references", "zhaw_rotary_pendulum_lab");
+% Fill these in after the lab model details are known.
+cfg.Model.Name = "inv_rot_pen_RL_cntr_simscape_sim";
+cfg.Model.AgentBlock = cfg.Model.Name + "/RL Agent";
+cfg.Model.PlantSampleTime = 1 / 20e3;
+
+cfg.Agent.SampleTime = 5e-3;
+
+cfg.Reference.Root = fullfile(cfg.ProjectRoot, "references", "zhaw_rotary_pendulum_lab");
 cfg.Reference.LabModelDir = fullfile(cfg.Reference.Root, "lab_model");
 cfg.Reference.CourseLabDir = fullfile(cfg.Reference.Root, "course_lab_p5");
 
@@ -45,7 +50,8 @@ cfg.Safety.PendulumEnableAngle = deg2rad(30);
 cfg.Safety.PendulumDisableAngle = deg2rad(10);
 
 cfg.Training.SavePrefix = "FurutaDDPG_near_upright";
-cfg.Training.ResultsDir = fullfile(pwd, "results");
+cfg.Training.ResultsDir = fullfile(cfg.ProjectRoot, "results");
+cfg.Training.EpisodeDuration = 3;
 cfg.Training.StopTrainingCriteria = "AverageReward";
 cfg.Training.StopTrainingValue = 450;
 cfg.Training.ScoreAveragingWindowLength = 20;

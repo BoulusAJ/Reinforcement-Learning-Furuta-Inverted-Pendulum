@@ -1,10 +1,11 @@
-function trainFurutaStabilizationDDPG()
+%function trainFurutaStabilizationDDPG()
 %TRAINFURUTASTABILIZATIONDDPG Train a near-upright Furuta DDPG controller.
 %
 % Complete the Simulink model and block names in makeFurutaConfig.m before
 % running this script.
 
 cfg = makeFurutaConfig();
+initFurutaModelWorkspace(cfg);
 open_system(cfg.Model.Name);
 
 obsInfo = rlNumericSpec([cfg.Observation.Dimension 1], Name="observations");
@@ -16,7 +17,7 @@ actInfo = rlNumericSpec([1 1], ...
 env = rlSimulinkEnv(cfg.Model.Name, cfg.Model.AgentBlock, obsInfo, actInfo);
 env.ResetFcn = @localResetFcnFurutaCurriculum;
 
-agent = createDDPGAgentFuruta(obsInfo, actInfo, cfg.Model.SampleTime);
+agent = createDDPGAgentFuruta(obsInfo, actInfo, cfg.Agent.SampleTime);
 
 if ~exist(cfg.Training.ResultsDir, "dir")
     mkdir(cfg.Training.ResultsDir);
@@ -32,7 +33,7 @@ for k = 1:numel(cfg.Curriculum)
 
     trainOpts = rlTrainingOptions( ...
         MaxEpisodes=stage.MaxEpisodes, ...
-        MaxStepsPerEpisode=ceil(5 / cfg.Model.SampleTime), ...
+        MaxStepsPerEpisode=ceil(cfg.Training.EpisodeDuration / cfg.Agent.SampleTime), ...
         ScoreAveragingWindowLength=cfg.Training.ScoreAveragingWindowLength, ...
         StopTrainingCriteria=cfg.Training.StopTrainingCriteria, ...
         StopTrainingValue=cfg.Training.StopTrainingValue, ...
@@ -48,4 +49,4 @@ for k = 1:numel(cfg.Curriculum)
 end
 
 save(fullfile(cfg.Training.ResultsDir, cfg.Training.SavePrefix + "_final.mat"), "agent", "cfg");
-end
+%end
