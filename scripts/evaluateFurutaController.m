@@ -1,21 +1,285 @@
-function metrics = evaluateFurutaController(simOut, cfg)
-%EVALUATEFURUTACONTROLLER Compute basic metrics from a Furuta simulation run.
-%
-% Update signal extraction once the model logging names are known.
+function result = evaluateFurutaController(agent, env, cases, evalCfg, opts)
+%EVALUATEFURUTACONTROLLER Evaluate a Furuta controller on fixed cases.
 
-metrics = struct();
-metrics.Source = "TBD";
-metrics.MaxAbsPendulumAngle = NaN;
-metrics.MaxAbsArmAngle = NaN;
-metrics.SettlingTime = NaN;
-metrics.ControlEnergy = NaN;
-metrics.SafetyViolation = NaN;
-
-if nargin < 2
-    cfg = makeFurutaConfig();
+arguments
+    agent
+    env
+    cases table
+    evalCfg struct
+    opts.ControllerName string = "controller"
+    opts.EvalSetName string = "eval"
+    opts.StageIndex double = NaN
+    opts.StageName string = ""
+    opts.TrainingEpisode double = NaN
+    opts.RunInBackground (1,1) logical = true
+    opts.CloseModelWhenDone (1,1) logical = false
+    opts.UseFastRestart (1,1) logical = true
+    opts.UseParallel (1,1) logical = false
+    opts.RequestedWorkers double = NaN
+    opts.AllowPoolRestart (1,1) logical = false
 end
 
-metrics.SafetyPendulumLimit = cfg.Safety.MaxAbsPendulumAngle;
-metrics.SafetyArmLimit = cfg.Safety.MaxAbsArmAngle;
-metrics.SimOutClass = class(simOut);
+metrics = table();
+metadata = struct( ...
+    "ControllerName", opts.ControllerName, ...
+    "EvalSetName", opts.EvalSetName, ...
+    "StageIndex", opts.StageIndex, ...
+    "StageName", opts.StageName, ...
+    "TrainingEpisode", opts.TrainingEpisode);
+
+simOpts = rlSimulationOptions( ...
+    MaxSteps=evalCfg.MaxSteps, ...
+    StopOnError="on");
+
+if opts.UseParallel
+    setupParallelPool(opts.RequestedWorkers, opts.AllowPoolRestart);
+    parallelUseFastRestart = false;
+
+    if opts.UseFastRestart
+        warning("evaluateFurutaController:FastRestartDisabledForParallel", ...
+            "Fast Restart is disabled for parallel fixed-case evaluation to avoid worker build/cache conflicts.");
+    end
+
+    metricsCell = cell(height(cases), 1);
+    parfor i = 1:height(cases)
+        caseMetrics = evaluateOneCaseParallel(agent, cases(i, :), evalCfg, simOpts, parallelUseFastRestart);
+        metricsCell{i} = addMetadata(caseMetrics, metadata);
+    end
+
+    for i = 1:numel(metricsCell)
+        metrics = [metrics; metricsCell{i}]; %#ok<AGROW>
+    end
+else
+    oldResetFcn = env.ResetFcn;
+    modelState = prepareModelForEvaluation(evalCfg, opts);
+    cleanupObj = onCleanup(@() restoreEnvironment(env, oldResetFcn, evalCfg, modelState));
+
+    for i = 1:height(cases)
+        fixedReset = makeFixedReset(cases(i, :));
+
+        assignin("base", "curriculumParams", fixedReset);
+        env.ResetFcn = @localResetFcnFurutaCurriculum;
+
+        experiences = sim(env, agent, simOpts);
+        caseMetrics = computeFurutaMetrics(experiences, cases(i, :), evalCfg);
+        metrics = [metrics; addMetadata(caseMetrics, metadata)]; %#ok<AGROW>
+    end
+end
+
+summary = summarizeFurutaMetrics(metrics);
+summary.ControllerName = opts.ControllerName;
+summary.EvalSetName = opts.EvalSetName;
+summary.StageIndex = opts.StageIndex;
+summary.StageName = opts.StageName;
+summary.TrainingEpisode = opts.TrainingEpisode;
+summary.EvaluatedAt = datetime("now");
+
+result = struct();
+result.metrics = metrics;
+result.summary = summary;
+result.cases = cases;
+result.evalCfg = evalCfg;
+end
+
+function modelState = prepareModelForEvaluation(evalCfg, opts)
+modelState = struct();
+modelState.wasLoaded = false;
+modelState.shouldClose = false;
+modelState.oldStopTime = "";
+modelState.oldFastRestart = "";
+
+if ~isfield(evalCfg, "ModelName")
+    return;
+end
+
+modelState.wasLoaded = bdIsLoaded(evalCfg.ModelName);
+if ~modelState.wasLoaded && opts.RunInBackground
+    load_system(evalCfg.ModelName);
+    modelState.shouldClose = opts.CloseModelWhenDone;
+elseif ~modelState.wasLoaded
+    open_system(evalCfg.ModelName);
+    modelState.shouldClose = opts.CloseModelWhenDone;
+end
+
+modelState.oldStopTime = get_param(evalCfg.ModelName, "StopTime");
+modelState.oldFastRestart = get_param(evalCfg.ModelName, "FastRestart");
+
+if strcmp(modelState.oldFastRestart, "on")
+    set_param(evalCfg.ModelName, FastRestart="off");
+end
+
+set_param(evalCfg.ModelName, StopTime=num2str(evalCfg.Tf));
+set_param(evalCfg.ModelName, SignalLogging="on", SignalLoggingName="logsout");
+
+if opts.UseFastRestart
+    set_param(evalCfg.ModelName, FastRestart="on");
+end
+end
+
+function restoreEnvironment(env, oldResetFcn, evalCfg, modelState)
+env.ResetFcn = oldResetFcn;
+
+if isfield(evalCfg, "ModelName")
+    if strlength(string(modelState.oldFastRestart)) > 0
+        set_param(evalCfg.ModelName, FastRestart="off");
+    end
+
+    if strlength(string(modelState.oldStopTime)) > 0
+        set_param(evalCfg.ModelName, StopTime=modelState.oldStopTime);
+    end
+
+    if strlength(string(modelState.oldFastRestart)) > 0
+        set_param(evalCfg.ModelName, FastRestart=modelState.oldFastRestart);
+    end
+
+    if modelState.shouldClose
+        close_system(evalCfg.ModelName, 0);
+    end
+end
+end
+
+function fixedReset = makeFixedReset(caseRow)
+fixedReset = struct();
+fixedReset.mode = "fixed";
+fixedReset.Theta1Error0 = caseRow.Theta1Error0;
+fixedReset.Theta2Error0 = caseRow.Theta2Error0;
+fixedReset.Omega1Error0 = caseRow.Omega1Error0;
+fixedReset.Omega2Error0 = caseRow.Omega2Error0;
+end
+
+function caseMetrics = addMetadata(caseMetrics, metadata)
+caseMetrics.ControllerName = metadata.ControllerName;
+caseMetrics.EvalSetName(:) = metadata.EvalSetName;
+caseMetrics.StageIndex = metadata.StageIndex;
+caseMetrics.StageName = metadata.StageName;
+caseMetrics.TrainingEpisode = metadata.TrainingEpisode;
+caseMetrics.EvaluatedAt = datetime("now");
+end
+
+function setupParallelPool(requestedWorkers, allowPoolRestart)
+pool = gcp("nocreate");
+
+if isempty(pool)
+    if isnan(requestedWorkers)
+        parpool("Processes");
+    else
+        parpool("Processes", requestedWorkers);
+    end
+    return;
+end
+
+if ~isnan(requestedWorkers) && pool.NumWorkers ~= requestedWorkers
+    if allowPoolRestart
+        delete(pool);
+        parpool("Processes", requestedWorkers);
+    else
+        warning("evaluateFurutaController:ParallelPoolSizeMismatch", ...
+            "Using existing pool with %d workers instead of requested %d workers.", ...
+            pool.NumWorkers, requestedWorkers);
+    end
+end
+end
+
+function caseMetrics = evaluateOneCaseParallel(agent, caseRow, evalCfg, simOpts, useFastRestart)
+persistent workerEnv workerModelName workerInitialized oldFileGenConfig
+
+addpath(evalCfg.ScriptsDir);
+
+if isempty(workerInitialized) || ~workerInitialized
+    oldFileGenConfig = configureWorkerFileGeneration(evalCfg);
+    cfg = makeFurutaConfig();
+    initFurutaModelWorkspace(cfg);
+    workerInitialized = true;
+end
+
+load_system(evalCfg.ModelName);
+
+% Parallel workers can collide while building accelerator/JIT artifacts for
+% the same model. Keep worker simulations in normal mode unless this is
+% deliberately revisited with per-worker accelerator builds.
+set_param(evalCfg.ModelName, SimulationMode="normal");
+
+if useFastRestart && ~strcmp(get_param(evalCfg.ModelName, "FastRestart"), "on")
+    set_param(evalCfg.ModelName, FastRestart="on");
+elseif ~useFastRestart && strcmp(get_param(evalCfg.ModelName, "FastRestart"), "on")
+    set_param(evalCfg.ModelName, FastRestart="off");
+end
+
+set_param(evalCfg.ModelName, StopTime=num2str(evalCfg.Tf));
+set_param(evalCfg.ModelName, SignalLogging="on", SignalLoggingName="logsout");
+
+if isempty(workerEnv) || ~strcmp(workerModelName, evalCfg.ModelName)
+    obsInfo = rlNumericSpec([evalCfg.ObservationDimension 1], Name="observations");
+    actInfo = rlNumericSpec([1 1], ...
+        LowerLimit=evalCfg.ActionMin, ...
+        UpperLimit=evalCfg.ActionMax, ...
+        Name=evalCfg.ActionName);
+
+    workerEnv = rlSimulinkEnv(evalCfg.ModelName, evalCfg.AgentBlock, obsInfo, actInfo);
+    workerEnv.ResetFcn = @localResetFcnFurutaCurriculum;
+    workerModelName = evalCfg.ModelName;
+end
+
+assignin("base", "curriculumParams", makeFixedReset(caseRow));
+workerEnv.ResetFcn = @localResetFcnFurutaCurriculum;
+
+experiences = sim(workerEnv, agent, simOpts);
+caseMetrics = computeFurutaMetrics(experiences, caseRow, evalCfg);
+end
+
+function oldFileGenConfig = configureWorkerFileGeneration(evalCfg)
+oldFileGenConfig = [];
+
+try
+    oldFileGenConfig = Simulink.fileGenControl("getConfig");
+
+    task = getCurrentTask();
+    if isempty(task)
+        workerTag = "client";
+    else
+        workerTag = "worker_" + string(task.ID);
+    end
+
+    rootDir = fullfile(evalCfg.ProjectRoot, "work", "simulink_parallel", workerTag);
+    cacheDir = fullfile(rootDir, "cache");
+    codegenDir = fullfile(rootDir, "codegen");
+
+    if ~isfolder(cacheDir)
+        mkdir(cacheDir);
+    end
+    if ~isfolder(codegenDir)
+        mkdir(codegenDir);
+    end
+
+    Simulink.fileGenControl( ...
+        "set", ...
+        "CacheFolder", cacheDir, ...
+        "CodeGenFolder", codegenDir);
+catch err
+    warning("evaluateFurutaController:WorkerFileGenSetupFailed", ...
+        "Could not configure per-worker Simulink file generation folders: %s", err.message);
+end
+end
+
+function summary = summarizeFurutaMetrics(metrics)
+summary = table( ...
+    height(metrics), ...
+    mean(metrics.Failed), ...
+    mean(metrics.FinalTheta2MAE, "omitnan"), ...
+    max(metrics.FinalTheta2MaxAbsError, [], "omitnan"), ...
+    mean(metrics.Theta2IAE, "omitnan"), ...
+    mean(metrics.TorqueEnergy, "omitnan"), ...
+    mean(metrics.DActionEnergy, "omitnan"), ...
+    mean(metrics.CaseCost, "omitnan"), ...
+    -mean(metrics.CaseCost, "omitnan"), ...
+    'VariableNames', [ ...
+        "NumCases", ...
+        "FailureRate", ...
+        "MeanFinalTheta2MAE", ...
+        "MaxFinalTheta2Error", ...
+        "MeanTheta2IAE", ...
+        "MeanTorqueEnergy", ...
+        "MeanDActionEnergy", ...
+        "MeanCaseCost", ...
+        "Score"]);
 end

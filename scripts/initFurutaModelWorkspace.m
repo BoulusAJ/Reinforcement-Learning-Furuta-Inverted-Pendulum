@@ -53,6 +53,7 @@ C_om_filt = (s^2 + 2*D*omf*s + omf^2) / (s^2 + 2*omf*s + omf^2);
 K = K_oben;
 
 ws = struct();
+ws.cfg = cfg;
 ws.Ts = Ts;
 ws.theta0 = theta0;
 ws.param = param;

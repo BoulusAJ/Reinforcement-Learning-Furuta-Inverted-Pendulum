@@ -12,6 +12,7 @@ cfg.Model.AgentBlock = cfg.Model.Name + "/RL Agent";
 cfg.Model.PlantSampleTime = 1 / 20e3;
 
 cfg.Agent.SampleTime = 5e-3;
+cfg.Agent.LearningFrequency = 1;
 
 cfg.Reference.Root = fullfile(cfg.ProjectRoot, "references", "zhaw_rotary_pendulum_lab");
 cfg.Reference.LabModelDir = fullfile(cfg.Reference.Root, "lab_model");
@@ -55,6 +56,14 @@ cfg.Training.EpisodeDuration = 3;
 cfg.Training.StopTrainingCriteria = "AverageReward";
 cfg.Training.StopTrainingValue = 450;
 cfg.Training.ScoreAveragingWindowLength = 20;
+cfg.Training.UseParallel = true;
+cfg.Training.RequestedWorkers = 10;
+cfg.Training.ParallelMode = "async";
+cfg.Training.StepsUntilDataIsSent = 32;
+
+cfg.Evaluation.UsePostStageEvaluation = true;
+cfg.Evaluation.UseCustomEvaluatorDuringTraining = false;
+cfg.Evaluation.UseStandardEvaluatorDuringTraining = false;
 
 cfg.Reward.theta2Scale = deg2rad(12);
 cfg.Reward.theta1Scale = deg2rad(45);

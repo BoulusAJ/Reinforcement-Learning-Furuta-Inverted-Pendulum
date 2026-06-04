@@ -17,3 +17,10 @@ assignin("base", "agent", agent);
 open_system(cfg.Model.Name)
 set_param(cfg.Model.Name, "FastRestart", "on")
 simOut = sim(cfg.Model.Name, StopTime=string(cfg.Training.EpisodeDuration));
+
+%%
+set_param(cfg.Model.Name, "FastRestart", "on")
+for i = 1:10
+    simOut = sim(cfg.Model.Name, StopTime=string(cfg.Training.EpisodeDuration));
+    simOut.SimulationMetadata.TimingInfo.InitializationElapsedWallTime
+end

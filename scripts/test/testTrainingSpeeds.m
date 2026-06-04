@@ -1,3 +1,5 @@
+cd("C:\Users\abuj\Code\Reinforcement-Learning-Furuta-Inverted-Pendulum")
+addpath(genpath("scripts"))
 close all
 Simulink.sdi.close
 Simulink.sdi.clear
@@ -5,7 +7,7 @@ Simulink.sdi.clear
 cfg = makeFurutaConfig();
 initFurutaModelWorkspace(cfg);
 
-set_param(cfg.Model.Name, "FastRestart", "off")
+set_param(cfg.Model.Name, "FastRestart", "on")
 set_param(cfg.Model.Name, "SignalLogging", "off")
 
 obsInfo = rlNumericSpec([cfg.Observation.Dimension 1], Name="observations");
@@ -21,10 +23,10 @@ assignin("base", "curriculumParams", cfg.Curriculum(1).Reset);
 assignin("base", "rewardParams", cfg.Reward);
 assignin("base", "safetyParams", cfg.Safety);
 
-agent = createDDPGAgentFuruta(obsInfo, actInfo, cfg.Agent.SampleTime);
+agent = createDDPGAgentFuruta(obsInfo, actInfo, cfg.Agent);
 
 trainOpts = rlTrainingOptions( ...
-    MaxEpisodes=20, ...
+    MaxEpisodes=10, ...
     MaxStepsPerEpisode=ceil(cfg.Training.EpisodeDuration / cfg.Agent.SampleTime), ...
     StopTrainingCriteria="EpisodeCount", ...
     StopTrainingValue=20, ...
@@ -34,3 +36,5 @@ trainOpts = rlTrainingOptions( ...
 tic
 trainingStats = train(agent, env, trainOpts);
 toc
+%%
+clear totalTimes execTimes initTimes termTimes

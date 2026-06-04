@@ -1,8 +1,16 @@
-function agent = createDDPGAgentFuruta(obsInfo, actInfo, sampleTime)
+function agent = createDDPGAgentFuruta(obsInfo, actInfo, agentCfg)
 %CREATEDDPGAGENTFURUTA Build a DDPG agent for continuous Furuta control.
 %
 % This is a conservative starter. Tune network size, learning rates, and
 % noise after the simulation model is validated.
+
+if isstruct(agentCfg)
+    sampleTime = agentCfg.SampleTime;
+    learningFrequency = agentCfg.LearningFrequency;
+else
+    sampleTime = agentCfg;
+    learningFrequency = 1;
+end
 
 numObs = obsInfo.Dimension(1);
 numAct = actInfo.Dimension(1);
@@ -52,6 +60,7 @@ critic = rlQValueFunction(criticNetwork, obsInfo, actInfo, ...
 agentOptions = rlDDPGAgentOptions( ...
     SampleTime=sampleTime, ...
     DiscountFactor=0.99, ...
+    LearningFrequency=learningFrequency, ...
     MiniBatchSize=256, ...
     ExperienceBufferLength=1e6);
 

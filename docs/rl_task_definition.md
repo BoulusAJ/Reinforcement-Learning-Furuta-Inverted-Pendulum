@@ -131,10 +131,19 @@ Use separate sample times for the plant/model and the RL agent:
 
 ```matlab
 cfg.Model.PlantSampleTime = 1/20e3;
-cfg.Agent.SampleTime = 1e-3;
+cfg.Agent.SampleTime = 5e-3;
+cfg.Agent.LearningFrequency = 1;
 ```
 
 The plant sample time keeps the Simulink model aligned with the detailed hardware/current-loop timing. The agent sample time controls how often the RL policy acts. The first RL training setup should not force the agent to act at the `20 kHz` plant/PWM rate.
+
+For DDPG, set `LearningFrequency` explicitly rather than relying on the toolbox default. The first training runs use:
+
+```matlab
+LearningFrequency = 1;
+```
+
+This updates from the replay buffer every agent step once enough experience is available. If training becomes too slow, try `LearningFrequency = 4` before changing the controller sample time.
 
 Training episode length should be defined by duration, then converted to agent steps:
 
@@ -321,6 +330,76 @@ simOut = sim(cfg.Model.Name, StopTime=string(cfg.Training.EpisodeDuration));
 ```
 
 Expected outcome: the model runs to completion or terminates through the intended safety logic. This does not test control performance; it only checks that the simulation can run end to end with the RL interface connected.
+
+## Evaluation Logging
+
+Post-stage evaluation uses fixed predefined initial conditions, not MATLAB's random evaluator. This avoids judging the controller mostly by where an episode happened to start.
+
+The Simulink model should log these signals to `logsout`:
+
+```text
+action
+observations
+current_command
+current
+torque
+omega1
+omega2
+theta1
+theta2
+voltage
+torque_command
+errors
+isDone
+reward
+```
+
+The expected vector order is:
+
+```matlab
+errors       = [theta1Error; theta2Error; omega1Error; omega2Error]
+observations = [theta1Error; theta2Error; omega1Error; omega2Error]
+```
+
+Signal interpretation:
+
+- `errors` is pre-ZOH at plant sample time.
+- `observations` is post-ZOH and is what the agent receives.
+- `action` is the normalized agent output before rate adjustment.
+- `torque_command` is post-rate-adjustment and gain scaling.
+- `torque` is after the PI/current-loop path.
+
+For metrics, use `observations` for agent-facing behavior, `errors` for plant-rate controller-path behavior, `action` for normalized policy effort, and `torque_command`/`torque`/`current`/`voltage` for actuator realism and saturation checks.
+
+The evaluation scripts added for this are:
+
+```text
+scripts/makeFurutaEvalConfig.m
+scripts/evaluateFurutaController.m
+scripts/extractFurutaSignals.m
+scripts/computeFurutaMetrics.m
+```
+
+Evaluation can run without opening the Simulink model window:
+
+```matlab
+postStageEval = evaluateFurutaController( ...
+    agent, env, evalCfg.PostStageCases, evalCfg, ...
+    "RunInBackground", true);
+```
+
+Fixed-case evaluation can also use the Parallel Computing Toolbox:
+
+```matlab
+postStageEval = evaluateFurutaController( ...
+    agent, env, evalCfg.PostStageCases, evalCfg, ...
+    "RunInBackground", true, ...
+    "UseParallel", true, ...
+    "RequestedWorkers", cfg.Training.RequestedWorkers, ...
+    "AllowPoolRestart", false);
+```
+
+If a pool with the requested worker count already exists, it is reused. If a pool exists with a different worker count, the evaluator warns and reuses the existing pool unless `AllowPoolRestart` is set to `true`.
 
 ## Open Decisions
 

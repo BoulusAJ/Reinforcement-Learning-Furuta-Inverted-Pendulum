@@ -8,10 +8,17 @@ function in = localResetFcnFurutaCurriculum(in)
 
 curriculumParams = evalin("base", "curriculumParams");
 
-theta1Error0 = sampleUniform(curriculumParams.Theta1ErrorRange);
-theta2Error0 = sampleUniform(curriculumParams.Theta2ErrorRange);
-omega1Error0 = sampleUniform(curriculumParams.Omega1ErrorRange);
-omega2Error0 = sampleUniform(curriculumParams.Omega2ErrorRange);
+if isfield(curriculumParams, "mode") && string(curriculumParams.mode) == "fixed"
+    theta1Error0 = curriculumParams.Theta1Error0;
+    theta2Error0 = curriculumParams.Theta2Error0;
+    omega1Error0 = curriculumParams.Omega1Error0;
+    omega2Error0 = curriculumParams.Omega2Error0;
+else
+    theta1Error0 = sampleUniform(curriculumParams.Theta1ErrorRange);
+    theta2Error0 = sampleUniform(curriculumParams.Theta2ErrorRange);
+    omega1Error0 = sampleUniform(curriculumParams.Omega1ErrorRange);
+    omega2Error0 = sampleUniform(curriculumParams.Omega2ErrorRange);
+end
 
 % Initial references are zero for theta1 and both velocities. Error signals
 % are controller-facing post-summation values, so raw states use the inverse
