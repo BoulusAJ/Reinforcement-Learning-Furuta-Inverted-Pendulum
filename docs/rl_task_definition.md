@@ -35,10 +35,10 @@ The policy should:
 
 ## Observation Vector And Angle Convention
 
-Use the same naming convention as the Simulink material, but pass controller-facing errors to the RL agent:
+Use the same naming convention as the Simulink material, but pass the **post-summation feedback-controller error signals** to the RL agent:
 
 ```matlab
-obs = [theta1Error; theta2Error; omega1; omega2]
+obs = [theta1Error; theta2Error; omega1Error; omega2Error]
 ```
 
 where:
@@ -47,8 +47,10 @@ where:
 |---|---|---|
 | `theta1Error` | Rotary arm angle error | rad, usually `theta1Ref - theta1` or `theta1 - theta1Ref` after the sign is matched to the baseline controller. Initial reference is `theta1Ref = 0`. |
 | `theta2Error` | Pendulum upright error | rad, same error signal used by the hardware state-space controller. |
-| `omega1` | Rotary arm angular velocity | rad/s |
-| `omega2` | Pendulum angular velocity | rad/s |
+| `omega1Error` | Rotary arm angular velocity error | rad/s, same post-summation signal used by the feedback controller. Initial reference is `0`. |
+| `omega2Error` | Pendulum angular velocity error | rad/s, same post-summation signal used by the feedback controller. Initial reference is `0`. |
+
+The principle is: **the RL observation should be taken after the same summation/error blocks used by the feedback controller**. That keeps the RL agent, baseline controller, and hardware signal path aligned.
 
 The scripts sometimes use `theta` and `phi` naming interchangeably. In this project, use `theta1/theta2/omega1/omega2` in documentation and project code unless an imported reference file already uses another convention.
 
@@ -89,10 +91,12 @@ theta2Error = -atan2(sin(theta2 - pi), cos(theta2 - pi));
 
 Initial RL recommendation: pass this same `theta2Error` signal to the RL agent instead of raw `theta2`. This keeps the RL controller aligned with the state-space baseline and with the hardware signal path.
 
+Apply the same rule to the other observation channels: pass controller-facing `theta1Error`, `omega1Error`, and `omega2Error`, not raw measured values, unless a later experiment explicitly tests a different observation design.
+
 Open checks:
 
 - Confirm where angle wrapping occurs in the Simulink models.
-- Confirm the `theta1Error` sign used by the baseline controller. For reward terms only the magnitude matters, but for RL policy learning the sign must be consistent.
+- Confirm the `theta1Error`, `omega1Error`, and `omega2Error` signs used by the baseline controller. For reward terms only the magnitude matters, but for RL policy learning the signs must be consistent.
 - Confirm whether raw `theta2` should also be logged for debugging, even if it is not part of the RL observation.
 
 ## Velocity And Encoder Fidelity
@@ -134,7 +138,27 @@ Possible RL action interfaces:
 | Voltage/PWM command | RL commands actuator voltage/PWM directly | Simple in simulation | Higher hardware risk; bypasses useful protection |
 | Angle-controller replacement | RL replaces only the pendulum angle controller | Good comparison against course controller | Need to preserve lower loops and sign conventions carefully |
 
-Initial recommendation: use a **normalized torque/current-like action** in simulation, because the state-space controller for upright stabilization outputs torque. There is no need for the RL policy to learn the inner current controller. The learned action should later be mapped through existing low-level actuator protection.
+Initial recommendation: use a **normalized signed torque/current-like action** in simulation:
+
+```matlab
+a_rl in [-1, 1]
+```
+
+Then map the normalized action outside the agent:
+
+```matlab
+i_ref = a_rl * iMax;
+```
+
+or, if the selected simulation interface is torque:
+
+```matlab
+tau_ref = a_rl * tauMax;
+```
+
+Use `[-1, 1]`, not `[0, 1]`, because the Furuta pendulum needs bidirectional control authority. The `[-1, 1]` range also keeps the neural-network action scale simple, makes action penalties easier to tune, and lets the same policy represent "fraction of available actuator authority" if the physical current/torque limit changes later.
+
+The state-space controller for upright stabilization outputs torque, so there is no need for the RL policy to learn the inner current controller. The learned action should later be mapped through existing low-level actuator protection.
 
 Do not train with a direct hardware voltage/PWM interpretation unless there is a strong reason.
 
@@ -156,8 +180,8 @@ For the first RL simulation task, start with conservative termination:
 ```matlab
 abs(theta2Error) > deg2rad(30)
 abs(theta1Error) > deg2rad(90)
-abs(omega1) > 200
-abs(omega2) > 200
+abs(omega1Error) > 200
+abs(omega2Error) > 200
 ```
 
 Tune these after the model signal conventions are confirmed.
@@ -184,7 +208,7 @@ Starter interpretation:
 ```matlab
 theta2_error_term    = (theta2Error / theta2Scale)^2
 rotary_arm_term      = 0.1 * (theta1Error / theta1Scale)^2
-velocity_term        = 0.01 * ((omega1 / velocityScale)^2 + (omega2 / velocityScale)^2)
+velocity_term        = 0.01 * ((omega1Error / velocityScale)^2 + (omega2Error / velocityScale)^2)
 action_effort_term   = lambda_u * u^2
 action_smoothness    = lambda_du * (u - u_prev)^2
 upright_bonus        = uprightBonus * (abs(theta2Error) < uprightTolerance)
@@ -197,17 +221,19 @@ The current starter implementation is in:
 scripts/rewardFcnFuruta.m
 ```
 
+In the starter reward, `u` is interpreted as the normalized RL action in `[-1, 1]`. Therefore `u^2 = 1` means maximum allowed normalized effort, independent of whether the downstream physical interface is current or torque.
+
 ## Reset Distribution
 
 Start with a curriculum around upright:
 
-| Stage | Initial `theta2Error` range | Initial `omega2` range | Goal |
+| Stage | Initial `theta2Error` range | Initial `omega2Error` range | Goal |
 |---|---:|---:|---|
 | 1 | `[-5, 5] deg` | `[-1, 1] rad/s` | Learn local balance |
 | 2 | `[-12, 12] deg` | `[-3, 3] rad/s` | Widen recovery range |
 | 3 | `[-20, 20] deg` | `[-5, 5] rad/s` | Robust near-upright stabilization |
 
-Keep `theta1` and `omega1` near zero at first. Widen only after baseline and RL behavior are understood.
+Keep `theta1Error` and `omega1Error` near zero at first. Widen only after baseline and RL behavior are understood.
 
 ## Baseline Comparison
 
@@ -244,8 +270,8 @@ At minimum log:
 ## First Implementation Steps
 
 1. Inspect the Simulink model signal names and block structure.
-2. Confirm the torque/current-like action interface in the selected simulation model.
-3. Adapt `makeFurutaConfig.m` to `theta1/theta2/omega1/omega2` and the chosen action interface.
+2. Confirm the torque/current-like action scaling in the selected simulation model.
+3. Adapt `makeFurutaConfig.m` to the post-summation observation vector `[theta1Error; theta2Error; omega1Error; omega2Error]` and the chosen action interface.
 4. Build a deterministic baseline simulation.
 5. Make `evaluateFurutaController.m` extract real logged signals.
 6. Train only Stage 1 of the upright curriculum.
@@ -254,6 +280,7 @@ At minimum log:
 ## Open Decisions
 
 - Which Simulink model is the first RL training model: analytical, Simscape, or adapted course model?
+- Does the normalized action map to current setpoint or torque command in the first training model?
 - Should the first model expose ideal velocities, or should Stage 1 already include encoder quantization and low-pass differentiated velocity?
-- What exact `theta1Error` sign should be used to match the baseline controller?
+- What exact `theta1Error`, `omega1Error`, and `omega2Error` signs should be used to match the baseline controller?
 - Should the baseline be LQR first, PI first, or both?

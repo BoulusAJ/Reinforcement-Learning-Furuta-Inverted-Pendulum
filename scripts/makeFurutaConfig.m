@@ -21,16 +21,22 @@ cfg.Limits.CurrentMax = 1;
 cfg.Limits.MotorSpeedMax = 200;
 
 % Observation convention for RL:
-% [theta1Error; theta2Error; omega1; omega2].
+% [theta1Error; theta2Error; omega1Error; omega2Error].
+% These are post-summation feedback-controller error signals.
 % theta2Error follows the hardware state-space controller convention:
 % theta2Error = -atan2(sin(theta2 - pi), cos(theta2 - pi)).
-cfg.Observation.Names = ["theta1Error", "theta2Error", "omega1", "omega2"];
+cfg.Observation.Names = ["theta1Error", "theta2Error", "omega1Error", "omega2Error"];
 cfg.Observation.Dimension = 4;
 
-% Replace with hardware-safe limits.
-cfg.Action.Name = "u";
+% RL action is normalized signed effort in [-1, 1]. Map it outside the
+% agent to the selected physical interface, e.g. current or torque.
+cfg.Action.Name = "a_rl";
 cfg.Action.Min = -1.0;
 cfg.Action.Max = 1.0;
+cfg.Action.IsNormalized = true;
+cfg.Action.PhysicalInterface = "torque_or_current";
+cfg.Action.CurrentScale = cfg.Limits.CurrentMax;
+cfg.Action.TorqueScale = cfg.Motor.km * cfg.Limits.CurrentMax;
 
 cfg.Safety.MaxAbsArmAngle = deg2rad(90);
 cfg.Safety.MaxAbsPendulumAngle = deg2rad(30);
@@ -61,19 +67,25 @@ stages = struct([]);
 
 stages(1).Name = "local_small_angle";
 stages(1).MaxEpisodes = 300;
+stages(1).Reset.Theta1ErrorRange = deg2rad([0 0]);
 stages(1).Reset.Theta2ErrorRange = deg2rad([-5 5]);
-stages(1).Reset.Omega2Range = [-1 1];
+stages(1).Reset.Omega1ErrorRange = [0 0];
+stages(1).Reset.Omega2ErrorRange = [-1 1];
 stages(1).NoiseStd = 0.20;
 
 stages(2).Name = "medium_angle";
 stages(2).MaxEpisodes = 500;
+stages(2).Reset.Theta1ErrorRange = deg2rad([0 0]);
 stages(2).Reset.Theta2ErrorRange = deg2rad([-12 12]);
-stages(2).Reset.Omega2Range = [-3 3];
+stages(2).Reset.Omega1ErrorRange = [0 0];
+stages(2).Reset.Omega2ErrorRange = [-3 3];
 stages(2).NoiseStd = 0.15;
 
 stages(3).Name = "robust_near_upright";
 stages(3).MaxEpisodes = 700;
+stages(3).Reset.Theta1ErrorRange = deg2rad([0 0]);
 stages(3).Reset.Theta2ErrorRange = deg2rad([-20 20]);
-stages(3).Reset.Omega2Range = [-5 5];
+stages(3).Reset.Omega1ErrorRange = [0 0];
+stages(3).Reset.Omega2ErrorRange = [-5 5];
 stages(3).NoiseStd = 0.10;
 end

@@ -1,23 +1,24 @@
-function [reward, isDone] = rewardFcnFuruta(obs, u, uPrev, rewardParams, safetyParams)
+function [reward, isDone] = rewardFcnFuruta(obs, aRl, aRlPrev, rewardParams, safetyParams)
 %REWARDFCNFURUTA Reward and termination logic for near-upright stabilization.
-% obs convention: [theta1Error; theta2Error; omega1; omega2].
+% obs convention: [theta1Error; theta2Error; omega1Error; omega2Error].
+% aRl is the normalized signed RL action in [-1, 1].
 
 theta1Error = obs(1);
 theta2Error = obs(2);
-omega1 = obs(3);
-omega2 = obs(4);
+omega1Error = obs(3);
+omega2Error = obs(4);
 
 theta2Cost = (theta2Error / rewardParams.theta2Scale)^2;
 theta1Cost = (theta1Error / rewardParams.theta1Scale)^2;
-velocityCost = (omega1 / rewardParams.velocityScale)^2 + ...
-    (omega2 / rewardParams.velocityScale)^2;
-effortCost = rewardParams.lambda_u * u^2;
-smoothnessCost = rewardParams.lambda_du * (u - uPrev)^2;
+velocityCost = (omega1Error / rewardParams.velocityScale)^2 + ...
+    (omega2Error / rewardParams.velocityScale)^2;
+effortCost = rewardParams.lambda_u * aRl^2;
+smoothnessCost = rewardParams.lambda_du * (aRl - aRlPrev)^2;
 
 isUnsafe = abs(theta1Error) > safetyParams.MaxAbsArmAngle || ...
     abs(theta2Error) > safetyParams.MaxAbsPendulumAngle || ...
-    abs(omega1) > safetyParams.MaxAbsAngularVelocity || ...
-    abs(omega2) > safetyParams.MaxAbsAngularVelocity;
+    abs(omega1Error) > safetyParams.MaxAbsAngularVelocity || ...
+    abs(omega2Error) > safetyParams.MaxAbsAngularVelocity;
 
 uprightBonus = rewardParams.uprightBonus * (abs(theta2Error) < rewardParams.uprightTolerance);
 
