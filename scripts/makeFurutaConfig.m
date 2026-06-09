@@ -11,7 +11,7 @@ cfg.Model.Name = "inv_rot_pen_RL_cntr_simscape_sim";
 cfg.Model.AgentBlock = cfg.Model.Name + "/RL Agent";
 cfg.Model.PlantSampleTime = 1 / 20e3;
 
-cfg.Agent.SampleTime = 5e-3;
+cfg.Agent.SampleTime = 1e-3;
 cfg.Agent.LearningFrequency = 1;
 
 cfg.Reference.Root = fullfile(cfg.ProjectRoot, "references", "zhaw_rotary_pendulum_lab");
@@ -23,7 +23,7 @@ cfg.Motor.R = 4.12 * 1.1;
 cfg.Motor.L = 1.31e-3;
 cfg.Motor.km = 97.5e-3;
 cfg.Limits.VoltageMax = 24;
-cfg.Limits.CurrentMax = 1;
+cfg.Limits.CurrentMax = 4;
 cfg.Limits.MotorSpeedMax = 200;
 
 % Observation convention for RL:
@@ -57,8 +57,9 @@ cfg.Training.OutputRoot = fullfile(cfg.Training.ResultsDir, cfg.Training.RunName
 cfg.Training.StageDir = fullfile(cfg.Training.OutputRoot, "stages");
 cfg.Training.EvalDir = fullfile(cfg.Training.OutputRoot, "evaluation");
 cfg.Training.ConfigDir = fullfile(cfg.Training.OutputRoot, "config");
+cfg.Training.SavedAgentDir = fullfile(cfg.Training.OutputRoot, "saved_agents");
 cfg.Training.FinalSaveName = cfg.Training.SavePrefix + "_final.mat";
-cfg.Training.EpisodeDuration = 3;
+cfg.Training.EpisodeDuration = 1;
 cfg.Training.StopTrainingCriteria = "AverageReward";
 cfg.Training.StopTrainingValue = 450;
 cfg.Training.ScoreAveragingWindowLength = 20;
@@ -78,7 +79,7 @@ cfg.Reward.theta2Scale = deg2rad(12);
 cfg.Reward.theta1Scale = deg2rad(45);
 cfg.Reward.velocityScale = 10.0;
 cfg.Reward.lambda_u = 1e-3;
-cfg.Reward.lambda_du = 5e-3;
+cfg.Reward.lambda_du = 5e-2;
 cfg.Reward.uprightBonus = 1.0;
 cfg.Reward.uprightTolerance = deg2rad(5);
 cfg.Reward.unsafePenalty = 100.0;
@@ -90,12 +91,12 @@ function stages = makeCurriculum()
 stages = struct([]);
 
 stages(1).Name = "local_small_angle";
-stages(1).MaxEpisodes = 3000;
+stages(1).MaxEpisodes = 300;
 stages(1).Reset.Theta1ErrorRange = deg2rad([0 0]);
 stages(1).Reset.Theta2ErrorRange = deg2rad([-5 5]);
 stages(1).Reset.Omega1ErrorRange = [0 0];
 stages(1).Reset.Omega2ErrorRange = [-1 1];
-stages(1).NoiseStd = 0.20;
+stages(1).NoiseStd = 0.05;
 
 stages(2).Name = "medium_angle";
 stages(2).MaxEpisodes = 500;

@@ -66,7 +66,7 @@ for k = 1:numel(cfg.Curriculum)
         StopTrainingValue=cfg.Training.StopTrainingValue, ...
         SaveAgentCriteria="EpisodeReward", ...
         SaveAgentValue=cfg.Training.StopTrainingValue, ...
-        SaveAgentDirectory=cfg.Training.ResultsDir, ...
+        SaveAgentDirectory=cfg.Training.SavedAgentDir, ...
         UseParallel=cfg.Training.UseParallel);
 
     if cfg.Training.UseParallel
@@ -111,6 +111,7 @@ folders = [
     cfg.Training.StageDir
     cfg.Training.EvalDir
     cfg.Training.ConfigDir
+    cfg.Training.SavedAgentDir
     ];
 
 for i = 1:numel(folders)
