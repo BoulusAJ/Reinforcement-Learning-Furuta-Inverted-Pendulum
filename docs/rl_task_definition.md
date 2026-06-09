@@ -401,6 +401,36 @@ postStageEval = evaluateFurutaController( ...
 
 If a pool with the requested worker count already exists, it is reused. If a pool exists with a different worker count, the evaluator warns and reuses the existing pool unless `AllowPoolRestart` is set to `true`.
 
+## Result Organization
+
+Training writes each run into a dedicated folder:
+
+```text
+results/<run_name>/
+```
+
+with this structure:
+
+```text
+config/
+  run_config.json
+  eval_config.mat
+  training_eval_cases.csv
+  post_stage_eval_cases.csv
+stages/
+  FurutaDDPG_near_upright_stage_XX_<stage_name>.mat
+evaluation/
+  stage_XX_<stage_name>_metrics.csv
+  stage_XX_<stage_name>_summary.csv
+FurutaDDPG_near_upright_final.mat
+```
+
+The run name is generated in `makeFurutaConfig.m`:
+
+```matlab
+cfg.Training.RunName = "run_" + string(datetime("now", "Format", "yyyyMMdd_HHmmss")) + "_upright_stabilization";
+```
+
 ## Open Decisions
 
 - Which Simulink model is the first RL training model: analytical, Simscape, or adapted course model?

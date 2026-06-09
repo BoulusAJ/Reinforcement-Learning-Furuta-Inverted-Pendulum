@@ -3,26 +3,23 @@ function row = computeFurutaMetrics(experiences, caseRow, evalCfg)
 
 sig = extractFurutaSignals(experiences);
 t = sig.t;
-dt = evalCfg.Ts;
 
 theta1AbsMax = max(abs(sig.theta1));
 theta2ErrorAbsMax = max(abs(sig.theta2Error));
 omegaAbsMax = max(max(abs([sig.omega1Error, sig.omega2Error])));
 
-theta2IAE = sum(abs(sig.theta2Error)) * dt;
-theta2ISE = sum(sig.theta2Error.^2) * dt;
-theta1IAE = sum(abs(sig.theta1Error)) * dt;
+theta2IAE = integrateAbs(t, sig.theta2Error);
+theta2ISE = integrateSquare(t, sig.theta2Error);
+theta1IAE = integrateAbs(t, sig.theta1Error);
 
-actionEnergy = sum(sig.action.^2) * dt;
-torqueCommandEnergy = sum(sig.torque_command.^2) * dt;
-torqueEnergy = sum(sig.torque.^2) * dt;
-currentEnergy = sum(sig.current.^2) * dt;
-voltageEnergy = sum(sig.voltage.^2) * dt;
+actionEnergy = integrateSquare(sig.tAction, sig.action);
+torqueCommandEnergy = integrateSquare(sig.tTorqueCommand, sig.torque_command);
+torqueEnergy = integrateSquare(sig.tTorque, sig.torque);
+currentEnergy = integrateSquare(sig.tCurrent, sig.current);
+voltageEnergy = integrateSquare(sig.tVoltage, sig.voltage);
 
-dAction = [0; diff(sig.action)];
-dTorqueCommand = [0; diff(sig.torque_command)];
-dActionEnergy = sum(dAction.^2) * dt;
-dTorqueCommandEnergy = sum(dTorqueCommand.^2) * dt;
+dActionEnergy = integrateDiffSquare(sig.tAction, sig.action);
+dTorqueCommandEnergy = integrateDiffSquare(sig.tTorqueCommand, sig.torque_command);
 
 finalWindowStart = max(t(1), t(end) - evalCfg.FinalWindowSeconds);
 idxFinal = t >= finalWindowStart;
@@ -74,6 +71,37 @@ row = table( ...
         "ActionEnergy", "TorqueCommandEnergy", "TorqueEnergy", "CurrentEnergy", "VoltageEnergy", ...
         "DActionEnergy", "DTorqueCommandEnergy", ...
         "Terminated", "Failed", "CaseCost"]);
+end
+
+function area = integrateAbs(t, x)
+area = integrateSignal(t, abs(x));
+end
+
+function area = integrateSquare(t, x)
+area = integrateSignal(t, x.^2);
+end
+
+function area = integrateDiffSquare(t, x)
+if numel(x) < 2
+    area = 0;
+    return;
+end
+
+dx = [0; diff(x)];
+area = integrateSignal(t, dx.^2);
+end
+
+function area = integrateSignal(t, x)
+t = t(:);
+x = x(:);
+n = min(numel(t), numel(x));
+
+if n < 2
+    area = 0;
+    return;
+end
+
+area = trapz(t(1:n), x(1:n));
 end
 
 function settlingTime = computeSettlingTime(t, e, tol)

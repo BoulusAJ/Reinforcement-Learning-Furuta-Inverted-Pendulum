@@ -39,6 +39,9 @@ in = setVariable(in, "omega2Error0", omega2Error0);
 
 % Many reference scripts use theta0 as a 2-vector of initial joint angles.
 in = setVariable(in, "theta0", [theta1_0; theta2_0]);
+
+% Added an initial value for omega0
+in = setVariable(in, "omega0", [omega1_0; omega2_0]);
 end
 
 function value = sampleUniform(range)

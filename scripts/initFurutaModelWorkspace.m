@@ -9,6 +9,7 @@ arguments
     cfg struct = makeFurutaConfig()
     options.AssignToBase (1,1) logical = true
     options.InitialTheta (2,1) double = [0; pi + pi/9]
+    options.InitialOmega (2,1) double = [0; 0]
     options.CurrentControllerKpDb (1,1) double = 8
     options.UseReferencePath (1,1) logical = true
 end
@@ -25,6 +26,7 @@ param = get_parameter();
 
 Ts = cfg.Model.PlantSampleTime;
 theta0 = options.InitialTheta;
+omega0 = options.InitialOmega;
 
 % PWM and constraints from lab_model/inv_rot_pen_ini.m.
 pwm_offset = 0.09;
@@ -56,6 +58,7 @@ ws = struct();
 ws.cfg = cfg;
 ws.Ts = Ts;
 ws.theta0 = theta0;
+ws.omega0 = omega0;
 ws.param = param;
 ws.pwm_offset = pwm_offset;
 ws.u_max = u_max;
@@ -77,6 +80,7 @@ ws.V_oben = V_oben;
 ws.K = K;
 ws.rewardParams = cfg.Reward;
 ws.safetyParams = cfg.Safety;
+ws.FurutaRewardDiagnosisBus = createFurutaRewardDiagnosisBus(AssignToBase=false);
 
 if options.AssignToBase
     names = fieldnames(ws);

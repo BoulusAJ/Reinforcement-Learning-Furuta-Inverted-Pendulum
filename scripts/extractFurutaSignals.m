@@ -9,18 +9,18 @@ end
 
 signals = struct();
 
-signals.action = getScalarSignal(logsout, "action");
-signals.current_command = getScalarSignal(logsout, "current_command");
-signals.current = getScalarSignal(logsout, "current");
-signals.torque = getScalarSignal(logsout, "torque");
-signals.omega1 = getScalarSignal(logsout, "omega1");
-signals.omega2 = getScalarSignal(logsout, "omega2");
-signals.theta1 = getScalarSignal(logsout, "theta1");
-signals.theta2 = getScalarSignal(logsout, "theta2");
-signals.voltage = getScalarSignal(logsout, "voltage");
-signals.torque_command = getScalarSignal(logsout, "torque_command");
-signals.isDone = getScalarSignal(logsout, "isDone");
-signals.reward = getScalarSignal(logsout, "reward");
+[signals.tAction, signals.action] = getScalarSignal(logsout, "action");
+[signals.tCurrentCommand, signals.current_command] = getScalarSignal(logsout, "current_command");
+[signals.tCurrent, signals.current] = getScalarSignal(logsout, "current");
+[signals.tTorque, signals.torque] = getScalarSignal(logsout, "torque");
+[signals.tOmega1, signals.omega1] = getScalarSignal(logsout, "omega1");
+[signals.tOmega2, signals.omega2] = getScalarSignal(logsout, "omega2");
+[signals.tTheta1, signals.theta1] = getScalarSignal(logsout, "theta1");
+[signals.tTheta2, signals.theta2] = getScalarSignal(logsout, "theta2");
+[signals.tVoltage, signals.voltage] = getScalarSignal(logsout, "voltage");
+[signals.tTorqueCommand, signals.torque_command] = getScalarSignal(logsout, "torque_command");
+[signals.tIsDone, signals.isDone] = getScalarSignal(logsout, "isDone");
+[signals.tReward, signals.reward] = getScalarSignal(logsout, "reward");
 
 [signals.tErrors, errors] = getVectorSignal(logsout, "errors");
 signals.theta1Error = errors(:, 1);
@@ -36,7 +36,6 @@ signals.obsOmega1Error = observations(:, 3);
 signals.obsOmega2Error = observations(:, 4);
 
 signals.t = signals.tErrors(:);
-signals = trimToCommonLength(signals);
 end
 
 function logsout = getLogsoutFromExperiences(experiences)
@@ -110,8 +109,8 @@ catch
 end
 end
 
-function sig = getScalarSignal(logsout, name)
-[~, data] = getSignalData(logsout, name);
+function [t, sig] = getScalarSignal(logsout, name)
+[t, data] = getSignalData(logsout, name);
 if size(data, 2) > 1
     data = data(:, 1);
 end
@@ -148,22 +147,4 @@ else
     data = double(raw);
     data = reshape(data, numel(t), []);
 end
-end
-
-function signals = trimToCommonLength(signals)
-fields = ["action", "current_command", "current", "torque", "omega1", "omega2", ...
-    "theta1", "theta2", "voltage", "torque_command", "isDone", "reward", ...
-    "theta1Error", "theta2Error", "omega1Error", "omega2Error", ...
-    "obsTheta1Error", "obsTheta2Error", "obsOmega1Error", "obsOmega2Error"];
-
-n = numel(signals.t);
-for i = 1:numel(fields)
-    n = min(n, numel(signals.(fields(i))));
-end
-
-signals.t = signals.t(1:n);
-for i = 1:numel(fields)
-    signals.(fields(i)) = signals.(fields(i))(1:n);
-end
-signals.observations = signals.observations(1:n, :);
 end

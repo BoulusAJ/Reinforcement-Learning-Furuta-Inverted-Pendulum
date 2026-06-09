@@ -10,6 +10,10 @@ results/*.mat
 results/*.csv
 results/*.png
 results/*.mp4
+results/**/*.mat
+results/**/*.csv
+results/**/*.png
+results/**/*.mp4
 data/*.mat
 data/*.csv
 
@@ -22,3 +26,4 @@ __pycache__/
 .DS_Store
 Thumbs.db
 .vscode/
+scripts/inv_rot_pen_RL_cntr_simscape_sim_corrupted.slx
