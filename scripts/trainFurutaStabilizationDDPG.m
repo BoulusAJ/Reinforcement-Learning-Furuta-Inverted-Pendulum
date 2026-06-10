@@ -29,7 +29,7 @@ actInfo = rlNumericSpec([1 1], ...
 env = rlSimulinkEnv(cfg.Model.Name, cfg.Model.AgentBlock, obsInfo, actInfo);
 env.ResetFcn = @localResetFcnFurutaCurriculum;
 
-agent = createDDPGAgentFuruta(obsInfo, actInfo, cfg.Agent);
+%agent = createDDPGAgentFuruta(obsInfo, actInfo, cfg.Agent);
 evalCfg = makeFurutaEvalConfig(cfg);
 evalLog = struct();
 evalLog.postStage = [];
@@ -75,7 +75,7 @@ for k = 1:numel(cfg.Curriculum)
         trainOpts.ParallelizationOptions.StepsUntilDataIsSent = cfg.Training.StepsUntilDataIsSent;
     end
 
-    trainingStats = train(agent, env, trainOpts);
+    %trainingStats = train(agent, env, trainOpts);
 
     postStageEval = [];
     if cfg.Evaluation.UsePostStageEvaluation

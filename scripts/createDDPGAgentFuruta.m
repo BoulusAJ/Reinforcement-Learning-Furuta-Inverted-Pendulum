@@ -7,9 +7,13 @@ function agent = createDDPGAgentFuruta(obsInfo, actInfo, agentCfg)
 if isstruct(agentCfg)
     sampleTime = agentCfg.SampleTime;
     learningFrequency = agentCfg.LearningFrequency;
+    miniBatchSize = agentCfg.MiniBatchSize;
+    experienceBufferLength = agentCfg.ExperienceBufferLength;
 else
     sampleTime = agentCfg;
     learningFrequency = 1;
+    miniBatchSize = 256;
+    experienceBufferLength = 1e6;
 end
 
 numObs = obsInfo.Dimension(1);
@@ -61,8 +65,8 @@ agentOptions = rlDDPGAgentOptions( ...
     SampleTime=sampleTime, ...
     DiscountFactor=0.99, ...
     LearningFrequency=learningFrequency, ...
-    MiniBatchSize=256, ...
-    ExperienceBufferLength=1e6);
+    MiniBatchSize=miniBatchSize, ...
+    ExperienceBufferLength=experienceBufferLength);
 
 agentOptions.ActorOptimizerOptions.LearnRate = 1e-4;
 agentOptions.CriticOptimizerOptions.LearnRate = 1e-3;

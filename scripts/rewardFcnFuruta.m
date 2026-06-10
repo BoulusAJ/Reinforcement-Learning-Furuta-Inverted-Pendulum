@@ -14,6 +14,7 @@ velocityCost = (omega1Error / rewardParams.velocityScale)^2 + ...
     (omega2Error / rewardParams.velocityScale)^2;
 effortCost = rewardParams.lambda_u * aRl^2;
 smoothnessCost = rewardParams.lambda_du * (aRl - aRlPrev)^2;
+aliveBonus = getOptionalRewardField(rewardParams, "aliveBonus", 0.0);
 
 theta1Unsafe = abs(theta1Error) > safetyParams.MaxAbsArmAngle;
 theta2Unsafe = abs(theta2Error) > safetyParams.MaxAbsPendulumAngle;
@@ -24,7 +25,7 @@ isUnsafe = theta1Unsafe || theta2Unsafe || omega1Unsafe || omega2Unsafe;
 
 uprightBonus = rewardParams.uprightBonus * (abs(theta2Error) < rewardParams.uprightTolerance);
 
-reward = -theta2Cost - 0.1 * theta1Cost - 0.01 * velocityCost - ...
+reward = aliveBonus - theta2Cost - 0.1 * theta1Cost - 0.01 * velocityCost - ...
     effortCost - smoothnessCost + uprightBonus;
 
 if isUnsafe
@@ -44,4 +45,12 @@ diagnosis = struct( ...
     "omega2Error_used_by_reward", omega2Error, ...
     "u_used_by_reward", aRl, ...
     "uPrev_used_by_reward", aRlPrev);
+end
+
+function value = getOptionalRewardField(rewardParams, fieldName, defaultValue)
+if isfield(rewardParams, fieldName)
+    value = rewardParams.(fieldName);
+else
+    value = defaultValue;
+end
 end
