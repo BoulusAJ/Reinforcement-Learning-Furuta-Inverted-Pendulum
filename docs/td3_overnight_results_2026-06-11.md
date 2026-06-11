@@ -20,6 +20,42 @@ cfg.Limits.CurrentMax = 4;
 cfg.Training.EpisodeDuration = 1;
 ```
 
+## Machine And Runtime Context
+
+The run was executed on a Windows desktop:
+
+```text
+OS: Microsoft Windows 10.0.26200.8390
+CPU architecture: AMD64
+Logical processors visible to shell: 32
+GPU: NVIDIA GeForce RTX 4080 SUPER
+GPU memory: 16376 MiB reported by nvidia-smi, 17.17 GB reported by MATLAB gpuDevice
+NVIDIA driver: 580.88
+System RAM: 192 GB, as reported by the user
+```
+
+`cfg.Agent.UseDevice = "gpu"` was enabled. MATLAB verification before the run
+confirmed:
+
+```text
+actor=gpu critic1=gpu critic2=gpu
+```
+
+Training was intentionally run serially:
+
+```matlab
+cfg.Training.UseParallel = false;
+```
+
+The training model was loaded in background mode with scopes/logging disabled:
+
+```matlab
+cfg.Training.RunInBackground = true;
+cfg.Training.DisableScopes = true;
+cfg.Training.DisableSignalLogging = true;
+cfg.Training.UseFastRestart = false;
+```
+
 Training used the stripped training model:
 
 ```text
@@ -42,6 +78,20 @@ Saved training statistics:
 | 1 | local_small_angle | 273 | 1000 | 506.69 | 939.1 |
 | 2 | medium_angle | 90 | 1000 | 474.72 | 863.0 |
 | 3 | robust_near_upright | 388 | 1000 | 480.03 | 878.0 |
+
+Approximate wall-clock timing from the run folder and stage/evaluation file
+timestamps:
+
+| Stage | Start marker | End marker | Approx elapsed | Notes |
+|---:|---|---|---:|---|
+| 1 | 2026-06-10 23:43 | 2026-06-11 00:10 | ~27 min | Includes Stage 1 training and post-stage evaluation file save. |
+| 2 | 2026-06-11 00:10 | 2026-06-11 00:51 | ~41 min | Includes Stage 2 training and post-stage evaluation file save. |
+| 3 | 2026-06-11 00:51 | 2026-06-11 03:11 | ~2 h 20 min | Includes Stage 3 training through episode 388 and post-stage evaluation/final save activity. |
+
+These are approximate because the script did not yet record explicit
+per-stage wall-clock timers. The timestamps still give a useful operational
+picture: Stage 3 became much slower as episodes grew long and learner updates
+accumulated.
 
 The user observed MATLAB likely timed out during Stage 3 post-stage evaluation
 after Stage 3 episode 388:
