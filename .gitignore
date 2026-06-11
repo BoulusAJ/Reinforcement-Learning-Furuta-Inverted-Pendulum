@@ -4,6 +4,7 @@
 slprj/
 *.autosave
 *.m~
+matlab.mat
 
 # Training artifacts
 results/*.mat

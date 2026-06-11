@@ -61,6 +61,10 @@ criticNetwork = connectLayers(criticNetwork, "act_fc1", "add/in2");
 critic = rlQValueFunction(criticNetwork, obsInfo, actInfo, ...
     ObservationInputNames="observation", ActionInputNames="action");
 
+useDevice = getAgentOption(agentCfg, "UseDevice", "cpu");
+actor.UseDevice = useDevice;
+critic.UseDevice = useDevice;
+
 agentOptions = rlDDPGAgentOptions( ...
     SampleTime=sampleTime, ...
     DiscountFactor=0.99, ...
@@ -74,4 +78,12 @@ agentOptions.NoiseOptions.StandardDeviation = 0.2;
 agentOptions.NoiseOptions.StandardDeviationDecayRate = 1e-5;
 
 agent = rlDDPGAgent(actor, critic, agentOptions);
+end
+
+function value = getAgentOption(agentCfg, fieldName, defaultValue)
+if isstruct(agentCfg) && isfield(agentCfg, fieldName)
+    value = agentCfg.(fieldName);
+else
+    value = defaultValue;
+end
 end

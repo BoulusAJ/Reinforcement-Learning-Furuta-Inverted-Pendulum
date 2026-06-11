@@ -87,6 +87,8 @@ modelState.wasLoaded = false;
 modelState.shouldClose = false;
 modelState.oldStopTime = "";
 modelState.oldFastRestart = "";
+modelState.oldSignalLogging = "";
+modelState.oldSignalLoggingName = "";
 
 if ~isfield(evalCfg, "ModelName")
     return;
@@ -103,6 +105,8 @@ end
 
 modelState.oldStopTime = get_param(evalCfg.ModelName, "StopTime");
 modelState.oldFastRestart = get_param(evalCfg.ModelName, "FastRestart");
+modelState.oldSignalLogging = get_param(evalCfg.ModelName, "SignalLogging");
+modelState.oldSignalLoggingName = get_param(evalCfg.ModelName, "SignalLoggingName");
 
 if strcmp(modelState.oldFastRestart, "on")
     set_param(evalCfg.ModelName, FastRestart="off");
@@ -126,6 +130,14 @@ if isfield(evalCfg, "ModelName")
 
     if strlength(string(modelState.oldStopTime)) > 0
         set_param(evalCfg.ModelName, StopTime=modelState.oldStopTime);
+    end
+
+    if strlength(string(modelState.oldSignalLogging)) > 0
+        set_param(evalCfg.ModelName, SignalLogging=modelState.oldSignalLogging);
+    end
+
+    if strlength(string(modelState.oldSignalLoggingName)) > 0
+        set_param(evalCfg.ModelName, SignalLoggingName=modelState.oldSignalLoggingName);
     end
 
     if strlength(string(modelState.oldFastRestart)) > 0

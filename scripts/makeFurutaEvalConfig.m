@@ -1,8 +1,17 @@
 function evalCfg = makeFurutaEvalConfig(cfg)
 %MAKEFURUTAEVALCONFIG Fixed evaluation cases and metric settings.
 
-evalCfg.ModelName = cfg.Model.Name;
-evalCfg.AgentBlock = cfg.Model.AgentBlock;
+if isfield(cfg.Model, "EvaluationName")
+    evalCfg.ModelName = cfg.Model.EvaluationName;
+else
+    evalCfg.ModelName = cfg.Model.Name;
+end
+
+if isfield(cfg.Model, "EvaluationAgentBlock")
+    evalCfg.AgentBlock = cfg.Model.EvaluationAgentBlock;
+else
+    evalCfg.AgentBlock = evalCfg.ModelName + "/RL Agent";
+end
 evalCfg.ProjectRoot = cfg.ProjectRoot;
 evalCfg.ScriptsDir = fullfile(cfg.ProjectRoot, "scripts");
 evalCfg.Ts = cfg.Model.PlantSampleTime;

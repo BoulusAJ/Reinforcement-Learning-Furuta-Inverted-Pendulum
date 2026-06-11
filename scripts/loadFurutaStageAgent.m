@@ -3,7 +3,7 @@ function loaded = loadFurutaStageAgent(runDir, stageIndex, opts)
 %
 % Example:
 %   loaded = loadFurutaStageAgent( ...
-%       fullfile("results", "run_20260604_existing_stage_results"), 1);
+%       fullfile("results", "DDPG", "run_20260604_existing_stage_results"), 1);
 
 arguments
     runDir {mustBeTextScalar}
@@ -14,7 +14,7 @@ arguments
 end
 
 runDir = string(runDir);
-stagePattern = sprintf("FurutaDDPG_near_upright_stage_%02d_*.mat", stageIndex);
+stagePattern = sprintf("Furuta*_near_upright_stage_%02d_*.mat", stageIndex);
 stageFiles = dir(fullfile(runDir, "stages", stagePattern));
 
 if isempty(stageFiles)

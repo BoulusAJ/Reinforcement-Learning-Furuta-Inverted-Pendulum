@@ -1,5 +1,5 @@
 %function trainFurutaStabilizationDDPG()
-%TRAINFURUTASTABILIZATIONDDPG Train a near-upright Furuta DDPG controller.
+%TRAINFURUTASTABILIZATIONDDPG Train a near-upright Furuta RL controller.
 %
 % Complete the Simulink model and block names in makeFurutaConfig.m before
 % running this script.
@@ -7,18 +7,19 @@
 cd("C:\Users\abuj\Code\Reinforcement-Learning-Furuta-Inverted-Pendulum")
 addpath(genpath("scripts"))
 
+% temp
+p = 'C:\GhostLabServer\Ghostlab';
+normalize = @(s) regexprep(char(s), '[\\/]+$', '');
+entries = cellfun(normalize, strsplit(path, pathsep), 'UniformOutput', false);
+if any(strcmpi(entries, normalize(p)))
+    rmpath(p)
+    rehash toolboxcache
+end
+
 cfg = makeFurutaConfig();
 initFurutaModelWorkspace(cfg);
-open_system(cfg.Model.Name);
-
-oldFastRestart = get_param(cfg.Model.Name, "FastRestart");
-if strcmp(oldFastRestart, "on")
-    set_param(cfg.Model.Name, FastRestart="off");
-end
-if cfg.Training.UseFastRestart
-    set_param(cfg.Model.Name, FastRestart="on");
-end
-cleanupFastRestart = onCleanup(@() restoreTrainingFastRestart(cfg.Model.Name, oldFastRestart));
+modelState = prepareModelForTraining(cfg);
+cleanupModel = onCleanup(@() restoreTrainingModel(cfg.Model.Name, modelState));
 
 obsInfo = rlNumericSpec([cfg.Observation.Dimension 1], Name="observations");
 actInfo = rlNumericSpec([1 1], ...
@@ -26,10 +27,10 @@ actInfo = rlNumericSpec([1 1], ...
     UpperLimit=cfg.Action.Max, ...
     Name=cfg.Action.Name);
 
-env = rlSimulinkEnv(cfg.Model.Name, cfg.Model.AgentBlock, obsInfo, actInfo);
+env = rlSimulinkEnv(cfg.Model.TrainingName, cfg.Model.TrainingAgentBlock, obsInfo, actInfo);
 env.ResetFcn = @localResetFcnFurutaCurriculum;
 
-%agent = createDDPGAgentFuruta(obsInfo, actInfo, cfg.Agent);
+agent = createFurutaAgent(obsInfo, actInfo, cfg);
 evalCfg = makeFurutaEvalConfig(cfg);
 evalLog = struct();
 evalLog.postStage = [];
@@ -54,7 +55,7 @@ for k = 1:numel(cfg.Curriculum)
     assignin("base", "rewardParams", cfg.Reward);
     assignin("base", "safetyParams", cfg.Safety);
 
-    agent.AgentOptions.NoiseOptions.StandardDeviation = stage.NoiseStd;
+    agent = setStageExplorationNoise(agent, stage.NoiseStd);
 
     trainOpts = rlTrainingOptions( ...
         MaxEpisodes=stage.MaxEpisodes, ...
@@ -75,19 +76,21 @@ for k = 1:numel(cfg.Curriculum)
         trainOpts.ParallelizationOptions.StepsUntilDataIsSent = cfg.Training.StepsUntilDataIsSent;
     end
 
-    %trainingStats = train(agent, env, trainOpts);
+    trainingStats = train(agent, env, trainOpts);
 
     postStageEval = [];
     if cfg.Evaluation.UsePostStageEvaluation
         fprintf("\nRunning post-stage evaluation for Stage %d: %s\n", k, stage.Name);
+        evalEnv = rlSimulinkEnv(evalCfg.ModelName, evalCfg.AgentBlock, obsInfo, actInfo);
+        evalEnv.ResetFcn = @localResetFcnFurutaCurriculum;
         postStageEval = evaluateFurutaController( ...
-            agent, env, evalCfg.PostStageCases, evalCfg, ...
-            "ControllerName", "DDPG", ...
+            agent, evalEnv, evalCfg.PostStageCases, evalCfg, ...
+            "ControllerName", cfg.Agent.Algorithm, ...
             "EvalSetName", "post_stage_full", ...
             "StageIndex", k, ...
             "StageName", stage.Name, ...
             "RunInBackground", true, ...
-            "UseFastRestart", true, ...
+            "UseFastRestart", cfg.Training.UseFastRestart, ...
             "UseParallel", cfg.Training.UseParallel, ...
             "RequestedWorkers", cfg.Training.RequestedWorkers, ...
             "AllowPoolRestart", false);
@@ -118,6 +121,94 @@ for i = 1:numel(folders)
     if ~isfolder(folders(i))
         mkdir(folders(i));
     end
+end
+end
+
+function agent = createFurutaAgent(obsInfo, actInfo, cfg)
+switch upper(string(cfg.Agent.Algorithm))
+    case "DDPG"
+        agent = createDDPGAgentFuruta(obsInfo, actInfo, cfg.Agent);
+    case "TD3"
+        agent = createTD3AgentFuruta(obsInfo, actInfo, cfg.Agent);
+    otherwise
+        error("trainFurutaStabilization:UnsupportedAgent", ...
+            "Unsupported agent algorithm: %s", cfg.Agent.Algorithm);
+end
+end
+
+function agent = setStageExplorationNoise(agent, noiseStd)
+if isprop(agent.AgentOptions, "NoiseOptions")
+    agent.AgentOptions.NoiseOptions.StandardDeviation = noiseStd;
+elseif isprop(agent.AgentOptions, "ExplorationModel")
+    agent.AgentOptions.ExplorationModel.StandardDeviation = noiseStd;
+else
+    warning("trainFurutaStabilization:UnsupportedNoiseOptions", ...
+        "Could not set stage exploration noise for this agent type.");
+end
+end
+
+function modelState = prepareModelForTraining(cfg)
+modelName = cfg.Model.Name;
+
+if cfg.Training.RunInBackground
+    load_system(modelName);
+else
+    open_system(modelName);
+end
+
+modelState = struct();
+modelState.oldFastRestart = get_param(modelName, "FastRestart");
+modelState.oldSignalLogging = get_param(modelName, "SignalLogging");
+modelState.oldSignalLoggingName = get_param(modelName, "SignalLoggingName");
+
+if strcmp(modelState.oldFastRestart, "on")
+    set_param(modelName, FastRestart="off");
+end
+
+if cfg.Training.DisableSignalLogging
+    set_param(modelName, SignalLogging="off");
+end
+
+if cfg.Training.DisableScopes
+    disableScopeViewers(modelName);
+end
+
+if cfg.Training.UseFastRestart
+    set_param(modelName, FastRestart="on");
+end
+end
+
+function disableScopeViewers(modelName)
+try
+    scopes = find_system(modelName, ...
+        LookUnderMasks="all", ...
+        FollowLinks="on", ...
+        BlockType="Scope");
+catch err
+    warning("trainFurutaStabilization:ScopeDiscoveryFailed", ...
+        "Could not discover Scope blocks before training: %s", err.message);
+    return;
+end
+
+for idx = 1:numel(scopes)
+    scope = scopes{idx};
+    try
+        close_system(scope);
+    catch
+    end
+    try
+        set_param(scope, OpenAtSimulationStart="off");
+    catch
+    end
+end
+end
+
+function restoreTrainingModel(modelName, modelState)
+if bdIsLoaded(modelName)
+    set_param(modelName, FastRestart="off");
+    set_param(modelName, SignalLogging=modelState.oldSignalLogging);
+    set_param(modelName, SignalLoggingName=modelState.oldSignalLoggingName);
+    set_param(modelName, FastRestart=modelState.oldFastRestart);
 end
 end
 
@@ -152,11 +243,4 @@ writetable(postStageEval.metrics, ...
     fullfile(cfg.Training.EvalDir, prefix + "_metrics.csv"));
 writetable(postStageEval.summary, ...
     fullfile(cfg.Training.EvalDir, prefix + "_summary.csv"));
-end
-
-function restoreTrainingFastRestart(modelName, oldFastRestart)
-if bdIsLoaded(modelName)
-    set_param(modelName, FastRestart="off");
-    set_param(modelName, FastRestart=oldFastRestart);
-end
 end

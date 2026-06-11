@@ -6,15 +6,29 @@ cfg.ProjectName = "FurutaRL";
 scriptDir = fileparts(mfilename("fullpath"));
 cfg.ProjectRoot = fileparts(scriptDir);
 
-% Fill these in after the lab model details are known.
-cfg.Model.Name = "inv_rot_pen_RL_cntr_simscape_sim";
-cfg.Model.AgentBlock = cfg.Model.Name + "/RL Agent";
+% Keep a stripped model for training and a richer model for evaluation and
+% signal inspection. cfg.Model.Name remains the training/default model for
+% compatibility with older helper scripts.
+cfg.Model.TrainingName = "inv_rot_pen_RL_cntr_simscape_sim_train";
+cfg.Model.EvaluationName = "inv_rot_pen_RL_cntr_simscape_sim";
+cfg.Model.Name = cfg.Model.TrainingName;
+cfg.Model.TrainingAgentBlock = cfg.Model.TrainingName + "/RL Agent";
+cfg.Model.EvaluationAgentBlock = cfg.Model.EvaluationName + "/RL Agent";
+cfg.Model.AgentBlock = cfg.Model.TrainingAgentBlock;
 cfg.Model.PlantSampleTime = 1 / 20e3;
 
+cfg.Agent.Algorithm = "TD3";
+cfg.Agent.UseDevice = "gpu";
 cfg.Agent.SampleTime = 1e-3;
-cfg.Agent.LearningFrequency = 4;
-cfg.Agent.MiniBatchSize = 128;
+cfg.Agent.LearningFrequency = 40;
+cfg.Agent.PolicyUpdateFrequency = 2;
+cfg.Agent.TargetUpdateFrequency = 2;
+cfg.Agent.MiniBatchSize = 64;
 cfg.Agent.ExperienceBufferLength = 2e5;
+cfg.Agent.NumWarmStartSteps = 5000;
+cfg.Agent.TargetSmoothFactor = 5e-3;
+cfg.Agent.TargetPolicyNoiseStd = 0.10;
+cfg.Agent.TargetPolicyNoiseLimit = 0.30;
 
 cfg.Reference.Root = fullfile(cfg.ProjectRoot, "references", "zhaw_rotary_pendulum_lab");
 cfg.Reference.LabModelDir = fullfile(cfg.Reference.Root, "lab_model");
@@ -52,9 +66,9 @@ cfg.Safety.MaxAbsAngularVelocity = cfg.Limits.MotorSpeedMax;
 cfg.Safety.PendulumEnableAngle = deg2rad(30);
 cfg.Safety.PendulumDisableAngle = deg2rad(10);
 
-cfg.Training.SavePrefix = "FurutaDDPG_near_upright";
-cfg.Training.ResultsDir = fullfile(cfg.ProjectRoot, "results");
-cfg.Training.RunName = "run_" + string(datetime("now", "Format", "yyyyMMdd_HHmmss")) + "_upright_stabilization";
+cfg.Training.SavePrefix = "Furuta" + cfg.Agent.Algorithm + "_near_upright";
+cfg.Training.ResultsDir = fullfile(cfg.ProjectRoot, "results", cfg.Agent.Algorithm);
+cfg.Training.RunName = "run_" + string(datetime("now", "Format", "yyyyMMdd_HHmmss")) + "_" + lower(cfg.Agent.Algorithm) + "_upright_stabilization";
 cfg.Training.OutputRoot = fullfile(cfg.Training.ResultsDir, cfg.Training.RunName);
 cfg.Training.StageDir = fullfile(cfg.Training.OutputRoot, "stages");
 cfg.Training.EvalDir = fullfile(cfg.Training.OutputRoot, "evaluation");
@@ -67,7 +81,10 @@ cfg.Training.StopTrainingValue = 450;
 cfg.Training.ScoreAveragingWindowLength = 20;
 cfg.Training.Verbose = true;
 cfg.Training.PlotMode = "none";
-cfg.Training.UseFastRestart = true;
+cfg.Training.RunInBackground = true;
+cfg.Training.DisableScopes = true;
+cfg.Training.DisableSignalLogging = true;
+cfg.Training.UseFastRestart = false;
 cfg.Training.UseParallel = false;
 cfg.Training.RequestedWorkers = 10;
 cfg.Training.ParallelMode = "async";

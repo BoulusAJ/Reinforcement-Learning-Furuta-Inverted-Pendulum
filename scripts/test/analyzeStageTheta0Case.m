@@ -9,7 +9,7 @@ repoRoot = "C:\Users\abuj\Code\Reinforcement-Learning-Furuta-Inverted-Pendulum";
 cd(repoRoot)
 addpath(genpath(fullfile(repoRoot, "scripts")))
 
-runDir = fullfile(repoRoot, "results", "run_20260604_existing_stage_results");
+runDir = fullfile(repoRoot, "results", "DDPG", "run_20260604_existing_stage_results");
 stageIndices = [1 2];
 theta0Raw = [0; pi + deg2rad(1)];
 omega0Raw = [0; 0];
