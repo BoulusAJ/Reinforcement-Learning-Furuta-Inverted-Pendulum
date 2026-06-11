@@ -1,0 +1,3 @@
+[submodule "references/Reinforcement-Learning-Inverted-Pendulum-with-QUBE-Servo2"]
+	path = references/Reinforcement-Learning-Inverted-Pendulum-with-QUBE-Servo2
+	url = https://github.com/mathworks/Reinforcement-Learning-Inverted-Pendulum-with-QUBE-Servo2
