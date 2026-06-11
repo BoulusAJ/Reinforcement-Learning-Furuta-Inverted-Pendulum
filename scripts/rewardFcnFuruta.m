@@ -1,12 +1,14 @@
 function [reward, isDone, diagnosis] = rewardFcnFuruta(obs, aRl, aRlPrev, rewardParams, safetyParams)
-%REWARDFCNFURUTA Reward and termination logic for near-upright stabilization.
-% obs convention: [theta1Error; theta2Error; omega1Error; omega2Error].
+%REWARDFCNFURUTA Reward and termination logic for Furuta RL.
+% Preferred obs convention:
+% [sin(theta1Error); cos(theta1Error);
+%  sin(theta2Error); cos(theta2Error);
+%  omega1Error; omega2Error; previousAction].
+% Legacy obs convention is also accepted during transition:
+% [theta1Error; theta2Error; omega1Error; omega2Error].
 % aRl is the normalized signed RL action in [-1, 1].
 
-theta1Error = obs(1);
-theta2Error = obs(2);
-omega1Error = obs(3);
-omega2Error = obs(4);
+[theta1Error, theta2Error, omega1Error, omega2Error, ~] = decodeObservation(obs, aRlPrev);
 
 theta2Cost = (theta2Error / rewardParams.theta2Scale)^2;
 theta1Cost = (theta1Error / rewardParams.theta1Scale)^2;
@@ -45,6 +47,22 @@ diagnosis = struct( ...
     "omega2Error_used_by_reward", omega2Error, ...
     "u_used_by_reward", aRl, ...
     "uPrev_used_by_reward", aRlPrev);
+end
+
+function [theta1Error, theta2Error, omega1Error, omega2Error, aRlPrevObs] = decodeObservation(obs, aRlPrev)
+if numel(obs) >= 7
+    theta1Error = atan2(obs(1), obs(2));
+    theta2Error = atan2(obs(3), obs(4));
+    omega1Error = obs(5);
+    omega2Error = obs(6);
+    aRlPrevObs = obs(7);
+else
+    theta1Error = obs(1);
+    theta2Error = obs(2);
+    omega1Error = obs(3);
+    omega2Error = obs(4);
+    aRlPrevObs = aRlPrev;
+end
 end
 
 function value = getOptionalRewardField(rewardParams, fieldName, defaultValue)

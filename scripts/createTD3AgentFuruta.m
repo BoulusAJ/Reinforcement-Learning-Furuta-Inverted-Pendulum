@@ -1,5 +1,5 @@
 function agent = createTD3AgentFuruta(obsInfo, actInfo, agentCfg)
-%CREATETD3AGENTFURUTA Build a TD3 agent for Furuta stabilization.
+%CREATETD3AGENTFURUTA Build a TD3 agent for Furuta direct swing-up.
 %
 % TD3 keeps the deterministic actor interface used by DDPG, but adds twin
 % critics, delayed policy updates, and smoothed target actions.
@@ -38,15 +38,22 @@ agentOptions = rlTD3AgentOptions( ...
     TargetSmoothFactor=agentCfg.TargetSmoothFactor, ...
     MiniBatchSize=agentCfg.MiniBatchSize, ...
     ExperienceBufferLength=agentCfg.ExperienceBufferLength, ...
-    NumWarmStartSteps=agentCfg.NumWarmStartSteps);
+    NumWarmStartSteps=agentCfg.NumWarmStartSteps, ...
+    NumEpoch=agentCfg.NumEpoch, ...
+    MaxMiniBatchPerEpoch=agentCfg.MaxMiniBatchPerEpoch);
 
-agentOptions.ActorOptimizerOptions.LearnRate = 1e-4;
+agentOptions.ActorOptimizerOptions.Algorithm = "sgdm";
+agentOptions.ActorOptimizerOptions.LearnRate = agentCfg.ActorLearnRate;
+agentOptions.ActorOptimizerOptions.GradientThreshold = agentCfg.GradientThreshold;
 for idx = 1:numel(agentOptions.CriticOptimizerOptions)
-    agentOptions.CriticOptimizerOptions(idx).LearnRate = 1e-3;
+    agentOptions.CriticOptimizerOptions(idx).Algorithm = "sgdm";
+    agentOptions.CriticOptimizerOptions(idx).LearnRate = agentCfg.CriticLearnRate;
+    agentOptions.CriticOptimizerOptions(idx).GradientThreshold = agentCfg.GradientThreshold;
 end
 
-agentOptions.ExplorationModel.StandardDeviationMin = 0.01;
-agentOptions.ExplorationModel.StandardDeviation = 0.05;
+agentOptions.ExplorationModel.StandardDeviationMin = agentCfg.ExplorationNoiseStdMin;
+agentOptions.ExplorationModel.StandardDeviation = agentCfg.ExplorationNoiseStd;
+agentOptions.ExplorationModel.StandardDeviationDecayRate = agentCfg.ExplorationNoiseDecayRate;
 
 agentOptions.TargetPolicySmoothModel.StandardDeviation = agentCfg.TargetPolicyNoiseStd;
 agentOptions.TargetPolicySmoothModel.LowerLimit = -agentCfg.TargetPolicyNoiseLimit;

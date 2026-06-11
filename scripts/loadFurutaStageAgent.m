@@ -14,7 +14,7 @@ arguments
 end
 
 runDir = string(runDir);
-stagePattern = sprintf("Furuta*_near_upright_stage_%02d_*.mat", stageIndex);
+stagePattern = sprintf("Furuta*_stage_%02d_*.mat", stageIndex);
 stageFiles = dir(fullfile(runDir, "stages", stagePattern));
 
 if isempty(stageFiles)
