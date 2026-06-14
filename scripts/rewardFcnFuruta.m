@@ -1,4 +1,4 @@
-function [reward, isDone, diagnosis] = rewardFcnFuruta(obs, aRl, aRlPrev, rewardParams, safetyParams)
+function [reward, isDone, diagnosis] = rewardFcnFuruta(obs, aRl, aRlPrev, stepCount, rewardParams, safetyParams)
 %REWARDFCNFURUTA Reward and termination logic for Furuta RL.
 % Preferred obs convention:
 % [sin(theta1Error); cos(theta1Error);
@@ -8,15 +8,26 @@ function [reward, isDone, diagnosis] = rewardFcnFuruta(obs, aRl, aRlPrev, reward
 % [theta1Error; theta2Error; omega1Error; omega2Error].
 % aRl is the normalized signed RL action in [-1, 1].
 
+if nargin < 6
+    safetyParams = rewardParams;
+    rewardParams = stepCount;
+    stepCount = Inf;
+end
+
 [theta1Error, theta2Error, omega1Error, omega2Error, ~] = decodeObservation(obs, aRlPrev);
 
 theta2Cost = (theta2Error / rewardParams.theta2Scale)^2;
 theta1Cost = (theta1Error / rewardParams.theta1Scale)^2;
-velocityCost = (omega1Error / rewardParams.velocityScale)^2 + ...
-    (omega2Error / rewardParams.velocityScale)^2;
+omega1Cost = (omega1Error / rewardParams.omega1Scale)^2;
+omega2Cost = (omega2Error / rewardParams.omega2Scale)^2;
 effortCost = rewardParams.lambda_u * aRl^2;
-smoothnessCost = rewardParams.lambda_du * (aRl - aRlPrev)^2;
-aliveBonus = getOptionalRewardField(rewardParams, "aliveBonus", 0.0);
+% Skip startup delta-u penalties caused by deliberate unit-delay
+% initialization used to avoid algebraic loops, not by physical transients.
+if stepCount <= rewardParams.duWarmupSteps
+    smoothnessCost = 0;
+else
+    smoothnessCost = rewardParams.lambda_du * (aRl - aRlPrev)^2;
+end
 
 theta1Unsafe = abs(theta1Error) > safetyParams.MaxAbsArmAngle;
 theta2Unsafe = abs(theta2Error) > safetyParams.MaxAbsPendulumAngle;
@@ -26,13 +37,21 @@ omega2Unsafe = abs(omega2Error) > safetyParams.MaxAbsAngularVelocity;
 isUnsafe = theta1Unsafe || theta2Unsafe || omega1Unsafe || omega2Unsafe;
 
 uprightBonus = rewardParams.uprightBonus * (abs(theta2Error) < rewardParams.uprightTolerance);
+unsafePenalty = rewardParams.unsafePenalty * isUnsafe;
 
-reward = aliveBonus - theta2Cost - 0.1 * theta1Cost - 0.01 * velocityCost - ...
-    effortCost - smoothnessCost + uprightBonus;
+rewardTermAliveBonus = rewardParams.aliveBonus;
+rewardTermTheta2Error = -rewardParams.theta2Weight * theta2Cost;
+rewardTermTheta1Error = -rewardParams.theta1Weight * theta1Cost;
+rewardTermVelocity = -(rewardParams.omega1Weight * omega1Cost + ...
+    rewardParams.omega2Weight * omega2Cost);
+rewardTermActionEffort = -effortCost;
+rewardTermActionSmoothness = -smoothnessCost;
+rewardTermUprightBonus = uprightBonus;
+rewardTermUnsafePenalty = -unsafePenalty;
 
-if isUnsafe
-    reward = reward - rewardParams.unsafePenalty;
-end
+reward = rewardTermAliveBonus + rewardTermTheta2Error + ...
+    rewardTermTheta1Error + rewardTermVelocity + rewardTermActionEffort + ...
+    rewardTermActionSmoothness + rewardTermUprightBonus + rewardTermUnsafePenalty;
 
 isDone = isUnsafe;
 
@@ -46,7 +65,15 @@ diagnosis = struct( ...
     "omega1Error_used_by_reward", omega1Error, ...
     "omega2Error_used_by_reward", omega2Error, ...
     "u_used_by_reward", aRl, ...
-    "uPrev_used_by_reward", aRlPrev);
+    "uPrev_used_by_reward", aRlPrev, ...
+    "rewardTerm_aliveBonus", rewardTermAliveBonus, ...
+    "rewardTerm_theta2Error", rewardTermTheta2Error, ...
+    "rewardTerm_theta1Error", rewardTermTheta1Error, ...
+    "rewardTerm_velocity", rewardTermVelocity, ...
+    "rewardTerm_actionEffort", rewardTermActionEffort, ...
+    "rewardTerm_actionSmoothness", rewardTermActionSmoothness, ...
+    "rewardTerm_uprightBonus", rewardTermUprightBonus, ...
+    "rewardTerm_unsafePenalty", rewardTermUnsafePenalty);
 end
 
 function [theta1Error, theta2Error, omega1Error, omega2Error, aRlPrevObs] = decodeObservation(obs, aRlPrev)
@@ -62,13 +89,5 @@ else
     omega1Error = obs(3);
     omega2Error = obs(4);
     aRlPrevObs = aRlPrev;
-end
-end
-
-function value = getOptionalRewardField(rewardParams, fieldName, defaultValue)
-if isfield(rewardParams, fieldName)
-    value = rewardParams.(fieldName);
-else
-    value = defaultValue;
 end
 end

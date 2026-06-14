@@ -547,7 +547,7 @@ scripts/rewardFcnFuruta.m
 Current signature:
 
 ```matlab
-function [reward, isDone, diagnosis] = rewardFcnFuruta(obs, aRl, aRlPrev, rewardParams, safetyParams)
+function [reward, isDone, diagnosis] = rewardFcnFuruta(obs, aRl, aRlPrev, stepCount, rewardParams, safetyParams)
 ```
 
 `diagnosis` contains:
@@ -563,6 +563,14 @@ omega1Error_used_by_reward
 omega2Error_used_by_reward
 u_used_by_reward
 uPrev_used_by_reward
+rewardTerm_aliveBonus
+rewardTerm_theta2Error
+rewardTerm_theta1Error
+rewardTerm_velocity
+rewardTerm_actionEffort
+rewardTerm_actionSmoothness
+rewardTerm_uprightBonus
+rewardTerm_unsafePenalty
 ```
 
 A bus helper was added:
@@ -590,6 +598,14 @@ omega1Error_used_by_reward double
 omega2Error_used_by_reward double
 u_used_by_reward           double
 uPrev_used_by_reward       double
+rewardTerm_aliveBonus      double
+rewardTerm_theta2Error     double
+rewardTerm_theta1Error     double
+rewardTerm_velocity        double
+rewardTerm_actionEffort    double
+rewardTerm_actionSmoothness double
+rewardTerm_uprightBonus    double
+rewardTerm_unsafePenalty   double
 ```
 
 The Simulink MATLAB Function block should type its `diagnosis` output as:
@@ -620,7 +636,11 @@ Delay1 breaks the algebraic loop.
 Delay2 provides the previous delayed action.
 ```
 
-Do not remove these casually.
+Do not remove these casually. In the direct-TD3 branch, debugging showed that
+the reward path only needs to skip the first artificial startup delta-u penalty,
+so the active config uses `cfg.Reward.duWarmupSteps = 1`. This is not a physical
+transient workaround; it avoids reward jumps caused by the deliberate
+no-algebraic-loop wiring.
 
 ## Diagnostic Scripts
 
@@ -659,7 +679,7 @@ and saw that it hit `isDone` around `0.04 s`.
 Direct reward-function check:
 
 ```matlab
-rewardFcnFuruta([0; -deg2rad(1); 0; 0], 0, 0, cfg.Reward, cfg.Safety)
+rewardFcnFuruta([0; -deg2rad(1); 0; 0], 0, 0, Inf, cfg.Reward, cfg.Safety)
 ```
 
 returns:

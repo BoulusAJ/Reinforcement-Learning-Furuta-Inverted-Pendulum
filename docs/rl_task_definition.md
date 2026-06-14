@@ -233,8 +233,9 @@ Starter interpretation:
 
 ```matlab
 theta2_error_term    = (theta2Error / theta2Scale)^2
-rotary_arm_term      = 0.1 * (theta1Error / theta1Scale)^2
-velocity_term        = 0.01 * ((omega1Error / velocityScale)^2 + (omega2Error / velocityScale)^2)
+rotary_arm_term      = theta1Weight * (theta1Error / theta1Scale)^2
+velocity_term        = omega1Weight * (omega1Error / omega1Scale)^2
+                     + omega2Weight * (omega2Error / omega2Scale)^2
 action_effort_term   = lambda_u * u^2
 action_smoothness    = lambda_du * (u - u_prev)^2
 upright_bonus        = uprightBonus * (abs(theta2Error) < uprightTolerance)
@@ -248,6 +249,13 @@ scripts/rewardFcnFuruta.m
 ```
 
 In the starter reward, `u` is interpreted as the normalized RL action in `[-1, 1]`. Therefore `u^2 = 1` means maximum allowed normalized effort, independent of whether the downstream physical interface is current or torque.
+
+The Simulink reward path can use consecutive delay blocks so the reward
+function sees `u[k-1]` and `u[k-2]` instead of creating an algebraic loop. The
+debugged direct-TD3 wiring only needs `duWarmupSteps = 1` to skip the artificial
+startup `delta_u` penalty seen by the reward function. This is not a physical
+transient workaround; it avoids large reward jumps caused by the deliberate
+no-algebraic-loop signal wiring.
 
 ## Reset Distribution
 

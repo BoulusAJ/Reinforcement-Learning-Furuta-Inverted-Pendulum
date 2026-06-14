@@ -95,7 +95,15 @@ names = [
     "omega1Error_used_by_reward"
     "omega2Error_used_by_reward"
     "u_used_by_reward"
-    "uPrev_used_by_reward"];
+    "uPrev_used_by_reward"
+    "rewardTerm_aliveBonus"
+    "rewardTerm_theta2Error"
+    "rewardTerm_theta1Error"
+    "rewardTerm_velocity"
+    "rewardTerm_actionEffort"
+    "rewardTerm_actionSmoothness"
+    "rewardTerm_uprightBonus"
+    "rewardTerm_unsafePenalty"];
 
 t = diagnosis.(names(1)).Time(:);
 tbl = table(t, 'VariableNames', "t");
@@ -134,7 +142,15 @@ cols = [
     "omega1Error_used_by_reward"
     "omega2Error_used_by_reward"
     "u_used_by_reward"
-    "uPrev_used_by_reward"];
+    "uPrev_used_by_reward"
+    "rewardTerm_aliveBonus"
+    "rewardTerm_theta2Error"
+    "rewardTerm_theta1Error"
+    "rewardTerm_velocity"
+    "rewardTerm_actionEffort"
+    "rewardTerm_actionSmoothness"
+    "rewardTerm_uprightBonus"
+    "rewardTerm_unsafePenalty"];
 
 fprintf("First logged isDone at t = %.6f s\n", tDone);
 disp(diagnosisTable(lo:hi, cols))

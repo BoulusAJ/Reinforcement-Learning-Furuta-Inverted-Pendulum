@@ -103,21 +103,27 @@ cfg.Training.UseFastRestart = false;
 cfg.Training.UseParallel = false;
 cfg.Training.RequestedWorkers = 10;
 cfg.Training.ParallelMode = "async";
-cfg.Training.StepsUntilDataIsSent = 32;
+cfg.Training.StepsUntilDataIsSent = 1000; %32; % parallel only
 
 cfg.Evaluation.UsePostStageEvaluation = true;
 cfg.Evaluation.UseCustomEvaluatorDuringTraining = false;
 cfg.Evaluation.UseStandardEvaluatorDuringTraining = false;
 
-cfg.Reward.theta2Scale = deg2rad(45);
-cfg.Reward.theta1Scale = deg2rad(90);
-cfg.Reward.velocityScale = 20.0;
+cfg.Reward.theta2Weight = 1.0;
+cfg.Reward.theta2Scale = deg2rad(15);
+cfg.Reward.theta1Weight = 0.1;
+cfg.Reward.theta1Scale = deg2rad(30);
+cfg.Reward.omega1Weight = 0.05;
+cfg.Reward.omega1Scale = 5.0;
+cfg.Reward.omega2Weight = 0.02;
+cfg.Reward.omega2Scale = 5.0;
 cfg.Reward.lambda_u = 1e-3;
 cfg.Reward.lambda_du = 3e-2;
-cfg.Reward.aliveBonus = 0.1;
-cfg.Reward.uprightBonus = 1.0;
+cfg.Reward.duWarmupSteps = 1;
+cfg.Reward.aliveBonus = 0.02;
+cfg.Reward.uprightBonus = 0.2;
 cfg.Reward.uprightTolerance = deg2rad(8);
-cfg.Reward.unsafePenalty = 1000.0;
+cfg.Reward.unsafePenalty = 10.0;
 
 cfg.Curriculum = makeCurriculum();
 end
@@ -126,7 +132,7 @@ function stages = makeCurriculum()
 stages = struct([]);
 
 stages(1).Name = "near_upright_stabilization";
-stages(1).MaxEpisodes = 300;
+stages(1).MaxEpisodes = 800;
 stages(1).Reset.Theta1ErrorRange = deg2rad([0 0]);
 stages(1).Reset.Theta2ErrorRange = deg2rad([-5 5]);
 stages(1).Reset.Omega1ErrorRange = [0 0];

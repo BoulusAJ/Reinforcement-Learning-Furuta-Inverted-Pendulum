@@ -128,6 +128,13 @@ agent knows the action that produced the current transition/state. The
 `delta_u` reward penalty should continue to use the reward function's explicit
 `u` and `uPrev` inputs.
 
+Because the reward path uses consecutive delay blocks for `u` and `uPrev`, the
+reward function can see an artificial startup `delta_u` jump. Debugging the
+direct-TD3 wiring showed that skipping one reward step is sufficient, so the
+active config uses `cfg.Reward.duWarmupSteps = 1`. This is not intended to hide
+physical startup transients; it prevents an artificial reward jump introduced by
+the delay-block initialization used to avoid algebraic loops in Simulink.
+
 ## TD3 Configuration
 
 The active config in `scripts/makeFurutaConfig.m` now uses:
@@ -195,10 +202,36 @@ alive bonus
 - theta1 error cost
 - velocity cost
 - effort cost
-- action-change cost
+- action-change cost, after the initial delta-u warmup steps
 + upright bonus
 - unsafe penalty
 ```
+
+All reward weights and scales are explicit config fields, not hidden constants
+inside `rewardFcnFuruta.m`. After the first Stage 1 direct-TD3 run, the active
+reward settings were tightened for local stabilization:
+
+```matlab
+cfg.Reward.theta2Weight = 1.0;
+cfg.Reward.theta2Scale = deg2rad(15);
+cfg.Reward.theta1Weight = 0.1;
+cfg.Reward.theta1Scale = deg2rad(30);
+cfg.Reward.omega1Weight = 0.05;
+cfg.Reward.omega1Scale = 5.0;
+cfg.Reward.omega2Weight = 0.02;
+cfg.Reward.omega2Scale = 5.0;
+cfg.Reward.lambda_u = 1e-3;
+cfg.Reward.lambda_du = 3e-2;
+cfg.Reward.duWarmupSteps = 1;
+cfg.Reward.aliveBonus = 0.02;
+cfg.Reward.uprightBonus = 0.2;
+cfg.Reward.uprightTolerance = deg2rad(8);
+cfg.Reward.unsafePenalty = 10.0;
+```
+
+The intent is to make arm centering and damping visible earlier, while keeping
+the lower unsafe penalty that empirically avoided harsh critic targets during
+early learning.
 
 For swing-up, the pendulum angle is no longer terminated at +/-30 deg. The
 pendulum safety limit is now `pi` radians so the agent can explore the full
