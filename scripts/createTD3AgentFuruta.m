@@ -7,6 +7,12 @@ function agent = createTD3AgentFuruta(obsInfo, actInfo, agentCfg)
 numObs = obsInfo.Dimension(1);
 numAct = actInfo.Dimension(1);
 
+networkStyle = getAgentOption(agentCfg, "NetworkStyle", "custom");
+if string(networkStyle) == "default"
+    agent = createDefaultTD3Agent(obsInfo, actInfo, agentCfg);
+    return;
+end
+
 actorNetwork = [
     featureInputLayer(numObs, Name="observation")
     fullyConnectedLayer(128)
@@ -60,6 +66,44 @@ agentOptions.TargetPolicySmoothModel.LowerLimit = -agentCfg.TargetPolicyNoiseLim
 agentOptions.TargetPolicySmoothModel.UpperLimit = agentCfg.TargetPolicyNoiseLimit;
 
 agent = rlTD3Agent(actor, [critic1 critic2], agentOptions);
+end
+
+function agent = createDefaultTD3Agent(obsInfo, actInfo, agentCfg)
+initOpts = rlAgentInitializationOptions(NumHiddenUnit=agentCfg.NumHiddenUnit);
+agentOptions = createTD3Options(agentCfg);
+agent = rlTD3Agent(obsInfo, actInfo, initOpts, agentOptions);
+end
+
+function agentOptions = createTD3Options(agentCfg)
+agentOptions = rlTD3AgentOptions( ...
+    SampleTime=agentCfg.SampleTime, ...
+    DiscountFactor=0.99, ...
+    LearningFrequency=agentCfg.LearningFrequency, ...
+    PolicyUpdateFrequency=agentCfg.PolicyUpdateFrequency, ...
+    TargetUpdateFrequency=agentCfg.TargetUpdateFrequency, ...
+    TargetSmoothFactor=agentCfg.TargetSmoothFactor, ...
+    MiniBatchSize=agentCfg.MiniBatchSize, ...
+    ExperienceBufferLength=agentCfg.ExperienceBufferLength, ...
+    NumWarmStartSteps=agentCfg.NumWarmStartSteps, ...
+    NumEpoch=agentCfg.NumEpoch, ...
+    MaxMiniBatchPerEpoch=agentCfg.MaxMiniBatchPerEpoch);
+
+agentOptions.ActorOptimizerOptions.Algorithm = "sgdm";
+agentOptions.ActorOptimizerOptions.LearnRate = agentCfg.ActorLearnRate;
+agentOptions.ActorOptimizerOptions.GradientThreshold = agentCfg.GradientThreshold;
+for idx = 1:numel(agentOptions.CriticOptimizerOptions)
+    agentOptions.CriticOptimizerOptions(idx).Algorithm = "sgdm";
+    agentOptions.CriticOptimizerOptions(idx).LearnRate = agentCfg.CriticLearnRate;
+    agentOptions.CriticOptimizerOptions(idx).GradientThreshold = agentCfg.GradientThreshold;
+end
+
+agentOptions.ExplorationModel.StandardDeviationMin = agentCfg.ExplorationNoiseStdMin;
+agentOptions.ExplorationModel.StandardDeviation = agentCfg.ExplorationNoiseStd;
+agentOptions.ExplorationModel.StandardDeviationDecayRate = agentCfg.ExplorationNoiseDecayRate;
+
+agentOptions.TargetPolicySmoothModel.StandardDeviation = agentCfg.TargetPolicyNoiseStd;
+agentOptions.TargetPolicySmoothModel.LowerLimit = -agentCfg.TargetPolicyNoiseLimit;
+agentOptions.TargetPolicySmoothModel.UpperLimit = agentCfg.TargetPolicyNoiseLimit;
 end
 
 function critic = createCritic(obsInfo, actInfo, criticName)

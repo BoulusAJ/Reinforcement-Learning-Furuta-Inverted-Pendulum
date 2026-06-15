@@ -109,6 +109,7 @@ cfg.Evaluation.UsePostStageEvaluation = true;
 cfg.Evaluation.UseCustomEvaluatorDuringTraining = false;
 cfg.Evaluation.UseStandardEvaluatorDuringTraining = false;
 
+cfg.Reward.RewardMode = 1;
 cfg.Reward.theta2Weight = 1.0;
 cfg.Reward.theta2Scale = deg2rad(15);
 cfg.Reward.theta1Weight = 0.1;
@@ -124,6 +125,12 @@ cfg.Reward.aliveBonus = 0.02;
 cfg.Reward.uprightBonus = 0.2;
 cfg.Reward.uprightTolerance = deg2rad(8);
 cfg.Reward.unsafePenalty = 10.0;
+cfg.Reward.aliveReward = 1.0;
+cfg.Reward.costWeight = 0.1;
+cfg.Reward.angularVelocityWeight = 1e-2;
+cfg.Reward.actionSmoothnessWeight = 0.3;
+cfg.Reward.aliveTheta1Limit = cfg.Safety.MaxAbsArmAngle;
+cfg.Reward.aliveOmega1Limit = 30.0;
 
 cfg.Curriculum = makeCurriculum();
 end

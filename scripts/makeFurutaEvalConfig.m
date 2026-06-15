@@ -29,6 +29,7 @@ evalCfg.SettlingTolTheta2 = deg2rad(1);
 evalCfg.SettlingTolTheta1 = deg2rad(3);
 
 evalCfg.Safety = cfg.Safety;
+evalCfg.Reward = cfg.Reward;
 evalCfg.ActionLimit = cfg.Action.Max;
 evalCfg.CurrentLimit = cfg.Limits.CurrentMax;
 evalCfg.VoltageLimit = cfg.Limits.VoltageMax;

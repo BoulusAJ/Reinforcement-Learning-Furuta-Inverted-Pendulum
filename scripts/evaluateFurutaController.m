@@ -58,6 +58,8 @@ else
         fixedReset = makeFixedReset(cases(i, :));
 
         assignin("base", "curriculumParams", fixedReset);
+        assignin("base", "rewardParams", evalCfg.Reward);
+        assignin("base", "safetyParams", evalCfg.Safety);
         env.ResetFcn = @localResetFcnFurutaCurriculum;
 
         experiences = sim(env, agent, simOpts);
@@ -201,6 +203,8 @@ if isempty(workerInitialized) || ~workerInitialized
     oldFileGenConfig = configureWorkerFileGeneration(evalCfg);
     cfg = makeFurutaConfig();
     initFurutaModelWorkspace(cfg);
+    assignin("base", "rewardParams", evalCfg.Reward);
+    assignin("base", "safetyParams", evalCfg.Safety);
     workerInitialized = true;
 end
 
@@ -233,6 +237,8 @@ if isempty(workerEnv) || ~strcmp(workerModelName, evalCfg.ModelName)
 end
 
 assignin("base", "curriculumParams", makeFixedReset(caseRow));
+assignin("base", "rewardParams", evalCfg.Reward);
+assignin("base", "safetyParams", evalCfg.Safety);
 workerEnv.ResetFcn = @localResetFcnFurutaCurriculum;
 
 experiences = sim(workerEnv, agent, simOpts);
