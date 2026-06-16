@@ -214,3 +214,14 @@ Do not judge TD3 from training reward alone. After Stage 1, inspect:
 - action versus `ss_ctrl_rate_transition`,
 - whether the 125 Hz oscillatory torque behavior persists,
 - whether the agent now produces the required torque offset rather than drifting to zero.
+
+## Documentation And Presentation Points
+
+- Angle wrapping needs careful explanation. The scalar pendulum upright error
+  `theta2Error` is wrapped to `[-pi, pi]`, which means it has a discontinuity at
+  the downward position. The TD3 observation avoids giving this discontinuity to
+  the neural network directly by using `sin(theta2Error)` and
+  `cos(theta2Error)`. Reward and metrics still decode a scalar wrapped error
+  with `atan2`; this is acceptable for the current squared-error reward, but a
+  future improvement is to use a periodic pendulum cost such as
+  `2 * (1 - cos(theta2Error))`.

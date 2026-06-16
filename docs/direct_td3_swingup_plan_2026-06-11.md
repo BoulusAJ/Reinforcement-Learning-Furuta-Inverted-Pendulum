@@ -87,6 +87,16 @@ giving the neural network a continuous representation of circular variables.
 theta2Error = -atan2(sin(theta2 - pi), cos(theta2 - pi))
 ```
 
+Important documentation/presentation point: the scalar `theta2Error` is wrapped
+to `[-pi, pi]`, so the scalar signal has a sign discontinuity at the downward
+position. The agent observation avoids exposing that discontinuity directly by
+using `sin(theta2Error)` and `cos(theta2Error)`, which are continuous circular
+features. Reward diagnostics and automated metrics still decode a scalar error
+with `atan2`; this is acceptable for the current squared-error reward because
+`+pi` and `-pi` have the same cost. A cleaner future reward variant would use a
+periodic cost such as `2 * (1 - cos(theta2Error))`, which removes the scalar
+wrap discontinuity from the pendulum-angle cost itself.
+
 ## Simulink Wiring Required
 
 The Simulink observation bus/vector must be updated to emit exactly seven

@@ -54,6 +54,34 @@ atan2(sin(u), cos(u))
 
 maps any angle to the shortest equivalent signed angle in `[-pi, pi]`.
 
+Documentation/presentation note: this scalar wrapped `theta2Error` has an
+unavoidable sign discontinuity at the downward position (`+pi` and `-pi` are
+the same physical angle but different scalar values). In the later direct-TD3
+swing-up setup, the agent observation avoids exposing this discontinuity
+directly by using circular features:
+
+```matlab
+[sin(theta1Error);
+ cos(theta1Error);
+ sin(theta2Error);
+ cos(theta2Error);
+ omega1Error;
+ omega2Error;
+ previousAction]
+```
+
+Reward diagnostics and evaluation metrics still decode a scalar wrapped error
+with `atan2`. This is acceptable for the current squared-error reward because
+`+pi` and `-pi` have the same cost. A cleaner future reward variant would use a
+periodic pendulum cost such as:
+
+```matlab
+theta2Cost = 2 * (1 - cos(theta2Error));
+```
+
+That would remove the scalar wrap discontinuity from the pendulum-angle reward
+cost itself.
+
 ## Action Design
 
 The RL action should be normalized and signed:
