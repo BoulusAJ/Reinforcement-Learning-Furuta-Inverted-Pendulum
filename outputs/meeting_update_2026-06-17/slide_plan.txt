@@ -1,0 +1,1 @@
+Create mode; 24-slide informal update deck; palette: blue/teal/amber/red on white; fonts: Aptos/Aptos Display fallback. Expanded with a Water Tank mini-section, Furuta method choices, evaluation-matrix grouping, new metrics, completed PI/current analytical-vs-Simscape rerun results, and PI/current versus voltage-command analytical-active comparison slides.

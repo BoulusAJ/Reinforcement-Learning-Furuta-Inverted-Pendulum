@@ -1,0 +1,624 @@
+{
+  "schema": "openai.presentation.layout/v4",
+  "unit": "px",
+  "slide": {
+    "aid": "sl/7wyx23",
+    "id": "7wyx23",
+    "slide": 6,
+    "layoutId": "dbb35aff-b272-42f1-b819-ba0b2fccc1e3",
+    "layoutName": "Title Slide",
+    "layoutType": "title",
+    "masterLayoutId": "f1afd91f-b985-4c40-b965-727d5e9a4eef",
+    "masterLayoutName": "Master",
+    "backgroundColor": "#FFFFFF",
+    "frame": {
+      "left": 0,
+      "top": 0,
+      "width": 1280,
+      "height": 720
+    }
+  },
+  "theme": {
+    "colorSchemeName": "Furuta update",
+    "colors": {
+      "accent1": "#0B4F6C",
+      "accent2": "#2A9D8F",
+      "accent3": "#F2A541",
+      "accent4": "#D1495B",
+      "bg1": "#FFFFFF",
+      "bg2": "#F5F8FB",
+      "tx1": "#25313D",
+      "tx2": "#596B7A",
+      "dk1": "#000000",
+      "dk2": "#25313D",
+      "lt1": "#FFFFFF",
+      "lt2": "#E8EDF2",
+      "hlink": "#0B4F6C",
+      "folHlink": "#2A9D8F"
+    },
+    "typefaces": [
+      "Aptos"
+    ]
+  },
+  "inheritedLayers": [
+    {
+      "scope": "layout",
+      "id": "dbb35aff-b272-42f1-b819-ba0b2fccc1e3",
+      "name": "Title Slide",
+      "type": "title",
+      "parentLayoutId": "f1afd91f-b985-4c40-b965-727d5e9a4eef",
+      "elements": []
+    },
+    {
+      "scope": "master",
+      "id": "f1afd91f-b985-4c40-b965-727d5e9a4eef",
+      "name": "Master",
+      "type": "master",
+      "elements": []
+    }
+  ],
+  "elements": [
+    {
+      "order": 1,
+      "kind": "shape",
+      "scope": "slide",
+      "aid": "sh/mtwra5gb",
+      "id": "1",
+      "bbox": [
+        64,
+        42,
+        680,
+        24
+      ],
+      "geometry": "rect",
+      "text": "FURUTA RL UPDATE | 2026-06-17",
+      "textPreview": "FURUTA RL UPDATE | 2026-06-17",
+      "resolvedFontSize": 12,
+      "resolvedTextStyle": {
+        "fontSize": 12,
+        "typeface": "Aptos",
+        "color": "#596B7A",
+        "bold": true,
+        "alignment": "left",
+        "insets": {
+          "top": 4.8,
+          "right": 9.6,
+          "bottom": 4.8,
+          "left": 9.6
+        }
+      },
+      "textLayout": {
+        "lineCount": 1,
+        "lines": [
+          {
+            "index": 1,
+            "text": "FURUTA RL UPDATE | 2026-06-17"
+          }
+        ]
+      },
+      "paragraphs": [
+        {
+          "index": 1,
+          "text": "FURUTA RL UPDATE | 2026-06-17",
+          "resolvedTextStyle": {
+            "fontSize": 12,
+            "typeface": "Aptos",
+            "color": "#596B7A",
+            "bold": true
+          },
+          "runs": [
+            {
+              "index": 1,
+              "text": "FURUTA RL UPDATE | 2026-06-17",
+              "fontSize": 12,
+              "typeface": "Aptos",
+              "color": "#596B7A",
+              "bold": true
+            }
+          ],
+          "marginLeft": 0
+        }
+      ],
+      "lineWidth": 0
+    },
+    {
+      "order": 2,
+      "kind": "shape",
+      "scope": "slide",
+      "aid": "sh/xkf6dcbu",
+      "id": "2",
+      "bbox": [
+        64,
+        74,
+        1040,
+        82
+      ],
+      "geometry": "rect",
+      "text": "Why the Water Tank was harder than it looked",
+      "textPreview": "Why the Water Tank was harder than it looked",
+      "resolvedFontSize": 36,
+      "resolvedTextStyle": {
+        "fontSize": 36,
+        "typeface": "Aptos",
+        "color": "#25313D",
+        "bold": true,
+        "alignment": "left",
+        "insets": {
+          "top": 4.8,
+          "right": 9.6,
+          "bottom": 4.8,
+          "left": 9.6
+        }
+      },
+      "textLayout": {
+        "lineCount": 1,
+        "lines": [
+          {
+            "index": 1,
+            "text": "Why the Water Tank was harder than it looked"
+          }
+        ]
+      },
+      "paragraphs": [
+        {
+          "index": 1,
+          "text": "Why the Water Tank was harder than it looked",
+          "resolvedTextStyle": {
+            "fontSize": 36,
+            "typeface": "Aptos",
+            "color": "#25313D",
+            "bold": true
+          },
+          "runs": [
+            {
+              "index": 1,
+              "text": "Why the Water Tank was harder than it looked",
+              "fontSize": 36,
+              "typeface": "Aptos",
+              "color": "#25313D",
+              "bold": true
+            }
+          ],
+          "marginLeft": 0
+        }
+      ],
+      "lineWidth": 0
+    },
+    {
+      "order": 3,
+      "kind": "shape",
+      "scope": "slide",
+      "aid": "sh/4zidonyd",
+      "id": "3",
+      "bbox": [
+        90,
+        190,
+        500,
+        285
+      ],
+      "geometry": "roundRect",
+      "fillColor": "#FFF8EB",
+      "lineColor": "#ECD49D",
+      "lineWidth": 1
+    },
+    {
+      "order": 4,
+      "kind": "shape",
+      "scope": "slide",
+      "aid": "sh/f6dcbulw",
+      "id": "4",
+      "bbox": [
+        126,
+        228,
+        360,
+        34
+      ],
+      "geometry": "rect",
+      "text": "One-sided actuation",
+      "textPreview": "One-sided actuation",
+      "resolvedFontSize": 28,
+      "resolvedTextStyle": {
+        "fontSize": 28,
+        "typeface": "Aptos",
+        "color": "#F2A541",
+        "bold": true,
+        "alignment": "left",
+        "insets": {
+          "top": 4.8,
+          "right": 9.6,
+          "bottom": 4.8,
+          "left": 9.6
+        }
+      },
+      "textLayout": {
+        "lineCount": 1,
+        "lines": [
+          {
+            "index": 1,
+            "text": "One-sided actuation"
+          }
+        ]
+      },
+      "paragraphs": [
+        {
+          "index": 1,
+          "text": "One-sided actuation",
+          "resolvedTextStyle": {
+            "fontSize": 28,
+            "typeface": "Aptos",
+            "color": "#F2A541",
+            "bold": true
+          },
+          "runs": [
+            {
+              "index": 1,
+              "text": "One-sided actuation",
+              "fontSize": 28,
+              "typeface": "Aptos",
+              "color": "#F2A541",
+              "bold": true
+            }
+          ],
+          "marginLeft": 0
+        }
+      ],
+      "lineWidth": 0
+    },
+    {
+      "order": 5,
+      "kind": "shape",
+      "scope": "slide",
+      "aid": "sh/mlkjm1cf",
+      "id": "5",
+      "bbox": [
+        126,
+        290,
+        410,
+        118
+      ],
+      "geometry": "rect",
+      "text": "The agent controls inlet flow. It can add water quickly, but when the tank is too high it cannot actively pull water out. The best action is often near-zero flow plus waiting for passive drainage.",
+      "textPreview": "The agent controls inlet flow. It can add water quickly, but when the tank is too high it cannot actively pull water out. The best action...",
+      "resolvedFontSize": 22,
+      "resolvedTextStyle": {
+        "fontSize": 22,
+        "typeface": "Aptos",
+        "color": "#25313D",
+        "alignment": "left",
+        "insets": {
+          "top": 4.8,
+          "right": 9.6,
+          "bottom": 4.8,
+          "left": 9.6
+        }
+      },
+      "textLayout": {
+        "lineCount": 5,
+        "lines": [
+          {
+            "index": 1,
+            "text": "The agent controls inlet flow. It can add"
+          },
+          {
+            "index": 2,
+            "text": "water quickly, but when the tank is too high"
+          },
+          {
+            "index": 3,
+            "text": "it cannot actively pull water out. The best"
+          },
+          {
+            "index": 4,
+            "text": "action is often near-zero flow plus waiting"
+          },
+          {
+            "index": 5,
+            "text": "for passive drainage."
+          }
+        ]
+      },
+      "paragraphs": [
+        {
+          "index": 1,
+          "text": "The agent controls inlet flow. It can add water quickly, but when the tank is too high it cannot actively pull water out. The best action is often near-zero flow plus waiting for passive drainage.",
+          "resolvedTextStyle": {
+            "fontSize": 22,
+            "typeface": "Aptos",
+            "color": "#25313D"
+          },
+          "runs": [
+            {
+              "index": 1,
+              "text": "The agent controls inlet flow. It can add water quickly, but when the tank is too high it cannot actively pull water out. The best action is often near-zero flow plus waiting for passive drainage.",
+              "fontSize": 22,
+              "typeface": "Aptos",
+              "color": "#25313D"
+            }
+          ],
+          "marginLeft": 0
+        }
+      ],
+      "lineWidth": 0
+    },
+    {
+      "order": 6,
+      "kind": "shape",
+      "scope": "slide",
+      "aid": "sh/xc3ylc7u",
+      "id": "6",
+      "bbox": [
+        690,
+        190,
+        500,
+        285
+      ],
+      "geometry": "roundRect",
+      "fillColor": "#FFF5F6",
+      "lineColor": "#ECC1C8",
+      "lineWidth": 1
+    },
+    {
+      "order": 7,
+      "kind": "shape",
+      "scope": "slide",
+      "aid": "sh/4r65wjud",
+      "id": "7",
+      "bbox": [
+        726,
+        228,
+        390,
+        34
+      ],
+      "geometry": "rect",
+      "text": "Asymmetric learning problem",
+      "textPreview": "Asymmetric learning problem",
+      "resolvedFontSize": 28,
+      "resolvedTextStyle": {
+        "fontSize": 28,
+        "typeface": "Aptos",
+        "color": "#D1495B",
+        "bold": true,
+        "alignment": "left",
+        "insets": {
+          "top": 4.8,
+          "right": 9.6,
+          "bottom": 4.8,
+          "left": 9.6
+        }
+      },
+      "textLayout": {
+        "lineCount": 1,
+        "lines": [
+          {
+            "index": 1,
+            "text": "Asymmetric learning problem"
+          }
+        ]
+      },
+      "paragraphs": [
+        {
+          "index": 1,
+          "text": "Asymmetric learning problem",
+          "resolvedTextStyle": {
+            "fontSize": 28,
+            "typeface": "Aptos",
+            "color": "#D1495B",
+            "bold": true
+          },
+          "runs": [
+            {
+              "index": 1,
+              "text": "Asymmetric learning problem",
+              "fontSize": 28,
+              "typeface": "Aptos",
+              "color": "#D1495B",
+              "bold": true
+            }
+          ],
+          "marginLeft": 0
+        }
+      ],
+      "lineWidth": 0
+    },
+    {
+      "order": 8,
+      "kind": "shape",
+      "scope": "slide",
+      "aid": "sh/fu18jqh0",
+      "id": "8",
+      "bbox": [
+        726,
+        290,
+        410,
+        118
+      ],
+      "geometry": "rect",
+      "text": "A reward that helps rising cases can punish draining cases, and a reward that keeps action smooth can make downward corrections look slow or inactive.",
+      "textPreview": "A reward that helps rising cases can punish draining cases, and a reward that keeps action smooth can make downward corrections look slow...",
+      "resolvedFontSize": 22,
+      "resolvedTextStyle": {
+        "fontSize": 22,
+        "typeface": "Aptos",
+        "color": "#25313D",
+        "alignment": "left",
+        "insets": {
+          "top": 4.8,
+          "right": 9.6,
+          "bottom": 4.8,
+          "left": 9.6
+        }
+      },
+      "textLayout": {
+        "lineCount": 4,
+        "lines": [
+          {
+            "index": 1,
+            "text": "A reward that helps rising cases can punish"
+          },
+          {
+            "index": 2,
+            "text": "draining cases, and a reward that keeps"
+          },
+          {
+            "index": 3,
+            "text": "action smooth can make downward"
+          },
+          {
+            "index": 4,
+            "text": "corrections look slow or inactive."
+          }
+        ]
+      },
+      "paragraphs": [
+        {
+          "index": 1,
+          "text": "A reward that helps rising cases can punish draining cases, and a reward that keeps action smooth can make downward corrections look slow or inactive.",
+          "resolvedTextStyle": {
+            "fontSize": 22,
+            "typeface": "Aptos",
+            "color": "#25313D"
+          },
+          "runs": [
+            {
+              "index": 1,
+              "text": "A reward that helps rising cases can punish draining cases, and a reward that keeps action smooth can make downward corrections look slow or inactive.",
+              "fontSize": 22,
+              "typeface": "Aptos",
+              "color": "#25313D"
+            }
+          ],
+          "marginLeft": 0
+        }
+      ],
+      "lineWidth": 0
+    },
+    {
+      "order": 9,
+      "kind": "shape",
+      "scope": "slide",
+      "aid": "sh/m94fu18j",
+      "id": "9",
+      "bbox": [
+        130,
+        545,
+        1010,
+        58
+      ],
+      "geometry": "rect",
+      "text": "This is why random average reward was not enough. Raising, draining, and already-at-reference cases had to be inspected separately.",
+      "textPreview": "This is why random average reward was not enough. Raising, draining, and already-at-reference cases had to be inspected separately.",
+      "resolvedFontSize": 25,
+      "resolvedTextStyle": {
+        "fontSize": 25,
+        "typeface": "Aptos",
+        "color": "#25313D",
+        "bold": true,
+        "alignment": "left",
+        "insets": {
+          "top": 4.8,
+          "right": 9.6,
+          "bottom": 4.8,
+          "left": 9.6
+        }
+      },
+      "textLayout": {
+        "lineCount": 2,
+        "lines": [
+          {
+            "index": 1,
+            "text": "This is why random average reward was not enough. Raising, draining, and already-at-reference"
+          },
+          {
+            "index": 2,
+            "text": "cases had to be inspected separately."
+          }
+        ]
+      },
+      "paragraphs": [
+        {
+          "index": 1,
+          "text": "This is why random average reward was not enough. Raising, draining, and already-at-reference cases had to be inspected separately.",
+          "resolvedTextStyle": {
+            "fontSize": 25,
+            "typeface": "Aptos",
+            "color": "#25313D",
+            "bold": true
+          },
+          "runs": [
+            {
+              "index": 1,
+              "text": "This is why random average reward was not enough. Raising, draining, and already-at-reference cases had to be inspected separately.",
+              "fontSize": 25,
+              "typeface": "Aptos",
+              "color": "#25313D",
+              "bold": true
+            }
+          ],
+          "marginLeft": 0
+        }
+      ],
+      "lineWidth": 0
+    },
+    {
+      "order": 10,
+      "kind": "shape",
+      "scope": "slide",
+      "aid": "sh/sji5snel",
+      "id": "10",
+      "bbox": [
+        64,
+        686,
+        1040,
+        20
+      ],
+      "geometry": "rect",
+      "text": "Sources: RL-Water-Tank exports and evaluation metrics",
+      "textPreview": "Sources: RL-Water-Tank exports and evaluation metrics",
+      "resolvedFontSize": 10,
+      "resolvedTextStyle": {
+        "fontSize": 10,
+        "typeface": "Aptos",
+        "color": "#7B8B99",
+        "alignment": "left",
+        "insets": {
+          "top": 4.8,
+          "right": 9.6,
+          "bottom": 4.8,
+          "left": 9.6
+        }
+      },
+      "textLayout": {
+        "lineCount": 1,
+        "lines": [
+          {
+            "index": 1,
+            "text": "Sources: RL-Water-Tank exports and evaluation metrics"
+          }
+        ]
+      },
+      "paragraphs": [
+        {
+          "index": 1,
+          "text": "Sources: RL-Water-Tank exports and evaluation metrics",
+          "resolvedTextStyle": {
+            "fontSize": 10,
+            "typeface": "Aptos",
+            "color": "#7B8B99"
+          },
+          "runs": [
+            {
+              "index": 1,
+              "text": "Sources: RL-Water-Tank exports and evaluation metrics",
+              "fontSize": 10,
+              "typeface": "Aptos",
+              "color": "#7B8B99"
+            }
+          ],
+          "marginLeft": 0
+        }
+      ],
+      "lineWidth": 0
+    }
+  ],
+  "composeRuns": []
+}

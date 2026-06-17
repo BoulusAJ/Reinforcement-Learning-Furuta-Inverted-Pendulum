@@ -1,0 +1,1127 @@
+{
+  "schema": "openai.presentation.layout/v4",
+  "unit": "px",
+  "slide": {
+    "aid": "sl/m4gbuu",
+    "id": "m4gbuu",
+    "slide": 23,
+    "layoutId": "dbb35aff-b272-42f1-b819-ba0b2fccc1e3",
+    "layoutName": "Title Slide",
+    "layoutType": "title",
+    "masterLayoutId": "f1afd91f-b985-4c40-b965-727d5e9a4eef",
+    "masterLayoutName": "Master",
+    "backgroundColor": "#FFFFFF",
+    "frame": {
+      "left": 0,
+      "top": 0,
+      "width": 1280,
+      "height": 720
+    }
+  },
+  "theme": {
+    "colorSchemeName": "Furuta update",
+    "colors": {
+      "accent1": "#0B4F6C",
+      "accent2": "#2A9D8F",
+      "accent3": "#F2A541",
+      "accent4": "#D1495B",
+      "bg1": "#FFFFFF",
+      "bg2": "#F5F8FB",
+      "tx1": "#25313D",
+      "tx2": "#596B7A",
+      "dk1": "#000000",
+      "dk2": "#25313D",
+      "lt1": "#FFFFFF",
+      "lt2": "#E8EDF2",
+      "hlink": "#0B4F6C",
+      "folHlink": "#2A9D8F"
+    },
+    "typefaces": [
+      "Aptos"
+    ]
+  },
+  "inheritedLayers": [
+    {
+      "scope": "layout",
+      "id": "dbb35aff-b272-42f1-b819-ba0b2fccc1e3",
+      "name": "Title Slide",
+      "type": "title",
+      "parentLayoutId": "f1afd91f-b985-4c40-b965-727d5e9a4eef",
+      "elements": []
+    },
+    {
+      "scope": "master",
+      "id": "f1afd91f-b985-4c40-b965-727d5e9a4eef",
+      "name": "Master",
+      "type": "master",
+      "elements": []
+    }
+  ],
+  "elements": [
+    {
+      "order": 1,
+      "kind": "shape",
+      "scope": "slide",
+      "aid": "sh/w3m94fu1",
+      "id": "1",
+      "bbox": [
+        64,
+        42,
+        680,
+        24
+      ],
+      "geometry": "rect",
+      "text": "FURUTA RL UPDATE | 2026-06-17",
+      "textPreview": "FURUTA RL UPDATE | 2026-06-17",
+      "resolvedFontSize": 12,
+      "resolvedTextStyle": {
+        "fontSize": 12,
+        "typeface": "Aptos",
+        "color": "#596B7A",
+        "bold": true,
+        "alignment": "left",
+        "insets": {
+          "top": 4.8,
+          "right": 9.6,
+          "bottom": 4.8,
+          "left": 9.6
+        }
+      },
+      "textLayout": {
+        "lineCount": 1,
+        "lines": [
+          {
+            "index": 1,
+            "text": "FURUTA RL UPDATE | 2026-06-17"
+          }
+        ]
+      },
+      "paragraphs": [
+        {
+          "index": 1,
+          "text": "FURUTA RL UPDATE | 2026-06-17",
+          "resolvedTextStyle": {
+            "fontSize": 12,
+            "typeface": "Aptos",
+            "color": "#596B7A",
+            "bold": true
+          },
+          "runs": [
+            {
+              "index": 1,
+              "text": "FURUTA RL UPDATE | 2026-06-17",
+              "fontSize": 12,
+              "typeface": "Aptos",
+              "color": "#596B7A",
+              "bold": true
+            }
+          ],
+          "marginLeft": 0
+        }
+      ],
+      "lineWidth": 0
+    },
+    {
+      "order": 2,
+      "kind": "shape",
+      "scope": "slide",
+      "aid": "sh/3itgfmlk",
+      "id": "2",
+      "bbox": [
+        64,
+        74,
+        1040,
+        82
+      ],
+      "geometry": "rect",
+      "text": "PI/current rerun: analytical reproduces, Simscape collapses",
+      "textPreview": "PI/current rerun: analytical reproduces, Simscape collapses",
+      "resolvedFontSize": 36,
+      "resolvedTextStyle": {
+        "fontSize": 36,
+        "typeface": "Aptos",
+        "color": "#25313D",
+        "bold": true,
+        "alignment": "left",
+        "insets": {
+          "top": 4.8,
+          "right": 9.6,
+          "bottom": 4.8,
+          "left": 9.6
+        }
+      },
+      "textLayout": {
+        "lineCount": 1,
+        "lines": [
+          {
+            "index": 1,
+            "text": "PI/current rerun: analytical reproduces, Simscape collapses"
+          }
+        ]
+      },
+      "paragraphs": [
+        {
+          "index": 1,
+          "text": "PI/current rerun: analytical reproduces, Simscape collapses",
+          "resolvedTextStyle": {
+            "fontSize": 36,
+            "typeface": "Aptos",
+            "color": "#25313D",
+            "bold": true
+          },
+          "runs": [
+            {
+              "index": 1,
+              "text": "PI/current rerun: analytical reproduces, Simscape collapses",
+              "fontSize": 36,
+              "typeface": "Aptos",
+              "color": "#25313D",
+              "bold": true
+            }
+          ],
+          "marginLeft": 0
+        }
+      ],
+      "lineWidth": 0
+    },
+    {
+      "order": 3,
+      "kind": "shape",
+      "scope": "slide",
+      "aid": "sh/ex0nuxc3",
+      "id": "3",
+      "bbox": [
+        130,
+        210,
+        240,
+        28
+      ],
+      "geometry": "rect",
+      "text": "Feedback plant",
+      "textPreview": "Feedback plant",
+      "resolvedFontSize": 20,
+      "resolvedTextStyle": {
+        "fontSize": 20,
+        "typeface": "Aptos",
+        "color": "#596B7A",
+        "bold": true,
+        "alignment": "left",
+        "insets": {
+          "top": 4.8,
+          "right": 9.6,
+          "bottom": 4.8,
+          "left": 9.6
+        }
+      },
+      "textLayout": {
+        "lineCount": 1,
+        "lines": [
+          {
+            "index": 1,
+            "text": "Feedback plant"
+          }
+        ]
+      },
+      "paragraphs": [
+        {
+          "index": 1,
+          "text": "Feedback plant",
+          "resolvedTextStyle": {
+            "fontSize": 20,
+            "typeface": "Aptos",
+            "color": "#596B7A",
+            "bold": true
+          },
+          "runs": [
+            {
+              "index": 1,
+              "text": "Feedback plant",
+              "fontSize": 20,
+              "typeface": "Aptos",
+              "color": "#596B7A",
+              "bold": true
+            }
+          ],
+          "marginLeft": 0
+        }
+      ],
+      "lineWidth": 0
+    },
+    {
+      "order": 4,
+      "kind": "shape",
+      "scope": "slide",
+      "aid": "sh/lwval87e",
+      "id": "4",
+      "bbox": [
+        510,
+        210,
+        220,
+        28
+      ],
+      "geometry": "rect",
+      "text": "Failure rate",
+      "textPreview": "Failure rate",
+      "resolvedFontSize": 20,
+      "resolvedTextStyle": {
+        "fontSize": 20,
+        "typeface": "Aptos",
+        "color": "#596B7A",
+        "bold": true,
+        "alignment": "left",
+        "insets": {
+          "top": 4.8,
+          "right": 9.6,
+          "bottom": 4.8,
+          "left": 9.6
+        }
+      },
+      "textLayout": {
+        "lineCount": 1,
+        "lines": [
+          {
+            "index": 1,
+            "text": "Failure rate"
+          }
+        ]
+      },
+      "paragraphs": [
+        {
+          "index": 1,
+          "text": "Failure rate",
+          "resolvedTextStyle": {
+            "fontSize": 20,
+            "typeface": "Aptos",
+            "color": "#596B7A",
+            "bold": true
+          },
+          "runs": [
+            {
+              "index": 1,
+              "text": "Failure rate",
+              "fontSize": 20,
+              "typeface": "Aptos",
+              "color": "#596B7A",
+              "bold": true
+            }
+          ],
+          "marginLeft": 0
+        }
+      ],
+      "lineWidth": 0
+    },
+    {
+      "order": 5,
+      "kind": "shape",
+      "scope": "slide",
+      "aid": "sh/wb2hwfyx",
+      "id": "5",
+      "bbox": [
+        840,
+        210,
+        220,
+        28
+      ],
+      "geometry": "rect",
+      "text": "Failures",
+      "textPreview": "Failures",
+      "resolvedFontSize": 20,
+      "resolvedTextStyle": {
+        "fontSize": 20,
+        "typeface": "Aptos",
+        "color": "#596B7A",
+        "bold": true,
+        "alignment": "left",
+        "insets": {
+          "top": 4.8,
+          "right": 9.6,
+          "bottom": 4.8,
+          "left": 9.6
+        }
+      },
+      "textLayout": {
+        "lineCount": 1,
+        "lines": [
+          {
+            "index": 1,
+            "text": "Failures"
+          }
+        ]
+      },
+      "paragraphs": [
+        {
+          "index": 1,
+          "text": "Failures",
+          "resolvedTextStyle": {
+            "fontSize": 20,
+            "typeface": "Aptos",
+            "color": "#596B7A",
+            "bold": true
+          },
+          "runs": [
+            {
+              "index": 1,
+              "text": "Failures",
+              "fontSize": 20,
+              "typeface": "Aptos",
+              "color": "#596B7A",
+              "bold": true
+            }
+          ],
+          "marginLeft": 0
+        }
+      ],
+      "lineWidth": 0
+    },
+    {
+      "order": 6,
+      "kind": "shape",
+      "scope": "slide",
+      "aid": "sh/3q5o7qpg",
+      "id": "6",
+      "bbox": [
+        100,
+        260,
+        300,
+        85
+      ],
+      "geometry": "roundRect",
+      "fillColor": "#F5F8FB",
+      "lineColor": "#D5DDE5",
+      "lineWidth": 1
+    },
+    {
+      "order": 7,
+      "kind": "shape",
+      "scope": "slide",
+      "aid": "sh/e9cvixcz",
+      "id": "7",
+      "bbox": [
+        470,
+        260,
+        260,
+        85
+      ],
+      "geometry": "roundRect",
+      "fillColor": "#E8F4F2",
+      "lineColor": "#B7D8D3",
+      "lineWidth": 1
+    },
+    {
+      "order": 8,
+      "kind": "shape",
+      "scope": "slide",
+      "aid": "sh/l87ed8ba",
+      "id": "8",
+      "bbox": [
+        810,
+        260,
+        260,
+        85
+      ],
+      "geometry": "roundRect",
+      "fillColor": "#FFF8EB",
+      "lineColor": "#ECD49D",
+      "lineWidth": 1
+    },
+    {
+      "order": 9,
+      "kind": "shape",
+      "scope": "slide",
+      "aid": "sh/sneloj2t",
+      "id": "9",
+      "bbox": [
+        126,
+        285,
+        240,
+        30
+      ],
+      "geometry": "rect",
+      "text": "Analytical-active",
+      "textPreview": "Analytical-active",
+      "resolvedFontSize": 22,
+      "resolvedTextStyle": {
+        "fontSize": 22,
+        "typeface": "Aptos",
+        "color": "#25313D",
+        "bold": true,
+        "alignment": "left",
+        "insets": {
+          "top": 4.8,
+          "right": 9.6,
+          "bottom": 4.8,
+          "left": 9.6
+        }
+      },
+      "textLayout": {
+        "lineCount": 1,
+        "lines": [
+          {
+            "index": 1,
+            "text": "Analytical-active"
+          }
+        ]
+      },
+      "paragraphs": [
+        {
+          "index": 1,
+          "text": "Analytical-active",
+          "resolvedTextStyle": {
+            "fontSize": 22,
+            "typeface": "Aptos",
+            "color": "#25313D",
+            "bold": true
+          },
+          "runs": [
+            {
+              "index": 1,
+              "text": "Analytical-active",
+              "fontSize": 22,
+              "typeface": "Aptos",
+              "color": "#25313D",
+              "bold": true
+            }
+          ],
+          "marginLeft": 0
+        }
+      ],
+      "lineWidth": 0
+    },
+    {
+      "order": 10,
+      "kind": "shape",
+      "scope": "slide",
+      "aid": "sh/qd4vmtwr",
+      "id": "10",
+      "bbox": [
+        492,
+        285,
+        220,
+        30
+      ],
+      "geometry": "rect",
+      "text": "14.48% failure",
+      "textPreview": "14.48% failure",
+      "resolvedFontSize": 20,
+      "resolvedTextStyle": {
+        "fontSize": 20,
+        "typeface": "Aptos",
+        "color": "#25313D",
+        "alignment": "left",
+        "insets": {
+          "top": 4.8,
+          "right": 9.6,
+          "bottom": 4.8,
+          "left": 9.6
+        }
+      },
+      "textLayout": {
+        "lineCount": 1,
+        "lines": [
+          {
+            "index": 1,
+            "text": "14.48% failure"
+          }
+        ]
+      },
+      "paragraphs": [
+        {
+          "index": 1,
+          "text": "14.48% failure",
+          "resolvedTextStyle": {
+            "fontSize": 20,
+            "typeface": "Aptos",
+            "color": "#25313D"
+          },
+          "runs": [
+            {
+              "index": 1,
+              "text": "14.48% failure",
+              "fontSize": 20,
+              "typeface": "Aptos",
+              "color": "#25313D"
+            }
+          ],
+          "marginLeft": 0
+        }
+      ],
+      "lineWidth": 0
+    },
+    {
+      "order": 11,
+      "kind": "shape",
+      "scope": "slide",
+      "aid": "sh/fyxobm58",
+      "id": "11",
+      "bbox": [
+        832,
+        285,
+        220,
+        30
+      ],
+      "geometry": "rect",
+      "text": "43/297 cases",
+      "textPreview": "43/297 cases",
+      "resolvedFontSize": 20,
+      "resolvedTextStyle": {
+        "fontSize": 20,
+        "typeface": "Aptos",
+        "color": "#25313D",
+        "alignment": "left",
+        "insets": {
+          "top": 4.8,
+          "right": 9.6,
+          "bottom": 4.8,
+          "left": 9.6
+        }
+      },
+      "textLayout": {
+        "lineCount": 1,
+        "lines": [
+          {
+            "index": 1,
+            "text": "43/297 cases"
+          }
+        ]
+      },
+      "paragraphs": [
+        {
+          "index": 1,
+          "text": "43/297 cases",
+          "resolvedTextStyle": {
+            "fontSize": 20,
+            "typeface": "Aptos",
+            "color": "#25313D"
+          },
+          "runs": [
+            {
+              "index": 1,
+              "text": "43/297 cases",
+              "fontSize": 20,
+              "typeface": "Aptos",
+              "color": "#25313D"
+            }
+          ],
+          "marginLeft": 0
+        }
+      ],
+      "lineWidth": 0
+    },
+    {
+      "order": 12,
+      "kind": "shape",
+      "scope": "slide",
+      "aid": "sh/8jqh0fep",
+      "id": "12",
+      "bbox": [
+        100,
+        390,
+        300,
+        85
+      ],
+      "geometry": "roundRect",
+      "fillColor": "#F5F8FB",
+      "lineColor": "#D5DDE5",
+      "lineWidth": 1
+    },
+    {
+      "order": 13,
+      "kind": "shape",
+      "scope": "slide",
+      "aid": "sh/x4nap4r6",
+      "id": "13",
+      "bbox": [
+        470,
+        390,
+        260,
+        85
+      ],
+      "geometry": "roundRect",
+      "fillColor": "#E8F4F2",
+      "lineColor": "#B7D8D3",
+      "lineWidth": 1
+    },
+    {
+      "order": 14,
+      "kind": "shape",
+      "scope": "slide",
+      "aid": "sh/qpg3ex0n",
+      "id": "14",
+      "bbox": [
+        810,
+        390,
+        260,
+        85
+      ],
+      "geometry": "roundRect",
+      "fillColor": "#FFF8EB",
+      "lineColor": "#ECD49D",
+      "lineWidth": 1
+    },
+    {
+      "order": 15,
+      "kind": "shape",
+      "scope": "slide",
+      "aid": "sh/fa9w3m94",
+      "id": "15",
+      "bbox": [
+        126,
+        415,
+        240,
+        30
+      ],
+      "geometry": "rect",
+      "text": "Simscape-active",
+      "textPreview": "Simscape-active",
+      "resolvedFontSize": 22,
+      "resolvedTextStyle": {
+        "fontSize": 22,
+        "typeface": "Aptos",
+        "color": "#25313D",
+        "bold": true,
+        "alignment": "left",
+        "insets": {
+          "top": 4.8,
+          "right": 9.6,
+          "bottom": 4.8,
+          "left": 9.6
+        }
+      },
+      "textLayout": {
+        "lineCount": 1,
+        "lines": [
+          {
+            "index": 1,
+            "text": "Simscape-active"
+          }
+        ]
+      },
+      "paragraphs": [
+        {
+          "index": 1,
+          "text": "Simscape-active",
+          "resolvedTextStyle": {
+            "fontSize": 22,
+            "typeface": "Aptos",
+            "color": "#25313D",
+            "bold": true
+          },
+          "runs": [
+            {
+              "index": 1,
+              "text": "Simscape-active",
+              "fontSize": 22,
+              "typeface": "Aptos",
+              "color": "#25313D",
+              "bold": true
+            }
+          ],
+          "marginLeft": 0
+        }
+      ],
+      "lineWidth": 0
+    },
+    {
+      "order": 16,
+      "kind": "shape",
+      "scope": "slide",
+      "aid": "sh/8v6psfil",
+      "id": "16",
+      "bbox": [
+        492,
+        415,
+        220,
+        30
+      ],
+      "geometry": "rect",
+      "text": "86.53% failure",
+      "textPreview": "86.53% failure",
+      "resolvedFontSize": 20,
+      "resolvedTextStyle": {
+        "fontSize": 20,
+        "typeface": "Aptos",
+        "color": "#25313D",
+        "alignment": "left",
+        "insets": {
+          "top": 4.8,
+          "right": 9.6,
+          "bottom": 4.8,
+          "left": 9.6
+        }
+      },
+      "textLayout": {
+        "lineCount": 1,
+        "lines": [
+          {
+            "index": 1,
+            "text": "86.53% failure"
+          }
+        ]
+      },
+      "paragraphs": [
+        {
+          "index": 1,
+          "text": "86.53% failure",
+          "resolvedTextStyle": {
+            "fontSize": 20,
+            "typeface": "Aptos",
+            "color": "#25313D"
+          },
+          "runs": [
+            {
+              "index": 1,
+              "text": "86.53% failure",
+              "fontSize": 20,
+              "typeface": "Aptos",
+              "color": "#25313D"
+            }
+          ],
+          "marginLeft": 0
+        }
+      ],
+      "lineWidth": 0
+    },
+    {
+      "order": 17,
+      "kind": "shape",
+      "scope": "slide",
+      "aid": "sh/xczed8v6",
+      "id": "17",
+      "bbox": [
+        832,
+        415,
+        220,
+        30
+      ],
+      "geometry": "rect",
+      "text": "257/297 cases",
+      "textPreview": "257/297 cases",
+      "resolvedFontSize": 20,
+      "resolvedTextStyle": {
+        "fontSize": 20,
+        "typeface": "Aptos",
+        "color": "#25313D",
+        "alignment": "left",
+        "insets": {
+          "top": 4.8,
+          "right": 9.6,
+          "bottom": 4.8,
+          "left": 9.6
+        }
+      },
+      "textLayout": {
+        "lineCount": 1,
+        "lines": [
+          {
+            "index": 1,
+            "text": "257/297 cases"
+          }
+        ]
+      },
+      "paragraphs": [
+        {
+          "index": 1,
+          "text": "257/297 cases",
+          "resolvedTextStyle": {
+            "fontSize": 20,
+            "typeface": "Aptos",
+            "color": "#25313D"
+          },
+          "runs": [
+            {
+              "index": 1,
+              "text": "257/297 cases",
+              "fontSize": 20,
+              "typeface": "Aptos",
+              "color": "#25313D"
+            }
+          ],
+          "marginLeft": 0
+        }
+      ],
+      "lineWidth": 0
+    },
+    {
+      "order": 18,
+      "kind": "shape",
+      "scope": "slide",
+      "aid": "sh/qtcj6tov",
+      "id": "18",
+      "bbox": [
+        120,
+        543,
+        8,
+        8
+      ],
+      "geometry": "ellipse",
+      "fillColor": "#2A9D8F",
+      "lineColor": "#2A9D8F",
+      "lineWidth": 0
+    },
+    {
+      "order": 19,
+      "kind": "shape",
+      "scope": "slide",
+      "aid": "sh/je9cvixc",
+      "id": "19",
+      "bbox": [
+        142,
+        535,
+        990,
+        56
+      ],
+      "geometry": "rect",
+      "text": "The old PI/current result was effectively analytical-active; the explicit rerun reproduced it exactly.",
+      "textPreview": "The old PI/current result was effectively analytical-active; the explicit rerun reproduced it exactly.",
+      "resolvedFontSize": 21,
+      "resolvedTextStyle": {
+        "fontSize": 21,
+        "typeface": "Aptos",
+        "color": "#25313D",
+        "alignment": "left",
+        "insets": {
+          "top": 4.8,
+          "right": 9.6,
+          "bottom": 4.8,
+          "left": 9.6
+        }
+      },
+      "textLayout": {
+        "lineCount": 1,
+        "lines": [
+          {
+            "index": 1,
+            "text": "The old PI/current result was effectively analytical-active; the explicit rerun reproduced it exactly."
+          }
+        ]
+      },
+      "paragraphs": [
+        {
+          "index": 1,
+          "text": "The old PI/current result was effectively analytical-active; the explicit rerun reproduced it exactly.",
+          "resolvedTextStyle": {
+            "fontSize": 21,
+            "typeface": "Aptos",
+            "color": "#25313D"
+          },
+          "runs": [
+            {
+              "index": 1,
+              "text": "The old PI/current result was effectively analytical-active; the explicit rerun reproduced it exactly.",
+              "fontSize": 21,
+              "typeface": "Aptos",
+              "color": "#25313D"
+            }
+          ],
+          "marginLeft": 0
+        }
+      ],
+      "lineWidth": 0
+    },
+    {
+      "order": 20,
+      "kind": "shape",
+      "scope": "slide",
+      "aid": "sh/rqd4vmtw",
+      "id": "20",
+      "bbox": [
+        120,
+        593,
+        8,
+        8
+      ],
+      "geometry": "ellipse",
+      "fillColor": "#2A9D8F",
+      "lineColor": "#2A9D8F",
+      "lineWidth": 0
+    },
+    {
+      "order": 21,
+      "kind": "shape",
+      "scope": "slide",
+      "aid": "sh/25kb6xkf",
+      "id": "21",
+      "bbox": [
+        142,
+        585,
+        990,
+        56
+      ],
+      "geometry": "rect",
+      "text": "The smaller Simscape mean final theta2 MAE is misleading because most hard cases fail. Lead with failure rate and breakdown.",
+      "textPreview": "The smaller Simscape mean final theta2 MAE is misleading because most hard cases fail. Lead with failure rate and breakdown.",
+      "resolvedFontSize": 21,
+      "resolvedTextStyle": {
+        "fontSize": 21,
+        "typeface": "Aptos",
+        "color": "#25313D",
+        "alignment": "left",
+        "insets": {
+          "top": 4.8,
+          "right": 9.6,
+          "bottom": 4.8,
+          "left": 9.6
+        }
+      },
+      "textLayout": {
+        "lineCount": 2,
+        "lines": [
+          {
+            "index": 1,
+            "text": "The smaller Simscape mean final theta2 MAE is misleading because most hard cases fail. Lead with failure rate"
+          },
+          {
+            "index": 2,
+            "text": "and breakdown."
+          }
+        ]
+      },
+      "paragraphs": [
+        {
+          "index": 1,
+          "text": "The smaller Simscape mean final theta2 MAE is misleading because most hard cases fail. Lead with failure rate and breakdown.",
+          "resolvedTextStyle": {
+            "fontSize": 21,
+            "typeface": "Aptos",
+            "color": "#25313D"
+          },
+          "runs": [
+            {
+              "index": 1,
+              "text": "The smaller Simscape mean final theta2 MAE is misleading because most hard cases fail. Lead with failure rate and breakdown.",
+              "fontSize": 21,
+              "typeface": "Aptos",
+              "color": "#25313D"
+            }
+          ],
+          "marginLeft": 0
+        }
+      ],
+      "lineWidth": 0
+    },
+    {
+      "order": 22,
+      "kind": "shape",
+      "scope": "slide",
+      "aid": "sh/9w3m94fu",
+      "id": "22",
+      "bbox": [
+        120,
+        648,
+        980,
+        34
+      ],
+      "geometry": "rect",
+      "text": "Hardware note: this argues for plant/interface validation before hardware-oriented claims.",
+      "textPreview": "Hardware note: this argues for plant/interface validation before hardware-oriented claims.",
+      "resolvedFontSize": 22,
+      "resolvedTextStyle": {
+        "fontSize": 22,
+        "typeface": "Aptos",
+        "color": "#D1495B",
+        "bold": true,
+        "alignment": "left",
+        "insets": {
+          "top": 4.8,
+          "right": 9.6,
+          "bottom": 4.8,
+          "left": 9.6
+        }
+      },
+      "textLayout": {
+        "lineCount": 1,
+        "lines": [
+          {
+            "index": 1,
+            "text": "Hardware note: this argues for plant/interface validation before hardware-oriented claims."
+          }
+        ]
+      },
+      "paragraphs": [
+        {
+          "index": 1,
+          "text": "Hardware note: this argues for plant/interface validation before hardware-oriented claims.",
+          "resolvedTextStyle": {
+            "fontSize": 22,
+            "typeface": "Aptos",
+            "color": "#D1495B",
+            "bold": true
+          },
+          "runs": [
+            {
+              "index": 1,
+              "text": "Hardware note: this argues for plant/interface validation before hardware-oriented claims.",
+              "fontSize": 22,
+              "typeface": "Aptos",
+              "color": "#D1495B",
+              "bold": true
+            }
+          ],
+          "marginLeft": 0
+        }
+      ],
+      "lineWidth": 0
+    },
+    {
+      "order": 23,
+      "kind": "shape",
+      "scope": "slide",
+      "aid": "sh/kb6xkf6d",
+      "id": "23",
+      "bbox": [
+        64,
+        686,
+        1040,
+        20
+      ],
+      "geometry": "rect",
+      "text": "Sources: pi_current_analytical_active/full_final_summary.csv; pi_current_simscape_active/full_final_summary.csv",
+      "textPreview": "Sources: pi_current_analytical_active/full_final_summary.csv; pi_current_simscape_active/full_final_summary.csv",
+      "resolvedFontSize": 10,
+      "resolvedTextStyle": {
+        "fontSize": 10,
+        "typeface": "Aptos",
+        "color": "#7B8B99",
+        "alignment": "left",
+        "insets": {
+          "top": 4.8,
+          "right": 9.6,
+          "bottom": 4.8,
+          "left": 9.6
+        }
+      },
+      "textLayout": {
+        "lineCount": 1,
+        "lines": [
+          {
+            "index": 1,
+            "text": "Sources: pi_current_analytical_active/full_final_summary.csv; pi_current_simscape_active/full_final_summary.csv"
+          }
+        ]
+      },
+      "paragraphs": [
+        {
+          "index": 1,
+          "text": "Sources: pi_current_analytical_active/full_final_summary.csv; pi_current_simscape_active/full_final_summary.csv",
+          "resolvedTextStyle": {
+            "fontSize": 10,
+            "typeface": "Aptos",
+            "color": "#7B8B99"
+          },
+          "runs": [
+            {
+              "index": 1,
+              "text": "Sources: pi_current_analytical_active/full_final_summary.csv; pi_current_simscape_active/full_final_summary.csv",
+              "fontSize": 10,
+              "typeface": "Aptos",
+              "color": "#7B8B99"
+            }
+          ],
+          "marginLeft": 0
+        }
+      ],
+      "lineWidth": 0
+    }
+  ],
+  "composeRuns": []
+}

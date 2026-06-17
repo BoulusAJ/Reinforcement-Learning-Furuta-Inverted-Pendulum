@@ -299,9 +299,168 @@ run("scripts/trainFurutaDirectTD3MathWorksStyleVoltage.m")
 The voltage config currently assumes separate Simulink model names:
 
 ```matlab
-TrainingName   = "inv_rot_pen_RL_cntr_simscape_sim_voltage_train"
-EvaluationName = "inv_rot_pen_RL_cntr_simscape_sim_voltage"
+TrainingName   = "inv_rot_pen_RL_cntr_simscape_sim_train_2"
+EvaluationName = "inv_rot_pen_RL_cntr_simscape_sim_2"
 ```
 
-Update `makeFurutaMathWorksStyleVoltageTD3Config` or pass override options once
-the voltage-model filenames and RL Agent block paths are finalized.
+Pass override options to `makeFurutaMathWorksStyleVoltageTD3Config` only if a
+future voltage-model copy uses different filenames or RL Agent block paths.
+
+## Voltage Run: Plant Model Evaluation Split
+
+Run folder:
+
+```text
+results/TD3/run_20260616_233822_td3_mathworks_style_voltage
+```
+
+Training completed all `3000/3000` episodes. The final training episodes were
+mostly full length and high reward, but there were still occasional collapses:
+
+```text
+Episode 2991: reward 7.35, steps 21
+Episode 2995: reward 4.30, steps 16
+Episode 3000: reward 771.39, steps 1000
+Final average reward = 629.95
+```
+
+The first post-training evaluation failed during metrics extraction because
+the voltage model logs `voltage_command` instead of `current_command`. The
+signal extractor was updated to treat either signal as the generic actuator
+command and to tolerate missing current-controller-specific logs.
+
+Two evaluations were then preserved from the same saved `Agent3000.mat`:
+
+```text
+short_simscape_model_active_*.csv
+full_simscape_model_active_*.csv
+
+short_final_*.csv
+full_final_*.csv
+```
+
+The `simscape_model_active` files correspond to the evaluation model while the
+Simscape Multibody model was active. The `final` files correspond to the
+evaluation model after switching back to the analytical plant model, matching
+the plant used during training.
+
+Summary:
+
+```text
+Simscape-active short eval:
+  NumCases = 7
+  FailureRate = 0
+  MeanFinalTheta2MAE = 0.01393 rad = 0.798 deg
+
+Analytical-active short eval:
+  NumCases = 7
+  FailureRate = 0
+  MeanFinalTheta2MAE = 2.11e-8 rad
+
+Simscape-active full eval:
+  NumCases = 297
+  FailureRate = 88.55%
+  MeanFinalTheta2MAE = 0.5619 rad = 32.19 deg
+  MeanCaseCost = 886.01
+
+Analytical-active full eval:
+  NumCases = 297
+  FailureRate = 21.21%
+  MeanFinalTheta2MAE = 0.3751 rad = 21.49 deg
+  MeanCaseCost = 214.73
+```
+
+The large change confirms that the voltage-run evaluation was highly sensitive
+to which plant implementation was active. Since the agent was trained on the
+analytical model, the analytical model should be used for policy feedback and
+for the main apples-to-apples evaluation unless the agent is explicitly trained
+against the Simscape-active plant.
+
+Manual observations from the analytical-active voltage evaluation:
+
+- Near `theta0 = [0; 0]` and `theta0 = [0; pi]`, the final upright pendulum
+  oscillation is nearly absent compared with the current-controller run.
+- The early swing-up action still contains oscillatory content, so that early
+  chatter is not explained solely by the PI current controller.
+- With the Simscape model active, odd end oscillations and plant divergence
+  were observed after about `2.8 s`, even though the analytical and Simscape
+  trajectories matched before that in earlier open-loop checks.
+
+Interpretation:
+
+- The current-controller/PI path still looks better than direct voltage when
+  judged by broad automated robustness, because run 2 with the PI/current path
+  had a lower full-grid failure rate (`14.48%`) than the analytical-active
+  voltage run (`21.21%`).
+- That statement should be treated as provisional. The voltage run also exposed
+  a plant-selection confound, and the comparison is not purely actuator
+  interface versus actuator interface unless both are evaluated against the
+  same active plant model and logging assumptions.
+- The voltage run is promising for reducing final upright theta2 oscillation,
+  but it did not clearly improve broad robustness.
+
+Practical lesson:
+
+```text
+Train and evaluate with the same plant as the feedback source.
+Use Simscape visualization as a diagnostic unless the policy is trained against
+that active dynamics path.
+```
+
+## Recommended Next Decision Gate
+
+Before choosing the voltage command path or the torque/current command path for
+hardware-oriented work, run a dry-run comparison matrix with saved agents and no
+learning:
+
+```text
+A) PI/current-path TD3 run 2 agent
+   - evaluate on analytical-active model
+   - evaluate on Simscape-active model
+
+B) Direct-voltage TD3 agent
+   - evaluate on analytical-active model
+   - evaluate on Simscape-active model
+```
+
+For each case, compare:
+
+```text
+- short fixed evaluation summary
+- full fixed evaluation summary
+- final theta2 oscillation amplitude and frequency
+- theta1 offset and arm-limit margin
+- action chatter frequency
+- current, voltage, and torque saturation
+- analytical-vs-Simscape trajectory divergence time
+```
+
+This matrix separates three questions that are currently partly tangled:
+
+```text
+1. Does the trained policy behave similarly on analytical and Simscape dynamics?
+2. Are the upright oscillations caused by the actuator path, policy/reward, or
+   plant mismatch?
+3. Which command interface is safer and more transferable for hardware?
+```
+
+Expected interpretation:
+
+```text
+If PI/current matches Simscape better and remains more robust:
+    keep PI/current as the main controller path.
+
+If voltage removes final upright oscillation but remains less robust:
+    use voltage as a diagnostic result, not yet as the main hardware path.
+
+If both policies diverge badly when Simscape is active:
+    prioritize resolving model mismatch before actuator-interface decisions.
+
+If both policies are stable only in easy dry runs:
+    hardware testing should use a narrow safety gate and no online RL learning.
+```
+
+Do not continue TD3 learning on hardware yet. The next hardware step, if any,
+should be policy-only dry runs with safety fallback and full logging. Online
+hardware fine-tuning should only be considered after a conservative supervisor
+and actuator/state limits are defined.

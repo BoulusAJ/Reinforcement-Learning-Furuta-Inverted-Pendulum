@@ -1,0 +1,908 @@
+{
+  "schema": "openai.presentation.layout/v4",
+  "unit": "px",
+  "slide": {
+    "aid": "sl/gy1w6a",
+    "id": "gy1w6a",
+    "slide": 2,
+    "layoutId": "dbb35aff-b272-42f1-b819-ba0b2fccc1e3",
+    "layoutName": "Title Slide",
+    "layoutType": "title",
+    "masterLayoutId": "f1afd91f-b985-4c40-b965-727d5e9a4eef",
+    "masterLayoutName": "Master",
+    "backgroundColor": "#FFFFFF",
+    "frame": {
+      "left": 0,
+      "top": 0,
+      "width": 1280,
+      "height": 720
+    }
+  },
+  "theme": {
+    "colorSchemeName": "Furuta update",
+    "colors": {
+      "accent1": "#0B4F6C",
+      "accent2": "#2A9D8F",
+      "accent3": "#F2A541",
+      "accent4": "#D1495B",
+      "bg1": "#FFFFFF",
+      "bg2": "#F5F8FB",
+      "tx1": "#25313D",
+      "tx2": "#596B7A",
+      "dk1": "#000000",
+      "dk2": "#25313D",
+      "lt1": "#FFFFFF",
+      "lt2": "#E8EDF2",
+      "hlink": "#0B4F6C",
+      "folHlink": "#2A9D8F"
+    },
+    "typefaces": [
+      "Aptos"
+    ]
+  },
+  "inheritedLayers": [
+    {
+      "scope": "layout",
+      "id": "dbb35aff-b272-42f1-b819-ba0b2fccc1e3",
+      "name": "Title Slide",
+      "type": "title",
+      "parentLayoutId": "f1afd91f-b985-4c40-b965-727d5e9a4eef",
+      "elements": []
+    },
+    {
+      "scope": "master",
+      "id": "f1afd91f-b985-4c40-b965-727d5e9a4eef",
+      "name": "Master",
+      "type": "master",
+      "elements": []
+    }
+  ],
+  "elements": [
+    {
+      "order": 1,
+      "kind": "shape",
+      "scope": "slide",
+      "aid": "sh/hoza1gvy",
+      "id": "1",
+      "bbox": [
+        64,
+        42,
+        680,
+        24
+      ],
+      "geometry": "rect",
+      "text": "FURUTA RL UPDATE | 2026-06-17",
+      "textPreview": "FURUTA RL UPDATE | 2026-06-17",
+      "resolvedFontSize": 12,
+      "resolvedTextStyle": {
+        "fontSize": 12,
+        "typeface": "Aptos",
+        "color": "#596B7A",
+        "bold": true,
+        "alignment": "left",
+        "insets": {
+          "top": 4.8,
+          "right": 9.6,
+          "bottom": 4.8,
+          "left": 9.6
+        }
+      },
+      "textLayout": {
+        "lineCount": 1,
+        "lines": [
+          {
+            "index": 1,
+            "text": "FURUTA RL UPDATE | 2026-06-17"
+          }
+        ]
+      },
+      "paragraphs": [
+        {
+          "index": 1,
+          "text": "FURUTA RL UPDATE | 2026-06-17",
+          "resolvedTextStyle": {
+            "fontSize": 12,
+            "typeface": "Aptos",
+            "color": "#596B7A",
+            "bold": true
+          },
+          "runs": [
+            {
+              "index": 1,
+              "text": "FURUTA RL UPDATE | 2026-06-17",
+              "fontSize": 12,
+              "typeface": "Aptos",
+              "color": "#596B7A",
+              "bold": true
+            }
+          ],
+          "marginLeft": 0
+        }
+      ],
+      "lineWidth": 0
+    },
+    {
+      "order": 2,
+      "kind": "shape",
+      "scope": "slide",
+      "aid": "sh/a1gvy90j",
+      "id": "2",
+      "bbox": [
+        64,
+        74,
+        1040,
+        82
+      ],
+      "geometry": "rect",
+      "text": "Where we are in the project plan",
+      "textPreview": "Where we are in the project plan",
+      "resolvedFontSize": 36,
+      "resolvedTextStyle": {
+        "fontSize": 36,
+        "typeface": "Aptos",
+        "color": "#25313D",
+        "bold": true,
+        "alignment": "left",
+        "insets": {
+          "top": 4.8,
+          "right": 9.6,
+          "bottom": 4.8,
+          "left": 9.6
+        }
+      },
+      "textLayout": {
+        "lineCount": 1,
+        "lines": [
+          {
+            "index": 1,
+            "text": "Where we are in the project plan"
+          }
+        ]
+      },
+      "paragraphs": [
+        {
+          "index": 1,
+          "text": "Where we are in the project plan",
+          "resolvedTextStyle": {
+            "fontSize": 36,
+            "typeface": "Aptos",
+            "color": "#25313D",
+            "bold": true
+          },
+          "runs": [
+            {
+              "index": 1,
+              "text": "Where we are in the project plan",
+              "fontSize": 36,
+              "typeface": "Aptos",
+              "color": "#25313D",
+              "bold": true
+            }
+          ],
+          "marginLeft": 0
+        }
+      ],
+      "lineWidth": 0
+    },
+    {
+      "order": 3,
+      "kind": "shape",
+      "scope": "slide",
+      "aid": "sh/zidonyd0",
+      "id": "3",
+      "bbox": [
+        86,
+        235,
+        240,
+        220
+      ],
+      "geometry": "roundRect",
+      "fillColor": "#F5F8FB",
+      "lineColor": "#D5DDE5",
+      "lineWidth": 1
+    },
+    {
+      "order": 4,
+      "kind": "shape",
+      "scope": "slide",
+      "aid": "sh/svu9knih",
+      "id": "4",
+      "bbox": [
+        106,
+        260,
+        190,
+        34
+      ],
+      "geometry": "rect",
+      "text": "Days 1-7",
+      "textPreview": "Days 1-7",
+      "resolvedFontSize": 24,
+      "resolvedTextStyle": {
+        "fontSize": 24,
+        "typeface": "Aptos",
+        "color": "#0B4F6C",
+        "bold": true,
+        "alignment": "left",
+        "insets": {
+          "top": 4.8,
+          "right": 9.6,
+          "bottom": 4.8,
+          "left": 9.6
+        }
+      },
+      "textLayout": {
+        "lineCount": 1,
+        "lines": [
+          {
+            "index": 1,
+            "text": "Days 1-7"
+          }
+        ]
+      },
+      "paragraphs": [
+        {
+          "index": 1,
+          "text": "Days 1-7",
+          "resolvedTextStyle": {
+            "fontSize": 24,
+            "typeface": "Aptos",
+            "color": "#0B4F6C",
+            "bold": true
+          },
+          "runs": [
+            {
+              "index": 1,
+              "text": "Days 1-7",
+              "fontSize": 24,
+              "typeface": "Aptos",
+              "color": "#0B4F6C",
+              "bold": true
+            }
+          ],
+          "marginLeft": 0
+        }
+      ],
+      "lineWidth": 0
+    },
+    {
+      "order": 5,
+      "kind": "shape",
+      "scope": "slide",
+      "aid": "sh/hgn29gr2",
+      "id": "5",
+      "bbox": [
+        106,
+        314,
+        200,
+        112
+      ],
+      "geometry": "rect",
+      "text": "Model, signals, simulation setup, baseline context",
+      "textPreview": "Model, signals, simulation setup, baseline context",
+      "resolvedFontSize": 18,
+      "resolvedTextStyle": {
+        "fontSize": 18,
+        "typeface": "Aptos",
+        "color": "#25313D",
+        "alignment": "left",
+        "insets": {
+          "top": 4.8,
+          "right": 9.6,
+          "bottom": 4.8,
+          "left": 9.6
+        }
+      },
+      "textLayout": {
+        "lineCount": 3,
+        "lines": [
+          {
+            "index": 1,
+            "text": "Model, signals,"
+          },
+          {
+            "index": 2,
+            "text": "simulation setup,"
+          },
+          {
+            "index": 3,
+            "text": "baseline context"
+          }
+        ]
+      },
+      "paragraphs": [
+        {
+          "index": 1,
+          "text": "Model, signals, simulation setup, baseline context",
+          "resolvedTextStyle": {
+            "fontSize": 18,
+            "typeface": "Aptos",
+            "color": "#25313D"
+          },
+          "runs": [
+            {
+              "index": 1,
+              "text": "Model, signals, simulation setup, baseline context",
+              "fontSize": 18,
+              "typeface": "Aptos",
+              "color": "#25313D"
+            }
+          ],
+          "marginLeft": 0
+        }
+      ],
+      "lineWidth": 0
+    },
+    {
+      "order": 6,
+      "kind": "shape",
+      "scope": "slide",
+      "aid": "sh/ap4r65wj",
+      "id": "6",
+      "bbox": [
+        378,
+        235,
+        240,
+        220
+      ],
+      "geometry": "roundRect",
+      "fillColor": "#F5F8FB",
+      "lineColor": "#D5DDE5",
+      "lineWidth": 1
+    },
+    {
+      "order": 7,
+      "kind": "shape",
+      "scope": "slide",
+      "aid": "sh/za1gvy90",
+      "id": "7",
+      "bbox": [
+        398,
+        260,
+        190,
+        34
+      ],
+      "geometry": "rect",
+      "text": "Days 8-12",
+      "textPreview": "Days 8-12",
+      "resolvedFontSize": 24,
+      "resolvedTextStyle": {
+        "fontSize": 24,
+        "typeface": "Aptos",
+        "color": "#0B4F6C",
+        "bold": true,
+        "alignment": "left",
+        "insets": {
+          "top": 4.8,
+          "right": 9.6,
+          "bottom": 4.8,
+          "left": 9.6
+        }
+      },
+      "textLayout": {
+        "lineCount": 1,
+        "lines": [
+          {
+            "index": 1,
+            "text": "Days 8-12"
+          }
+        ]
+      },
+      "paragraphs": [
+        {
+          "index": 1,
+          "text": "Days 8-12",
+          "resolvedTextStyle": {
+            "fontSize": 24,
+            "typeface": "Aptos",
+            "color": "#0B4F6C",
+            "bold": true
+          },
+          "runs": [
+            {
+              "index": 1,
+              "text": "Days 8-12",
+              "fontSize": 24,
+              "typeface": "Aptos",
+              "color": "#0B4F6C",
+              "bold": true
+            }
+          ],
+          "marginLeft": 0
+        }
+      ],
+      "lineWidth": 0
+    },
+    {
+      "order": 8,
+      "kind": "shape",
+      "scope": "slide",
+      "aid": "sh/sji5snel",
+      "id": "8",
+      "bbox": [
+        398,
+        314,
+        200,
+        112
+      ],
+      "geometry": "rect",
+      "text": "RL training worked after moving away from the fragile curriculum path",
+      "textPreview": "RL training worked after moving away from the fragile curriculum path",
+      "resolvedFontSize": 18,
+      "resolvedTextStyle": {
+        "fontSize": 18,
+        "typeface": "Aptos",
+        "color": "#25313D",
+        "alignment": "left",
+        "insets": {
+          "top": 4.8,
+          "right": 9.6,
+          "bottom": 4.8,
+          "left": 9.6
+        }
+      },
+      "textLayout": {
+        "lineCount": 3,
+        "lines": [
+          {
+            "index": 1,
+            "text": "RL training worked after"
+          },
+          {
+            "index": 2,
+            "text": "moving away from the"
+          },
+          {
+            "index": 3,
+            "text": "fragile curriculum path"
+          }
+        ]
+      },
+      "paragraphs": [
+        {
+          "index": 1,
+          "text": "RL training worked after moving away from the fragile curriculum path",
+          "resolvedTextStyle": {
+            "fontSize": 18,
+            "typeface": "Aptos",
+            "color": "#25313D"
+          },
+          "runs": [
+            {
+              "index": 1,
+              "text": "RL training worked after moving away from the fragile curriculum path",
+              "fontSize": 18,
+              "typeface": "Aptos",
+              "color": "#25313D"
+            }
+          ],
+          "marginLeft": 0
+        }
+      ],
+      "lineWidth": 0
+    },
+    {
+      "order": 9,
+      "kind": "shape",
+      "scope": "slide",
+      "aid": "sh/h4byhgn2",
+      "id": "9",
+      "bbox": [
+        670,
+        235,
+        240,
+        220
+      ],
+      "geometry": "roundRect",
+      "fillColor": "#E8F4F2",
+      "lineColor": "#2A9D8F",
+      "lineWidth": 1
+    },
+    {
+      "order": 10,
+      "kind": "shape",
+      "scope": "slide",
+      "aid": "sh/p4r65wju",
+      "id": "10",
+      "bbox": [
+        690,
+        260,
+        190,
+        34
+      ],
+      "geometry": "rect",
+      "text": "Days 13-16",
+      "textPreview": "Days 13-16",
+      "resolvedFontSize": 24,
+      "resolvedTextStyle": {
+        "fontSize": 24,
+        "typeface": "Aptos",
+        "color": "#2A9D8F",
+        "bold": true,
+        "alignment": "left",
+        "insets": {
+          "top": 4.8,
+          "right": 9.6,
+          "bottom": 4.8,
+          "left": 9.6
+        }
+      },
+      "textLayout": {
+        "lineCount": 1,
+        "lines": [
+          {
+            "index": 1,
+            "text": "Days 13-16"
+          }
+        ]
+      },
+      "paragraphs": [
+        {
+          "index": 1,
+          "text": "Days 13-16",
+          "resolvedTextStyle": {
+            "fontSize": 24,
+            "typeface": "Aptos",
+            "color": "#2A9D8F",
+            "bold": true
+          },
+          "runs": [
+            {
+              "index": 1,
+              "text": "Days 13-16",
+              "fontSize": 24,
+              "typeface": "Aptos",
+              "color": "#2A9D8F",
+              "bold": true
+            }
+          ],
+          "marginLeft": 0
+        }
+      ],
+      "lineWidth": 0
+    },
+    {
+      "order": 11,
+      "kind": "shape",
+      "scope": "slide",
+      "aid": "sh/wjudg7ad",
+      "id": "11",
+      "bbox": [
+        690,
+        314,
+        200,
+        112
+      ],
+      "geometry": "rect",
+      "text": "Current phase: robustness, fixed evaluation, actuator and plant diagnostics",
+      "textPreview": "Current phase: robustness, fixed evaluation, actuator and plant diagnostics",
+      "resolvedFontSize": 18,
+      "resolvedTextStyle": {
+        "fontSize": 18,
+        "typeface": "Aptos",
+        "color": "#25313D",
+        "alignment": "left",
+        "insets": {
+          "top": 4.8,
+          "right": 9.6,
+          "bottom": 4.8,
+          "left": 9.6
+        }
+      },
+      "textLayout": {
+        "lineCount": 4,
+        "lines": [
+          {
+            "index": 1,
+            "text": "Current phase:"
+          },
+          {
+            "index": 2,
+            "text": "robustness, fixed"
+          },
+          {
+            "index": 3,
+            "text": "evaluation, actuator and"
+          },
+          {
+            "index": 4,
+            "text": "plant diagnostics"
+          }
+        ]
+      },
+      "paragraphs": [
+        {
+          "index": 1,
+          "text": "Current phase: robustness, fixed evaluation, actuator and plant diagnostics",
+          "resolvedTextStyle": {
+            "fontSize": 18,
+            "typeface": "Aptos",
+            "color": "#25313D"
+          },
+          "runs": [
+            {
+              "index": 1,
+              "text": "Current phase: robustness, fixed evaluation, actuator and plant diagnostics",
+              "fontSize": 18,
+              "typeface": "Aptos",
+              "color": "#25313D"
+            }
+          ],
+          "marginLeft": 0
+        }
+      ],
+      "lineWidth": 0
+    },
+    {
+      "order": 12,
+      "kind": "shape",
+      "scope": "slide",
+      "aid": "sh/7y1kre1w",
+      "id": "12",
+      "bbox": [
+        962,
+        235,
+        240,
+        220
+      ],
+      "geometry": "roundRect",
+      "fillColor": "#F5F8FB",
+      "lineColor": "#D5DDE5",
+      "lineWidth": 1
+    },
+    {
+      "order": 13,
+      "kind": "shape",
+      "scope": "slide",
+      "aid": "sh/ed8v6psf",
+      "id": "13",
+      "bbox": [
+        982,
+        260,
+        190,
+        34
+      ],
+      "geometry": "rect",
+      "text": "Days 17-20",
+      "textPreview": "Days 17-20",
+      "resolvedFontSize": 24,
+      "resolvedTextStyle": {
+        "fontSize": 24,
+        "typeface": "Aptos",
+        "color": "#0B4F6C",
+        "bold": true,
+        "alignment": "left",
+        "insets": {
+          "top": 4.8,
+          "right": 9.6,
+          "bottom": 4.8,
+          "left": 9.6
+        }
+      },
+      "textLayout": {
+        "lineCount": 1,
+        "lines": [
+          {
+            "index": 1,
+            "text": "Days 17-20"
+          }
+        ]
+      },
+      "paragraphs": [
+        {
+          "index": 1,
+          "text": "Days 17-20",
+          "resolvedTextStyle": {
+            "fontSize": 24,
+            "typeface": "Aptos",
+            "color": "#0B4F6C",
+            "bold": true
+          },
+          "runs": [
+            {
+              "index": 1,
+              "text": "Days 17-20",
+              "fontSize": 24,
+              "typeface": "Aptos",
+              "color": "#0B4F6C",
+              "bold": true
+            }
+          ],
+          "marginLeft": 0
+        }
+      ],
+      "lineWidth": 0
+    },
+    {
+      "order": 14,
+      "kind": "shape",
+      "scope": "slide",
+      "aid": "sh/pwb2hwfy",
+      "id": "14",
+      "bbox": [
+        982,
+        314,
+        200,
+        112
+      ],
+      "geometry": "rect",
+      "text": "Meeting story, plots, demo choice, hardware dry-run preparation",
+      "textPreview": "Meeting story, plots, demo choice, hardware dry-run preparation",
+      "resolvedFontSize": 18,
+      "resolvedTextStyle": {
+        "fontSize": 18,
+        "typeface": "Aptos",
+        "color": "#25313D",
+        "alignment": "left",
+        "insets": {
+          "top": 4.8,
+          "right": 9.6,
+          "bottom": 4.8,
+          "left": 9.6
+        }
+      },
+      "textLayout": {
+        "lineCount": 3,
+        "lines": [
+          {
+            "index": 1,
+            "text": "Meeting story, plots,"
+          },
+          {
+            "index": 2,
+            "text": "demo choice, hardware"
+          },
+          {
+            "index": 3,
+            "text": "dry-run preparation"
+          }
+        ]
+      },
+      "paragraphs": [
+        {
+          "index": 1,
+          "text": "Meeting story, plots, demo choice, hardware dry-run preparation",
+          "resolvedTextStyle": {
+            "fontSize": 18,
+            "typeface": "Aptos",
+            "color": "#25313D"
+          },
+          "runs": [
+            {
+              "index": 1,
+              "text": "Meeting story, plots, demo choice, hardware dry-run preparation",
+              "fontSize": 18,
+              "typeface": "Aptos",
+              "color": "#25313D"
+            }
+          ],
+          "marginLeft": 0
+        }
+      ],
+      "lineWidth": 0
+    },
+    {
+      "order": 15,
+      "kind": "shape",
+      "scope": "slide",
+      "aid": "sh/0bi9s36h",
+      "id": "15",
+      "bbox": [
+        92,
+        520,
+        980,
+        42
+      ],
+      "geometry": "rect",
+      "text": "Meeting framing: show the controller as useful in simulation, not solved for hardware.",
+      "textPreview": "Meeting framing: show the controller as useful in simulation, not solved for hardware.",
+      "resolvedFontSize": 24,
+      "resolvedTextStyle": {
+        "fontSize": 24,
+        "typeface": "Aptos",
+        "color": "#25313D",
+        "bold": true,
+        "alignment": "left",
+        "insets": {
+          "top": 4.8,
+          "right": 9.6,
+          "bottom": 4.8,
+          "left": 9.6
+        }
+      },
+      "textLayout": {
+        "lineCount": 1,
+        "lines": [
+          {
+            "index": 1,
+            "text": "Meeting framing: show the controller as useful in simulation, not solved for hardware."
+          }
+        ]
+      },
+      "paragraphs": [
+        {
+          "index": 1,
+          "text": "Meeting framing: show the controller as useful in simulation, not solved for hardware.",
+          "resolvedTextStyle": {
+            "fontSize": 24,
+            "typeface": "Aptos",
+            "color": "#25313D",
+            "bold": true
+          },
+          "runs": [
+            {
+              "index": 1,
+              "text": "Meeting framing: show the controller as useful in simulation, not solved for hardware.",
+              "fontSize": 24,
+              "typeface": "Aptos",
+              "color": "#25313D",
+              "bold": true
+            }
+          ],
+          "marginLeft": 0
+        }
+      ],
+      "lineWidth": 0
+    },
+    {
+      "order": 16,
+      "kind": "shape",
+      "scope": "slide",
+      "aid": "sh/7qpg3ex0",
+      "id": "16",
+      "bbox": [
+        64,
+        686,
+        1040,
+        20
+      ],
+      "geometry": "rect",
+      "text": "Sources: meeting handoff, MathWorks-style TD3 notes, saved run CSVs",
+      "textPreview": "Sources: meeting handoff, MathWorks-style TD3 notes, saved run CSVs",
+      "resolvedFontSize": 10,
+      "resolvedTextStyle": {
+        "fontSize": 10,
+        "typeface": "Aptos",
+        "color": "#7B8B99",
+        "alignment": "left",
+        "insets": {
+          "top": 4.8,
+          "right": 9.6,
+          "bottom": 4.8,
+          "left": 9.6
+        }
+      },
+      "textLayout": {
+        "lineCount": 1,
+        "lines": [
+          {
+            "index": 1,
+            "text": "Sources: meeting handoff, MathWorks-style TD3 notes, saved run CSVs"
+          }
+        ]
+      },
+      "paragraphs": [
+        {
+          "index": 1,
+          "text": "Sources: meeting handoff, MathWorks-style TD3 notes, saved run CSVs",
+          "resolvedTextStyle": {
+            "fontSize": 10,
+            "typeface": "Aptos",
+            "color": "#7B8B99"
+          },
+          "runs": [
+            {
+              "index": 1,
+              "text": "Sources: meeting handoff, MathWorks-style TD3 notes, saved run CSVs",
+              "fontSize": 10,
+              "typeface": "Aptos",
+              "color": "#7B8B99"
+            }
+          ],
+          "marginLeft": 0
+        }
+      ],
+      "lineWidth": 0
+    }
+  ],
+  "composeRuns": []
+}

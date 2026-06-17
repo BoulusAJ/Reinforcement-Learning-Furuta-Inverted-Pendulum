@@ -1,0 +1,965 @@
+{
+  "schema": "openai.presentation.layout/v4",
+  "unit": "px",
+  "slide": {
+    "aid": "sl/g93iel",
+    "id": "g93iel",
+    "slide": 12,
+    "layoutId": "dbb35aff-b272-42f1-b819-ba0b2fccc1e3",
+    "layoutName": "Title Slide",
+    "layoutType": "title",
+    "masterLayoutId": "f1afd91f-b985-4c40-b965-727d5e9a4eef",
+    "masterLayoutName": "Master",
+    "backgroundColor": "#FFFFFF",
+    "frame": {
+      "left": 0,
+      "top": 0,
+      "width": 1280,
+      "height": 720
+    }
+  },
+  "theme": {
+    "colorSchemeName": "Furuta update",
+    "colors": {
+      "accent1": "#0B4F6C",
+      "accent2": "#2A9D8F",
+      "accent3": "#F2A541",
+      "accent4": "#D1495B",
+      "bg1": "#FFFFFF",
+      "bg2": "#F5F8FB",
+      "tx1": "#25313D",
+      "tx2": "#596B7A",
+      "dk1": "#000000",
+      "dk2": "#25313D",
+      "lt1": "#FFFFFF",
+      "lt2": "#E8EDF2",
+      "hlink": "#0B4F6C",
+      "folHlink": "#2A9D8F"
+    },
+    "typefaces": [
+      "Aptos"
+    ]
+  },
+  "inheritedLayers": [
+    {
+      "scope": "layout",
+      "id": "dbb35aff-b272-42f1-b819-ba0b2fccc1e3",
+      "name": "Title Slide",
+      "type": "title",
+      "parentLayoutId": "f1afd91f-b985-4c40-b965-727d5e9a4eef",
+      "elements": []
+    },
+    {
+      "scope": "master",
+      "id": "f1afd91f-b985-4c40-b965-727d5e9a4eef",
+      "name": "Master",
+      "type": "master",
+      "elements": []
+    }
+  ],
+  "elements": [
+    {
+      "order": 1,
+      "kind": "shape",
+      "scope": "slide",
+      "aid": "sh/1cfa9w3m",
+      "id": "1",
+      "bbox": [
+        64,
+        42,
+        680,
+        24
+      ],
+      "geometry": "rect",
+      "text": "FURUTA RL UPDATE | 2026-06-17",
+      "textPreview": "FURUTA RL UPDATE | 2026-06-17",
+      "resolvedFontSize": 12,
+      "resolvedTextStyle": {
+        "fontSize": 12,
+        "typeface": "Aptos",
+        "color": "#596B7A",
+        "bold": true,
+        "alignment": "left",
+        "insets": {
+          "top": 4.8,
+          "right": 9.6,
+          "bottom": 4.8,
+          "left": 9.6
+        }
+      },
+      "textLayout": {
+        "lineCount": 1,
+        "lines": [
+          {
+            "index": 1,
+            "text": "FURUTA RL UPDATE | 2026-06-17"
+          }
+        ]
+      },
+      "paragraphs": [
+        {
+          "index": 1,
+          "text": "FURUTA RL UPDATE | 2026-06-17",
+          "resolvedTextStyle": {
+            "fontSize": 12,
+            "typeface": "Aptos",
+            "color": "#596B7A",
+            "bold": true
+          },
+          "runs": [
+            {
+              "index": 1,
+              "text": "FURUTA RL UPDATE | 2026-06-17",
+              "fontSize": 12,
+              "typeface": "Aptos",
+              "color": "#596B7A",
+              "bold": true
+            }
+          ],
+          "marginLeft": 0
+        }
+      ],
+      "lineWidth": 0
+    },
+    {
+      "order": 2,
+      "kind": "shape",
+      "scope": "slide",
+      "aid": "sh/ulwval87",
+      "id": "2",
+      "bbox": [
+        64,
+        74,
+        1040,
+        82
+      ],
+      "geometry": "rect",
+      "text": "Furuta method search: what options were on the table?",
+      "textPreview": "Furuta method search: what options were on the table?",
+      "resolvedFontSize": 36,
+      "resolvedTextStyle": {
+        "fontSize": 36,
+        "typeface": "Aptos",
+        "color": "#25313D",
+        "bold": true,
+        "alignment": "left",
+        "insets": {
+          "top": 4.8,
+          "right": 9.6,
+          "bottom": 4.8,
+          "left": 9.6
+        }
+      },
+      "textLayout": {
+        "lineCount": 1,
+        "lines": [
+          {
+            "index": 1,
+            "text": "Furuta method search: what options were on the table?"
+          }
+        ]
+      },
+      "paragraphs": [
+        {
+          "index": 1,
+          "text": "Furuta method search: what options were on the table?",
+          "resolvedTextStyle": {
+            "fontSize": 36,
+            "typeface": "Aptos",
+            "color": "#25313D",
+            "bold": true
+          },
+          "runs": [
+            {
+              "index": 1,
+              "text": "Furuta method search: what options were on the table?",
+              "fontSize": 36,
+              "typeface": "Aptos",
+              "color": "#25313D",
+              "bold": true
+            }
+          ],
+          "marginLeft": 0
+        }
+      ],
+      "lineWidth": 0
+    },
+    {
+      "order": 3,
+      "kind": "shape",
+      "scope": "slide",
+      "aid": "sh/j6tovaho",
+      "id": "3",
+      "bbox": [
+        82,
+        172,
+        1070,
+        68
+      ],
+      "geometry": "roundRect",
+      "fillColor": "#F5F8FB",
+      "lineColor": "#D5DDE5",
+      "lineWidth": 1
+    },
+    {
+      "order": 4,
+      "kind": "shape",
+      "scope": "slide",
+      "aid": "sh/c3ylc7u5",
+      "id": "4",
+      "bbox": [
+        110,
+        190,
+        260,
+        28
+      ],
+      "geometry": "rect",
+      "text": "Analytical swing-up",
+      "textPreview": "Analytical swing-up",
+      "resolvedFontSize": 22,
+      "resolvedTextStyle": {
+        "fontSize": 22,
+        "typeface": "Aptos",
+        "color": "#0B4F6C",
+        "bold": true,
+        "alignment": "left",
+        "insets": {
+          "top": 4.8,
+          "right": 9.6,
+          "bottom": 4.8,
+          "left": 9.6
+        }
+      },
+      "textLayout": {
+        "lineCount": 1,
+        "lines": [
+          {
+            "index": 1,
+            "text": "Analytical swing-up"
+          }
+        ]
+      },
+      "paragraphs": [
+        {
+          "index": 1,
+          "text": "Analytical swing-up",
+          "resolvedTextStyle": {
+            "fontSize": 22,
+            "typeface": "Aptos",
+            "color": "#0B4F6C",
+            "bold": true
+          },
+          "runs": [
+            {
+              "index": 1,
+              "text": "Analytical swing-up",
+              "fontSize": 22,
+              "typeface": "Aptos",
+              "color": "#0B4F6C",
+              "bold": true
+            }
+          ],
+          "marginLeft": 0
+        }
+      ],
+      "lineWidth": 0
+    },
+    {
+      "order": 5,
+      "kind": "shape",
+      "scope": "slide",
+      "aid": "sh/1kre1w7m",
+      "id": "5",
+      "bbox": [
+        390,
+        187,
+        720,
+        38
+      ],
+      "geometry": "rect",
+      "text": "Energy control, Lyapunov/passivity, feedback linearization, optimal control. Strong control literature; useful baseline/context.",
+      "textPreview": "Energy control, Lyapunov/passivity, feedback linearization, optimal control. Strong control literature; useful baseline/context.",
+      "resolvedFontSize": 17,
+      "resolvedTextStyle": {
+        "fontSize": 17,
+        "typeface": "Aptos",
+        "color": "#25313D",
+        "alignment": "left",
+        "insets": {
+          "top": 4.8,
+          "right": 9.6,
+          "bottom": 4.8,
+          "left": 9.6
+        }
+      },
+      "textLayout": {
+        "lineCount": 2,
+        "lines": [
+          {
+            "index": 1,
+            "text": "Energy control, Lyapunov/passivity, feedback linearization, optimal control. Strong control literature;"
+          },
+          {
+            "index": 2,
+            "text": "useful baseline/context."
+          }
+        ]
+      },
+      "paragraphs": [
+        {
+          "index": 1,
+          "text": "Energy control, Lyapunov/passivity, feedback linearization, optimal control. Strong control literature; useful baseline/context.",
+          "resolvedTextStyle": {
+            "fontSize": 17,
+            "typeface": "Aptos",
+            "color": "#25313D"
+          },
+          "runs": [
+            {
+              "index": 1,
+              "text": "Energy control, Lyapunov/passivity, feedback linearization, optimal control. Strong control literature; useful baseline/context.",
+              "fontSize": 17,
+              "typeface": "Aptos",
+              "color": "#25313D"
+            }
+          ],
+          "marginLeft": 0
+        }
+      ],
+      "lineWidth": 0
+    },
+    {
+      "order": 6,
+      "kind": "shape",
+      "scope": "slide",
+      "aid": "sh/uxc3ylc7",
+      "id": "6",
+      "bbox": [
+        82,
+        260,
+        1070,
+        68
+      ],
+      "geometry": "roundRect",
+      "fillColor": "#F5F8FB",
+      "lineColor": "#D5DDE5",
+      "lineWidth": 1
+    },
+    {
+      "order": 7,
+      "kind": "shape",
+      "scope": "slide",
+      "aid": "sh/ji5snelo",
+      "id": "7",
+      "bbox": [
+        110,
+        278,
+        260,
+        28
+      ],
+      "geometry": "rect",
+      "text": "Hybrid RL + classical",
+      "textPreview": "Hybrid RL + classical",
+      "resolvedFontSize": 22,
+      "resolvedTextStyle": {
+        "fontSize": 22,
+        "typeface": "Aptos",
+        "color": "#0B4F6C",
+        "bold": true,
+        "alignment": "left",
+        "insets": {
+          "top": 4.8,
+          "right": 9.6,
+          "bottom": 4.8,
+          "left": 9.6
+        }
+      },
+      "textLayout": {
+        "lineCount": 1,
+        "lines": [
+          {
+            "index": 1,
+            "text": "Hybrid RL + classical"
+          }
+        ]
+      },
+      "paragraphs": [
+        {
+          "index": 1,
+          "text": "Hybrid RL + classical",
+          "resolvedTextStyle": {
+            "fontSize": 22,
+            "typeface": "Aptos",
+            "color": "#0B4F6C",
+            "bold": true
+          },
+          "runs": [
+            {
+              "index": 1,
+              "text": "Hybrid RL + classical",
+              "fontSize": 22,
+              "typeface": "Aptos",
+              "color": "#0B4F6C",
+              "bold": true
+            }
+          ],
+          "marginLeft": 0
+        }
+      ],
+      "lineWidth": 0
+    },
+    {
+      "order": 8,
+      "kind": "shape",
+      "scope": "slide",
+      "aid": "sh/8bat47y1",
+      "id": "8",
+      "bbox": [
+        390,
+        275,
+        720,
+        38
+      ],
+      "geometry": "rect",
+      "text": "MathWorks QUBE Servo2 repo: SAC for swing-up, PPO for mode selection, feedback controller for balance.",
+      "textPreview": "MathWorks QUBE Servo2 repo: SAC for swing-up, PPO for mode selection, feedback controller for balance.",
+      "resolvedFontSize": 17,
+      "resolvedTextStyle": {
+        "fontSize": 17,
+        "typeface": "Aptos",
+        "color": "#25313D",
+        "alignment": "left",
+        "insets": {
+          "top": 4.8,
+          "right": 9.6,
+          "bottom": 4.8,
+          "left": 9.6
+        }
+      },
+      "textLayout": {
+        "lineCount": 2,
+        "lines": [
+          {
+            "index": 1,
+            "text": "MathWorks QUBE Servo2 repo: SAC for swing-up, PPO for mode selection, feedback controller for"
+          },
+          {
+            "index": 2,
+            "text": "balance."
+          }
+        ]
+      },
+      "paragraphs": [
+        {
+          "index": 1,
+          "text": "MathWorks QUBE Servo2 repo: SAC for swing-up, PPO for mode selection, feedback controller for balance.",
+          "resolvedTextStyle": {
+            "fontSize": 17,
+            "typeface": "Aptos",
+            "color": "#25313D"
+          },
+          "runs": [
+            {
+              "index": 1,
+              "text": "MathWorks QUBE Servo2 repo: SAC for swing-up, PPO for mode selection, feedback controller for balance.",
+              "fontSize": 17,
+              "typeface": "Aptos",
+              "color": "#25313D"
+            }
+          ],
+          "marginLeft": 0
+        }
+      ],
+      "lineWidth": 0
+    },
+    {
+      "order": 9,
+      "kind": "shape",
+      "scope": "slide",
+      "aid": "sh/1w7mp0bi",
+      "id": "9",
+      "bbox": [
+        82,
+        348,
+        1070,
+        68
+      ],
+      "geometry": "roundRect",
+      "fillColor": "#F5F8FB",
+      "lineColor": "#D5DDE5",
+      "lineWidth": 1
+    },
+    {
+      "order": 10,
+      "kind": "shape",
+      "scope": "slide",
+      "aid": "sh/d0z61032",
+      "id": "10",
+      "bbox": [
+        110,
+        366,
+        260,
+        28
+      ],
+      "geometry": "rect",
+      "text": "Near-upright DDPG",
+      "textPreview": "Near-upright DDPG",
+      "resolvedFontSize": 22,
+      "resolvedTextStyle": {
+        "fontSize": 22,
+        "typeface": "Aptos",
+        "color": "#0B4F6C",
+        "bold": true,
+        "alignment": "left",
+        "insets": {
+          "top": 4.8,
+          "right": 9.6,
+          "bottom": 4.8,
+          "left": 9.6
+        }
+      },
+      "textLayout": {
+        "lineCount": 1,
+        "lines": [
+          {
+            "index": 1,
+            "text": "Near-upright DDPG"
+          }
+        ]
+      },
+      "paragraphs": [
+        {
+          "index": 1,
+          "text": "Near-upright DDPG",
+          "resolvedTextStyle": {
+            "fontSize": 22,
+            "typeface": "Aptos",
+            "color": "#0B4F6C",
+            "bold": true
+          },
+          "runs": [
+            {
+              "index": 1,
+              "text": "Near-upright DDPG",
+              "fontSize": 22,
+              "typeface": "Aptos",
+              "color": "#0B4F6C",
+              "bold": true
+            }
+          ],
+          "marginLeft": 0
+        }
+      ],
+      "lineWidth": 0
+    },
+    {
+      "order": 11,
+      "kind": "shape",
+      "scope": "slide",
+      "aid": "sh/kf6dcbul",
+      "id": "11",
+      "bbox": [
+        390,
+        363,
+        720,
+        38
+      ],
+      "geometry": "rect",
+      "text": "First direct RL attempt: simplest continuous-action framing, but actor/critic training was fragile.",
+      "textPreview": "First direct RL attempt: simplest continuous-action framing, but actor/critic training was fragile.",
+      "resolvedFontSize": 17,
+      "resolvedTextStyle": {
+        "fontSize": 17,
+        "typeface": "Aptos",
+        "color": "#25313D",
+        "alignment": "left",
+        "insets": {
+          "top": 4.8,
+          "right": 9.6,
+          "bottom": 4.8,
+          "left": 9.6
+        }
+      },
+      "textLayout": {
+        "lineCount": 1,
+        "lines": [
+          {
+            "index": 1,
+            "text": "First direct RL attempt: simplest continuous-action framing, but actor/critic training was fragile."
+          }
+        ]
+      },
+      "paragraphs": [
+        {
+          "index": 1,
+          "text": "First direct RL attempt: simplest continuous-action framing, but actor/critic training was fragile.",
+          "resolvedTextStyle": {
+            "fontSize": 17,
+            "typeface": "Aptos",
+            "color": "#25313D"
+          },
+          "runs": [
+            {
+              "index": 1,
+              "text": "First direct RL attempt: simplest continuous-action framing, but actor/critic training was fragile.",
+              "fontSize": 17,
+              "typeface": "Aptos",
+              "color": "#25313D"
+            }
+          ],
+          "marginLeft": 0
+        }
+      ],
+      "lineWidth": 0
+    },
+    {
+      "order": 12,
+      "kind": "shape",
+      "scope": "slide",
+      "aid": "sh/vu9knih4",
+      "id": "12",
+      "bbox": [
+        82,
+        436,
+        1070,
+        68
+      ],
+      "geometry": "roundRect",
+      "fillColor": "#F5F8FB",
+      "lineColor": "#D5DDE5",
+      "lineWidth": 1
+    },
+    {
+      "order": 13,
+      "kind": "shape",
+      "scope": "slide",
+      "aid": "sh/29gr2p8n",
+      "id": "13",
+      "bbox": [
+        110,
+        454,
+        260,
+        28
+      ],
+      "geometry": "rect",
+      "text": "Direct TD3",
+      "textPreview": "Direct TD3",
+      "resolvedFontSize": 22,
+      "resolvedTextStyle": {
+        "fontSize": 22,
+        "typeface": "Aptos",
+        "color": "#0B4F6C",
+        "bold": true,
+        "alignment": "left",
+        "insets": {
+          "top": 4.8,
+          "right": 9.6,
+          "bottom": 4.8,
+          "left": 9.6
+        }
+      },
+      "textLayout": {
+        "lineCount": 1,
+        "lines": [
+          {
+            "index": 1,
+            "text": "Direct TD3"
+          }
+        ]
+      },
+      "paragraphs": [
+        {
+          "index": 1,
+          "text": "Direct TD3",
+          "resolvedTextStyle": {
+            "fontSize": 22,
+            "typeface": "Aptos",
+            "color": "#0B4F6C",
+            "bold": true
+          },
+          "runs": [
+            {
+              "index": 1,
+              "text": "Direct TD3",
+              "fontSize": 22,
+              "typeface": "Aptos",
+              "color": "#0B4F6C",
+              "bold": true
+            }
+          ],
+          "marginLeft": 0
+        }
+      ],
+      "lineWidth": 0
+    },
+    {
+      "order": 14,
+      "kind": "shape",
+      "scope": "slide",
+      "aid": "sh/d8bat47y",
+      "id": "14",
+      "bbox": [
+        390,
+        451,
+        720,
+        38
+      ],
+      "geometry": "rect",
+      "text": "Kept the same normalized action idea but added twin critics, delayed actor updates, and target smoothing.",
+      "textPreview": "Kept the same normalized action idea but added twin critics, delayed actor updates, and target smoothing.",
+      "resolvedFontSize": 17,
+      "resolvedTextStyle": {
+        "fontSize": 17,
+        "typeface": "Aptos",
+        "color": "#25313D",
+        "alignment": "left",
+        "insets": {
+          "top": 4.8,
+          "right": 9.6,
+          "bottom": 4.8,
+          "left": 9.6
+        }
+      },
+      "textLayout": {
+        "lineCount": 2,
+        "lines": [
+          {
+            "index": 1,
+            "text": "Kept the same normalized action idea but added twin critics, delayed actor updates, and target"
+          },
+          {
+            "index": 2,
+            "text": "smoothing."
+          }
+        ]
+      },
+      "paragraphs": [
+        {
+          "index": 1,
+          "text": "Kept the same normalized action idea but added twin critics, delayed actor updates, and target smoothing.",
+          "resolvedTextStyle": {
+            "fontSize": 17,
+            "typeface": "Aptos",
+            "color": "#25313D"
+          },
+          "runs": [
+            {
+              "index": 1,
+              "text": "Kept the same normalized action idea but added twin critics, delayed actor updates, and target smoothing.",
+              "fontSize": 17,
+              "typeface": "Aptos",
+              "color": "#25313D"
+            }
+          ],
+          "marginLeft": 0
+        }
+      ],
+      "lineWidth": 0
+    },
+    {
+      "order": 15,
+      "kind": "shape",
+      "scope": "slide",
+      "aid": "sh/knih4byh",
+      "id": "15",
+      "bbox": [
+        82,
+        524,
+        1070,
+        68
+      ],
+      "geometry": "roundRect",
+      "fillColor": "#E8F4F2",
+      "lineColor": "#2A9D8F",
+      "lineWidth": 1
+    },
+    {
+      "order": 16,
+      "kind": "shape",
+      "scope": "slide",
+      "aid": "sh/v6psfil0",
+      "id": "16",
+      "bbox": [
+        110,
+        542,
+        260,
+        28
+      ],
+      "geometry": "rect",
+      "text": "MathWorks-style TD3",
+      "textPreview": "MathWorks-style TD3",
+      "resolvedFontSize": 22,
+      "resolvedTextStyle": {
+        "fontSize": 22,
+        "typeface": "Aptos",
+        "color": "#2A9D8F",
+        "bold": true,
+        "alignment": "left",
+        "insets": {
+          "top": 4.8,
+          "right": 9.6,
+          "bottom": 4.8,
+          "left": 9.6
+        }
+      },
+      "textLayout": {
+        "lineCount": 1,
+        "lines": [
+          {
+            "index": 1,
+            "text": "MathWorks-style TD3"
+          }
+        ]
+      },
+      "paragraphs": [
+        {
+          "index": 1,
+          "text": "MathWorks-style TD3",
+          "resolvedTextStyle": {
+            "fontSize": 22,
+            "typeface": "Aptos",
+            "color": "#2A9D8F",
+            "bold": true
+          },
+          "runs": [
+            {
+              "index": 1,
+              "text": "MathWorks-style TD3",
+              "fontSize": 22,
+              "typeface": "Aptos",
+              "color": "#2A9D8F",
+              "bold": true
+            }
+          ],
+          "marginLeft": 0
+        }
+      ],
+      "lineWidth": 0
+    },
+    {
+      "order": 17,
+      "kind": "shape",
+      "scope": "slide",
+      "aid": "sh/2lszqtcj",
+      "id": "17",
+      "bbox": [
+        390,
+        539,
+        720,
+        38
+      ],
+      "geometry": "rect",
+      "text": "Later simplified toward the QUBE TD3 example: no curriculum, 200 Hz agent, sin/cos observations, large replay buffer.",
+      "textPreview": "Later simplified toward the QUBE TD3 example: no curriculum, 200 Hz agent, sin/cos observations, large replay buffer.",
+      "resolvedFontSize": 17,
+      "resolvedTextStyle": {
+        "fontSize": 17,
+        "typeface": "Aptos",
+        "color": "#25313D",
+        "alignment": "left",
+        "insets": {
+          "top": 4.8,
+          "right": 9.6,
+          "bottom": 4.8,
+          "left": 9.6
+        }
+      },
+      "textLayout": {
+        "lineCount": 2,
+        "lines": [
+          {
+            "index": 1,
+            "text": "Later simplified toward the QUBE TD3 example: no curriculum, 200 Hz agent, sin/cos observations,"
+          },
+          {
+            "index": 2,
+            "text": "large replay buffer."
+          }
+        ]
+      },
+      "paragraphs": [
+        {
+          "index": 1,
+          "text": "Later simplified toward the QUBE TD3 example: no curriculum, 200 Hz agent, sin/cos observations, large replay buffer.",
+          "resolvedTextStyle": {
+            "fontSize": 17,
+            "typeface": "Aptos",
+            "color": "#25313D"
+          },
+          "runs": [
+            {
+              "index": 1,
+              "text": "Later simplified toward the QUBE TD3 example: no curriculum, 200 Hz agent, sin/cos observations, large replay buffer.",
+              "fontSize": 17,
+              "typeface": "Aptos",
+              "color": "#25313D"
+            }
+          ],
+          "marginLeft": 0
+        }
+      ],
+      "lineWidth": 0
+    },
+    {
+      "order": 18,
+      "kind": "shape",
+      "scope": "slide",
+      "aid": "sh/dcbulwva",
+      "id": "18",
+      "bbox": [
+        64,
+        686,
+        1040,
+        20
+      ],
+      "geometry": "rect",
+      "text": "Sources: Furuta swing-up literature note; MathWorks QUBE Servo2 refs; TD3 transition notes",
+      "textPreview": "Sources: Furuta swing-up literature note; MathWorks QUBE Servo2 refs; TD3 transition notes",
+      "resolvedFontSize": 10,
+      "resolvedTextStyle": {
+        "fontSize": 10,
+        "typeface": "Aptos",
+        "color": "#7B8B99",
+        "alignment": "left",
+        "insets": {
+          "top": 4.8,
+          "right": 9.6,
+          "bottom": 4.8,
+          "left": 9.6
+        }
+      },
+      "textLayout": {
+        "lineCount": 1,
+        "lines": [
+          {
+            "index": 1,
+            "text": "Sources: Furuta swing-up literature note; MathWorks QUBE Servo2 refs; TD3 transition notes"
+          }
+        ]
+      },
+      "paragraphs": [
+        {
+          "index": 1,
+          "text": "Sources: Furuta swing-up literature note; MathWorks QUBE Servo2 refs; TD3 transition notes",
+          "resolvedTextStyle": {
+            "fontSize": 10,
+            "typeface": "Aptos",
+            "color": "#7B8B99"
+          },
+          "runs": [
+            {
+              "index": 1,
+              "text": "Sources: Furuta swing-up literature note; MathWorks QUBE Servo2 refs; TD3 transition notes",
+              "fontSize": 10,
+              "typeface": "Aptos",
+              "color": "#7B8B99"
+            }
+          ],
+          "marginLeft": 0
+        }
+      ],
+      "lineWidth": 0
+    }
+  ],
+  "composeRuns": []
+}

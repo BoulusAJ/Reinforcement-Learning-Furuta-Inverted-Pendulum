@@ -1,0 +1,259 @@
+{"kind":"deck","id":"pr/26iucg","name":"Deck"}
+{"kind":"layout","layoutId":"bda18f64-68b2-456f-8bb1-e4701a22152d","name":"Master","type":"master"}
+{"kind":"layout","layoutId":"350f52e7-8da2-4ae3-a041-13208797596c","name":"Title Slide","type":"title"}
+{"kind":"slide","id":"sl/qztm6v","slide":1,"title":"Furuta inverted pendulum RL","textShapes":5}
+{"kind":"textbox","id":"sh/a1gvy90j","slide":1,"text":"Furuta inverted pendulum RL","textPreview":"Furuta inverted pendulum RL","textChars":27,"textLines":1,"bbox":[70,88,960,80]}
+{"kind":"textbox","id":"sh/hoza1gvy","slide":1,"text":"Update meeting: what worked, what did not, and what needs a careful dry run next","textPreview":"Update meeting: what worked, what did not, and what needs a careful dry run next","textChars":80,"textLines":1,"bbox":[72,178,840,70]}
+{"kind":"shape","id":"sh/s36hcrmh","slide":1,"bbox":[72,310,1080,220]}
+{"kind":"textbox","id":"sh/za1gvy90","slide":1,"text":"Current honest headline","textPreview":"Current honest headline","textChars":23,"textLines":1,"bbox":[112,348,340,30]}
+{"kind":"textbox","id":"sh/ap4r65wj","slide":1,"text":"RL learned a useful swing-up/stabilization policy in simulation, but robustness and sim-to-real behavior depend strongly on reward design, actuator interface, and plant-model consistency.","textPreview":"RL learned a useful swing-up/stabilization policy in simulation, but robustness and sim-to-real behavior depend strongly on reward design...","textChars":187,"textLines":1,"bbox":[112,392,950,92]}
+{"kind":"textbox","id":"sh/hgn29gr2","slide":1,"text":"Prepared from project notes and saved TD3 run artifacts","textPreview":"Prepared from project notes and saved TD3 run artifacts","textChars":55,"textLines":1,"bbox":[64,686,1040,20]}
+{"kind":"notes","id":"nt/qztm6v","slide":1,"text":"Open naturally: this is not a victory-lap talk. The useful result is that the project moved from fragile training attempts to a controller we can actually evaluate and discuss scientifically."}
+{"kind":"slide","id":"sl/jzdw2w","slide":2,"title":"FURUTA RL UPDATE | 2026-06-17","textShapes":12}
+{"kind":"textbox","id":"sh/czed8v6p","slide":2,"text":"FURUTA RL UPDATE | 2026-06-17","textPreview":"FURUTA RL UPDATE | 2026-06-17","textChars":29,"textLines":1,"bbox":[64,42,680,24]}
+{"kind":"textbox","id":"sh/neloj2t8","slide":2,"text":"Where we are in the project plan","textPreview":"Where we are in the project plan","textChars":32,"textLines":1,"bbox":[64,74,1040,82]}
+{"kind":"shape","id":"sh/ytsvu9kn","slide":2,"bbox":[86,235,240,220]}
+{"kind":"textbox","id":"sh/5sneloj2","slide":2,"text":"Days 1-7","textPreview":"Days 1-7","textChars":8,"textLines":1,"bbox":[106,260,190,34]}
+{"kind":"textbox","id":"sh/cbulwval","slide":2,"text":"Model, signals, simulation setup, baseline context","textPreview":"Model, signals, simulation setup, baseline context","textChars":50,"textLines":1,"bbox":[106,314,200,112]}
+{"kind":"shape","id":"sh/nqxs72x4","slide":2,"bbox":[378,235,240,220]}
+{"kind":"textbox","id":"sh/u54zidon","slide":2,"text":"Days 8-12","textPreview":"Days 8-12","textChars":9,"textLines":1,"bbox":[398,260,190,34]}
+{"kind":"textbox","id":"sh/5wjudg7a","slide":2,"text":"RL training worked after moving away from the fragile curriculum path","textPreview":"RL training worked after moving away from the fragile curriculum path","textChars":69,"textLines":1,"bbox":[398,314,200,112]}
+{"kind":"shape","id":"sh/gbq1oryt","slide":2,"bbox":[670,235,240,220]}
+{"kind":"textbox","id":"sh/qxs72x4n","slide":2,"text":"Days 13-16","textPreview":"Days 13-16","textChars":10,"textLines":1,"bbox":[690,260,190,34]}
+{"kind":"textbox","id":"sh/fil0rqd4","slide":2,"text":"Current phase: robustness, fixed evaluation, actuator and plant diagnostics","textPreview":"Current phase: robustness, fixed evaluation, actuator and plant diagnostics","textChars":75,"textLines":1,"bbox":[690,314,200,112]}
+{"kind":"shape","id":"sh/83itgfml","slide":2,"bbox":[962,235,240,220]}
+{"kind":"textbox","id":"sh/xobm58z2","slide":2,"text":"Days 17-20","textPreview":"Days 17-20","textChars":10,"textLines":1,"bbox":[982,260,190,34]}
+{"kind":"textbox","id":"sh/m94fu18j","slide":2,"text":"Meeting story, plots, demo choice, hardware dry-run preparation","textPreview":"Meeting story, plots, demo choice, hardware dry-run preparation","textChars":63,"textLines":1,"bbox":[982,314,200,112]}
+{"kind":"textbox","id":"sh/fu18jqh0","slide":2,"text":"Meeting framing: show the controller as useful in simulation, not solved for hardware.","textPreview":"Meeting framing: show the controller as useful in simulation, not solved for hardware.","textChars":86,"textLines":1,"bbox":[92,520,980,42]}
+{"kind":"textbox","id":"sh/4fu18jqh","slide":2,"text":"Sources: meeting handoff, MathWorks-style TD3 notes, saved run CSVs","textPreview":"Sources: meeting handoff, MathWorks-style TD3 notes, saved run CSVs","textChars":67,"textLines":1,"bbox":[64,686,1040,20]}
+{"kind":"notes","id":"nt/jzdw2w","slide":2,"text":"This slide is mostly orientation. Say that the project has entered the evaluation and decision-gate phase."}
+{"kind":"slide","id":"sl/b3nkir","slide":3,"title":"FURUTA RL UPDATE | 2026-06-17","textShapes":12}
+{"kind":"textbox","id":"sh/rqd4vmtw","slide":3,"text":"FURUTA RL UPDATE | 2026-06-17","textPreview":"FURUTA RL UPDATE | 2026-06-17","textChars":29,"textLines":1,"bbox":[64,42,680,24]}
+{"kind":"textbox","id":"sh/kb6xkf6d","slide":3,"text":"Before Furuta: the Water Tank project became the workflow prototype","textPreview":"Before Furuta: the Water Tank project became the workflow prototype","textChars":67,"textLines":1,"bbox":[64,74,1040,82]}
+{"kind":"shape","id":"sh/9w3m94fu","slide":3,"bbox":[78,188,520,150]}
+{"kind":"textbox","id":"sh/2t83itgf","slide":3,"text":"Base example","textPreview":"Base example","textChars":12,"textLines":1,"bbox":[106,212,440,28]}
+{"kind":"textbox","id":"sh/re1w7mp0","slide":3,"text":"Started from MathWorks rlwatertank DDPG: compact example, single training run, random starts.","textPreview":"Started from MathWorks rlwatertank DDPG: compact example, single training run, random starts.","textChars":93,"textLines":1,"bbox":[106,252,450,62]}
+{"kind":"shape","id":"sh/kzupwb2h","slide":3,"bbox":[670,188,520,150]}
+{"kind":"textbox","id":"sh/9knih4by","slide":3,"text":"Curriculum version","textPreview":"Curriculum version","textChars":18,"textLines":1,"bbox":[698,212,440,28]}
+{"kind":"textbox","id":"sh/2p8nqxs7","slide":3,"text":"Extended it into four stages: local correction, medium transient, global robustness, precision fine-tuning.","textPreview":"Extended it into four stages: local correction, medium transient, global robustness, precision fine-tuning.","textChars":107,"textLines":1,"bbox":[698,252,450,62]}
+{"kind":"shape","id":"sh/ra5gbq1o","slide":3,"bbox":[78,398,520,150]}
+{"kind":"textbox","id":"sh/3m94fu18","slide":3,"text":"Reward lesson","textPreview":"Reward lesson","textChars":13,"textLines":1,"bbox":[106,422,440,28]}
+{"kind":"textbox","id":"sh/a5gbq1or","slide":3,"text":"Moved from tolerance-band success toward normalized tracking error, action effort, and action smoothness.","textPreview":"Moved from tolerance-band success toward normalized tracking error, action effort, and action smoothness.","textChars":105,"textLines":1,"bbox":[106,462,450,62]}
+{"kind":"shape","id":"sh/lszqtcj6","slide":3,"bbox":[670,398,520,150]}
+{"kind":"textbox","id":"sh/s72x4nap","slide":3,"text":"Evaluation lesson","textPreview":"Evaluation lesson","textChars":17,"textLines":1,"bbox":[698,422,440,28]}
+{"kind":"textbox","id":"sh/3ylc7u54","slide":3,"text":"Saved per-stage artifacts and used fixed/deterministic evaluations so results were not dominated by random initial conditions.","textPreview":"Saved per-stage artifacts and used fixed/deterministic evaluations so results were not dominated by random initial conditions.","textChars":126,"textLines":1,"bbox":[698,462,450,62]}
+{"kind":"textbox","id":"sh/adsji5sn","slide":3,"text":"Carry-over to Furuta: define the task, shape the reset distribution, log the signals, and evaluate fixed cases before believing training reward.","textPreview":"Carry-over to Furuta: define the task, shape the reset distribution, log the signals, and evaluate fixed cases before believing training ...","textChars":144,"textLines":1,"bbox":[105,585,1050,48]}
+{"kind":"textbox","id":"sh/h4byhgn2","slide":3,"text":"Sources: RL-Water-Tank README and curriculum docs; docs/chat_handoff_2026-06-09.md","textPreview":"Sources: RL-Water-Tank README and curriculum docs; docs/chat_handoff_2026-06-09.md","textChars":82,"textLines":1,"bbox":[64,686,1040,20]}
+{"kind":"notes","id":"nt/b3nkir","slide":3,"text":"This is the bridge slide. The water tank work was valuable because it built the project discipline: staged difficulty, reward scaling, fixed evaluation, and organized results."}
+{"kind":"slide","id":"sl/gkywjj","slide":4,"title":"FURUTA RL UPDATE | 2026-06-17","textShapes":10}
+{"kind":"textbox","id":"sh/4byhgn29","slide":4,"text":"FURUTA RL UPDATE | 2026-06-17","textPreview":"FURUTA RL UPDATE | 2026-06-17","textChars":29,"textLines":1,"bbox":[64,42,680,24]}
+{"kind":"textbox","id":"sh/bq1oryts","slide":4,"text":"Where the curriculum idea came from","textPreview":"Where the curriculum idea came from","textChars":35,"textLines":1,"bbox":[64,74,1040,82]}
+{"kind":"shape","id":"sh/m58z25kb","slide":4,"bbox":[80,190,330,300]}
+{"kind":"shape","id":"sh/t83itgfm","slide":4,"bbox":[475,190,330,300]}
+{"kind":"shape","id":"sh/4nap4r65","slide":4,"bbox":[870,190,330,300]}
+{"kind":"textbox","id":"sh/b2hwfyxo","slide":4,"text":"Practical source","textPreview":"Practical source","textChars":16,"textLines":1,"bbox":[112,222,260,32]}
+{"kind":"textbox","id":"sh/mhk3q5o7","slide":4,"text":"Water Tank: learn small corrections first, then widen the initial-condition distribution and reduce exploration for precision.","textPreview":"Water Tank: learn small corrections first, then widen the initial-condition distribution and reduce exploration for precision.","textChars":126,"textLines":1,"bbox":[112,275,255,126]}
+{"kind":"textbox","id":"sh/tgfmlkjm","slide":4,"text":"Control reason","textPreview":"Control reason","textChars":14,"textLines":1,"bbox":[507,222,260,32]}
+{"kind":"textbox","id":"sh/4vmtwra5","slide":4,"text":"A nonlinear controller should not be judged only on random starts. Each stage should answer a narrower control question.","textPreview":"A nonlinear controller should not be judged only on random starts. Each stage should answer a narrower control question.","textChars":120,"textLines":1,"bbox":[507,275,255,126]}
+{"kind":"textbox","id":"sh/i5sneloj","slide":4,"text":"Pendulum transfer","textPreview":"Pendulum transfer","textChars":17,"textLines":1,"bbox":[902,222,260,32]}
+{"kind":"textbox","id":"sh/7qpg3ex0","slide":4,"text":"For Furuta, the natural curriculum was angle/velocity range: near-upright balance, medium recovery, large-angle recovery, full swing-up.","textPreview":"For Furuta, the natural curriculum was angle/velocity range: near-upright balance, medium recovery, large-angle recovery, full swing-up.","textChars":136,"textLines":1,"bbox":[902,275,255,126]}
+{"kind":"shape","id":"sh/0bi9s36h","slide":4,"bbox":[150,553,8,8]}
+{"kind":"textbox","id":"sh/pwb2hwfy","slide":4,"text":"Important lesson: if the reward or reset distribution changes a lot, old replay/critic information can become misleading.","textPreview":"Important lesson: if the reward or reset distribution changes a lot, old replay/critic information can become misleading.","textChars":121,"textLines":1,"bbox":[172,545,920,56]}
+{"kind":"textbox","id":"sh/ed8v6psf","slide":4,"text":"Sources: RL-Water-Tank curriculum docs; docs/rl_task_definition.md; docs/direct_td3_swingup_plan_2026-06-11.md","textPreview":"Sources: RL-Water-Tank curriculum docs; docs/rl_task_definition.md; docs/direct_td3_swingup_plan_2026-06-11.md","textChars":110,"textLines":1,"bbox":[64,686,1040,20]}
+{"kind":"notes","id":"nt/gkywjj","slide":4,"text":"This slide gives a natural-language explanation. The curriculum idea was not just copied blindly; it came from trying to make learning and evaluation scientifically staged."}
+{"kind":"slide","id":"sl/4qdtv4","slide":5,"title":"FURUTA RL UPDATE | 2026-06-17","textShapes":13}
+{"kind":"textbox","id":"sh/5kb6xkf6","slide":5,"text":"FURUTA RL UPDATE | 2026-06-17","textPreview":"FURUTA RL UPDATE | 2026-06-17","textChars":29,"textLines":1,"bbox":[64,42,680,24]}
+{"kind":"textbox","id":"sh/ytsvu9kn","slide":5,"text":"Furuta method search: what options were on the table?","textPreview":"Furuta method search: what options were on the table?","textChars":53,"textLines":1,"bbox":[64,74,1040,82]}
+{"kind":"shape","id":"sh/neloj2t8","slide":5,"bbox":[82,172,1070,68]}
+{"kind":"textbox","id":"sh/cbulwval","slide":5,"text":"Analytical swing-up","textPreview":"Analytical swing-up","textChars":19,"textLines":1,"bbox":[110,190,260,28]}
+{"kind":"textbox","id":"sh/5sneloj2","slide":5,"text":"Energy control, Lyapunov/passivity, feedback linearization, optimal control. Strong control literature; useful baseline/context.","textPreview":"Energy control, Lyapunov/passivity, feedback linearization, optimal control. Strong control literature; useful baseline/context.","textChars":128,"textLines":1,"bbox":[390,187,720,38]}
+{"kind":"shape","id":"sh/u54zidon","slide":5,"bbox":[82,260,1070,68]}
+{"kind":"textbox","id":"sh/nqxs72x4","slide":5,"text":"Hybrid RL + classical","textPreview":"Hybrid RL + classical","textChars":21,"textLines":1,"bbox":[110,278,260,28]}
+{"kind":"textbox","id":"sh/gbq1oryt","slide":5,"text":"MathWorks QUBE Servo2 repo: SAC for swing-up, PPO for mode selection, feedback controller for balance.","textPreview":"MathWorks QUBE Servo2 repo: SAC for swing-up, PPO for mode selection, feedback controller for balance.","textChars":102,"textLines":1,"bbox":[390,275,720,38]}
+{"kind":"shape","id":"sh/5wjudg7a","slide":5,"bbox":[82,348,1070,68]}
+{"kind":"textbox","id":"sh/54zidony","slide":5,"text":"Near-upright DDPG","textPreview":"Near-upright DDPG","textChars":17,"textLines":1,"bbox":[110,366,260,28]}
+{"kind":"textbox","id":"sh/cj6tovah","slide":5,"text":"First direct RL attempt: simplest continuous-action framing, but actor/critic training was fragile.","textPreview":"First direct RL attempt: simplest continuous-action framing, but actor/critic training was fragile.","textChars":99,"textLines":1,"bbox":[390,363,720,38]}
+{"kind":"shape","id":"sh/nyd0z610","slide":5,"bbox":[82,436,1070,68]}
+{"kind":"textbox","id":"sh/udg7adsj","slide":5,"text":"Direct TD3","textPreview":"Direct TD3","textChars":10,"textLines":1,"bbox":[110,454,260,28]}
+{"kind":"textbox","id":"sh/5gbq1ory","slide":5,"text":"Kept the same normalized action idea but added twin critics, delayed actor updates, and target smoothing.","textPreview":"Kept the same normalized action idea but added twin critics, delayed actor updates, and target smoothing.","textChars":105,"textLines":1,"bbox":[390,451,720,38]}
+{"kind":"shape","id":"sh/cvixczed","slide":5,"bbox":[82,524,1070,68]}
+{"kind":"textbox","id":"sh/nap4r65w","slide":5,"text":"MathWorks-style TD3","textPreview":"MathWorks-style TD3","textChars":19,"textLines":1,"bbox":[110,542,260,28]}
+{"kind":"textbox","id":"sh/upwb2hwf","slide":5,"text":"Later simplified toward the QUBE TD3 example: no curriculum, 200 Hz agent, sin/cos observations, large replay buffer.","textPreview":"Later simplified toward the QUBE TD3 example: no curriculum, 200 Hz agent, sin/cos observations, large replay buffer.","textChars":117,"textLines":1,"bbox":[390,539,720,38]}
+{"kind":"textbox","id":"sh/1orytsvu","slide":5,"text":"Sources: Furuta swing-up literature note; MathWorks QUBE Servo2 refs; TD3 transition notes","textPreview":"Sources: Furuta swing-up literature note; MathWorks QUBE Servo2 refs; TD3 transition notes","textChars":90,"textLines":1,"bbox":[64,686,1040,20]}
+{"kind":"notes","id":"nt/4qdtv4","slide":5,"text":"Use this to show that TD3 was a deliberate choice, not just the algorithm at hand. SAC/PPO hybrid was known, but it would have changed the architecture more radically."}
+{"kind":"slide","id":"sl/1br1bn","slide":6,"title":"FURUTA RL UPDATE | 2026-06-17","textShapes":9}
+{"kind":"textbox","id":"sh/gbq1oryt","slide":6,"text":"FURUTA RL UPDATE | 2026-06-17","textPreview":"FURUTA RL UPDATE | 2026-06-17","textChars":29,"textLines":1,"bbox":[64,42,680,24]}
+{"kind":"textbox","id":"sh/nuxc3ylc","slide":6,"text":"Early Furuta approach: good engineering, fragile learning","textPreview":"Early Furuta approach: good engineering, fragile learning","textChars":57,"textLines":1,"bbox":[64,74,1040,82]}
+{"kind":"shape","id":"sh/y90je9cv","slide":6,"bbox":[86,193,8,8]}
+{"kind":"textbox","id":"sh/58z25kb6","slide":6,"text":"Started conservatively with near-upright stabilization: controller-facing errors, normalized current/torque action, explicit safety limits.","textPreview":"Started conservatively with near-upright stabilization: controller-facing errors, normalized current/torque action, explicit safety limits.","textChars":139,"textLines":1,"bbox":[108,185,980,56]}
+{"kind":"shape","id":"sh/gn29gr2p","slide":6,"bbox":[86,283,8,8]}
+{"kind":"textbox","id":"sh/n29gr2p8","slide":6,"text":"Built fixed-case post-stage evaluation, reward-diagnosis logging, signal extraction, and result organization before chasing a big demo.","textPreview":"Built fixed-case post-stage evaluation, reward-diagnosis logging, signal extraction, and result organization before chasing a big demo.","textChars":135,"textLines":1,"bbox":[108,275,980,56]}
+{"kind":"shape","id":"sh/yhgn29gr","slide":6,"bbox":[86,373,8,8]}
+{"kind":"textbox","id":"sh/5kb6xkf6","slide":6,"text":"DDPG did not reliably learn even local balance; TD3 was better, but fixed evaluation still showed arm-limit failures and action oscillations.","textPreview":"DDPG did not reliably learn even local balance; TD3 was better, but fixed evaluation still showed arm-limit failures and action oscillati...","textChars":141,"textLines":1,"bbox":[108,365,980,56]}
+{"kind":"shape","id":"sh/czed8v6p","slide":6,"bbox":[86,463,8,8]}
+{"kind":"textbox","id":"sh/2hwfyxob","slide":6,"text":"The staged direct swing-up TD3 branch showed partial learning, but reward scale and arm management were still weak.","textPreview":"The staged direct swing-up TD3 branch showed partial learning, but reward scale and arm management were still weak.","textChars":115,"textLines":1,"bbox":[108,455,980,56]}
+{"kind":"shape","id":"sh/r2p8nqxs","slide":6,"bbox":[710,520,420,112]}
+{"kind":"textbox","id":"sh/kjm1cfa9","slide":6,"text":"Drawback that changed direction","textPreview":"Drawback that changed direction","textChars":31,"textLines":1,"bbox":[742,543,330,24]}
+{"kind":"textbox","id":"sh/94fu18jq","slide":6,"text":"Training reward could look better than fixed-case control quality.","textPreview":"Training reward could look better than fixed-case control quality.","textChars":66,"textLines":1,"bbox":[742,575,340,48]}
+{"kind":"textbox","id":"sh/2p8nqxs7","slide":6,"text":"Sources: docs/td3_transition_2026-06-10.md; docs/td3_overnight_results_2026-06-11.md; docs/direct_td3_stage1_results_2026-06-11.md","textPreview":"Sources: docs/td3_transition_2026-06-10.md; docs/td3_overnight_results_2026-06-11.md; docs/direct_td3_stage1_results_2026-06-11.md","textChars":130,"textLines":1,"bbox":[64,686,1040,20]}
+{"kind":"notes","id":"nt/1br1bn","slide":6,"text":"This is a 'what I learned' slide. The early approach was not wasted: it uncovered signal, reward, timing, and evaluation problems."}
+{"kind":"slide","id":"sl/0m0ktl","slide":7,"title":"FURUTA RL UPDATE | 2026-06-17","textShapes":8}
+{"kind":"textbox","id":"sh/w7mp0bi9","slide":7,"text":"FURUTA RL UPDATE | 2026-06-17","textPreview":"FURUTA RL UPDATE | 2026-06-17","textChars":29,"textLines":1,"bbox":[64,42,680,24]}
+{"kind":"textbox","id":"sh/7mp0bi9s","slide":7,"text":"What changed: from fragile curriculum to MathWorks-style TD3","textPreview":"What changed: from fragile curriculum to MathWorks-style TD3","textChars":60,"textLines":1,"bbox":[64,74,1040,82]}
+{"kind":"shape","id":"sh/e1w7mp0b","slide":7,"bbox":[82,213,8,8]}
+{"kind":"textbox","id":"sh/pg3ex0nu","slide":7,"text":"Earlier staged direct TD3 helped debug reward and evaluation signals, but training was slow and fragile.","textPreview":"Earlier staged direct TD3 helped debug reward and evaluation signals, but training was slow and fragile.","textChars":104,"textLines":1,"bbox":[104,205,980,56]}
+{"kind":"shape","id":"sh/wval87ed","slide":7,"bbox":[82,303,8,8]}
+{"kind":"textbox","id":"sh/7adsji5s","slide":7,"text":"The stronger path matches the MathWorks QUBE pattern more closely: no curriculum, TD3, 200 Hz agent sample time, 64-unit networks, async parallel training.","textPreview":"The stronger path matches the MathWorks QUBE pattern more closely: no curriculum, TD3, 200 Hz agent sample time, 64-unit networks, async ...","textChars":155,"textLines":1,"bbox":[104,295,1010,56]}
+{"kind":"shape","id":"sh/epkzupwb","slide":7,"bbox":[82,413,8,8]}
+{"kind":"textbox","id":"sh/lc7u54zi","slide":7,"text":"The big process improvement was fixed-case evaluation. Training reward and episode survival alone were misleading.","textPreview":"The big process improvement was fixed-case evaluation. Training reward and episode survival alone were misleading.","textChars":114,"textLines":1,"bbox":[104,405,1010,56]}
+{"kind":"shape","id":"sh/wra5gbq1","slide":7,"bbox":[710,475,420,122]}
+{"kind":"textbox","id":"sh/upwb2hwf","slide":7,"text":"Reward idea","textPreview":"Reward idea","textChars":11,"textLines":1,"bbox":[742,500,180,26]}
+{"kind":"textbox","id":"sh/nap4r65w","slide":7,"text":"survival reward - weighted angle, velocity, action, and action-smoothing costs","textPreview":"survival reward - weighted angle, velocity, action, and action-smoothing costs","textChars":78,"textLines":1,"bbox":[742,536,340,42]}
+{"kind":"textbox","id":"sh/cvixczed","slide":7,"text":"Sources: docs/direct_td3_stage1_results_2026-06-11.md; docs/mathworks_style_td3_runs_2026-06-16.md","textPreview":"Sources: docs/direct_td3_stage1_results_2026-06-11.md; docs/mathworks_style_td3_runs_2026-06-16.md","textChars":98,"textLines":1,"bbox":[64,686,1040,20]}
+{"kind":"notes","id":"nt/0m0ktl","slide":7,"text":"Do not dwell too long on the formula unless asked. The important point is that the setup became stable enough to learn, then the evaluation revealed what was still weak."}
+{"kind":"slide","id":"sl/vnink1","slide":8,"title":"FURUTA RL UPDATE | 2026-06-17","textShapes":24}
+{"kind":"textbox","id":"sh/3ylc7u54","slide":8,"text":"FURUTA RL UPDATE | 2026-06-17","textPreview":"FURUTA RL UPDATE | 2026-06-17","textChars":29,"textLines":1,"bbox":[64,42,680,24]}
+{"kind":"textbox","id":"sh/sji5snel","slide":8,"text":"Evaluation matrix: 297 cases, but only four dimensions","textPreview":"Evaluation matrix: 297 cases, but only four dimensions","textChars":54,"textLines":1,"bbox":[64,74,1040,82]}
+{"kind":"shape","id":"sh/h4byhgn2","slide":8,"bbox":[72,180,250,150]}
+{"kind":"textbox","id":"sh/a5gbq1or","slide":8,"text":"Arm offset","textPreview":"Arm offset","textChars":10,"textLines":1,"bbox":[96,205,200,26]}
+{"kind":"textbox","id":"sh/3m94fu18","slide":8,"text":"3 values","textPreview":"3 values","textChars":8,"textLines":1,"bbox":[96,245,180,38]}
+{"kind":"textbox","id":"sh/s72x4nap","slide":8,"text":"-45, 0, +45 deg","textPreview":"-45, 0, +45 deg","textChars":15,"textLines":1,"bbox":[96,292,190,24]}
+{"kind":"shape","id":"sh/lszqtcj6","slide":8,"bbox":[372,180,250,150]}
+{"kind":"textbox","id":"sh/a1gvy90j","slide":8,"text":"Pendulum error","textPreview":"Pendulum error","textChars":14,"textLines":1,"bbox":[396,205,200,26]}
+{"kind":"textbox","id":"sh/zidonyd0","slide":8,"text":"11 values","textPreview":"11 values","textChars":9,"textLines":1,"bbox":[396,245,180,38]}
+{"kind":"textbox","id":"sh/re1w7mp0","slide":8,"text":"-180 to +180 deg","textPreview":"-180 to +180 deg","textChars":16,"textLines":1,"bbox":[396,292,190,24]}
+{"kind":"shape","id":"sh/2t83itgf","slide":8,"bbox":[672,180,250,150]}
+{"kind":"textbox","id":"sh/9knih4by","slide":8,"text":"Arm velocity","textPreview":"Arm velocity","textChars":12,"textLines":1,"bbox":[696,205,200,26]}
+{"kind":"textbox","id":"sh/kzupwb2h","slide":8,"text":"3 values","textPreview":"3 values","textChars":8,"textLines":1,"bbox":[696,245,180,38]}
+{"kind":"textbox","id":"sh/rqd4vmtw","slide":8,"text":"-5, 0, +5 rad/s","textPreview":"-5, 0, +5 rad/s","textChars":15,"textLines":1,"bbox":[696,292,190,24]}
+{"kind":"shape","id":"sh/25kb6xkf","slide":8,"bbox":[972,180,250,150]}
+{"kind":"textbox","id":"sh/9w3m94fu","slide":8,"text":"Pendulum velocity","textPreview":"Pendulum velocity","textChars":17,"textLines":1,"bbox":[996,205,200,26]}
+{"kind":"textbox","id":"sh/kb6xkf6d","slide":8,"text":"3 values","textPreview":"3 values","textChars":8,"textLines":1,"bbox":[996,245,180,38]}
+{"kind":"textbox","id":"sh/r2p8nqxs","slide":8,"text":"-10, 0, +10 rad/s","textPreview":"-10, 0, +10 rad/s","textChars":17,"textLines":1,"bbox":[996,292,190,24]}
+{"kind":"textbox","id":"sh/2hwfyxob","slide":8,"text":"3 x 11 x 3 x 3 = 297 fixed initial-condition cases","textPreview":"3 x 11 x 3 x 3 = 297 fixed initial-condition cases","textChars":50,"textLines":1,"bbox":[170,370,850,44]}
+{"kind":"textbox","id":"sh/q1orytsv","slide":8,"text":"Easy/core","textPreview":"Easy/core","textChars":9,"textLines":1,"bbox":[125,455,160,24]}
+{"kind":"textbox","id":"sh/fmlkjm1c","slide":8,"text":"theta1 = 0, small theta2, low velocities","textPreview":"theta1 = 0, small theta2, low velocities","textChars":40,"textLines":1,"bbox":[295,455,360,34]}
+{"kind":"textbox","id":"sh/87ed8bat","slide":8,"text":"Swing-up stress","textPreview":"Swing-up stress","textChars":15,"textLines":1,"bbox":[675,455,160,24]}
+{"kind":"textbox","id":"sh/xs72x4na","slide":8,"text":"large theta2 errors, including downward starts","textPreview":"large theta2 errors, including downward starts","textChars":46,"textLines":1,"bbox":[845,455,360,34]}
+{"kind":"textbox","id":"sh/qtcj6tov","slide":8,"text":"Arm management","textPreview":"Arm management","textChars":14,"textLines":1,"bbox":[125,545,160,24]}
+{"kind":"textbox","id":"sh/je9cvixc","slide":8,"text":"same pendulum cases with +/-45 deg arm offset","textPreview":"same pendulum cases with +/-45 deg arm offset","textChars":45,"textLines":1,"bbox":[295,545,360,34]}
+{"kind":"textbox","id":"sh/8z25kb6x","slide":8,"text":"Velocity stress","textPreview":"Velocity stress","textChars":15,"textLines":1,"bbox":[675,545,160,24]}
+{"kind":"textbox","id":"sh/1gvy90je","slide":8,"text":"same angles with arm/pendulum initial momentum","textPreview":"same angles with arm/pendulum initial momentum","textChars":46,"textLines":1,"bbox":[845,545,360,34]}
+{"kind":"textbox","id":"sh/qpg3ex0n","slide":8,"text":"Source: full_eval_cases.csv for run_20260616_012625_td3_mathworks_style_wide","textPreview":"Source: full_eval_cases.csv for run_20260616_012625_td3_mathworks_style_wide","textChars":76,"textLines":1,"bbox":[64,686,1040,20]}
+{"kind":"notes","id":"nt/vnink1","slide":8,"text":"This slide lets you avoid listing 297 cases. Say the matrix is a Cartesian product of four interpretable stress axes."}
+{"kind":"slide","id":"sl/gc01zr","slide":9,"title":"FURUTA RL UPDATE | 2026-06-17","textShapes":11}
+{"kind":"textbox","id":"sh/dcbulwva","slide":9,"text":"FURUTA RL UPDATE | 2026-06-17","textPreview":"FURUTA RL UPDATE | 2026-06-17","textChars":29,"textLines":1,"bbox":[64,42,680,24]}
+{"kind":"textbox","id":"sh/6psfil0r","slide":9,"text":"Evaluation matrix is being upgraded for oscillation and energy","textPreview":"Evaluation matrix is being upgraded for oscillation and energy","textChars":62,"textLines":1,"bbox":[64,74,1040,82]}
+{"kind":"shape","id":"sh/val87ed8","slide":9,"bbox":[86,190,320,280]}
+{"kind":"textbox","id":"sh/k3q5o7qp","slide":9,"text":"End theta2 behavior","textPreview":"End theta2 behavior","textChars":19,"textLines":1,"bbox":[114,222,250,32]}
+{"kind":"textbox","id":"sh/donyd0z6","slide":9,"text":"Theta2EndRMS\nTheta2EndOscRMS\nTheta2EndPeakToPeak\nTheta2EndOscFreqHz","textPreview":"Theta2EndRMS | Theta2EndOscRMS | Theta2EndPeakToPeak | Theta2EndOscFreqHz","textChars":67,"textLines":4,"bbox":[114,282,250,145]}
+{"kind":"shape","id":"sh/2x4nap4r","slide":9,"bbox":[468,190,320,280]}
+{"kind":"textbox","id":"sh/vixczed8","slide":9,"text":"End action behavior","textPreview":"End action behavior","textChars":19,"textLines":1,"bbox":[496,222,250,32]}
+{"kind":"textbox","id":"sh/kf6dcbul","slide":9,"text":"ActionEndRMS\nActionEndOscRMS\nActionEndPeakToPeak\nActionEndOscFreqHz\nActionDiffRMS","textPreview":"ActionEndRMS | ActionEndOscRMS | ActionEndPeakToPeak | ActionEndOscFreqHz | ActionDiffRMS","textChars":81,"textLines":5,"bbox":[496,282,250,145]}
+{"kind":"shape","id":"sh/d0z61032","slide":9,"bbox":[850,190,320,280]}
+{"kind":"textbox","id":"sh/dsji5sne","slide":9,"text":"Electrical effort","textPreview":"Electrical effort","textChars":17,"textLines":1,"bbox":[878,222,250,32]}
+{"kind":"textbox","id":"sh/o7qpg3ex","slide":9,"text":"ElectricalAbsEnergy\nMeanAbsElectricalPower","textPreview":"ElectricalAbsEnergy | MeanAbsElectricalPower","textChars":42,"textLines":2,"bbox":[878,282,250,145]}
+{"kind":"textbox","id":"sh/vmtwra5g","slide":9,"text":"Why this matters: the old summary could say a controller survived and ended near upright, while hiding small final oscillations, action chatter, or high electrical effort.","textPreview":"Why this matters: the old summary could say a controller survived and ended near upright, while hiding small final oscillations, action c...","textChars":171,"textLines":1,"bbox":[118,530,1040,58]}
+{"kind":"textbox","id":"sh/61032lsz","slide":9,"text":"Status: columns are now present in the PI/current analytical-active and Simscape-active rerun CSVs.","textPreview":"Status: columns are now present in the PI/current analytical-active and Simscape-active rerun CSVs.","textChars":99,"textLines":1,"bbox":[118,615,980,30]}
+{"kind":"textbox","id":"sh/d4vmtwra","slide":9,"text":"Sources: scripts/computeFurutaMetrics.m; scripts/evaluateFurutaController.m","textPreview":"Sources: scripts/computeFurutaMetrics.m; scripts/evaluateFurutaController.m","textChars":75,"textLines":1,"bbox":[64,686,1040,20]}
+{"kind":"notes","id":"nt/gc01zr","slide":9,"text":"Use this to explain the user's newest evaluation improvement. The key is the last-second window and detrending: separate bias from oscillation amplitude."}
+{"kind":"slide","id":"sl/zlucns","slide":10,"title":"FURUTA RL UPDATE | 2026-06-17","textShapes":15}
+{"kind":"textbox","id":"sh/dg7adsji","slide":10,"text":"FURUTA RL UPDATE | 2026-06-17","textPreview":"FURUTA RL UPDATE | 2026-06-17","textChars":29,"textLines":1,"bbox":[64,42,680,24]}
+{"kind":"textbox","id":"sh/6tovahoz","slide":10,"text":"Training result: usable, but not magic","textPreview":"Training result: usable, but not magic","textChars":38,"textLines":1,"bbox":[64,74,1040,82]}
+{"kind":"shape","id":"sh/onyd0z61","slide":10,"bbox":[92,555,250,116]}
+{"kind":"textbox","id":"sh/d8v6psfi","slide":10,"text":"740","textPreview":"740","textChars":3,"textLines":1,"bbox":[114,573,206,44]}
+{"kind":"textbox","id":"sh/6hcrmhk3","slide":10,"text":"Final average reward","textPreview":"Final average reward","textChars":20,"textLines":1,"bbox":[114,621,206,24]}
+{"kind":"textbox","id":"sh/z25kb6xk","slide":10,"text":"episode 3000 snapshot","textPreview":"episode 3000 snapshot","textChars":21,"textLines":1,"bbox":[114,646,206,18]}
+{"kind":"shape","id":"sh/oj2t83it","slide":10,"bbox":[378,555,250,116]}
+{"kind":"textbox","id":"sh/d4vmtwra","slide":10,"text":"43/50","textPreview":"43/50","textChars":5,"textLines":1,"bbox":[400,573,206,44]}
+{"kind":"textbox","id":"sh/h4byhgn2","slide":10,"text":"Last 50 full-length","textPreview":"Last 50 full-length","textChars":19,"textLines":1,"bbox":[400,621,206,24]}
+{"kind":"textbox","id":"sh/sji5snel","slide":10,"text":"late training stability","textPreview":"late training stability","textChars":23,"textLines":1,"bbox":[400,646,206,18]}
+{"kind":"shape","id":"sh/3ylc7u54","slide":10,"bbox":[664,555,250,116]}
+{"kind":"textbox","id":"sh/adsji5sn","slide":10,"text":"3000","textPreview":"3000","textChars":4,"textLines":1,"bbox":[686,573,206,44]}
+{"kind":"textbox","id":"sh/lszqtcj6","slide":10,"text":"Training episodes","textPreview":"Training episodes","textChars":17,"textLines":1,"bbox":[686,621,206,24]}
+{"kind":"textbox","id":"sh/s72x4nap","slide":10,"text":"wide randomization run","textPreview":"wide randomization run","textChars":22,"textLines":1,"bbox":[686,646,206,18]}
+{"kind":"shape","id":"sh/3m94fu18","slide":10,"bbox":[950,555,250,116]}
+{"kind":"textbox","id":"sh/a5gbq1or","slide":10,"text":"spiky","textPreview":"spiky","textChars":5,"textLines":1,"bbox":[972,573,206,44]}
+{"kind":"textbox","id":"sh/hoza1gvy","slide":10,"text":"Main caveat","textPreview":"Main caveat","textChars":11,"textLines":1,"bbox":[972,621,206,24]}
+{"kind":"textbox","id":"sh/s36hcrmh","slide":10,"text":"occasional collapses remain","textPreview":"occasional collapses remain","textChars":27,"textLines":1,"bbox":[972,646,206,18]}
+{"kind":"textbox","id":"sh/4zidonyd","slide":10,"text":"Source: results/TD3/run_20260616_012625_td3_mathworks_style_wide/training_progress.csv","textPreview":"Source: results/TD3/run_20260616_012625_td3_mathworks_style_wide/training_progress.csv","textChars":86,"textLines":1,"bbox":[64,686,1040,20]}
+{"kind":"image","id":"im/ixczed8v","slide":10,"name":"","alt":"Training reward and episode length curve for the best MathWorks-style wide TD3 run","bbox":[60,150,1160,390]}
+{"kind":"notes","id":"nt/zlucns","slide":10,"text":"Say: this is the first run that feels genuinely usable. But the late spikes remind us not to claim robustness just from training reward."}
+{"kind":"slide","id":"sl/vysb43","slide":11,"title":"FURUTA RL UPDATE | 2026-06-17","textShapes":15}
+{"kind":"textbox","id":"sh/h4byhgn2","slide":11,"text":"FURUTA RL UPDATE | 2026-06-17","textPreview":"FURUTA RL UPDATE | 2026-06-17","textChars":29,"textLines":1,"bbox":[64,42,680,24]}
+{"kind":"textbox","id":"sh/adsji5sn","slide":11,"text":"Best current controller: PI/current path TD3","textPreview":"Best current controller: PI/current path TD3","textChars":44,"textLines":1,"bbox":[64,74,1040,82]}
+{"kind":"shape","id":"sh/3ylc7u54","slide":11,"bbox":[78,185,250,148]}
+{"kind":"textbox","id":"sh/s72x4nap","slide":11,"text":"297","textPreview":"297","textChars":3,"textLines":1,"bbox":[102,209,202,55]}
+{"kind":"textbox","id":"sh/lszqtcj6","slide":11,"text":"Full fixed eval","textPreview":"Full fixed eval","textChars":15,"textLines":1,"bbox":[102,269,202,28]}
+{"kind":"textbox","id":"sh/a5gbq1or","slide":11,"text":"initial-condition cases","textPreview":"initial-condition cases","textChars":23,"textLines":1,"bbox":[102,297,202,24]}
+{"kind":"shape","id":"sh/3m94fu18","slide":11,"bbox":[368,185,250,148]}
+{"kind":"textbox","id":"sh/s36hcrmh","slide":11,"text":"14.48%","textPreview":"14.48%","textChars":6,"textLines":1,"bbox":[392,209,202,55]}
+{"kind":"textbox","id":"sh/hoza1gvy","slide":11,"text":"Failure rate","textPreview":"Failure rate","textChars":12,"textLines":1,"bbox":[392,269,202,28]}
+{"kind":"textbox","id":"sh/58z25kb6","slide":11,"text":"43/297 cases","textPreview":"43/297 cases","textChars":12,"textLines":1,"bbox":[392,297,202,24]}
+{"kind":"shape","id":"sh/gn29gr2p","slide":11,"bbox":[658,185,250,148]}
+{"kind":"textbox","id":"sh/n29gr2p8","slide":11,"text":"0.35 deg","textPreview":"0.35 deg","textChars":8,"textLines":1,"bbox":[682,209,202,55]}
+{"kind":"textbox","id":"sh/yhgn29gr","slide":11,"text":"Median final MAE","textPreview":"Median final MAE","textChars":16,"textLines":1,"bbox":[682,269,202,28]}
+{"kind":"textbox","id":"sh/5wjudg7a","slide":11,"text":"tight when it succeeds","textPreview":"tight when it succeeds","textChars":22,"textLines":1,"bbox":[682,297,202,24]}
+{"kind":"shape","id":"sh/gbq1oryt","slide":11,"bbox":[948,185,250,148]}
+{"kind":"textbox","id":"sh/nuxc3ylc","slide":11,"text":"7.23 deg","textPreview":"7.23 deg","textChars":8,"textLines":1,"bbox":[972,209,202,55]}
+{"kind":"textbox","id":"sh/y90je9cv","slide":11,"text":"Mean final MAE","textPreview":"Mean final MAE","textChars":14,"textLines":1,"bbox":[972,269,202,28]}
+{"kind":"textbox","id":"sh/5sneloj2","slide":11,"text":"mean pulled by failures","textPreview":"mean pulled by failures","textChars":23,"textLines":1,"bbox":[972,297,202,24]}
+{"kind":"textbox","id":"sh/8nqxs72x","slide":11,"text":"Source: full_final_summary.csv and full_final_metrics.csv for run_20260616_012625_td3_mathworks_style_wide","textPreview":"Source: full_final_summary.csv and full_final_metrics.csv for run_20260616_012625_td3_mathworks_style_wide","textChars":106,"textLines":1,"bbox":[64,686,1040,20]}
+{"kind":"image","id":"im/7qpg3ex0","slide":11,"name":"","alt":"Distribution of final pendulum error for non-failed PI current path evaluation cases","bbox":[70,350,1140,305]}
+{"kind":"notes","id":"nt/vysb43","slide":11,"text":"This is the best positive result. Make the nuance clear: successful cases are often very good, but broad robustness is incomplete."}
+{"kind":"slide","id":"sl/7q5xmc","slide":12,"title":"FURUTA RL UPDATE | 2026-06-17","textShapes":8}
+{"kind":"textbox","id":"sh/9knih4by","slide":12,"text":"FURUTA RL UPDATE | 2026-06-17","textPreview":"FURUTA RL UPDATE | 2026-06-17","textChars":29,"textLines":1,"bbox":[64,42,680,24]}
+{"kind":"textbox","id":"sh/2t83itgf","slide":12,"text":"Failure mode is specific: arm management","textPreview":"Failure mode is specific: arm management","textChars":40,"textLines":1,"bbox":[64,74,1040,82]}
+{"kind":"shape","id":"sh/re1w7mp0","slide":12,"bbox":[80,185,500,300]}
+{"kind":"textbox","id":"sh/kb6xkf6d","slide":12,"text":"43 failures","textPreview":"43 failures","textChars":11,"textLines":1,"bbox":[120,225,380,65]}
+{"kind":"textbox","id":"sh/9w3m94fu","slide":12,"text":"All were arm-angle limit failures. No pendulum-limit failures. No angular-velocity-limit failures.","textPreview":"All were arm-angle limit failures. No pendulum-limit failures. No angular-velocity-limit failures.","textChars":98,"textLines":1,"bbox":[122,310,390,92]}
+{"kind":"shape","id":"sh/25kb6xkf","slide":12,"bbox":[650,185,500,300]}
+{"kind":"textbox","id":"sh/rqd4vmtw","slide":12,"text":"Exceedance margins","textPreview":"Exceedance margins","textChars":18,"textLines":1,"bbox":[690,225,370,36]}
+{"kind":"textbox","id":"sh/kjm1cfa9","slide":12,"text":"min 0.012 deg\nmedian 0.312 deg\nmax 2.277 deg","textPreview":"min 0.012 deg | median 0.312 deg | max 2.277 deg","textChars":44,"textLines":3,"bbox":[690,285,360,120]}
+{"kind":"textbox","id":"sh/94fu18jq","slide":12,"text":"Interpretation: the controller can swing up and stabilize in many practical cases, but the objective still tolerates arm travel too much.","textPreview":"Interpretation: the controller can swing up and stabilize in many practical cases, but the objective still tolerates arm travel too much.","textChars":137,"textLines":1,"bbox":[140,535,980,54]}
+{"kind":"textbox","id":"sh/1orytsvu","slide":12,"text":"Source: meeting handoff and full_final_metrics.csv","textPreview":"Source: meeting handoff and full_final_metrics.csv","textChars":50,"textLines":1,"bbox":[64,686,1040,20]}
+{"kind":"notes","id":"nt/7q5xmc","slide":12,"text":"This is a good informal slide. It turns the failure story from vague to actionable: reward and arm constraints need attention."}
+{"kind":"slide","id":"sl/il3qg7","slide":13,"title":"FURUTA RL UPDATE | 2026-06-17","textShapes":4}
+{"kind":"textbox","id":"sh/fil0rqd4","slide":13,"text":"FURUTA RL UPDATE | 2026-06-17","textPreview":"FURUTA RL UPDATE | 2026-06-17","textChars":29,"textLines":1,"bbox":[64,42,680,24]}
+{"kind":"textbox","id":"sh/83itgfml","slide":13,"text":"Plant mismatch is not just a voltage-path issue","textPreview":"Plant mismatch is not just a voltage-path issue","textChars":47,"textLines":1,"bbox":[64,74,1040,82]}
+{"kind":"textbox","id":"sh/m94fu18j","slide":13,"text":"Cautious conclusion: PI/current is robust on the analytical-active plant, but Simscape-active feedback collapses broad robustness. Direct voltage is still useful diagnostically, not yet as the winner.","textPreview":"Cautious conclusion: PI/current is robust on the analytical-active plant, but Simscape-active feedback collapses broad robustness. Direct...","textChars":200,"textLines":1,"bbox":[105,598,1040,58]}
+{"kind":"textbox","id":"sh/fu18jqh0","slide":13,"text":"Sources: PI/current analytical/Simscape rerun summaries; voltage analytical/Simscape summaries","textPreview":"Sources: PI/current analytical/Simscape rerun summaries; voltage analytical/Simscape summaries","textChars":94,"textLines":1,"bbox":[64,686,1040,20]}
+{"kind":"image","id":"im/wb2hwfyx","slide":13,"name":"","alt":"Comparison of PI current and voltage policies under analytical and Simscape-active evaluation","bbox":[72,160,1136,420]}
+{"kind":"notes","id":"nt/il3qg7","slide":13,"text":"Phrase carefully: the new PI/current rerun proves the Simscape-active problem is not only caused by the voltage command path."}
+{"kind":"slide","id":"sl/gy3d6y","slide":14,"title":"FURUTA RL UPDATE | 2026-06-17","textShapes":15}
+{"kind":"textbox","id":"sh/gn29gr2p","slide":14,"text":"FURUTA RL UPDATE | 2026-06-17","textPreview":"FURUTA RL UPDATE | 2026-06-17","textChars":29,"textLines":1,"bbox":[64,42,680,24]}
+{"kind":"textbox","id":"sh/n29gr2p8","slide":14,"text":"PI/current rerun: analytical reproduces, Simscape collapses","textPreview":"PI/current rerun: analytical reproduces, Simscape collapses","textChars":59,"textLines":1,"bbox":[64,74,1040,82]}
+{"kind":"textbox","id":"sh/yhgn29gr","slide":14,"text":"Feedback plant","textPreview":"Feedback plant","textChars":14,"textLines":1,"bbox":[130,210,240,28]}
+{"kind":"textbox","id":"sh/5wjudg7a","slide":14,"text":"Failure rate","textPreview":"Failure rate","textChars":12,"textLines":1,"bbox":[510,210,220,28]}
+{"kind":"textbox","id":"sh/gbq1oryt","slide":14,"text":"Failures","textPreview":"Failures","textChars":8,"textLines":1,"bbox":[840,210,220,28]}
+{"kind":"shape","id":"sh/nuxc3ylc","slide":14,"bbox":[100,260,300,85]}
+{"kind":"shape","id":"sh/y90je9cv","slide":14,"bbox":[470,260,260,85]}
+{"kind":"shape","id":"sh/5sneloj2","slide":14,"bbox":[810,260,260,85]}
+{"kind":"textbox","id":"sh/cbulwval","slide":14,"text":"Analytical-active","textPreview":"Analytical-active","textChars":17,"textLines":1,"bbox":[126,285,240,30]}
+{"kind":"textbox","id":"sh/e9cvixcz","slide":14,"text":"14.48% failure","textPreview":"14.48% failure","textChars":14,"textLines":1,"bbox":[492,285,220,30]}
+{"kind":"textbox","id":"sh/3q5o7qpg","slide":14,"text":"43/297 cases","textPreview":"43/297 cases","textChars":12,"textLines":1,"bbox":[832,285,220,30]}
+{"kind":"shape","id":"sh/wb2hwfyx","slide":14,"bbox":[100,390,300,85]}
+{"kind":"shape","id":"sh/lwval87e","slide":14,"bbox":[470,390,260,85]}
+{"kind":"shape","id":"sh/ex0nuxc3","slide":14,"bbox":[810,390,260,85]}
+{"kind":"textbox","id":"sh/3itgfmlk","slide":14,"text":"Simscape-active","textPreview":"Simscape-active","textChars":15,"textLines":1,"bbox":[126,415,240,30]}
+{"kind":"textbox","id":"sh/w3m94fu1","slide":14,"text":"86.53% failure","textPreview":"86.53% failure","textChars":14,"textLines":1,"bbox":[492,415,220,30]}
+{"kind":"textbox","id":"sh/loj2t83i","slide":14,"text":"257/297 cases","textPreview":"257/297 cases","textChars":13,"textLines":1,"bbox":[832,415,220,30]}
+{"kind":"shape","id":"sh/at47y1kr","slide":14,"bbox":[120,543,8,8]}
+{"kind":"textbox","id":"sh/3ex0nuxc","slide":14,"text":"The old PI/current result was effectively analytical-active; the explicit rerun reproduced it exactly.","textPreview":"The old PI/current result was effectively analytical-active; the explicit rerun reproduced it exactly.","textChars":102,"textLines":1,"bbox":[142,535,990,56]}
+{"kind":"shape","id":"sh/z25kb6xk","slide":14,"bbox":[120,593,8,8]}
+{"kind":"textbox","id":"sh/6hcrmhk3","slide":14,"text":"The smaller Simscape mean final theta2 MAE is misleading because most hard cases fail. Lead with failure rate and breakdown.","textPreview":"The smaller Simscape mean final theta2 MAE is misleading because most hard cases fail. Lead with failure rate and breakdown.","textChars":124,"textLines":1,"bbox":[142,585,990,56]}
+{"kind":"textbox","id":"sh/d8v6psfi","slide":14,"text":"Hardware note: this argues for plant/interface validation before hardware-oriented claims.","textPreview":"Hardware note: this argues for plant/interface validation before hardware-oriented claims.","textChars":90,"textLines":1,"bbox":[120,648,980,34]}
+{"kind":"textbox","id":"sh/onyd0z61","slide":14,"text":"Sources: pi_current_analytical_active/full_final_summary.csv; pi_current_simscape_active/full_final_summary.csv","textPreview":"Sources: pi_current_analytical_active/full_final_summary.csv; pi_current_simscape_active/full_final_summary.csv","textChars":111,"textLines":1,"bbox":[64,686,1040,20]}
+{"kind":"notes","id":"nt/gy3d6y","slide":14,"text":"This is the updated decision-gate slide. It replaces the pending rerun with the actual plant-mismatch result."}
+{"kind":"slide","id":"sl/bnli6w","slide":15,"title":"FURUTA RL UPDATE | 2026-06-17","textShapes":8}
+{"kind":"textbox","id":"sh/adsji5sn","slide":15,"text":"FURUTA RL UPDATE | 2026-06-17","textPreview":"FURUTA RL UPDATE | 2026-06-17","textChars":29,"textLines":1,"bbox":[64,42,680,24]}
+{"kind":"textbox","id":"sh/h4byhgn2","slide":15,"text":"New metrics clarify what changed and what did not","textPreview":"New metrics clarify what changed and what did not","textChars":49,"textLines":1,"bbox":[64,74,1040,82]}
+{"kind":"shape","id":"sh/sji5snel","slide":15,"bbox":[92,190,500,270]}
+{"kind":"textbox","id":"sh/3m94fu18","slide":15,"text":"Short/easy cases","textPreview":"Short/easy cases","textChars":16,"textLines":1,"bbox":[126,225,400,34]}
+{"kind":"textbox","id":"sh/a5gbq1or","slide":15,"text":"Analytical and Simscape are very similar:\nTheta2EndOscRMS about 0.0067 rad\nTheta2EndPeakToPeak about 0.02 rad\nOscillation frequency about 7 Hz","textPreview":"Analytical and Simscape are very similar: | Theta2EndOscRMS about 0.0067 rad | Theta2EndPeakToPeak about 0.02 rad | Oscillation frequency...","textChars":142,"textLines":4,"bbox":[126,292,410,135]}
+{"kind":"shape","id":"sh/lszqtcj6","slide":15,"bbox":[680,190,500,270]}
+{"kind":"textbox","id":"sh/s72x4nap","slide":15,"text":"Broad/full matrix","textPreview":"Broad/full matrix","textChars":17,"textLines":1,"bbox":[714,225,340,34]}
+{"kind":"textbox","id":"sh/zidonyd0","slide":15,"text":"Simscape-active fails much earlier/more often:\nomega 5 rad/s: 66/66 failed\nomega 10 rad/s: 188/198 failed\nFailure rate is the headline.","textPreview":"Simscape-active fails much earlier/more often: | omega 5 rad/s: 66/66 failed | omega 10 rad/s: 188/198 failed | Failure rate is the headl...","textChars":135,"textLines":4,"bbox":[714,292,410,135]}
+{"kind":"textbox","id":"sh/a1gvy90j","slide":15,"text":"Meeting phrasing: the final-second oscillation metric says easy upright behavior transfers, but the full matrix says recovery robustness does not.","textPreview":"Meeting phrasing: the final-second oscillation metric says easy upright behavior transfers, but the full matrix says recovery robustness ...","textChars":146,"textLines":1,"bbox":[130,540,1010,58]}
+{"kind":"textbox","id":"sh/8nqxs72x","slide":15,"text":"Sources: PI/current analytical-active and Simscape-active rerun summaries; user-provided breakdown","textPreview":"Sources: PI/current analytical-active and Simscape-active rerun summaries; user-provided breakdown","textChars":98,"textLines":1,"bbox":[64,686,1040,20]}
+{"kind":"notes","id":"nt/bnli6w","slide":15,"text":"This is the clean takeaway: the new metrics did their job by separating final oscillation behavior from broad robustness."}

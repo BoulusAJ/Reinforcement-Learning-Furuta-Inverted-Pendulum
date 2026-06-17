@@ -1,0 +1,337 @@
+{
+  "schema": "openai.presentation.layout/v4",
+  "unit": "px",
+  "slide": {
+    "aid": "sl/sic1q7",
+    "id": "sic1q7",
+    "slide": 9,
+    "layoutId": "dbb35aff-b272-42f1-b819-ba0b2fccc1e3",
+    "layoutName": "Title Slide",
+    "layoutType": "title",
+    "masterLayoutId": "f1afd91f-b985-4c40-b965-727d5e9a4eef",
+    "masterLayoutName": "Master",
+    "backgroundColor": "#FFFFFF",
+    "frame": {
+      "left": 0,
+      "top": 0,
+      "width": 1280,
+      "height": 720
+    }
+  },
+  "theme": {
+    "colorSchemeName": "Furuta update",
+    "colors": {
+      "accent1": "#0B4F6C",
+      "accent2": "#2A9D8F",
+      "accent3": "#F2A541",
+      "accent4": "#D1495B",
+      "bg1": "#FFFFFF",
+      "bg2": "#F5F8FB",
+      "tx1": "#25313D",
+      "tx2": "#596B7A",
+      "dk1": "#000000",
+      "dk2": "#25313D",
+      "lt1": "#FFFFFF",
+      "lt2": "#E8EDF2",
+      "hlink": "#0B4F6C",
+      "folHlink": "#2A9D8F"
+    },
+    "typefaces": [
+      "Aptos"
+    ]
+  },
+  "inheritedLayers": [
+    {
+      "scope": "layout",
+      "id": "dbb35aff-b272-42f1-b819-ba0b2fccc1e3",
+      "name": "Title Slide",
+      "type": "title",
+      "parentLayoutId": "f1afd91f-b985-4c40-b965-727d5e9a4eef",
+      "elements": []
+    },
+    {
+      "scope": "master",
+      "id": "f1afd91f-b985-4c40-b965-727d5e9a4eef",
+      "name": "Master",
+      "type": "master",
+      "elements": []
+    }
+  ],
+  "elements": [
+    {
+      "order": 1,
+      "kind": "shape",
+      "scope": "slide",
+      "aid": "sh/u54zidon",
+      "id": "1",
+      "bbox": [
+        64,
+        42,
+        680,
+        24
+      ],
+      "geometry": "rect",
+      "text": "FURUTA RL UPDATE | 2026-06-17",
+      "textPreview": "FURUTA RL UPDATE | 2026-06-17",
+      "resolvedFontSize": 12,
+      "resolvedTextStyle": {
+        "fontSize": 12,
+        "typeface": "Aptos",
+        "color": "#596B7A",
+        "bold": true,
+        "alignment": "left",
+        "insets": {
+          "top": 4.8,
+          "right": 9.6,
+          "bottom": 4.8,
+          "left": 9.6
+        }
+      },
+      "textLayout": {
+        "lineCount": 1,
+        "lines": [
+          {
+            "index": 1,
+            "text": "FURUTA RL UPDATE | 2026-06-17"
+          }
+        ]
+      },
+      "paragraphs": [
+        {
+          "index": 1,
+          "text": "FURUTA RL UPDATE | 2026-06-17",
+          "resolvedTextStyle": {
+            "fontSize": 12,
+            "typeface": "Aptos",
+            "color": "#596B7A",
+            "bold": true
+          },
+          "runs": [
+            {
+              "index": 1,
+              "text": "FURUTA RL UPDATE | 2026-06-17",
+              "fontSize": 12,
+              "typeface": "Aptos",
+              "color": "#596B7A",
+              "bold": true
+            }
+          ],
+          "marginLeft": 0
+        }
+      ],
+      "lineWidth": 0
+    },
+    {
+      "order": 2,
+      "kind": "shape",
+      "scope": "slide",
+      "aid": "sh/5sneloj2",
+      "id": "2",
+      "bbox": [
+        64,
+        74,
+        1040,
+        82
+      ],
+      "geometry": "rect",
+      "text": "Water Tank example: draining case",
+      "textPreview": "Water Tank example: draining case",
+      "resolvedFontSize": 36,
+      "resolvedTextStyle": {
+        "fontSize": 36,
+        "typeface": "Aptos",
+        "color": "#25313D",
+        "bold": true,
+        "alignment": "left",
+        "insets": {
+          "top": 4.8,
+          "right": 9.6,
+          "bottom": 4.8,
+          "left": 9.6
+        }
+      },
+      "textLayout": {
+        "lineCount": 1,
+        "lines": [
+          {
+            "index": 1,
+            "text": "Water Tank example: draining case"
+          }
+        ]
+      },
+      "paragraphs": [
+        {
+          "index": 1,
+          "text": "Water Tank example: draining case",
+          "resolvedTextStyle": {
+            "fontSize": 36,
+            "typeface": "Aptos",
+            "color": "#25313D",
+            "bold": true
+          },
+          "runs": [
+            {
+              "index": 1,
+              "text": "Water Tank example: draining case",
+              "fontSize": 36,
+              "typeface": "Aptos",
+              "color": "#25313D",
+              "bold": true
+            }
+          ],
+          "marginLeft": 0
+        }
+      ],
+      "lineWidth": 0
+    },
+    {
+      "order": 3,
+      "kind": "image",
+      "scope": "slide",
+      "aid": "im/5wjudg7a",
+      "id": "3",
+      "bbox": [
+        92,
+        140,
+        1080,
+        470
+      ],
+      "alt": "Water Tank draining case: height and action",
+      "contentType": "image/png",
+      "imageFit": "contain",
+      "asset": {
+        "assetId": "0b71c187-a66b-49de-8fda-bb5817273b23",
+        "contentType": "image/png",
+        "byteLength": 43738
+      }
+    },
+    {
+      "order": 4,
+      "kind": "shape",
+      "scope": "slide",
+      "aid": "sh/neloj2t8",
+      "id": "4",
+      "bbox": [
+        130,
+        626,
+        1010,
+        42
+      ],
+      "geometry": "rect",
+      "text": "Here the agent cannot actively drain. It mostly closes the inlet and waits, so reward shaping can easily treat a physical limitation as a policy failure.",
+      "textPreview": "Here the agent cannot actively drain. It mostly closes the inlet and waits, so reward shaping can easily treat a physical limitation as a...",
+      "resolvedFontSize": 21,
+      "resolvedTextStyle": {
+        "fontSize": 21,
+        "typeface": "Aptos",
+        "color": "#25313D",
+        "bold": true,
+        "alignment": "left",
+        "insets": {
+          "top": 4.8,
+          "right": 9.6,
+          "bottom": 4.8,
+          "left": 9.6
+        }
+      },
+      "textLayout": {
+        "lineCount": 2,
+        "lines": [
+          {
+            "index": 1,
+            "text": "Here the agent cannot actively drain. It mostly closes the inlet and waits, so reward shaping can easily treat a"
+          },
+          {
+            "index": 2,
+            "text": "physical limitation as a policy failure."
+          }
+        ]
+      },
+      "paragraphs": [
+        {
+          "index": 1,
+          "text": "Here the agent cannot actively drain. It mostly closes the inlet and waits, so reward shaping can easily treat a physical limitation as a policy failure.",
+          "resolvedTextStyle": {
+            "fontSize": 21,
+            "typeface": "Aptos",
+            "color": "#25313D",
+            "bold": true
+          },
+          "runs": [
+            {
+              "index": 1,
+              "text": "Here the agent cannot actively drain. It mostly closes the inlet and waits, so reward shaping can easily treat a physical limitation as a policy failure.",
+              "fontSize": 21,
+              "typeface": "Aptos",
+              "color": "#25313D",
+              "bold": true
+            }
+          ],
+          "marginLeft": 0
+        }
+      ],
+      "lineWidth": 0
+    },
+    {
+      "order": 5,
+      "kind": "shape",
+      "scope": "slide",
+      "aid": "sh/ytsvu9kn",
+      "id": "5",
+      "bbox": [
+        64,
+        686,
+        1040,
+        20
+      ],
+      "geometry": "rect",
+      "text": "Source: run 4 exported trajectory: New_Export_negative.xlsx",
+      "textPreview": "Source: run 4 exported trajectory: New_Export_negative.xlsx",
+      "resolvedFontSize": 10,
+      "resolvedTextStyle": {
+        "fontSize": 10,
+        "typeface": "Aptos",
+        "color": "#7B8B99",
+        "alignment": "left",
+        "insets": {
+          "top": 4.8,
+          "right": 9.6,
+          "bottom": 4.8,
+          "left": 9.6
+        }
+      },
+      "textLayout": {
+        "lineCount": 1,
+        "lines": [
+          {
+            "index": 1,
+            "text": "Source: run 4 exported trajectory: New_Export_negative.xlsx"
+          }
+        ]
+      },
+      "paragraphs": [
+        {
+          "index": 1,
+          "text": "Source: run 4 exported trajectory: New_Export_negative.xlsx",
+          "resolvedTextStyle": {
+            "fontSize": 10,
+            "typeface": "Aptos",
+            "color": "#7B8B99"
+          },
+          "runs": [
+            {
+              "index": 1,
+              "text": "Source: run 4 exported trajectory: New_Export_negative.xlsx",
+              "fontSize": 10,
+              "typeface": "Aptos",
+              "color": "#7B8B99"
+            }
+          ],
+          "marginLeft": 0
+        }
+      ],
+      "lineWidth": 0
+    }
+  ],
+  "composeRuns": []
+}

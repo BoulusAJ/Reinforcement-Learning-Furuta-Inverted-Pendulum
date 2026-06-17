@@ -10,15 +10,30 @@ end
 signals = struct();
 
 [signals.tAction, signals.action] = getScalarSignal(logsout, "action");
-[signals.tCurrentCommand, signals.current_command] = getScalarSignal(logsout, "current_command");
-[signals.tCurrent, signals.current] = getScalarSignal(logsout, "current");
-[signals.tTorque, signals.torque] = getScalarSignal(logsout, "torque");
+[signals.tActuatorCommand, signals.actuator_command, actuatorCommandName] = ...
+    getFirstScalarSignal(logsout, ["current_command", "voltage_command"]);
+signals.actuator_command_name = actuatorCommandName;
+signals.tCurrentCommand = signals.tActuatorCommand;
+signals.current_command = signals.actuator_command;
+if actuatorCommandName == "voltage_command"
+    signals.tVoltageCommand = signals.tActuatorCommand;
+    signals.voltage_command = signals.actuator_command;
+else
+    signals.tVoltageCommand = [];
+    signals.voltage_command = [];
+end
+[signals.tCurrent, signals.current] = getOptionalScalarSignal(logsout, "current", ...
+    signals.tActuatorCommand, zeros(size(signals.actuator_command)));
+[signals.tTorque, signals.torque] = getOptionalScalarSignal(logsout, "torque", ...
+    signals.tActuatorCommand, zeros(size(signals.actuator_command)));
 [signals.tOmega1, signals.omega1] = getScalarSignal(logsout, "omega1");
 [signals.tOmega2, signals.omega2] = getScalarSignal(logsout, "omega2");
 [signals.tTheta1, signals.theta1] = getScalarSignal(logsout, "theta1");
 [signals.tTheta2, signals.theta2] = getScalarSignal(logsout, "theta2");
-[signals.tVoltage, signals.voltage] = getScalarSignal(logsout, "voltage");
-[signals.tTorqueCommand, signals.torque_command] = getScalarSignal(logsout, "torque_command");
+[signals.tVoltage, signals.voltage] = getOptionalScalarSignal(logsout, "voltage", ...
+    signals.tActuatorCommand, signals.actuator_command);
+[signals.tTorqueCommand, signals.torque_command] = ...
+    getOptionalScalarSignal(logsout, "torque_command", signals.tActuatorCommand, signals.actuator_command);
 [signals.tIsDone, signals.isDone] = getScalarSignal(logsout, "isDone");
 [signals.tReward, signals.reward] = getScalarSignal(logsout, "reward");
 
@@ -117,6 +132,29 @@ end
 sig = data(:);
 end
 
+function [t, sig, matchedName] = getFirstScalarSignal(logsout, names)
+for idx = 1:numel(names)
+    name = string(names(idx));
+    if hasSignal(logsout, name)
+        [t, sig] = getScalarSignal(logsout, name);
+        matchedName = name;
+        return;
+    end
+end
+
+error("extractFurutaSignals:MissingSignal", ...
+    "Missing logsout signal. Expected one of: %s", strjoin(string(names), ", "));
+end
+
+function [t, sig] = getOptionalScalarSignal(logsout, name, fallbackT, fallbackSig)
+if hasSignal(logsout, name)
+    [t, sig] = getScalarSignal(logsout, name);
+else
+    t = fallbackT;
+    sig = fallbackSig;
+end
+end
+
 function [t, data] = getVectorSignal(logsout, name)
 [t, data] = getSignalData(logsout, name);
 if size(data, 2) < 4
@@ -127,7 +165,7 @@ data = data(:, 1:4);
 end
 
 function [t, data] = getSignalData(logsout, name)
-elem = logsout.get(name);
+elem = getSignalElement(logsout, name);
 if isempty(elem)
     error("extractFurutaSignals:MissingSignal", ...
         "Missing logsout signal: %s", name);
@@ -146,5 +184,35 @@ elseif size(raw, ndims(raw)) == numel(t)
 else
     data = double(raw);
     data = reshape(data, numel(t), []);
+end
+end
+
+function tf = hasSignal(logsout, name)
+tf = ~isempty(getSignalElement(logsout, name));
+end
+
+function elem = getSignalElement(logsout, name)
+elem = [];
+name = string(name);
+
+try
+    names = string(logsout.getElementNames);
+    idx = find(names == name, 1);
+    if ~isempty(idx)
+        elem = logsout.getElement(idx);
+        return;
+    end
+catch
+end
+
+try
+    for idx = 1:logsout.numElements
+        candidate = logsout.getElement(idx);
+        if string(candidate.Name) == name
+            elem = candidate;
+            return;
+        end
+    end
+catch
 end
 end

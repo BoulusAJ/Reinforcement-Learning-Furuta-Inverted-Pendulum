@@ -1,0 +1,20 @@
+Visual QA - Furuta RL update deck
+
+Checked rendered slide PNGs in outputs/meeting_update_2026-06-17/deck_preview.
+
+Result:
+- PPTX exports successfully with 24 slides in the voltage-comparison deck.
+- Key slides render without obvious text clipping or incoherent overlap.
+- Early-topic slides on Water Tank, curriculum learning, Furuta method search, and the first TD3 path were spot-checked after the deck expansion.
+- Evaluation-matrix and new-metrics slides are readable at deck scale.
+- Water Tank reward, one-sided actuation, run-summary, raising, draining, and at-reference slides were spot-checked after the latest expansion.
+- Voltage-command analytical-active comparison slides were spot-checked after insertion.
+- The final PI/current analytical-active versus Simscape-active result slides were spot-checked after the Water Tank insertion shifted slide numbers.
+- The four-condition plant/actuator comparison x-axis labels are compact but readable; the main comparison text is clear.
+- Slide 6's note was tightened after an earlier QA pass to avoid clipping.
+
+Known caveat:
+- The quick plots are generated from saved CSV summaries and metrics. They are intended for meeting discussion, not publication-grade figures.
+- The new metric slides now include completed PI/current rerun results; any direct-voltage rerun with the same new metrics remains a possible later comparison.
+- The Water Tank at-reference trajectory is a clearly labeled sketch based on saved metrics, because the exact trajectory export for that case was not available.
+- The voltage-vs-PI matched-case plots are metric plots from per-case CSV rows, not time-series trajectory plots, because those analysis folders contain evaluation metrics and summaries only.

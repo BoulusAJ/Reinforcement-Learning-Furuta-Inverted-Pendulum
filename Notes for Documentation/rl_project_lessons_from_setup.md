@@ -272,3 +272,108 @@ StopTrainingCriteria = "EpisodeCount"
 ## Current Direction
 
 The next important step is to test the fixed-case evaluation layer after a tiny training run or with a zero-action agent. After that, the project can move toward real curriculum training with post-stage evaluation.
+
+## Analytical Plant vs Simscape Plant For RL Feedback
+
+The direct-voltage TD3 diagnostic showed that evaluation results can change
+substantially depending on which plant implementation is active in the
+evaluation model.
+
+The voltage agent was trained on the analytical plant model. When evaluated
+with the Simscape Multibody plant active, the broad fixed evaluation was much
+worse than when evaluated with the analytical plant active:
+
+```text
+Simscape-active voltage full eval:
+FailureRate = 88.55%
+MeanFinalTheta2MAE = 0.5619 rad = 32.19 deg
+
+Analytical-active voltage full eval:
+FailureRate = 21.21%
+MeanFinalTheta2MAE = 0.3751 rad = 21.49 deg
+```
+
+The short centered evaluation also improved from about `0.798 deg` mean final
+theta2 error with Simscape active to essentially zero with the analytical model
+active.
+
+Presentation lesson:
+
+```text
+The model used for training should also be the model used for policy feedback
+and primary evaluation. Simscape visualization is useful, but if the active
+Simscape dynamics diverge from the analytical model after a few seconds, it is
+no longer only a visualization layer; it changes the control problem.
+```
+
+This affects the actuator-interface conclusion. The PI/current-controller run
+still has the best broad robustness so far:
+
+```text
+PI/current path, MathWorks-style wide run:
+Full failure rate = 14.48%
+
+Direct-voltage path, analytical-active evaluation:
+Full failure rate = 21.21%
+```
+
+So the cautious conclusion is:
+
+```text
+For the same general TD3/reward/training configuration, the PI/current path is
+currently more robust over the broad fixed-case grid. Direct voltage may reduce
+final upright theta2 oscillation in easy cases, but it did not yet improve
+overall robustness.
+```
+
+Important nuance: early swing-up action chatter was still observed in the
+direct-voltage case, so the early oscillatory action content is not explained
+only by the PI current controller. It may come from the learned policy,
+reward/action-smoothing weights, sample-time interaction, or the training
+distribution.
+
+## Recommended Dry-Run Decision Gate
+
+Before deciding whether to use voltage command or torque/current command for
+hardware-oriented work, compare both saved agents in both plant configurations:
+
+```text
+PI/current-path TD3 run 2 agent:
+  analytical-active evaluation
+  Simscape-active evaluation
+
+Direct-voltage TD3 agent:
+  analytical-active evaluation
+  Simscape-active evaluation
+```
+
+This should be a policy-only dry run, with no additional learning. The purpose
+is to decide whether the observed differences come from actuator interface,
+policy/reward behavior, or analytical-vs-Simscape plant mismatch.
+
+Metrics and plots to prepare:
+
+```text
+short and full fixed-evaluation summaries
+theta2 final oscillation amplitude/frequency
+theta1 offset and arm-limit margin
+action chatter frequency
+current/voltage/torque saturation
+analytical-vs-Simscape divergence time
+```
+
+Meeting-ready interpretation:
+
+```text
+If PI/current remains more robust and matches Simscape better, keep it as the
+main path.
+
+If voltage removes final upright oscillation but loses robustness, present it
+as a useful diagnostic rather than the chosen controller.
+
+If both policies diverge with Simscape active, model mismatch is the next main
+problem.
+
+If hardware is tested, use policy-only dry runs with safety fallback. Do not
+continue TD3 learning on hardware yet.
+```

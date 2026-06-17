@@ -1,0 +1,27 @@
+Sources used:
+- docs/meeting_handoff_2026-06-17.md
+- docs/mathworks_style_td3_runs_2026-06-16.md
+- Notes for Documentation/rl_project_lessons_from_setup.md
+- results/TD3/run_20260616_012625_td3_mathworks_style_wide/training_progress.csv
+- results/TD3/run_20260616_012625_td3_mathworks_style_wide/evaluation/full_final_summary.csv
+- results/TD3/run_20260616_012625_td3_mathworks_style_wide/evaluation/full_final_metrics.csv
+- results/TD3/run_20260616_012625_td3_mathworks_style_wide/analysis/pi_current_analytical_active/*.csv
+- results/TD3/run_20260616_012625_td3_mathworks_style_wide/analysis/pi_current_simscape_active/*.csv
+- results/TD3/run_20260616_233822_td3_mathworks_style_voltage/evaluation/full_final_summary.csv
+- results/TD3/run_20260616_233822_td3_mathworks_style_voltage/evaluation/full_simscape_model_active_summary.csv
+- results/TD3/run_20260616_233822_td3_mathworks_style_voltage/analysis/voltage_analytical_active_2/*.csv
+- C:/Users/abuj/Code/Work/RL/RL-Water-Tank/README.md
+- C:/Users/abuj/Code/Work/RL/RL-Water-Tank/watertank_curriculum_docs/*.md
+- C:/Users/abuj/Code/Work/RL/RL-Water-Tank/scripts/rewardFcn.m
+- C:/Users/abuj/Code/Work/RL/RL-Water-Tank/scripts/makeStageConfig.m
+- C:/Users/abuj/Code/Work/RL/RL-Water-Tank/data/run 3 - 20260526_1/allMetrics_prec4.csv
+- C:/Users/abuj/Code/Work/RL/RL-Water-Tank/data/run 4 - 20260526_2 - full run/allMetrics_prec4.csv
+- C:/Users/abuj/Code/Work/RL/RL-Water-Tank/data/run 4 - 20260526_2 - full run/New_Export_positive.xlsx
+- C:/Users/abuj/Code/Work/RL/RL-Water-Tank/data/run 4 - 20260526_2 - full run/New_Export_negative.xlsx
+- references/zhaw_rotary_pendulum_lab/lab_model/furuta_pendulum_swingup_literature.md
+- references/Reinforcement-Learning-Inverted-Pendulum-with-QUBE-Servo2/README.md
+- references/Reinforcement-Learning-Inverted-Pendulum-with-QUBE-Servo2/RL/design_RL_multi_control_SAC_md.md
+- references/Reinforcement-Learning-Inverted-Pendulum-with-QUBE-Servo2/RL/RL_design_difficulty_md.md
+- references/MATLAB-Train-Default-TD3-Agent-to-Control-Quanser-QUBE-Pendulum/TrainAgentsToControlQuanserQUBEPendulumExample.m
+- scripts/computeFurutaMetrics.m
+- scripts/evaluateFurutaController.m

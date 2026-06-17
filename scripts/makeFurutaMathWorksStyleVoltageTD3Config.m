@@ -5,8 +5,8 @@ function cfg = makeFurutaMathWorksStyleVoltageTD3Config(options)
 % run identity/model target for a voltage-input actuator-path comparison.
 
 arguments
-    options.TrainingModelName (1,1) string = "inv_rot_pen_RL_cntr_simscape_sim_voltage_train"
-    options.EvaluationModelName (1,1) string = "inv_rot_pen_RL_cntr_simscape_sim_voltage"
+    options.TrainingModelName (1,1) string = "inv_rot_pen_RL_cntr_simscape_sim_train_2"
+    options.EvaluationModelName (1,1) string = "inv_rot_pen_RL_cntr_simscape_sim_2"
     options.TrainingAgentBlock (1,1) string = ""
     options.EvaluationAgentBlock (1,1) string = ""
 end
