@@ -85,6 +85,11 @@ save(fullfile(cfg.Training.OutputRoot, cfg.Training.FinalSaveName), ...
 end
 
 function result = runFixedEvaluation(agent, obsInfo, actInfo, cfg, evalCfg, cases, evalSetName)
+if isfield(cfg.Model, "EvaluationFile")
+    load_system(cfg.Model.EvaluationFile);
+elseif isfield(evalCfg, "ModelFile")
+    load_system(evalCfg.ModelFile);
+end
 evalEnv = rlSimulinkEnv(evalCfg.ModelName, evalCfg.AgentBlock, obsInfo, actInfo);
 evalEnv.ResetFcn = @localResetFcnFurutaCurriculum;
 result = evaluateFurutaController( ...
@@ -121,9 +126,17 @@ function modelState = prepareModelForTraining(cfg)
 modelName = cfg.Model.Name;
 
 if cfg.Training.RunInBackground
-    load_system(modelName);
+    if isfield(cfg.Model, "TrainingFile")
+        load_system(cfg.Model.TrainingFile);
+    else
+        load_system(modelName);
+    end
 else
-    open_system(modelName);
+    if isfield(cfg.Model, "TrainingFile")
+        open_system(cfg.Model.TrainingFile);
+    else
+        open_system(modelName);
+    end
 end
 
 modelState = struct();

@@ -71,11 +71,12 @@ if opts.AssignToBase
 end
 
 modelName = selectModelName(cfg, opts.ModelRole);
+modelFile = selectModelFile(cfg, opts.ModelRole);
 if opts.LoadModel
     if opts.OpenModel
-        open_system(modelName);
+        openModel(modelName, modelFile);
     else
-        load_system(modelName);
+        loadModel(modelName, modelFile);
     end
 end
 
@@ -83,6 +84,7 @@ loaded = S;
 loaded.FinalFile = finalPath;
 loaded.RunDir = runDir;
 loaded.ModelName = modelName;
+loaded.ModelFile = modelFile;
 end
 
 function modelName = selectModelName(cfg, modelRole)
@@ -101,5 +103,39 @@ switch modelRole
         end
     otherwise
         modelName = cfg.Model.Name;
+end
+end
+
+function modelFile = selectModelFile(cfg, modelRole)
+modelFile = "";
+switch modelRole
+    case "evaluation"
+        if isfield(cfg.Model, "EvaluationFile")
+            modelFile = string(cfg.Model.EvaluationFile);
+        end
+    case "training"
+        if isfield(cfg.Model, "TrainingFile")
+            modelFile = string(cfg.Model.TrainingFile);
+        end
+    otherwise
+        if isfield(cfg.Model, "TrainingFile")
+            modelFile = string(cfg.Model.TrainingFile);
+        end
+end
+end
+
+function loadModel(modelName, modelFile)
+if strlength(modelFile) > 0 && isfile(modelFile)
+    load_system(modelFile);
+else
+    load_system(modelName);
+end
+end
+
+function openModel(modelName, modelFile)
+if strlength(modelFile) > 0 && isfile(modelFile)
+    open_system(modelFile);
+else
+    open_system(modelName);
 end
 end

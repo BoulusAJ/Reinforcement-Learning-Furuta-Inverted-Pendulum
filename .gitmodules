@@ -1,3 +1,7 @@
 [submodule "references/Reinforcement-Learning-Inverted-Pendulum-with-QUBE-Servo2"]
 	path = references/Reinforcement-Learning-Inverted-Pendulum-with-QUBE-Servo2
 	url = https://github.com/mathworks/Reinforcement-Learning-Inverted-Pendulum-with-QUBE-Servo2
+[submodule "references/drehpendel"]
+	path = references/drehpendel
+	url = https://github.com/altb71/drehpendel.git
+	branch = com_via_slk_platform_io

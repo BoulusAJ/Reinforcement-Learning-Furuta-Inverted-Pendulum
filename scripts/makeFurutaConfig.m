@@ -46,7 +46,9 @@ cfg.Reference.CourseLabDir = fullfile(cfg.Reference.Root, "course_lab_p5");
 cfg.Motor.R = 4.12 * 1.1;
 cfg.Motor.L = 1.31e-3;
 cfg.Motor.km = 97.5e-3;
-cfg.Limits.VoltageMax = 24;
+cfg.Limits.SupplyVoltage = 24;
+cfg.Limits.PwmOffset = 0.09;
+cfg.Limits.VoltageMax = cfg.Limits.SupplyVoltage * (1 - cfg.Limits.PwmOffset);
 cfg.Limits.CurrentMax = 4;
 cfg.Limits.MotorSpeedMax = 200;
 

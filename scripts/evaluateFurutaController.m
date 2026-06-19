@@ -40,10 +40,15 @@ if opts.UseParallel
             "Fast Restart is disabled for parallel fixed-case evaluation to avoid worker build/cache conflicts.");
     end
 
+    q = parallel.pool.DataQueue;
+    afterEach(q, @(i) fprintf('Finished evaluating case: %d\n', i));
+
+
     metricsCell = cell(height(cases), 1);
     parfor i = 1:height(cases)
         caseMetrics = evaluateOneCaseParallel(agent, cases(i, :), evalCfg, simOpts, parallelUseFastRestart);
         metricsCell{i} = addMetadata(caseMetrics, metadata);
+        send(q, i);  % notify client
     end
 
     for i = 1:numel(metricsCell)
@@ -55,6 +60,7 @@ else
     cleanupObj = onCleanup(@() restoreEnvironment(env, oldResetFcn, evalCfg, modelState));
 
     for i = 1:height(cases)
+        disp("Evaluating case: ", i)
         fixedReset = makeFixedReset(cases(i, :));
 
         assignin("base", "curriculumParams", fixedReset);
@@ -98,10 +104,10 @@ end
 
 modelState.wasLoaded = bdIsLoaded(evalCfg.ModelName);
 if ~modelState.wasLoaded && opts.RunInBackground
-    load_system(evalCfg.ModelName);
+    loadEvaluationModel(evalCfg);
     modelState.shouldClose = opts.CloseModelWhenDone;
 elseif ~modelState.wasLoaded
-    open_system(evalCfg.ModelName);
+    openEvaluationModel(evalCfg);
     modelState.shouldClose = opts.CloseModelWhenDone;
 end
 
@@ -208,7 +214,7 @@ if isempty(workerInitialized) || ~workerInitialized
     workerInitialized = true;
 end
 
-load_system(evalCfg.ModelName);
+loadEvaluationModel(evalCfg);
 
 % Parallel workers can collide while building accelerator/JIT artifacts for
 % the same model. Keep worker simulations in normal mode unless this is
@@ -243,6 +249,22 @@ workerEnv.ResetFcn = @localResetFcnFurutaCurriculum;
 
 experiences = sim(workerEnv, agent, simOpts);
 caseMetrics = computeFurutaMetrics(experiences, caseRow, evalCfg);
+end
+
+function loadEvaluationModel(evalCfg)
+if isfield(evalCfg, "ModelFile") && strlength(string(evalCfg.ModelFile)) > 0
+    load_system(evalCfg.ModelFile);
+else
+    load_system(evalCfg.ModelName);
+end
+end
+
+function openEvaluationModel(evalCfg)
+if isfield(evalCfg, "ModelFile") && strlength(string(evalCfg.ModelFile)) > 0
+    open_system(evalCfg.ModelFile);
+else
+    open_system(evalCfg.ModelName);
+end
 end
 
 function oldFileGenConfig = configureWorkerFileGeneration(evalCfg)

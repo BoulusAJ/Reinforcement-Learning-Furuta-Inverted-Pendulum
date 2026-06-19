@@ -59,6 +59,9 @@ actInfo = rlNumericSpec([1 1], ...
     UpperLimit=cfg.Action.Max, ...
     Name=cfg.Action.Name);
 
+if isfield(evalCfg, "ModelFile") && strlength(string(evalCfg.ModelFile)) > 0
+    load_system(evalCfg.ModelFile);
+end
 evalEnv = rlSimulinkEnv(evalCfg.ModelName, evalCfg.AgentBlock, obsInfo, actInfo);
 evalEnv.ResetFcn = @localResetFcnFurutaCurriculum;
 
@@ -186,6 +189,12 @@ cfg.ProjectRoot = string(cfg.ProjectRoot);
 cfg.Model.TrainingName = string(cfg.Model.TrainingName);
 cfg.Model.EvaluationName = string(cfg.Model.EvaluationName);
 cfg.Model.Name = string(cfg.Model.Name);
+if isfield(cfg.Model, "TrainingFile")
+    cfg.Model.TrainingFile = string(cfg.Model.TrainingFile);
+end
+if isfield(cfg.Model, "EvaluationFile")
+    cfg.Model.EvaluationFile = string(cfg.Model.EvaluationFile);
+end
 cfg.Model.TrainingAgentBlock = string(cfg.Model.TrainingAgentBlock);
 cfg.Model.EvaluationAgentBlock = string(cfg.Model.EvaluationAgentBlock);
 cfg.Model.AgentBlock = string(cfg.Model.AgentBlock);

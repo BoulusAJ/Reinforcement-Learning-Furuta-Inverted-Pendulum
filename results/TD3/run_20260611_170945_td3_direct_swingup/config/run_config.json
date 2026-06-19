@@ -1,0 +1,214 @@
+{
+  "ProjectName": "FurutaRL",
+  "ProjectRoot": "C:\\Users\\abuj\\Code\\Reinforcement-Learning-Furuta-Inverted-Pendulum",
+  "Model": {
+    "TrainingName": "inv_rot_pen_RL_cntr_simscape_sim_train",
+    "EvaluationName": "inv_rot_pen_RL_cntr_simscape_sim",
+    "Name": "inv_rot_pen_RL_cntr_simscape_sim_train",
+    "TrainingAgentBlock": "inv_rot_pen_RL_cntr_simscape_sim_train/RL Agent",
+    "EvaluationAgentBlock": "inv_rot_pen_RL_cntr_simscape_sim/RL Agent",
+    "AgentBlock": "inv_rot_pen_RL_cntr_simscape_sim_train/RL Agent",
+    "PlantSampleTime": 5E-5
+  },
+  "Agent": {
+    "Algorithm": "TD3",
+    "UseDevice": "gpu",
+    "SampleTime": 0.005,
+    "LearningFrequency": -1,
+    "PolicyUpdateFrequency": 2,
+    "TargetUpdateFrequency": 2,
+    "MiniBatchSize": 1024,
+    "ExperienceBufferLength": 1.0E+6,
+    "NumWarmStartSteps": 1024,
+    "NumEpoch": 10,
+    "MaxMiniBatchPerEpoch": 100,
+    "TargetSmoothFactor": 0.005,
+    "TargetPolicyNoiseStd": 0.2,
+    "TargetPolicyNoiseLimit": 0.5,
+    "ExplorationNoiseStd": 0.5,
+    "ExplorationNoiseStdMin": 0.05,
+    "ExplorationNoiseDecayRate": 1E-6,
+    "ActorLearnRate": 0.002,
+    "CriticLearnRate": 0.005,
+    "GradientThreshold": 1
+  },
+  "Reference": {
+    "Root": "C:\\Users\\abuj\\Code\\Reinforcement-Learning-Furuta-Inverted-Pendulum\\references\\zhaw_rotary_pendulum_lab",
+    "LabModelDir": "C:\\Users\\abuj\\Code\\Reinforcement-Learning-Furuta-Inverted-Pendulum\\references\\zhaw_rotary_pendulum_lab\\lab_model",
+    "CourseLabDir": "C:\\Users\\abuj\\Code\\Reinforcement-Learning-Furuta-Inverted-Pendulum\\references\\zhaw_rotary_pendulum_lab\\course_lab_p5"
+  },
+  "Motor": {
+    "R": 4.5320000000000009,
+    "L": 0.00131,
+    "km": 0.0975
+  },
+  "Limits": {
+    "VoltageMax": 24,
+    "CurrentMax": 4,
+    "MotorSpeedMax": 200
+  },
+  "Observation": {
+    "Names": [
+      "sinTheta1Error",
+      "cosTheta1Error",
+      "sinTheta2Error",
+      "cosTheta2Error",
+      "omega1Error",
+      "omega2Error",
+      "previousAction"
+    ],
+    "Dimension": 7
+  },
+  "Action": {
+    "Name": "a_rl",
+    "Min": -1,
+    "Max": 1,
+    "IsNormalized": true,
+    "PhysicalInterface": "torque_or_current",
+    "CurrentScale": 4,
+    "TorqueScale": 0.39
+  },
+  "Safety": {
+    "MaxAbsArmAngle": 1.5707963267948966,
+    "MaxAbsPendulumAngle": 3.1415926535897931,
+    "MaxAbsAngularVelocity": 200,
+    "PendulumEnableAngle": 0.52359877559829882,
+    "PendulumDisableAngle": 0.17453292519943295
+  },
+  "Training": {
+    "SavePrefix": "FurutaTD3_direct_swingup",
+    "ResultsDir": "C:\\Users\\abuj\\Code\\Reinforcement-Learning-Furuta-Inverted-Pendulum\\results\\TD3",
+    "RunName": "run_20260611_170945_td3_direct_swingup",
+    "OutputRoot": "C:\\Users\\abuj\\Code\\Reinforcement-Learning-Furuta-Inverted-Pendulum\\results\\TD3\\run_20260611_170945_td3_direct_swingup",
+    "StageDir": "C:\\Users\\abuj\\Code\\Reinforcement-Learning-Furuta-Inverted-Pendulum\\results\\TD3\\run_20260611_170945_td3_direct_swingup\\stages",
+    "EvalDir": "C:\\Users\\abuj\\Code\\Reinforcement-Learning-Furuta-Inverted-Pendulum\\results\\TD3\\run_20260611_170945_td3_direct_swingup\\evaluation",
+    "ConfigDir": "C:\\Users\\abuj\\Code\\Reinforcement-Learning-Furuta-Inverted-Pendulum\\results\\TD3\\run_20260611_170945_td3_direct_swingup\\config",
+    "SavedAgentDir": "C:\\Users\\abuj\\Code\\Reinforcement-Learning-Furuta-Inverted-Pendulum\\results\\TD3\\run_20260611_170945_td3_direct_swingup\\saved_agents",
+    "FinalSaveName": "FurutaTD3_direct_swingup_final.mat",
+    "EpisodeDuration": 5,
+    "StopTrainingCriteria": "AverageReward",
+    "StopTrainingValue": 450,
+    "ScoreAveragingWindowLength": 20,
+    "Verbose": true,
+    "PlotMode": "none",
+    "RunInBackground": true,
+    "DisableScopes": true,
+    "DisableSignalLogging": true,
+    "UseFastRestart": false,
+    "UseParallel": false,
+    "RequestedWorkers": 10,
+    "ParallelMode": "async",
+    "StepsUntilDataIsSent": 1000
+  },
+  "Evaluation": {
+    "UsePostStageEvaluation": true,
+    "UseCustomEvaluatorDuringTraining": false,
+    "UseStandardEvaluatorDuringTraining": false
+  },
+  "Reward": {
+    "theta2Scale": 0.78539816339744828,
+    "theta1Scale": 1.5707963267948966,
+    "velocityScale": 20,
+    "lambda_u": 0.001,
+    "lambda_du": 0.03,
+    "duWarmupSteps": 1,
+    "aliveBonus": 0.1,
+    "uprightBonus": 1,
+    "uprightTolerance": 0.13962634015954636,
+    "unsafePenalty": 10
+  },
+  "Curriculum": [
+    {
+      "Name": "near_upright_stabilization",
+      "MaxEpisodes": 800,
+      "Reset": {
+        "Theta1ErrorRange": [
+          0,
+          0
+        ],
+        "Theta2ErrorRange": [
+          -0.087266462599716474,
+          0.087266462599716474
+        ],
+        "Omega1ErrorRange": [
+          0,
+          0
+        ],
+        "Omega2ErrorRange": [
+          -1,
+          1
+        ]
+      },
+      "NoiseStd": 0.1
+    },
+    {
+      "Name": "medium_upright_recovery",
+      "MaxEpisodes": 500,
+      "Reset": {
+        "Theta1ErrorRange": [
+          -0.17453292519943295,
+          0.17453292519943295
+        ],
+        "Theta2ErrorRange": [
+          -0.43633231299858238,
+          0.43633231299858238
+        ],
+        "Omega1ErrorRange": [
+          -2,
+          2
+        ],
+        "Omega2ErrorRange": [
+          -5,
+          5
+        ]
+      },
+      "NoiseStd": 0.2
+    },
+    {
+      "Name": "large_angle_recovery",
+      "MaxEpisodes": 1000,
+      "Reset": {
+        "Theta1ErrorRange": [
+          -0.3490658503988659,
+          0.3490658503988659
+        ],
+        "Theta2ErrorRange": [
+          -1.5707963267948966,
+          1.5707963267948966
+        ],
+        "Omega1ErrorRange": [
+          -5,
+          5
+        ],
+        "Omega2ErrorRange": [
+          -10,
+          10
+        ]
+      },
+      "NoiseStd": 0.3
+    },
+    {
+      "Name": "full_swingup",
+      "MaxEpisodes": 2000,
+      "Reset": {
+        "Theta1ErrorRange": [
+          -0.78539816339744828,
+          0.78539816339744828
+        ],
+        "Theta2ErrorRange": [
+          -3.1415926535897931,
+          3.1415926535897931
+        ],
+        "Omega1ErrorRange": [
+          -8,
+          8
+        ],
+        "Omega2ErrorRange": [
+          -12,
+          12
+        ]
+      },
+      "NoiseStd": 0.35
+    }
+  ]
+}

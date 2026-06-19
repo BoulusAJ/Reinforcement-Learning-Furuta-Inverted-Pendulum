@@ -28,9 +28,16 @@ Ts = cfg.Model.PlantSampleTime;
 theta0 = options.InitialTheta;
 omega0 = options.InitialOmega;
 
-% PWM and constraints from lab_model/inv_rot_pen_ini.m.
-pwm_offset = 0.09;
-u_max = cfg.Limits.VoltageMax * (1 - pwm_offset);
+% PWM and constraints from lab_model/inv_rot_pen_ini.m. New configs keep
+% cfg.Limits.VoltageMax unified with u_max; legacy saved configs stored the
+% raw 24 V supply here and did not include PwmOffset.
+if isfield(cfg.Limits, "PwmOffset")
+    pwm_offset = cfg.Limits.PwmOffset;
+    u_max = cfg.Limits.VoltageMax;
+else
+    pwm_offset = 0.09;
+    u_max = cfg.Limits.VoltageMax * (1 - pwm_offset);
+end
 i_max = 4;
 omega_max = 5290 * (u_max / 60) / 60 * 2*pi;
 

@@ -7,6 +7,10 @@ else
     evalCfg.ModelName = cfg.Model.Name;
 end
 
+if isfield(cfg.Model, "EvaluationFile")
+    evalCfg.ModelFile = cfg.Model.EvaluationFile;
+end
+
 if isfield(cfg.Model, "EvaluationAgentBlock")
     evalCfg.AgentBlock = cfg.Model.EvaluationAgentBlock;
 else
