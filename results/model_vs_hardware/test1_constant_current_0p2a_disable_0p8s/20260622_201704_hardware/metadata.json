@@ -1,0 +1,23 @@
+{
+  "Timestamp": "20260622_201704",
+  "TestName": "test1_constant_current_0p2A_disable_0p8s",
+  "SourceType": "hardware",
+  "Description": "Real system. Constant 0.2 A current command, motor enabled at test start and disabled at 0.8 s. Total run time 4 s.",
+  "ModelDescription": "SLDRT UART hardware system",
+  "InputDescription": "I_cmd = 0.2 A until disable at 0.8 s; enable = 1 then 0",
+  "CurrentCommand": 0.2,
+  "EnableDisableTime": 0.8,
+  "Duration": 4,
+  "SampleTime": null,
+  "RunDirectory": "C:\\Users\\abuj\\Code\\Reinforcement-Learning-Furuta-Inverted-Pendulum\\results\\model_vs_hardware\\test1_constant_current_0p2a_disable_0p8s\\20260622_201704_hardware",
+  "ChannelLayout": [
+    "theta1",
+    "theta2",
+    "omega1",
+    "omega2",
+    "theta2_wrapped",
+    "enable",
+    "current_cmd",
+    "current"
+  ]
+}
