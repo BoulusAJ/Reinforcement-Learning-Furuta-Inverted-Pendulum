@@ -1,0 +1,2 @@
+ZHAW source used: https://www.zhaw.ch/de/ueber-uns/person/weto/
+Local source files used include hardware_transfer_status_2026-06-23.md, mathworks_style_td3_runs_2026-06-16.md, model_vs_hardware_test_workflow.md, run_config.json and evaluation CSVs for the 200 Hz wide and 500 Hz long TD3 runs.
