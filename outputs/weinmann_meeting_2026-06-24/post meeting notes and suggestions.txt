@@ -1,0 +1,10 @@
+Post meeting suggestions
+Aim for a smaller network: Make a a network with a single middle layer with 64 neurons instead of two middle layers. The reason is at upright position the system can be linearized at small angles, and learning swing-up shouldn't be a problem. This approach will likely result in more efficient training.
+Increase the episode length to put more focus on the learning the upright position control well. In other words to spend more time in the upright position.
+Reward shaping:
+1) make a function that scales the reward terms according to the state. An idea would be to make Gaussian blobs for each term and have the peak of the blob for each reward term be in the region where we are most interested in. For example, when in the upright position we are more interested to minimize jitter and delta u much more than at the beginning when swing up need to be attempted.
+Modifications of the observation/states:
+1) suggestion to reduce the number of states (and overall the network) need of using the sin/cos on theta1 and theta2 and doing the error based on the curvature of the rotation circle (the arc length) from the 0 point calculated 
+2) suggestion to add an extra state or two to keep the markov cycle intact, like the PI controller state (the saturated integrator output) and the system voltage input (the PI controller output clamped/saturated). The state of the integrator could be ignored because the PI current control loop is way faster than the agent rate so maybe just the clamped voltage input to the system scaled in addition to or replacing the previous action of the agent state.
+Learn on an improved model even without going too deep, like modelling encoder quantization, speed filters, static friction of theta1, static friction current setpoint compensation by offset.
+

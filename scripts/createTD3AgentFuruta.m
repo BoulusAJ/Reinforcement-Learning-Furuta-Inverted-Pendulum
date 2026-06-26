@@ -13,7 +13,14 @@ if string(networkStyle) == "default"
     return;
 end
 
-actorNetwork = [
+if string(networkStyle) == "custom_mlp"
+    actorHiddenLayerSizes = getAgentOption(agentCfg, "ActorHiddenLayerSizes", 128);
+    criticHiddenLayerSizes = getAgentOption(agentCfg, "CriticHiddenLayerSizes", actorHiddenLayerSizes);
+    actorNetwork = createDefaultStyleActorNetwork(numObs, numAct, actorHiddenLayerSizes);
+    critic1 = createDefaultStyleCritic(obsInfo, actInfo, "critic1", criticHiddenLayerSizes);
+    critic2 = createDefaultStyleCritic(obsInfo, actInfo, "critic2", criticHiddenLayerSizes);
+else
+    actorNetwork = [
     featureInputLayer(numObs, Name="observation")
     fullyConnectedLayer(128)
     reluLayer
@@ -25,10 +32,11 @@ actorNetwork = [
         Bias=(actInfo.UpperLimit + actInfo.LowerLimit) / 2)
     ];
 
-actor = rlContinuousDeterministicActor(actorNetwork, obsInfo, actInfo);
+    critic1 = createCritic(obsInfo, actInfo, "critic1");
+    critic2 = createCritic(obsInfo, actInfo, "critic2");
+end
 
-critic1 = createCritic(obsInfo, actInfo, "critic1");
-critic2 = createCritic(obsInfo, actInfo, "critic2");
+actor = rlContinuousDeterministicActor(actorNetwork, obsInfo, actInfo);
 
 useDevice = getAgentOption(agentCfg, "UseDevice", "cpu");
 actor.UseDevice = useDevice;
@@ -106,6 +114,76 @@ agentOptions.TargetPolicySmoothModel.LowerLimit = -agentCfg.TargetPolicyNoiseLim
 agentOptions.TargetPolicySmoothModel.UpperLimit = agentCfg.TargetPolicyNoiseLimit;
 end
 
+function actorNetwork = createDefaultStyleActorNetwork(numObs, numAct, hiddenLayerSizes)
+hiddenLayerSizes = reshape(double(hiddenLayerSizes), 1, []);
+
+layers = [
+    featureInputLayer(numObs, Name="input_1")
+    ];
+
+for idx = 1:numel(hiddenLayerSizes)
+    layers = [
+        layers
+        fullyConnectedLayer(hiddenLayerSizes(idx), Name=localActorFcName(idx))
+        reluLayer(Name=localActorReluName(idx, numel(hiddenLayerSizes)))
+        ]; %#ok<AGROW>
+end
+
+actorNetwork = [
+    layers
+    fullyConnectedLayer(numAct, Name="output")
+    tanhLayer(Name="tanh")
+    ];
+end
+
+function critic = createDefaultStyleCritic(obsInfo, actInfo, criticName, hiddenLayerSizes)
+numObs = obsInfo.Dimension(1);
+numAct = actInfo.Dimension(1);
+hiddenLayerSizes = reshape(double(hiddenLayerSizes), 1, []);
+if isempty(hiddenLayerSizes)
+    error("createTD3AgentFuruta:InvalidCriticHiddenLayerSizes", ...
+        "CriticHiddenLayerSizes must contain at least one hidden layer.");
+end
+
+obsPath = [
+    featureInputLayer(numObs, Name=criticName + "_input_1")
+    fullyConnectedLayer(hiddenLayerSizes(1), Name=criticName + "_fc_1")
+    ];
+
+actPath = [
+    featureInputLayer(numAct, Name=criticName + "_input_2")
+    fullyConnectedLayer(hiddenLayerSizes(1), Name=criticName + "_fc_2")
+    ];
+
+commonPath = [
+    concatenationLayer(1, 2, Name=criticName + "_concat")
+    reluLayer(Name=criticName + "_relu_body")
+    ];
+
+for idx = 2:numel(hiddenLayerSizes)
+    commonPath = [
+        commonPath
+        fullyConnectedLayer(hiddenLayerSizes(idx), Name=criticName + "_" + localCriticFcName(idx))
+        reluLayer(Name=criticName + "_" + localCriticReluName(idx, numel(hiddenLayerSizes)))
+        ]; %#ok<AGROW>
+end
+
+commonPath = [
+    commonPath
+    fullyConnectedLayer(1, Name=criticName + "_q_value")
+    ];
+
+criticNetwork = layerGraph(obsPath);
+criticNetwork = addLayers(criticNetwork, actPath);
+criticNetwork = addLayers(criticNetwork, commonPath);
+criticNetwork = connectLayers(criticNetwork, criticName + "_fc_1", criticName + "_concat/in1");
+criticNetwork = connectLayers(criticNetwork, criticName + "_fc_2", criticName + "_concat/in2");
+
+critic = rlQValueFunction(criticNetwork, obsInfo, actInfo, ...
+    ObservationInputNames=criticName + "_input_1", ...
+    ActionInputNames=criticName + "_input_2");
+end
+
 function critic = createCritic(obsInfo, actInfo, criticName)
 numObs = obsInfo.Dimension(1);
 numAct = actInfo.Dimension(1);
@@ -138,6 +216,42 @@ criticNetwork = connectLayers(criticNetwork, criticName + "_act_fc1", criticName
 critic = rlQValueFunction(criticNetwork, obsInfo, actInfo, ...
     ObservationInputNames=criticName + "_observation", ...
     ActionInputNames=criticName + "_action");
+end
+
+function name = localActorFcName(idx)
+if idx == 1
+    name = "fc_1";
+elseif idx == 2
+    name = "fc_body";
+else
+    name = "fc_body_" + string(idx - 1);
+end
+end
+
+function name = localActorReluName(idx, numHiddenLayers)
+if idx == numHiddenLayers
+    name = "body_output";
+elseif idx == 1
+    name = "relu_body";
+else
+    name = "relu_body_" + string(idx);
+end
+end
+
+function name = localCriticFcName(idx)
+if idx == 2
+    name = "fc_body";
+else
+    name = "fc_body_" + string(idx - 1);
+end
+end
+
+function name = localCriticReluName(idx, numHiddenLayers)
+if idx == numHiddenLayers
+    name = "body_output";
+else
+    name = "relu_body_" + string(idx);
+end
 end
 
 function value = getAgentOption(agentCfg, fieldName, defaultValue)
