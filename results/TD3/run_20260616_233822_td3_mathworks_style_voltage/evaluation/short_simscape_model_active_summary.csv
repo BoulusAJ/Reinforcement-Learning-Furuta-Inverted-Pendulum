@@ -1,0 +1,2 @@
+NumCases,FailureRate,MeanFinalTheta2MAE,MaxFinalTheta2Error,MeanTheta2IAE,MeanTorqueEnergy,MeanDActionEnergy,MeanCaseCost,Score,ControllerName,EvalSetName,StageIndex,StageName,TrainingEpisode,EvaluatedAt
+7,0,0.013930485046506,0.0550560645164122,0.285567450377345,0.000843750954934303,0.00193559464723975,3.03475701095323,-3.03475701095323,TD3,short_final,NaN,mathworks_style_single_run,NaN,17-Jun-2026 10:56:35

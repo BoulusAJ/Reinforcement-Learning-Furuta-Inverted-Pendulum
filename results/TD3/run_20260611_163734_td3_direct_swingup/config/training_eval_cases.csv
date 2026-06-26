@@ -1,0 +1,16 @@
+CaseID,Theta1Error0,Theta2Error0,Omega1Error0,Omega2Error0,EvalSetName
+1,0,-0.349065850398866,0,-5,training_validation
+2,0,-0.349065850398866,0,0,training_validation
+3,0,-0.349065850398866,0,5,training_validation
+4,0,-0.0872664625997165,0,-5,training_validation
+5,0,-0.0872664625997165,0,0,training_validation
+6,0,-0.0872664625997165,0,5,training_validation
+7,0,0,0,-5,training_validation
+8,0,0,0,0,training_validation
+9,0,0,0,5,training_validation
+10,0,0.0872664625997165,0,-5,training_validation
+11,0,0.0872664625997165,0,0,training_validation
+12,0,0.0872664625997165,0,5,training_validation
+13,0,0.349065850398866,0,-5,training_validation
+14,0,0.349065850398866,0,0,training_validation
+15,0,0.349065850398866,0,5,training_validation

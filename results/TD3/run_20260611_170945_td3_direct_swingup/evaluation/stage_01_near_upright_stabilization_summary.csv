@@ -1,0 +1,2 @@
+NumCases,FailureRate,MeanFinalTheta2MAE,MaxFinalTheta2Error,MeanTheta2IAE,MeanTorqueEnergy,MeanDActionEnergy,MeanCaseCost,Score,ControllerName,EvalSetName,StageIndex,StageName,TrainingEpisode,EvaluatedAt
+297,1,1.40666771800821,3.14159265358979,0.0993855705967062,0.00855310538587909,0.0170633625555889,1000,-1000,TD3,post_stage_full,1,near_upright_stabilization,NaN,11-Jun-2026 17:57:04
