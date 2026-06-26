@@ -164,3 +164,75 @@ The experiment should be treated as a controlled network-size test. Reward
 shaping, domain randomization, observation changes, and friction/dead-zone
 modeling should wait until after this comparison unless the 1x64 run clearly
 fails to train.
+
+## 200 Hz Result - Failed Controlled Experiment
+
+Run:
+
+```text
+results/TD3/run_20260626_132419_td3_mathworks_style_pi_current_1b_200hz_1x64
+```
+
+Training reached the configured 3000 episodes, but the final training episodes
+were still terminating very early. A 5 s episode at 200 Hz should contain about
+1000 agent steps, while the final episodes were typically tens to low hundreds
+of steps:
+
+```text
+Episode 2995: 125 steps
+Episode 2996:  37 steps
+Episode 2997: 103 steps
+Episode 2998: 144 steps
+Episode 2999:  54 steps
+Episode 3000:  37 steps
+```
+
+This means the policy was still failing after roughly 0.185 s to 0.72 s in the
+last visible episodes.
+
+Final evaluation confirmed the training trace:
+
+| Eval set | Cases | FailureRate | Score | MeanFinalTheta2MAE | MeanTheta2IAE |
+| --- | ---: | ---: | ---: | ---: | ---: |
+| short_final | 7 | 1.000 | -1000 | 1.336 rad | 0.660 |
+| full_final | 297 | 1.000 | -1000 | 1.789 rad | 0.663 |
+
+The evaluation failures also terminated early:
+
+| Eval set | Mean SimTime | Min SimTime | Max SimTime |
+| --- | ---: | ---: | ---: |
+| short_final | 0.506 s | 0.465 s | 0.580 s |
+| full_final | 0.379 s | 0.075 s | 1.435 s |
+
+The interesting detail is that this failed run did not fail by applying a large,
+violent command. It mostly failed while using very little control effort:
+
+| Run / eval | FailureRate | MeanElectricalAbsEnergy | MeanDActionEnergy | MeanActionDiffRMS |
+| --- | ---: | ---: | ---: | ---: |
+| 200 Hz 1x64 short | 1.000 | 0.034 | 5.13e-6 | 0.0031 |
+| 500 Hz PI/current short baseline | 0.000 | 0.637 | 5.01e-3 | 0.0219 |
+| 500 Hz long PI/current short baseline | 0.000 | 0.718 | 6.26e-3 | 0.0300 |
+| 200 Hz wide PI/current analytical short baseline | 0.000 | 0.360 | 3.35e-3 | 0.0211 |
+
+So the symmetric reduction to actor 1x64 plus critic 1x64 appears to have
+underfit or under-trained the policy. The resulting actor did not learn useful
+energy injection for swing-up; it is not merely a jittery or unsafe version of a
+working controller.
+
+Conclusion:
+
+```text
+Do not spend a full 500 Hz long run on the same symmetric 1x64 actor/critic
+architecture yet.
+```
+
+The next controlled variant should keep the deployment-relevant actor small but
+restore critic capacity:
+
+```text
+actor: default-style 1x64
+critic: MATLAB default-style 2x64
+```
+
+This tests whether the actor can be small while the critic remains expressive
+enough to train the swing-up Q-function.
