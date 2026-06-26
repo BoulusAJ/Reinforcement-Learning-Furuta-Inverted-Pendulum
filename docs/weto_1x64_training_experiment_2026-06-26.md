@@ -236,3 +236,53 @@ critic: MATLAB default-style 2x64
 
 This tests whether the actor can be small while the critic remains expressive
 enough to train the swing-up Q-function.
+
+## Follow-Up Variant - Actor 1x64, Critic 2x64
+
+Prepared after the symmetric 1x64 actor/critic failure.
+
+This variant keeps the actor small:
+
+```text
+actor:
+input -> FC(64) -> ReLU -> FC(action) -> tanh
+```
+
+but restores the critic to the MATLAB default-style hidden capacity:
+
+```text
+critic:
+observation -> FC(64) ----\
+                            concat -> ReLU -> FC(64) -> ReLU -> FC(Q)
+action      -> FC(64) ----/
+```
+
+Config settings:
+
+```matlab
+cfg.Agent.NetworkStyle = "custom_mlp";
+cfg.Agent.ActorHiddenLayerSizes = 64;
+cfg.Agent.CriticHiddenLayerSizes = [64 64];
+cfg.Agent.NetworkDescription = "custom_mlp_actor_1x64_critic_2x64";
+```
+
+Prepared 200 Hz run:
+
+```matlab
+scripts/trainFurutaDirectTD3MathWorksStylePICurrent1b200HzActor1x64Critic2x64.m
+```
+
+Prepared 500 Hz long run:
+
+```matlab
+scripts/trainFurutaDirectTD3MathWorksStylePICurrent1b500HzLongActor1x64Critic2x64.m
+```
+
+Recommended sequence:
+
+1. Run the 200 Hz actor-small/critic-default variant first.
+2. If it learns full-length episodes and gives nontrivial evaluation behavior,
+   then run the 500 Hz long version.
+3. If it still fails like the symmetric 1x64 run, do not spend compute on the
+   500 Hz long version; move to reward/model randomization or return to the
+   default actor as well.
