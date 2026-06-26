@@ -1,0 +1,2 @@
+TestName,SourceType,StartTime,EndTime,NumSamples,MedianDt,MedianFs,MaxAbsTheta1,MaxAbsTheta2Wrapped,MaxAbsTheta2UprightError,MaxAbsOmega1,MaxAbsOmega2,MeanCurrentCommand,MaxAbsCurrentCommand,MaxAbsCurrent,CurrentAbsIntegral,EnableOffTime
+test1_constant_current_0p2A_disable_0p8s,hardware,0,4,801,0.00499999999999989,200.000000000004,49.1947593688965,3.14159265358979,3.14159265358979,25.0130600546895,8.11224568312839,0.2,0.2,0.26101490855217,0.196453476894822,0.8

@@ -2,19 +2,16 @@
 *.asv
 *.slxc
 slprj/
+*_sldrt_win64/
+*.rxw64
+scripts/**/results/
 *.autosave
 *.m~
 matlab.mat
 
 # Training artifacts
-results/*.mat
-results/*.csv
-results/*.png
-results/*.mp4
-results/**/*.mat
-results/**/*.csv
-results/**/*.png
-results/**/*.mp4
+results/**/saved_agents/*.mat
+results/**/saved_agents/**/*.mat
 data/*.mat
 data/*.csv
 
