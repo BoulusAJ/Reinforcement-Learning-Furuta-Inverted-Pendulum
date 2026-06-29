@@ -286,3 +286,105 @@ Recommended sequence:
 3. If it still fails like the symmetric 1x64 run, do not spend compute on the
    500 Hz long version; move to reward/model randomization or return to the
    default actor as well.
+
+## 200 Hz Actor 1x64 / Critic 2x64 Result
+
+Run:
+
+```text
+results/TD3/run_20260626_152631_td3_mathworks_style_pi_current_1b_200hz_actor1x64_critic2x64
+```
+
+This run learned meaningful control, unlike the symmetric actor 1x64 / critic
+1x64 run. Restoring the critic capacity fixed the "barely acts" failure mode.
+
+Comparison target:
+
+```text
+results/TD3/run_20260616_012625_td3_mathworks_style_wide/analysis/pi_current_analytical_active
+```
+
+Short evaluation:
+
+| Metric | Actor1x64/Critic2x64 | 200 Hz PI-current baseline | Delta |
+| --- | ---: | ---: | ---: |
+| FailureRate | 0.000 | 0.000 | 0.000 |
+| MeanFinalTheta2MAE | 0.00523 rad | 0.00604 rad | -0.00080 rad |
+| MeanTheta2IAE | 0.2566 | 0.2981 | -0.0415 |
+| MeanElectricalAbsEnergy | 0.455 | 0.360 | +0.095 |
+| MeanDActionEnergy | 0.00540 | 0.00335 | +0.00205 |
+| MeanActionDiffRMS | 0.0278 | 0.0211 | +0.0067 |
+| Score | -1.070 | -1.471 | +0.401 |
+
+On the short near-upright evaluation set, the actor-small/critic-default policy
+is slightly better in final theta2 and integrated theta2 error, but uses more
+electrical energy and has more action variation.
+
+Full evaluation:
+
+| Metric | Actor1x64/Critic2x64 | 200 Hz PI-current baseline | Delta |
+| --- | ---: | ---: | ---: |
+| FailureRate | 0.269 | 0.145 | +0.125 |
+| MeanFinalTheta2MAE | 0.529 rad | 0.126 rad | +0.402 rad |
+| MeanTheta2IAE | 1.006 | 1.133 | -0.127 |
+| MeanElectricalAbsEnergy | 2.502 | 2.566 | -0.063 |
+| MeanAbsElectricalPower | 3.790 | 0.911 | +2.879 |
+| MeanDActionEnergy | 0.0316 | 0.0348 | -0.0032 |
+| MeanActionDiffRMS | 0.145 | 0.0815 | +0.0635 |
+| MeanActionEndOscRMS | 0.118 | 0.0334 | +0.0844 |
+| Score | -273.5 | -147.6 | -125.9 |
+
+The full evaluation is worse overall. The actor-small policy fails more cases
+and has much higher final-window action and theta2 oscillation in the full grid.
+
+Failure overlap on the 297-case full evaluation:
+
+```text
+actor1x64/critic2x64 failed: 80
+200 Hz PI-current baseline failed: 43
+both failed: 12
+new-only failures: 68
+baseline-only failures: 31
+both passed: 186
+```
+
+The extra failures are concentrated around the hanging/downward region and
+zero pendulum velocity:
+
+| Slice | Actor1x64/Critic2x64 failures | Baseline failures |
+| --- | ---: | ---: |
+| theta2Error0 = -pi | 16 / 27 | 5 / 27 |
+| theta2Error0 = +pi | 16 / 27 | 5 / 27 |
+| theta2Error0 = +2.356 rad | 18 / 27 | 3 / 27 |
+| omega2Error0 = 0 | 40 / 99 | 10 / 99 |
+
+Pass-only notes:
+
+- On the 186 cases both policies pass, the baseline is still much tighter near
+  upright: mean final theta2 error is about `0.0060 rad` for the baseline vs
+  `0.090 rad` for the actor-small policy.
+- Considering all cases where the actor-small policy passes, it sometimes
+  rescues cases the baseline fails; however, this comes with weaker full-grid
+  robustness and more final-window oscillation.
+
+Conclusion:
+
+```text
+The actor 1x64 / critic 2x64 idea is viable in the sense that training works,
+but the 200 Hz result is not better than the older 200 Hz PI-current baseline
+on the full evaluation grid. It is promising enough to justify checking the
+500 Hz long version already in progress, but not enough to replace the baseline
+by itself.
+```
+
+Interpretation:
+
+- The critic was the bottleneck in the symmetric 1x64 failure.
+- A small actor can learn swing-up when trained by a stronger critic.
+- The 200 Hz small actor may have insufficient policy capacity or insufficient
+  action-rate authority for the wide full-grid cases, especially near the
+  hanging/downward states.
+- If the 500 Hz long run performs well, the higher policy rate may compensate
+  for the smaller actor. If it has the same failure pattern, then the next
+  experiment should move to reward/model robustness rather than further network
+  shrinking.
