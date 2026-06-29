@@ -388,3 +388,107 @@ Interpretation:
   for the smaller actor. If it has the same failure pattern, then the next
   experiment should move to reward/model robustness rather than further network
   shrinking.
+
+## 500 Hz Long Actor 1x64 / Critic 2x64 Result
+
+Run:
+
+```text
+results/TD3/run_20260629_130518_td3_mathworks_style_pi_current_1b_500hz_long_actor1x64_critic2x64
+```
+
+Comparison targets:
+
+```text
+results/TD3/run_20260618_223832_td3_mathworks_style_pi_current_1b_500hz_long/evaluation
+results/TD3/run_20260618_121014_td3_mathworks_style_pi_current_1b_500hz/evaluation
+```
+
+The previous 500 Hz long run only has short final evaluation artifacts in the
+tracked result folder, so full-grid comparisons use the earlier 500 Hz
+PI-current run.
+
+Short evaluation:
+
+| Metric | Actor1x64/Critic2x64 500 Hz long | 500 Hz long baseline | 500 Hz baseline |
+| --- | ---: | ---: | ---: |
+| FailureRate | 0.000 | 0.000 | 0.000 |
+| MeanFinalTheta2MAE | 0.277 rad | 6.61e-8 rad | 1.56e-8 rad |
+| MeanTheta2IAE | 1.583 | 0.532 | 0.559 |
+| MeanElectricalAbsEnergy | 4.166 | 0.718 | 0.637 |
+| MeanDActionEnergy | 0.0405 | 0.00626 | 0.00501 |
+| MeanActionDiffRMS | 0.0643 | 0.0300 | 0.0219 |
+| MeanActionEndOscRMS | 0.0645 | 2.85e-7 | 9.86e-8 |
+| Score | -13.26 | -2.13 | -1.37 |
+
+Important detail: the short-set `FailureRate = 0` is not enough to say the
+policy captured upright. Two short cases survive the full 5 s but end far from
+upright:
+
+| Case | theta2Error0 | FinalTheta2MAE | Theta2EndPeakToPeak | MeanAbsElectricalPower |
+| ---: | ---: | ---: | ---: | ---: |
+| 2 | -0.349 rad | 0.794 rad | 6.282 | 2.843 |
+| 7 | +0.785 rad | 1.145 rad | 6.283 | 2.322 |
+
+So the actor-small 500 Hz policy is not a clean upright balancer on the short
+set even though it avoids safety termination.
+
+Full evaluation against the earlier 500 Hz PI-current baseline:
+
+| Metric | Actor1x64/Critic2x64 500 Hz long | 500 Hz baseline | Delta |
+| --- | ---: | ---: | ---: |
+| FailureRate | 0.047 | 0.118 | -0.071 |
+| MeanFinalTheta2MAE | 0.576 rad | 0.095 rad | +0.481 rad |
+| MeanTheta2IAE | 3.152 | 2.262 | +0.891 |
+| MeanElectricalAbsEnergy | 8.972 | 1.869 | +7.102 |
+| MeanAbsElectricalPower | 2.289 | 1.090 | +1.199 |
+| MeanDActionEnergy | 0.0877 | 0.00970 | +0.0780 |
+| MeanActionDiffRMS | 0.122 | 0.0546 | +0.0669 |
+| MeanActionEndOscRMS | 0.124 | 0.0342 | +0.0896 |
+| Score | -70.70 | -122.51 | +51.81 |
+
+Failure overlap on the 297-case full evaluation:
+
+```text
+actor1x64/critic2x64 failed: 14
+500 Hz baseline failed: 35
+both failed: 2
+new-only failures: 12
+baseline-only failures rescued by new policy: 33
+both passed: 250
+```
+
+This looks good if only safety termination is counted. However, on the 250 cases
+where both policies pass, the older 500 Hz baseline is dramatically tighter and
+smoother:
+
+| Metric on both-pass cases | Actor1x64/Critic2x64 | 500 Hz baseline |
+| --- | ---: | ---: |
+| MeanFinalTheta2MAE | 0.479 rad | 5.28e-5 rad |
+| MeanTheta2IAE | 3.118 | 2.389 |
+| MeanTheta2EndOscRMS | 0.631 | 0.000397 |
+| MeanTheta2EndPeakToPeak | 2.915 | 0.00149 |
+| MeanActionDiffRMS | 0.106 | 0.0297 |
+| MeanActionEndOscRMS | 0.104 | 4.26e-5 |
+| MeanElectricalAbsEnergy | 8.522 | 1.689 |
+
+Conclusion:
+
+```text
+The 500 Hz actor1x64/critic2x64 policy is more likely to avoid safety
+termination across the full grid, but it is much worse as an upright balancing
+controller. It uses far more current/energy, has much larger action variation,
+and often survives without settling upright.
+```
+
+Interpretation:
+
+- Higher policy rate did compensate for some safety failures from the 200 Hz
+  small-actor version.
+- The small actor still appears to lack the fine near-upright control quality
+  of the default MathWorks-style policy.
+- This is not a good hardware candidate as-is because the symptom is exactly
+  the hardware concern: large action variation and poor final-window settling.
+- The next step should not be further network shrinking. The next useful
+  experiments are reward/model robustness changes: upright-gated jitter/current
+  penalties, actuator/sensor imperfections, and parameter randomization.
