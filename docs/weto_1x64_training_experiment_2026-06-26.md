@@ -1,5 +1,11 @@
 # Weto 1x64 Training Experiment - 2026-06-26
 
+Main Weto-input progress overview:
+
+```text
+docs/weto_inputs_progress_2026-07-01.md
+```
+
 ## Purpose
 
 This experiment tests the first suggestion from Thomas Weinmann's input:
@@ -397,98 +403,663 @@ Run:
 results/TD3/run_20260629_130518_td3_mathworks_style_pi_current_1b_500hz_long_actor1x64_critic2x64
 ```
 
-Comparison targets:
+### Corrected Evaluation Note - 2026-06-30
+
+The original saved 500 Hz fixed-evaluation artifacts were affected by a
+parallel-worker workspace bug. The worker initialized with the generic
+`makeFurutaConfig()` workspace instead of the saved run config. For 500 Hz runs
+this meant the worker used the default 200 Hz agent sample time (`0.005 s`)
+instead of the intended 500 Hz sample time (`0.002 s`).
+
+The evaluation code was corrected so `evalCfg.WorkspaceConfig = cfg` is used by
+parallel workers. A new 2% theta2 settling metric was also added:
 
 ```text
-results/TD3/run_20260618_223832_td3_mathworks_style_pi_current_1b_500hz_long/evaluation
-results/TD3/run_20260618_121014_td3_mathworks_style_pi_current_1b_500hz/evaluation
+SettlingTimeTheta2      = existing strict 1 degree final settling metric
+SettlingTimeTheta2Pct2  = 2% settling around upright, abs(theta2Error) <= 0.02*pi
 ```
 
-The previous 500 Hz long run only has short final evaluation artifacts in the
-tracked result folder, so full-grid comparisons use the earlier 500 Hz
-PI-current run.
-
-Short evaluation:
-
-| Metric | Actor1x64/Critic2x64 500 Hz long | 500 Hz long baseline | 500 Hz baseline |
-| --- | ---: | ---: | ---: |
-| FailureRate | 0.000 | 0.000 | 0.000 |
-| MeanFinalTheta2MAE | 0.277 rad | 6.61e-8 rad | 1.56e-8 rad |
-| MeanTheta2IAE | 1.583 | 0.532 | 0.559 |
-| MeanElectricalAbsEnergy | 4.166 | 0.718 | 0.637 |
-| MeanDActionEnergy | 0.0405 | 0.00626 | 0.00501 |
-| MeanActionDiffRMS | 0.0643 | 0.0300 | 0.0219 |
-| MeanActionEndOscRMS | 0.0645 | 2.85e-7 | 9.86e-8 |
-| Score | -13.26 | -2.13 | -1.37 |
-
-Important detail: the short-set `FailureRate = 0` is not enough to say the
-policy captured upright. Two short cases survive the full 5 s but end far from
-upright:
-
-| Case | theta2Error0 | FinalTheta2MAE | Theta2EndPeakToPeak | MeanAbsElectricalPower |
-| ---: | ---: | ---: | ---: | ---: |
-| 2 | -0.349 rad | 0.794 rad | 6.282 | 2.843 |
-| 7 | +0.785 rad | 1.145 rad | 6.283 | 2.322 |
-
-So the actor-small 500 Hz policy is not a clean upright balancer on the short
-set even though it avoids safety termination.
-
-Full evaluation against the earlier 500 Hz PI-current baseline:
-
-| Metric | Actor1x64/Critic2x64 500 Hz long | 500 Hz baseline | Delta |
-| --- | ---: | ---: | ---: |
-| FailureRate | 0.047 | 0.118 | -0.071 |
-| MeanFinalTheta2MAE | 0.576 rad | 0.095 rad | +0.481 rad |
-| MeanTheta2IAE | 3.152 | 2.262 | +0.891 |
-| MeanElectricalAbsEnergy | 8.972 | 1.869 | +7.102 |
-| MeanAbsElectricalPower | 2.289 | 1.090 | +1.199 |
-| MeanDActionEnergy | 0.0877 | 0.00970 | +0.0780 |
-| MeanActionDiffRMS | 0.122 | 0.0546 | +0.0669 |
-| MeanActionEndOscRMS | 0.124 | 0.0342 | +0.0896 |
-| Score | -70.70 | -122.51 | +51.81 |
-
-Failure overlap on the 297-case full evaluation:
+Current corrected artifacts:
 
 ```text
-actor1x64/critic2x64 failed: 14
-500 Hz baseline failed: 35
-both failed: 2
-new-only failures: 12
-baseline-only failures rescued by new policy: 33
-both passed: 250
+results/TD3/run_20260618_223832_td3_mathworks_style_pi_current_1b_500hz_long/evaluation/full_fixed_workspace_metrics.csv
+results/TD3/run_20260618_223832_td3_mathworks_style_pi_current_1b_500hz_long/evaluation/full_fixed_workspace_summary.csv
+results/TD3/run_20260629_130518_td3_mathworks_style_pi_current_1b_500hz_long_actor1x64_critic2x64/evaluation/full_fixed_workspace_metrics.csv
+results/TD3/run_20260629_130518_td3_mathworks_style_pi_current_1b_500hz_long_actor1x64_critic2x64/evaluation/full_fixed_workspace_summary.csv
 ```
 
-This looks good if only safety termination is counted. However, on the 250 cases
-where both policies pass, the older 500 Hz baseline is dramatically tighter and
-smoother:
+Corrected short evaluation:
 
-| Metric on both-pass cases | Actor1x64/Critic2x64 | 500 Hz baseline |
+| Metric | 500 Hz long baseline | Actor1x64/Critic2x64 500 Hz long |
 | --- | ---: | ---: |
-| MeanFinalTheta2MAE | 0.479 rad | 5.28e-5 rad |
-| MeanTheta2IAE | 3.118 | 2.389 |
-| MeanTheta2EndOscRMS | 0.631 | 0.000397 |
-| MeanTheta2EndPeakToPeak | 2.915 | 0.00149 |
-| MeanActionDiffRMS | 0.106 | 0.0297 |
-| MeanActionEndOscRMS | 0.104 | 4.26e-5 |
-| MeanElectricalAbsEnergy | 8.522 | 1.689 |
+| FailureRate | 0.000 | 0.000 |
+| MeanFinalTheta2MAE | 3.95e-8 rad | 0.223 rad |
+| MeanTheta2IAE | 0.532 | 1.493 |
+| MeanElectricalAbsEnergy | 0.354 | 0.854 |
+| MeanActionDiffRMS | 0.00863 | 0.0153 |
+| MeanActionEndOscRMS | 1.19e-7 | 0.0204 |
+| Score | -2.12 | -11.65 |
+
+Corrected full evaluation:
+
+| Metric | 500 Hz long baseline | Actor1x64/Critic2x64 500 Hz long |
+| --- | ---: | ---: |
+| FailureRate | 0.0539 | 0.0471 |
+| MeanFinalTheta2MAE | 0.0632 rad | 0.395 rad |
+| MeanTheta2IAE | 1.869 | 2.686 |
+| MeanTheta2EndOscRMS | 0.0557 | 0.501 |
+| MeanTheta2EndPeakToPeak | 0.228 | 2.442 |
+| MeanElectricalAbsEnergy | 1.191 | 2.365 |
+| MeanActionDiffRMS | 0.0242 | 0.0513 |
+| MeanActionEndOscRMS | 0.00930 | 0.0440 |
+| Score | -58.65 | -63.54 |
+
+Failure overlap on the corrected 297-case full evaluation:
+
+```text
+500 Hz long baseline failed: 16
+actor1x64/critic2x64 failed: 14
+both failed: 2
+actor-small only failures: 12
+baseline-only failures rescued by actor-small: 14
+both passed: 269
+```
+
+On the 269 cases where both policies pass, the deployed 500 Hz long baseline is
+still much tighter and smoother:
+
+| Metric on both-pass cases | 500 Hz long baseline | Actor1x64/Critic2x64 |
+| --- | ---: | ---: |
+| MeanFinalTheta2MAE | 6.07e-6 rad | 0.330 rad |
+| MeanActionDiffRMS | 0.0205 | 0.0449 |
+| MeanElectricalAbsEnergy | 1.184 | 2.457 |
+
+Physical down start, i.e. raw initial state `theta0 = [0; 0]`,
+`omega0 = [0; 0]`, equivalent to `Theta1Error0 = 0`,
+`Theta2Error0 = +/-pi`, `Omega1Error0 = 0`, `Omega2Error0 = 0`:
+
+| Metric | 500 Hz long baseline | Actor1x64/Critic2x64 500 Hz long |
+| --- | ---: | ---: |
+| SettlingTimeTheta2, 1 deg | 3.1366 s | 4.6052 s |
+| SettlingTimeTheta2Pct2, 2% | 3.0692 s | 2.9787 s |
+| FinalTheta2MAE | 1.31e-5 rad | 0.00980 rad |
+| Theta2IAE | 5.039 | 4.484 |
+| ElectricalAbsEnergy | 3.763 | 7.493 |
+| ActionDiffRMS | 0.0786 | 0.133 |
+| Failed | false | false |
+
+Interpretation for the physical-down case:
+
+- The actor-small policy enters and stays inside the 2% upright band slightly
+  earlier than the 500 Hz long baseline.
+- The baseline reaches the stricter 1 degree settling band much earlier and
+  finishes far more accurately.
+- The actor-small policy uses roughly twice the electrical absolute energy and
+  has substantially more action variation.
+- For fast swing-up alone, the actor-small policy is competitive in this one
+  case. For clean upright balance, the baseline is still better.
 
 Conclusion:
 
 ```text
-The 500 Hz actor1x64/critic2x64 policy is more likely to avoid safety
-termination across the full grid, but it is much worse as an upright balancing
-controller. It uses far more current/energy, has much larger action variation,
-and often survives without settling upright.
+The actor 1x64 / critic 2x64 500 Hz long policy slightly reduces full-grid
+safety failures, but it is worse as a balancing controller. The deployed
+500 Hz long baseline has far smaller final theta2 error, lower near-upright
+oscillation, lower action variation, and lower electrical energy.
 ```
 
-Interpretation:
+This means the smaller actor is not the next hardware candidate by itself. Its
+main useful signal is that it can swing up and sometimes rescue cases the
+baseline fails, but its near-upright behavior is too loose and energetic for
+the current hardware-transfer concern.
 
-- Higher policy rate did compensate for some safety failures from the 200 Hz
-  small-actor version.
-- The small actor still appears to lack the fine near-upright control quality
-  of the default MathWorks-style policy.
-- This is not a good hardware candidate as-is because the symptom is exactly
-  the hardware concern: large action variation and poor final-window settling.
-- The next step should not be further network shrinking. The next useful
-  experiments are reward/model robustness changes: upright-gated jitter/current
-  penalties, actuator/sensor imperfections, and parameter randomization.
+Older 500 Hz eval CSV/MAT files produced before the workspace fix should remain
+marked as unreliable for sample-time-sensitive comparisons.
+
+## Reduced Observation Experiment Notes
+
+The next Weto-inspired controlled experiment is to keep the small actor idea
+but reduce the observation representation. The proposed starting point is:
+
+```text
+actor: 1x64
+critic: 2x64
+rate: 500 Hz long
+observation: arc-distance angles plus scaled velocities plus previous action
+```
+
+Prepared run:
+
+```text
+config: scripts/makeFurutaMathWorksStylePICurrent1c500HzLongActor1x64Critic2x64ArcObsTD3Config.m
+launcher: scripts/trainFurutaDirectTD3MathWorksStylePICurrent1c500HzLongActor1x64Critic2x64ArcObs.m
+training model: scripts/inv_rot_pen_RL_cntr_simscape_sim_1c_train.slx
+evaluation model: scripts/inv_rot_pen_RL_cntr_simscape_sim_1c_analytical_active.slx
+```
+
+Candidate observation:
+
+```matlab
+theta1_arc_norm = acos(cos(theta1Error)) / pi;
+theta2_arc_norm = acos(cos(theta2Error)) / pi;
+omega1_scaled_norm = min(max(omega1Error / cfg.Observation.AngularVelocityScale, -1), 1);
+omega2_scaled_norm = min(max(omega2Error / cfg.Observation.AngularVelocityScale, -1), 1);
+previous_action
+```
+
+The theta2 signal follows the existing upright-error convention before the arc
+distance is computed:
+
+```matlab
+theta2Error = atan2(sin(theta2Rad - pi), cos(theta2Rad - pi));
+theta2_arc_norm = acos(cos(theta2Error)) / pi;
+```
+
+Thus physical `theta2 = pi` is upright and maps to `theta2_arc_norm = 0`;
+physical `theta2 = 0` is down and maps to `theta2_arc_norm = 1`.
+
+The arc-distance terms avoid the wrap discontinuity of a signed wrapped angle,
+but they are unsigned. Directional information then has to come from angular
+velocity and previous action. This makes the experiment meaningful but not
+risk-free: if swing-up gets worse, the policy may need a directional angle
+encoding after all.
+
+### Reward Parameter Compatibility
+
+For the first arc-observation run, the reward is intentionally kept close to
+`rewardFcnFuruta`. The goal is to isolate the observation representation change
+before redesigning the reward structure.
+
+For the angle terms, no retuning is required for the current reward formula.
+The old sin/cos observation path decoded signed wrapped errors:
+
+```matlab
+theta1Error = atan2(sinTheta1Error, cosTheta1Error);
+theta2Error = atan2(sinTheta2Error, cosTheta2Error);
+```
+
+The reward then used squared errors or absolute thresholds. The new arc
+observation decodes:
+
+```matlab
+theta1ErrorAbs = theta1_arc_norm * pi;
+theta2ErrorAbs = theta2_arc_norm * pi;
+```
+
+This is equivalent to the magnitude of the wrapped angle error. Therefore the
+existing radian-based reward and safety parameters keep the same meaning:
+
+```text
+rewardParams.theta1Scale
+rewardParams.theta2Scale
+rewardParams.uprightTolerance
+safetyParams.MaxAbsArmAngle
+safetyParams.MaxAbsPendulumAngle
+```
+
+The only loss is sign: `+10 deg` and `-10 deg` have the same reward value. That
+is acceptable for this controlled experiment because the current reward uses
+squared angle costs and absolute safety checks.
+
+Velocity needed an additional compatibility scale because the observation is no
+longer in physical rad/s. The reward decodes:
+
+```matlab
+omega1Error = omega1_scaled_norm * rewardParams.AngularVelocityScale;
+omega2Error = omega2_scaled_norm * rewardParams.AngularVelocityScale;
+```
+
+This keeps the existing velocity reward scales meaningful:
+
+```text
+rewardParams.omega1Scale
+rewardParams.omega2Scale
+safetyParams.MaxAbsAngularVelocity
+```
+
+Important caveat: because the observation velocity channels are saturated to
+`[-1, 1]`, the reward cannot reconstruct angular speeds above
+`cfg.Observation.AngularVelocityScale`. If omega safety should be enforced at
+the full `200 rad/s` limit, the reward/isDone path should eventually receive
+raw or unsaturated velocity signals instead of relying only on the observation
+vector.
+
+### Angular Velocity Scaling Note
+
+The corrected eval files currently include one combined angular-velocity peak:
+
+```text
+MaxAbsOmegaError = max(abs([omega1Error, omega2Error]))
+```
+
+This is useful as a safety diagnostic, but it does not separate whether the
+peak came from `omega1` or `omega2`. New evaluations now also include:
+
+```text
+MaxAbsOmega1Error
+MaxAbsOmega2Error
+```
+
+For the corrected 500 Hz full evaluations:
+
+| Run | Mean MaxAbsOmegaError | Median | 95th percentile | Max | Safety limit |
+| --- | ---: | ---: | ---: | ---: | ---: |
+| 500 Hz long baseline | 20.72 rad/s | 21.58 | 25.39 | 28.27 | 200 rad/s |
+| Actor1x64/Critic2x64 | 20.23 rad/s | 20.81 | 24.22 | 27.75 | 200 rad/s |
+
+For the physical-down start:
+
+| Run | MaxAbsOmegaError |
+| --- | ---: |
+| 500 Hz long baseline | 23.48 rad/s |
+| Actor1x64/Critic2x64 | 21.51 rad/s |
+
+No corrected full-eval cases exceeded the current safety limit of `200 rad/s`.
+That limit is therefore much too loose to be a useful observation scaling
+factor. If velocities are divided by `200`, most observed values lie around
+`0.10`, which makes the velocity channels small compared with angle or action
+channels.
+
+Recommended initial observation scaling for the reduced-observation
+experiment:
+
+```matlab
+omega1_scaled = omega1 / 25;
+omega2_scaled = omega2 / 25;
+```
+
+This scale should be treated as an observation normalization choice, not a
+safety limit. The safety limit can remain at `200 rad/s` unless hardware or
+simulation safety requirements suggest tightening it.
+
+## 500 Hz Long Arc-Observation Result - Interrupted Failed Run
+
+Run:
+
+```text
+results/TD3/run_20260630_183029_td3_mathworks_style_pi_current_1c_500hz_long_actor1x64_critic2x64_arcobs
+```
+
+This was the first 1c reduced-observation training attempt:
+
+```text
+actor: 1x64
+critic: 2x64
+rate: 500 Hz long
+observation dimension: 5
+observation: theta1 arc, theta2 arc, scaled omega1, scaled omega2, previous action
+```
+
+The training was interrupted before `train(...)` returned:
+
+```text
+IdleTimeout has been reached.
+Parallel pool using the 'Processes' profile is shutting down.
+The parallel pool has shut down. Use parpool to start a new pool.
+```
+
+No final agent or checkpoint agent was saved. The `saved_agents` directory is
+empty because the run never reached the configured save criterion:
+
+```matlab
+cfg.Training.SaveAgentValue = 1800;
+```
+
+The console output was later preserved as:
+
+```text
+training_console_text.txt
+training_console_parsed.csv
+training_progress_interrupted_x5000.png
+```
+
+Parsed training trace:
+
+| Metric | Value |
+| --- | ---: |
+| Episodes reached | 1837 / 5000 |
+| Step count reached | 102386 |
+| Mean episode steps | 55.7 |
+| Median episode steps | 48 |
+| Max episode steps | 472 |
+| Last episode steps | 38 |
+| Last average reward | -1073.41 |
+| Best average reward in log | -400.43 |
+
+At 500 Hz, a full 5 s episode is 2500 steps. The final visible episodes were
+still only tens of steps:
+
+```text
+Episode 1836: reward -203.78, 33 steps, average reward -1067.94
+Episode 1837: reward -248.67, 38 steps, average reward -1073.41
+```
+
+This means the policy was still failing after about `0.066 s` to `0.076 s` in
+the last visible episodes.
+
+Best guess for why this did not work:
+
+- Pure unsigned arc-distance observations probably removed too much
+  directional information. `+angle` and `-angle` map to the same value.
+- Directional information was left mainly to angular velocity and previous
+  action. That appears insufficient for this setup, especially when velocity
+  can be near zero.
+- The arm angle `theta1` is likely hurt strongly by losing sign, because arm
+  centering and arm-limit avoidance need to know which side of zero the arm is
+  on.
+- The saturated velocity observation is useful for network scaling, but it
+  also means reward/isDone cannot reconstruct angular velocities above the
+  observation scale if only the observation vector is used.
+
+Timing note:
+
+- The interrupted arc-observation run folder was initialized at
+  `2026-06-30 18:30`.
+- The preserved console/plot files were created at about `2026-07-01 13:34` to
+  `13:37`, after the interruption. This gives only an upper bound from run
+  creation to log preservation; it is not the true training runtime.
+- The last successful comparison run
+  `run_20260629_130518_td3_mathworks_style_pi_current_1b_500hz_long_actor1x64_critic2x64`
+  was initialized at `2026-06-29 13:05`, wrote its last saved-agent checkpoint
+  around `16:36`, and wrote the final agent at `16:41`. That is roughly
+  `3 h 31 min` of training to the last checkpoint and `3 h 36 min` to final
+  save, before the later corrected fixed-workspace reevaluation on
+  `2026-06-30 07:14`.
+
+Conclusion:
+
+```text
+Do not continue the pure unsigned arc-distance observation run as-is.
+```
+
+The next reduced-observation attempt should restore at least some directional
+information, with `theta1` sign being the first candidate because arm centering
+is directly direction-dependent.
+
+Candidate next variants:
+
+```text
+A: theta1 signed shortest arc + theta2 absolute arc distance
+   observation = [theta1_signed_norm, theta2_arc_norm,
+                  omega1_scaled_norm, omega2_scaled_norm, previous_action]
+
+B: theta1 absolute arc distance + theta2 signed shortest arc
+   observation = [theta1_arc_norm, theta2_signed_norm,
+                  omega1_scaled_norm, omega2_scaled_norm, previous_action]
+```
+
+Variant A is the preferred first follow-up if only one run is affordable. The
+reason is that `theta1` is an arm-centering and arm-limit variable, so knowing
+which side of zero the arm is on is directly useful. For `theta2`, swing-up has
+more energy/phase character, so `theta2_arc_norm` plus `omega2` may still carry
+enough information to attempt swing-up. This is only a hypothesis; variant B is
+the natural counter-test if variant A is inconclusive.
+
+## Observation Encoding Follow-Up - Arc Distance vs Sin/Cos
+
+One of the next Weto-inspired ideas is to reduce the observation vector by
+replacing the current trigonometric angle encoding with an arc-distance
+encoding. The motivation is to make the observation smaller and avoid the
+neural network having to infer angle distance from paired sine/cosine states.
+
+There is a fundamental tradeoff when representing a full circular angle:
+
+```text
+You can choose two of these three:
+1. one scalar,
+2. no discontinuity,
+3. directionality.
+```
+
+This is not just an implementation detail. It comes from the topology of the
+circle. A full circle cannot be represented by one globally continuous signed
+scalar without a jump somewhere.
+
+### Existing Sin/Cos Encoding
+
+The usual `sin/cos` encoding uses two scalars:
+
+```matlab
+obs = [sin(theta_error); cos(theta_error)];
+```
+
+This preserves directionality and avoids the wrap discontinuity because the
+pair locates the point on the unit circle.
+
+Numerical examples around a target angle:
+
+| theta_error | sin(theta_error) | cos(theta_error) | Interpretation |
+| ---: | ---: | ---: | --- |
+| `+0.2 rad` | `+0.199` | `0.980` | small positive-side error |
+| `-0.2 rad` | `-0.199` | `0.980` | small negative-side error |
+| `pi rad` | `0` | `-1` | opposite side of circle |
+| `2*pi - 0.1 rad` | `-0.100` | `0.995` | close to target from negative side |
+
+The cosine mostly tells how far around the circle the point is, while the sine
+sign distinguishes the two sides of the target. Together they tell the network
+where the state is on the circle without a jump from `+pi` to `-pi`.
+
+Pros:
+
+- no angle wrap discontinuity,
+- preserves directional information,
+- globally identifies the angular position on the circle,
+- common and robust for neural-network observations.
+
+Cons:
+
+- uses two observation channels per angle,
+- angle error magnitude is implicit rather than directly provided,
+- the network must learn how to combine sine and cosine for distance-like
+  reasoning.
+
+### Signed Shortest Arc Encoding
+
+A one-scalar signed shortest arc can be computed as:
+
+```matlab
+theta_arc_signed = atan2(sin(theta_error), cos(theta_error));
+theta_arc_signed_norm = theta_arc_signed / pi;
+```
+
+This gives a normalized range of `[-1, 1]` and keeps direction:
+
+| theta_error | theta_arc_signed | theta_arc_signed_norm |
+| ---: | ---: | ---: |
+| `+0.2` | `+0.2` | `+0.064` |
+| `-0.2` | `-0.2` | `-0.064` |
+| `2*pi - 0.1` | `-0.1` | `-0.032` |
+| `pi` | `+pi` | `+1` |
+| `-pi` | `-pi` | `-1` |
+
+Pros:
+
+- one scalar per angle,
+- directly represents signed angular error,
+- easy for local linear control near the target.
+
+Cons:
+
+- has an unavoidable discontinuity at `+/-pi`,
+- physical down can appear as either `+pi` or `-pi`,
+- the discontinuity may be awkward for swing-up training from broad resets.
+
+### Absolute Arc-Distance Encoding
+
+The proposed reduced observation experiment uses the absolute shortest arc
+distance:
+
+```matlab
+theta_error_arc = acos(cos(theta_error));
+theta_error_arc_norm = theta_error_arc / pi;
+```
+
+This maps every angle error to a distance in `[0, pi]`, then normalizes to
+`[0, 1]`.
+
+For the Furuta task:
+
+```matlab
+theta1_arc_norm = acos(cos(theta1)) / pi;
+theta2_arc_norm = acos(cos(theta2 - pi)) / pi;
+```
+
+Here `theta2 = pi` is upright, so `theta2_arc_norm = 0` at upright and
+`theta2_arc_norm = 1` at physical down.
+
+The reason for the `cos` then `acos` is that `cos(theta_error)` collapses
+periodic equivalents on the circle, and `acos(...)` maps that value back to the
+principal absolute angular distance in `[0, pi]`.
+
+Numerical examples:
+
+| theta_error | acos(cos(theta_error)) | normalized by pi |
+| ---: | ---: | ---: |
+| `0` | `0` | `0` |
+| `+0.2` | `0.2` | `0.064` |
+| `-0.2` | `0.2` | `0.064` |
+| `pi` | `pi` | `1` |
+| `-pi` | `pi` | `1` |
+| `2*pi - 0.1` | `0.1` | `0.032` |
+
+Pros:
+
+- one scalar per angle,
+- no wrap discontinuity,
+- directly tells the network the distance from the target,
+- normalized values are in `[0, 1]`, which is convenient for RL training.
+
+Cons:
+
+- loses side/direction information for the angle itself,
+- `+0.2 rad` and `-0.2 rad` become identical,
+- the agent must infer useful direction from `omega1`, `omega2`, and previous
+  action,
+- near upright with low velocity may be ambiguous because both sides of the
+  target can look identical.
+
+### Proposed Controlled Experiment - First Attempt
+
+The cleanest next test is to keep the successful small-actor/stronger-critic
+setup and change only the observation representation:
+
+```text
+actor: 1x64
+critic: 2x64
+agent rate: 500 Hz
+reward/reset/training settings: unchanged
+observation:
+    theta1_arc_norm
+    theta2_arc_norm
+    omega1_scaled
+    omega2_scaled
+    previous_action
+```
+
+Using normalized arc distances is preferred over physical arc lengths for the
+first RL experiment:
+
+```matlab
+theta1_arc_norm = acos(cos(theta1)) / pi;
+theta2_arc_norm = acos(cos(theta2 - pi)) / pi;
+```
+
+Both angle-distance observations then lie in `[0, 1]`, independent of physical
+link length. This keeps the observation scale simple and comparable to the
+previous `sin/cos` channels. Physical arc lengths in meters could be tested
+later, but they add scale choices before we know whether the representation
+itself helps.
+
+The main question for this experiment:
+
+```text
+Can the agent recover enough directionality from angular velocities and
+previous action while benefiting from a smaller, no-wrap angle-distance
+observation?
+```
+
+The first pure unsigned arc-distance attempt did not answer this positively:
+after 1837 episodes it was still terminating after tens of steps, with no saved
+agent checkpoint. The likely issue is that the observation removed too much
+directional information.
+
+Follow-up variants should restore one signed angle channel at a time:
+
+```text
+A: signed theta1, unsigned theta2 arc distance
+B: unsigned theta1 arc distance, signed theta2
+```
+
+Variant A is the preferred next diagnostic because arm centering and arm-limit
+avoidance are directly side-dependent.
+
+Evaluation should focus on:
+
+- swing-up success and failure rate,
+- physical-down `SettlingTimeTheta2Pct2`,
+- final theta2 MAE,
+- near-upright oscillation and action jitter,
+- electrical energy and action-difference RMS.
+
+### Angular Velocity Scaling Note
+
+The corrected eval files currently include one combined angular-velocity peak:
+
+```text
+MaxAbsOmegaError = max(abs([omega1Error, omega2Error]))
+```
+
+This is useful as a safety diagnostic, but it does not separate whether the
+peak came from `omega1` or `omega2`.
+
+For the corrected 500 Hz full evaluations:
+
+| Run | Mean MaxAbsOmegaError | Median | 95th percentile | Max | Safety limit |
+| --- | ---: | ---: | ---: | ---: | ---: |
+| 500 Hz long baseline | 20.72 rad/s | 21.58 | 25.39 | 28.27 | 200 rad/s |
+| Actor1x64/Critic2x64 | 20.23 rad/s | 20.81 | 24.22 | 27.75 | 200 rad/s |
+
+For the physical-down start:
+
+| Run | MaxAbsOmegaError |
+| --- | ---: |
+| 500 Hz long baseline | 23.48 rad/s |
+| Actor1x64/Critic2x64 | 21.51 rad/s |
+
+No corrected full-eval cases exceeded the current safety limit of `200 rad/s`.
+That limit is therefore much too loose to be a useful observation scaling
+factor. If velocities are divided by `200`, most observed values lie around
+`0.10`, which makes the velocity channels small compared with angle or action
+channels.
+
+Recommended initial observation scaling for the reduced-observation experiment:
+
+```matlab
+omega1_scaled = omega1 / 25;
+omega2_scaled = omega2 / 25;
+```
+
+Rationale:
+
+- The 95th-percentile combined peak is about `24-25 rad/s`.
+- Dividing by `25` makes typical high-swing velocities order `1`.
+- It keeps the velocity channels comparable to:
+
+```matlab
+theta1_arc_norm = acos(cos(theta1)) / pi;       % [0, 1]
+theta2_arc_norm = acos(cos(theta2 - pi)) / pi;  % [0, 1]
+previous_action                                % usually [-1, 1]
+```
+
+This scale should be treated as an observation normalization choice, not a
+safety limit. The safety limit can remain at `200 rad/s` unless hardware or
+simulation safety requirements suggest tightening it.
+
+Implemented diagnostic improvement:
+
+```text
+MaxAbsOmega1Error and MaxAbsOmega2Error were added as separate eval columns.
+```
+
+This would make it easier to choose separate scaling factors if arm and
+pendulum velocity ranges diverge.

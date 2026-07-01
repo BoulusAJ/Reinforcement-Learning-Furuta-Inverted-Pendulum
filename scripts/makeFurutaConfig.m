@@ -66,6 +66,7 @@ cfg.Observation.Names = [ ...
     "omega1Error", "omega2Error", ...
     "previousAction"];
 cfg.Observation.Dimension = 7;
+cfg.Observation.AngularVelocityScale = 25;
 
 % RL action is normalized signed effort in [-1, 1]. Map it outside the
 % agent to the selected physical interface, e.g. current or torque.
@@ -120,6 +121,7 @@ cfg.Reward.omega1Weight = 0.05;
 cfg.Reward.omega1Scale = 5.0;
 cfg.Reward.omega2Weight = 0.02;
 cfg.Reward.omega2Scale = 5.0;
+cfg.Reward.AngularVelocityScale = cfg.Observation.AngularVelocityScale;
 cfg.Reward.lambda_u = 1e-3;
 cfg.Reward.lambda_du = 3e-2;
 cfg.Reward.duWarmupSteps = 1;

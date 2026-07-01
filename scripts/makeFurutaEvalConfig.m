@@ -18,6 +18,7 @@ else
 end
 evalCfg.ProjectRoot = cfg.ProjectRoot;
 evalCfg.ScriptsDir = fullfile(cfg.ProjectRoot, "scripts");
+evalCfg.WorkspaceConfig = cfg;
 evalCfg.Ts = cfg.Model.PlantSampleTime;
 evalCfg.AgentSampleTime = cfg.Agent.SampleTime;
 evalCfg.Tf = cfg.Training.EpisodeDuration;
@@ -31,6 +32,7 @@ evalCfg.ActionMax = cfg.Action.Max;
 evalCfg.FinalWindowSeconds = 0.5;
 evalCfg.SettlingTolTheta2 = deg2rad(1);
 evalCfg.SettlingTolTheta1 = deg2rad(3);
+evalCfg.SettlingTolTheta2Pct2 = 0.02 * pi;
 
 evalCfg.Safety = cfg.Safety;
 evalCfg.Reward = cfg.Reward;

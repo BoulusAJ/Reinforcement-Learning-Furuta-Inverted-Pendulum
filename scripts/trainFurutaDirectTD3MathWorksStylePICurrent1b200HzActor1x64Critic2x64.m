@@ -2,10 +2,11 @@
 % Weto-input follow-up: keep the actor small, but restore MATLAB default-style
 % critic capacity after the symmetric 1x64 actor/critic run failed.
 
-scriptDir = fileparts(mfilename("fullpath"));
-repoRoot = fileparts(scriptDir);
-cd(repoRoot)
-addpath(genpath(fullfile(repoRoot, "scripts")))
+% scriptDir = fileparts(mfilename("fullpath"));
+% repoRoot = fileparts(scriptDir);
+% cd(repoRoot)
+%addpath(genpath(fullfile(repoRoot, "scripts")))
+addpath(genpath("scripts"))
 
 cfg = makeFurutaMathWorksStylePICurrent1b200HzActor1x64Critic2x64TD3Config();
 trainFurutaDirectTD3WithConfig(cfg);

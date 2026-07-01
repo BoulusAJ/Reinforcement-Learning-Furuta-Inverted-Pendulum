@@ -60,7 +60,7 @@ else
     cleanupObj = onCleanup(@() restoreEnvironment(env, oldResetFcn, evalCfg, modelState));
 
     for i = 1:height(cases)
-        disp("Evaluating case: ", i)
+        fprintf("Evaluating case: %d\n", i);
         fixedReset = makeFixedReset(cases(i, :));
 
         assignin("base", "curriculumParams", fixedReset);
@@ -207,7 +207,7 @@ addpath(evalCfg.ScriptsDir);
 
 if isempty(workerInitialized) || ~workerInitialized
     oldFileGenConfig = configureWorkerFileGeneration(evalCfg);
-    cfg = makeFurutaConfig();
+    cfg = getWorkerWorkspaceConfig(evalCfg);
     initFurutaModelWorkspace(cfg);
     assignin("base", "rewardParams", evalCfg.Reward);
     assignin("base", "safetyParams", evalCfg.Safety);
@@ -249,6 +249,27 @@ workerEnv.ResetFcn = @localResetFcnFurutaCurriculum;
 
 experiences = sim(workerEnv, agent, simOpts);
 caseMetrics = computeFurutaMetrics(experiences, caseRow, evalCfg);
+end
+
+function cfg = getWorkerWorkspaceConfig(evalCfg)
+if isfield(evalCfg, "WorkspaceConfig")
+    cfg = evalCfg.WorkspaceConfig;
+else
+    cfg = makeFurutaConfig();
+
+    if isfield(evalCfg, "AgentSampleTime")
+        cfg.Agent.SampleTime = evalCfg.AgentSampleTime;
+    end
+    if isfield(evalCfg, "ModelName")
+        cfg.Model.Name = evalCfg.ModelName;
+    end
+    if isfield(evalCfg, "ModelFile")
+        cfg.Model.TrainingFile = evalCfg.ModelFile;
+    end
+    if isfield(evalCfg, "AgentBlock")
+        cfg.Model.AgentBlock = evalCfg.AgentBlock;
+    end
+end
 end
 
 function loadEvaluationModel(evalCfg)
