@@ -1,0 +1,2 @@
+CurrentChannel,TimeChannel,NumSamples,Duration_s,SampleRate_Hz,NoiseMean_A,NoiseStd_A,NoiseRms_A,NoisePeakToPeak_A,NoiseSkewness,NoiseKurtosis,NoiseMedian_A,NoiseMad_A,LillieforsRejectNormal,LillieforsPValue,JarqueBeraRejectNormal,JarqueBeraPValue
+simout1.signals.values,simout1.time,12385,24.768,500.000000000055,7.33276087318028e-18,0.00844294469900781,0.0084426038384857,0.0881045771771295,-0.12419421585741,6.80245851207576,0.000267151993336073,0.00268575642117549,1,0.001,1,0.001
