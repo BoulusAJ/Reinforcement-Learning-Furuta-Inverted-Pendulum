@@ -16,6 +16,20 @@ The goal is not "RL solves the Furuta pendulum." The stronger story is:
 
 The repo is intentionally lightweight until the lab-model details are available. Add the measured/provided hardware information in `docs/hardware_info_template.md`, then use those values to complete the simulation model and control limits.
 
+The current hardware-fidelity work is moving the simulation from an idealized
+plant/current-command model toward a detailed model of the real signal chain:
+current measurement bias/noise, command dead-zone compensation, theta1
+friction, encoder quantization/filtering, firmware current-loop dynamics,
+communication-rate effects, and hardware-style velocity estimation. The
+summary and future implementation notes are in
+`docs/domain_randomization_preparation.md`.
+
+The current Weto-input experiment is a controlled network-size comparison:
+keep the 1b PI/current setup fixed and replace the default-style two-hidden-
+layer TD3 actor/critic networks with explicit `1x64` actor and critic
+networks. The experiment plan and prepared scripts are documented in
+`docs/weto_1x64_training_experiment_2026-06-26.md`.
+
 ## Project Plan
 
 The current 20-day plan is captured in `docs/20_day_plan.md`.

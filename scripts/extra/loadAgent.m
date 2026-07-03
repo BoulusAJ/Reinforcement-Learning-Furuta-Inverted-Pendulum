@@ -26,12 +26,16 @@ loaded = loadFurutaFinalAgent(fullfile("results", "TD3", ...
 %%
 bdclose all
 clearvars
-
+%%
 loaded = loadFurutaFinalAgent(fullfile("results", "TD3", ...
     "run_20260618_223832_td3_mathworks_style_pi_current_1b_500hz_long"), ...
-    OpenModel=true, ...
+    OpenModel=false, ...
     InitialTheta=[0; 0], ...
     InitialOmega=[0; 0]);
+%%
+omega0 = [10; 10];
+%%
+omega0 = [0; 0];
 %%
 theta0 = [0; 0];
 %%
@@ -53,7 +57,7 @@ S = load(fullfile(runDir, "actor_export_nucleo.mat"), "weights");
 ucPolicyWeights = S.weights;
 
 %%
-%addpath(genpath("uC/nucleo_policy_deploy/matlab"))
+addpath(genpath("uC/nucleo_policy_deploy/matlab"))
 loadFurutaUcPolicyMirrorParams
 
 %%
