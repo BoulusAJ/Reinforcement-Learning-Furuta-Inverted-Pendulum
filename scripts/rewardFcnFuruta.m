@@ -1,4 +1,4 @@
-function [reward, isDone, diagnosis] = rewardFcnFuruta(obs, aRl, aRlPrev, stepCount, rewardParams, safetyParams)
+function [reward, isDone, diagnosis] = rewardFcnFuruta(obs, aRl, aRlPrev, stepCount, rewardParams, safetyParams, theta2_unwrapped)
 %REWARDFCNFURUTA Reward and termination logic for Furuta RL.
 % Preferred obs convention:
 % [sin(theta1Error); cos(theta1Error);
@@ -7,19 +7,30 @@ function [reward, isDone, diagnosis] = rewardFcnFuruta(obs, aRl, aRlPrev, stepCo
 % Legacy obs convention is also accepted during transition:
 % [theta1Error; theta2Error; omega1Error; omega2Error].
 % aRl is the normalized signed RL action in [-1, 1].
+%
+% theta2_unwrapped is optional and is used only when
+% safetyParams.EnablePendulumTravelLimit is true. It is interpreted as the
+% physical pendulum angle with theta2 = 0 at the down rest position and
+% theta2 = +/-pi at upright. The travel limit is applied relative to the
+% episode start so upright starts are not treated as unsafe.
 
 if nargin < 6
     safetyParams = rewardParams;
     rewardParams = stepCount;
     stepCount = Inf;
 end
+hasTheta2Unwrapped = nargin >= 7;
+if ~hasTheta2Unwrapped
+    theta2_unwrapped = NaN;
+end
 
 [theta1Error, theta2Error, omega1Error, omega2Error, ~] = decodeObservation(obs, aRlPrev);
+theta2TravelUnsafe = computeTheta2TravelUnsafe(theta2_unwrapped, stepCount, safetyParams, hasTheta2Unwrapped);
 
 if rewardParams.RewardMode == 2
     [reward, isDone, diagnosis] = mathWorksQubeStyleReward( ...
         theta1Error, theta2Error, omega1Error, omega2Error, ...
-        aRl, aRlPrev, stepCount, rewardParams, safetyParams);
+        aRl, aRlPrev, stepCount, rewardParams, safetyParams, theta2TravelUnsafe);
     return;
 end
 
@@ -37,7 +48,7 @@ else
 end
 
 theta1Unsafe = abs(theta1Error) > safetyParams.MaxAbsArmAngle;
-theta2Unsafe = abs(theta2Error) > safetyParams.MaxAbsPendulumAngle;
+theta2Unsafe = abs(theta2Error) > safetyParams.MaxAbsPendulumAngle || theta2TravelUnsafe;
 omega1Unsafe = abs(omega1Error) > safetyParams.MaxAbsAngularVelocity;
 omega2Unsafe = abs(omega2Error) > safetyParams.MaxAbsAngularVelocity;
 
@@ -73,10 +84,10 @@ end
 
 function [reward, isDone, diagnosis] = mathWorksQubeStyleReward( ...
     theta1Error, theta2Error, omega1Error, omega2Error, ...
-    aRl, aRlPrev, stepCount, rewardParams, safetyParams)
+    aRl, aRlPrev, stepCount, rewardParams, safetyParams, theta2TravelUnsafe)
 
 theta1Unsafe = abs(theta1Error) > safetyParams.MaxAbsArmAngle;
-theta2Unsafe = abs(theta2Error) > safetyParams.MaxAbsPendulumAngle;
+theta2Unsafe = abs(theta2Error) > safetyParams.MaxAbsPendulumAngle || theta2TravelUnsafe;
 omega1Unsafe = abs(omega1Error) > safetyParams.MaxAbsAngularVelocity;
 omega2Unsafe = abs(omega2Error) > safetyParams.MaxAbsAngularVelocity;
 
@@ -120,6 +131,30 @@ diagnosis = makeDiagnosis( ...
     rewardTermAliveBonus, rewardTermTheta2Error, rewardTermTheta1Error, ...
     rewardTermVelocity, rewardTermActionEffort, rewardTermActionSmoothness, ...
     rewardTermUprightBonus, rewardTermUnsafePenalty);
+end
+
+function theta2TravelUnsafe = computeTheta2TravelUnsafe(theta2_unwrapped, stepCount, safetyParams, hasTheta2Unwrapped)
+persistent theta2Unwrapped0
+
+theta2TravelUnsafe = false;
+
+if ~hasTheta2Unwrapped || ~isfield(safetyParams, "EnablePendulumTravelLimit") || ...
+        ~safetyParams.EnablePendulumTravelLimit
+    theta2Unwrapped0 = [];
+    return;
+end
+
+if ~isfield(safetyParams, "MaxAbsPendulumTravel") || ...
+        ~isfinite(theta2_unwrapped)
+    return;
+end
+
+if isempty(theta2Unwrapped0) || stepCount <= 1
+    theta2Unwrapped0 = theta2_unwrapped;
+end
+
+theta2Travel = theta2_unwrapped - theta2Unwrapped0;
+theta2TravelUnsafe = abs(theta2Travel) > safetyParams.MaxAbsPendulumTravel;
 end
 
 function diagnosis = makeDiagnosis( ...

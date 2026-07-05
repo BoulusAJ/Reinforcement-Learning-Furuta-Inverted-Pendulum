@@ -91,6 +91,67 @@ Treat it as a calibration candidate, not a final physical constant.
 8. Add domain randomization gradually, following the phased guidance in
    `docs/domain_randomization_preparation.md`.
 
+Prepared detailed-model training scripts after merging to `weto-inputs`:
+
+```text
+scripts/makeFurutaMathWorksStylePICurrent1c500HzLongDetailedTD3Config.m
+scripts/trainFurutaDirectTD3MathWorksStylePICurrent1c500HzLongDetailed.m
+```
+
+The prepared config uses:
+
+```text
+training model:   scripts/inv_rot_pen_RL_cntr_simscape_sim_1c_train.slx
+analysis model:   scripts/inv_rot_pen_RL_cntr_simscape_sim_1c_analysis.slx
+baseline family:  500Hz_long PI/current TD3
+```
+
+The config includes but disables:
+
+```text
+cfg.Training.UseInitialAgent = false
+cfg.DomainRandomization.Enabled = false
+cfg.Training.UseDiary = true
+```
+
+To fine-tune from the deployed `500Hz_long` final agent, set:
+
+```matlab
+cfg.Training.UseInitialAgent = true;
+```
+
+The initial agent path is already set to:
+
+```text
+results/TD3/run_20260618_223832_td3_mathworks_style_pi_current_1b_500hz_long/FurutaTD3_mathworks_style_pi_current_1b_500hz_long_final.mat
+```
+
+Domain-randomization ranges are included for later but should stay off for the
+first nominal detailed-model run.
+
+The trainer writes `training_console.log` into the run folder when
+`cfg.Training.UseDiary=true`, so terminal episode output is preserved even if a
+run is interrupted.
+
+## Detailed-Model Training Results
+
+The first two completed nominal detailed-model runs are documented in:
+
+```text
+docs/detailed_model_training_results_2026-07-05.md
+```
+
+Short version:
+
+- training from scratch completed 5000 episodes but learned a survival/swinging
+  behavior rather than clean upright balance,
+- fine-tuning from the original `500Hz_long` final agent also completed 5000
+  episodes and reached full-length episodes quickly, but still failed to
+  capture/balance upright in fixed evaluation,
+- both runs plateaued in the final 800-1000 episodes,
+- do not add domain randomization until the nominal detailed model can learn
+  proper capture and balance.
+
 ## Caution
 
 Keep deterministic fixed evaluations deterministic. Domain-randomized

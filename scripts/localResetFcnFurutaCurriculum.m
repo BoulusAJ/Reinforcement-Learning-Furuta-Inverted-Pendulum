@@ -42,8 +42,45 @@ in = setVariable(in, "theta0", [theta1_0; theta2_0]);
 
 % Added an initial value for omega0
 in = setVariable(in, "omega0", [omega1_0; omega2_0]);
+
+if isfield(curriculumParams, "DomainRandomization") && ...
+        isfield(curriculumParams.DomainRandomization, "Enabled") && ...
+        curriculumParams.DomainRandomization.Enabled
+    in = applyDetailedDomainRandomization(in, curriculumParams.DomainRandomization);
+end
 end
 
 function value = sampleUniform(range)
 value = range(1) + rand() * (range(2) - range(1));
+end
+
+function in = applyDetailedDomainRandomization(in, dr)
+if isfield(dr, "CurrentBiasRange_A")
+    in = setVariable(in, "currentBias_A", sampleUniform(dr.CurrentBiasRange_A));
+end
+
+if isfield(dr, "CurrentNoiseStdRange_A")
+    in = setVariable(in, "currentNoiseStd_A", sampleUniform(dr.CurrentNoiseStdRange_A));
+end
+
+if isfield(dr, "IStaticCompRange_A")
+    in = setVariable(in, "I_static_comp_A", sampleUniform(dr.IStaticCompRange_A));
+end
+
+if isfield(dr, "Theta1ViscousScalingFactorRange") || ...
+        isfield(dr, "Theta1CoulombStaticScalingFactorRange")
+    param = evalin("base", "param");
+
+    if isfield(dr, "Theta1ViscousScalingFactorRange")
+        param.Friction.Theta1.viscousScalingFactor = ...
+            sampleUniform(dr.Theta1ViscousScalingFactorRange);
+    end
+
+    if isfield(dr, "Theta1CoulombStaticScalingFactorRange")
+        param.Friction.Theta1.coulombStaticScalingFactor = ...
+            sampleUniform(dr.Theta1CoulombStaticScalingFactorRange);
+    end
+
+    in = setVariable(in, "param", param);
+end
 end

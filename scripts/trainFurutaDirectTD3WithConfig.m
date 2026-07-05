@@ -25,11 +25,12 @@ assignin("base", "curriculumParams", cfg.Training.Reset);
 assignin("base", "rewardParams", cfg.Reward);
 assignin("base", "safetyParams", cfg.Safety);
 
-agent = createTD3AgentFuruta(obsInfo, actInfo, cfg.Agent);
+agent = createTrainingAgent(obsInfo, actInfo, cfg);
 evalCfg = makeFurutaMathWorksStyleEvalConfig(cfg);
 
 prepareRunOutputFolders(cfg);
 writeRunConfig(cfg, evalCfg);
+diaryCleanup = startTrainingDiary(cfg); %#ok<NASGU>
 
 if cfg.Training.UseParallel
     pool = gcp("nocreate");
@@ -103,6 +104,84 @@ result = evaluateFurutaController( ...
     "UseParallel", cfg.Evaluation.UseParallel, ...
     "RequestedWorkers", cfg.Evaluation.RequestedWorkers, ...
     "AllowPoolRestart", cfg.Evaluation.AllowPoolRestart);
+end
+
+function agent = createTrainingAgent(obsInfo, actInfo, cfg)
+useInitialAgent = isfield(cfg.Training, "UseInitialAgent") && cfg.Training.UseInitialAgent;
+
+if ~useInitialAgent
+    agent = createTD3AgentFuruta(obsInfo, actInfo, cfg.Agent);
+    return;
+end
+
+initialAgentPath = string(cfg.Training.InitialAgentPath);
+if strlength(initialAgentPath) == 0 || ~isfile(initialAgentPath)
+    error("trainFurutaDirectTD3WithConfig:InitialAgentNotFound", ...
+        "Initial agent file does not exist: %s", initialAgentPath);
+end
+
+loadedAgent = load(initialAgentPath, "agent");
+if ~isfield(loadedAgent, "agent")
+    error("trainFurutaDirectTD3WithConfig:InitialAgentMissingField", ...
+        "Initial agent file does not contain a variable named 'agent': %s", initialAgentPath);
+end
+
+agent = loadedAgent.agent;
+agent = resetInitialAgentExperienceBufferIfRequested(agent, cfg);
+end
+
+function agent = resetInitialAgentExperienceBufferIfRequested(agent, cfg)
+resetBuffer = isfield(cfg.Training, "ResetInitialAgentExperienceBuffer") && ...
+    cfg.Training.ResetInitialAgentExperienceBuffer;
+
+if ~resetBuffer
+    return;
+end
+
+if ~isprop(agent, "ExperienceBuffer")
+    warning("trainFurutaDirectTD3WithConfig:ExperienceBufferPropertyMissing", ...
+        "Could not reset initial agent experience buffer because the loaded agent has no public ExperienceBuffer property.");
+    return;
+end
+
+try
+    buffer = agent.ExperienceBuffer;
+    if ismethod(buffer, "reset")
+        reset(buffer);
+        try
+            agent.ExperienceBuffer = buffer;
+        catch
+            % Some MATLAB releases expose a handle-like replay buffer with a
+            % protected setter. In that case reset(buffer) is already enough.
+        end
+        fprintf("Reset initial agent experience buffer using its reset method.\n");
+        return;
+    end
+catch err
+    warning("trainFurutaDirectTD3WithConfig:ExperienceBufferResetMethodFailed", ...
+        "Could not reset initial agent experience buffer using a reset method: %s", err.message);
+end
+
+try
+    agent.ExperienceBuffer = [];
+    fprintf("Cleared initial agent experience buffer by assigning [].\n");
+catch err
+    warning("trainFurutaDirectTD3WithConfig:ExperienceBufferClearFailed", ...
+        "Could not clear initial agent experience buffer. Training will continue with the loaded buffer. MATLAB reported: %s", err.message);
+end
+end
+
+function cleanupObj = startTrainingDiary(cfg)
+cleanupObj = [];
+
+if ~isfield(cfg.Training, "UseDiary") || ~cfg.Training.UseDiary
+    return;
+end
+
+diaryPath = fullfile(cfg.Training.OutputRoot, "training_console.log");
+diary(diaryPath);
+cleanupObj = onCleanup(@() diary("off"));
+fprintf("Training console diary: %s\n", diaryPath);
 end
 
 function prepareRunOutputFolders(cfg)

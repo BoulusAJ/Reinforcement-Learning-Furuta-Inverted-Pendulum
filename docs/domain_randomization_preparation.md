@@ -7,6 +7,16 @@ domain-randomized training. It is also useful if domain randomization is not
 used immediately, because the Simulink model now has explicit current
 measurement noise parameters.
 
+Important update after the first nominal detailed-model training attempts:
+
+```text
+docs/detailed_model_training_results_2026-07-05.md
+```
+
+Those runs survived but did not learn clean upright balance. Domain
+randomization should therefore remain paused until the nominal detailed model's
+reward/observation setup is fixed.
+
 ## Base-To-Detailed Model Summary
 
 The base model treated the Furuta plant and actuator path relatively
