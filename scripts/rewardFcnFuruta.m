@@ -26,11 +26,13 @@ end
 
 [theta1Error, theta2Error, omega1Error, omega2Error, ~] = decodeObservation(obs, aRlPrev);
 theta2TravelUnsafe = computeTheta2TravelUnsafe(theta2_unwrapped, stepCount, safetyParams, hasTheta2Unwrapped);
+uprightReachTimeoutUnsafe = computeUprightReachTimeoutUnsafe(theta2Error, stepCount, safetyParams);
 
 if rewardParams.RewardMode == 2
     [reward, isDone, diagnosis] = mathWorksQubeStyleReward( ...
         theta1Error, theta2Error, omega1Error, omega2Error, ...
-        aRl, aRlPrev, stepCount, rewardParams, safetyParams, theta2TravelUnsafe);
+        aRl, aRlPrev, stepCount, rewardParams, safetyParams, ...
+        theta2TravelUnsafe, uprightReachTimeoutUnsafe);
     return;
 end
 
@@ -48,7 +50,8 @@ else
 end
 
 theta1Unsafe = abs(theta1Error) > safetyParams.MaxAbsArmAngle;
-theta2Unsafe = abs(theta2Error) > safetyParams.MaxAbsPendulumAngle || theta2TravelUnsafe;
+theta2Unsafe = abs(theta2Error) > safetyParams.MaxAbsPendulumAngle || ...
+    theta2TravelUnsafe || uprightReachTimeoutUnsafe;
 omega1Unsafe = abs(omega1Error) > safetyParams.MaxAbsAngularVelocity;
 omega2Unsafe = abs(omega2Error) > safetyParams.MaxAbsAngularVelocity;
 
@@ -84,10 +87,12 @@ end
 
 function [reward, isDone, diagnosis] = mathWorksQubeStyleReward( ...
     theta1Error, theta2Error, omega1Error, omega2Error, ...
-    aRl, aRlPrev, stepCount, rewardParams, safetyParams, theta2TravelUnsafe)
+    aRl, aRlPrev, stepCount, rewardParams, safetyParams, ...
+    theta2TravelUnsafe, uprightReachTimeoutUnsafe)
 
 theta1Unsafe = abs(theta1Error) > safetyParams.MaxAbsArmAngle;
-theta2Unsafe = abs(theta2Error) > safetyParams.MaxAbsPendulumAngle || theta2TravelUnsafe;
+theta2Unsafe = abs(theta2Error) > safetyParams.MaxAbsPendulumAngle || ...
+    theta2TravelUnsafe || uprightReachTimeoutUnsafe;
 omega1Unsafe = abs(omega1Error) > safetyParams.MaxAbsAngularVelocity;
 omega2Unsafe = abs(omega2Error) > safetyParams.MaxAbsAngularVelocity;
 
@@ -135,12 +140,18 @@ end
 
 function theta2TravelUnsafe = computeTheta2TravelUnsafe(theta2_unwrapped, stepCount, safetyParams, hasTheta2Unwrapped)
 persistent theta2Unwrapped0
+persistent theta2Unwrapped0Valid
 
 theta2TravelUnsafe = false;
 
+if isempty(theta2Unwrapped0Valid)
+    theta2Unwrapped0 = 0;
+    theta2Unwrapped0Valid = false;
+end
+
 if ~hasTheta2Unwrapped || ~isfield(safetyParams, "EnablePendulumTravelLimit") || ...
         ~safetyParams.EnablePendulumTravelLimit
-    theta2Unwrapped0 = [];
+    theta2Unwrapped0Valid = false;
     return;
 end
 
@@ -149,12 +160,42 @@ if ~isfield(safetyParams, "MaxAbsPendulumTravel") || ...
     return;
 end
 
-if isempty(theta2Unwrapped0) || stepCount <= 1
+if ~theta2Unwrapped0Valid || stepCount <= 1
     theta2Unwrapped0 = theta2_unwrapped;
+    theta2Unwrapped0Valid = true;
 end
 
 theta2Travel = theta2_unwrapped - theta2Unwrapped0;
 theta2TravelUnsafe = abs(theta2Travel) > safetyParams.MaxAbsPendulumTravel;
+end
+
+function uprightReachTimeoutUnsafe = computeUprightReachTimeoutUnsafe(theta2Error, stepCount, safetyParams)
+persistent uprightReached
+
+uprightReachTimeoutUnsafe = false;
+
+if isempty(uprightReached) || stepCount <= 1
+    uprightReached = false;
+end
+
+if ~isfield(safetyParams, "EnableUprightReachTimeout") || ...
+        ~safetyParams.EnableUprightReachTimeout
+    return;
+end
+
+if ~isfield(safetyParams, "AgentSampleTime") || ...
+        ~isfield(safetyParams, "UprightReachTimeout_s") || ...
+        ~isfield(safetyParams, "UprightReachTolerance")
+    return;
+end
+
+if abs(theta2Error) <= safetyParams.UprightReachTolerance
+    uprightReached = true;
+end
+
+episodeTime = double(stepCount) * safetyParams.AgentSampleTime;
+uprightReachTimeoutUnsafe = episodeTime >= safetyParams.UprightReachTimeout_s && ...
+    ~uprightReached;
 end
 
 function diagnosis = makeDiagnosis( ...

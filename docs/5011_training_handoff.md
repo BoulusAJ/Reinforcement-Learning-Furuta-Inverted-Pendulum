@@ -152,6 +152,20 @@ Short version:
 - do not add domain randomization until the nominal detailed model can learn
   proper capture and balance.
 
+Update after the near-upright diagnostic run:
+
+- `run_20260705_221352_td3_mathworks_style_pi_current_1c_500hz_long_detailed_near_upright`
+  fine-tuned from the original `500Hz_long` final agent with near-upright resets,
+  reset replay buffer, pendulum travel termination, and a 3 s upright-reach
+  timeout,
+- reward rose strongly in the first ~20 episodes but collapsed around episodes
+  `46-55` and finished on a much lower plateau,
+- final fixed evaluation was poor (`full_final` failure rate about `0.859`,
+  mean final theta2 error about `2.43 rad`),
+- next suggested experiment is to add measured current `i_meas` to the
+  observation, likely with gentler fine-tuning settings or network surgery if
+  warm-starting from the old 7-observation agent.
+
 ## Caution
 
 Keep deterministic fixed evaluations deterministic. Domain-randomized

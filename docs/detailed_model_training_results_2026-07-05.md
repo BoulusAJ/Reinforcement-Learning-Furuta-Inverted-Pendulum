@@ -168,6 +168,87 @@ swing up, capture upright, and stabilize.
 The alive/survival reward is likely too easy to exploit on the detailed model,
 or the detailed dynamics make the previous reward balance insufficient.
 
+## Run 3 - Near-Upright Fine-Tune With Extra Termination
+
+Run:
+
+```text
+results/TD3/run_20260705_221352_td3_mathworks_style_pi_current_1c_500hz_long_detailed_near_upright
+```
+
+Config:
+
+```text
+scripts/makeFurutaDetailed1c500HzNearUprightTD3Config.m
+```
+
+Purpose:
+
+This was a shorter diagnostic run to check whether the detailed `1c` model can
+be recovered from near-upright initial conditions before trying another full
+swing-up training run.
+
+Setup:
+
+| Setting | Value |
+| --- | --- |
+| Model | detailed `1c` |
+| Agent rate | 500 Hz |
+| Initial agent | original `500Hz_long` final agent |
+| Initial replay buffer | reset before training |
+| Episodes | 1000 |
+| Reset theta1 error | `[-5, 5] deg` |
+| Reset theta2 error | `[-5, 5] deg` |
+| Reset omega1/omega2 error | `[-1, 1] rad/s` |
+| Pendulum travel termination | enabled, `3*pi` rad from episode start |
+| Upright reach timeout | enabled, terminate if upright not reached by `3.0 s` |
+| Upright reach tolerance | `15 deg` |
+
+Training behavior:
+
+- The loaded policy initially looked promising: episode reward rose from about
+  `569` on episode 1 to `1800+` by around episode 20.
+- Around episodes `46-55`, the reward collapsed sharply into short,
+  low-reward episodes.
+- The run later recovered only to a much lower plateau, mostly in the
+  `400-600` reward range near the end.
+- The final episode reward was `529.14`, with `2500` steps and final average
+  reward `443.52`.
+
+Evaluation:
+
+| Eval | FailureRate | MeanFinalTheta2MAE | MeanTheta2IAE | MeanElectricalAbsEnergy | MeanActionDiffRMS | Score |
+| --- | ---: | ---: | ---: | ---: | ---: | ---: |
+| short_final | 0.429 | 2.383 rad | 8.117 | 165.96 | 0.347 | -478.56 |
+| full_final | 0.859 | 2.432 rad | 7.382 | 135.69 | 0.362 | -871.47 |
+
+Interpretation:
+
+This run did not produce a usable near-upright stabilizer. It is still useful
+because it shows that direct fine-tuning from the old `500Hz_long` policy can
+damage the initially good behavior under the detailed model. The early reward
+rise followed by collapse suggests the loaded policy is not being adapted
+gently enough, or that the current observation/reward still hides important
+actuator state.
+
+The result supports trying measured current in the observation:
+
+```text
+i_meas
+```
+
+The detailed model has current-loop filtering, saturation, measurement noise,
+and actuator dynamics. The old observation uses previous action, but that may
+not be enough Markov information for the detailed plant. Adding `i_meas` may
+help the policy and critic distinguish commanded effort from delivered current.
+
+Important caveat:
+
+Adding `i_meas` changes the observation dimension. The original `500Hz_long`
+agent cannot be loaded directly into the new observation shape without either
+training from scratch or doing network surgery to copy the old 7-input weights
+and initialize the new current input.
+
 ## Current Concerns
 
 The detailed-model path failed more strongly than expected. Possible reasons:
@@ -234,6 +315,15 @@ Possible next experiments:
    A larger network may be necessary for the detailed model, but increasing
    capacity before fixing the alive-reward loophole may simply learn the same
    swinging behavior more strongly.
+
+7. Add measured current to the observation, with gentler fine-tuning.
+
+   The near-upright fine-tune suggests the old policy can be degraded quickly
+   when adapted to the detailed model. A next controlled attempt should include
+   `i_meas` as an additional observation, likely together with lower
+   fine-tuning learning rates and reduced exploration noise. If warm-starting
+   from the old agent is desired, network surgery is needed because the
+   observation dimension changes.
 
 ## Recommendation
 

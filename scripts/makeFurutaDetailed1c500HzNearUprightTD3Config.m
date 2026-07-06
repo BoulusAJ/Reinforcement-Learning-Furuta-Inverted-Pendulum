@@ -23,6 +23,10 @@ cfg.Training.Reset.Omega2ErrorRange = [-1 1];
 
 cfg.Safety.EnablePendulumTravelLimit = true;
 cfg.Safety.MaxAbsPendulumTravel = 3*pi;  % 1.5 full rotations from episode start.
+cfg.Safety.EnableUprightReachTimeout = true;
+cfg.Safety.AgentSampleTime = cfg.Agent.SampleTime;
+cfg.Safety.UprightReachTimeout_s = 3.0;
+cfg.Safety.UprightReachTolerance = deg2rad(15);
 
 cfg.Training.SavePrefix = "FurutaTD3_mathworks_style_pi_current_1c_500hz_long_detailed_near_upright";
 cfg.Training.RunName = "run_" + string(datetime("now", "Format", "yyyyMMdd_HHmmss")) + "_td3_mathworks_style_pi_current_1c_500hz_long_detailed_near_upright";
