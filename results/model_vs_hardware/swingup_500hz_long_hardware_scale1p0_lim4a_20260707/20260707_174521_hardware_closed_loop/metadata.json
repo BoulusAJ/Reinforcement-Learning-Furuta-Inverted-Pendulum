@@ -1,0 +1,23 @@
+{
+  "Timestamp": "20260707_174521",
+  "TestName": "swingup_500hz_long_hardware_20260707",
+  "SourceType": "hardware",
+  "Description": "Hardware swing-up using TD3 500Hz long RL agent. SLDRT started first, motor enabled manually after roughly 1 s, then disabled before stopping connection.",
+  "ModelDescription": "SLDRT hardware system, TD3 500Hz long agent",
+  "InputDescription": "Closed-loop RL current command from hardware run; manual enable/disable",
+  "CurrentCommand": null,
+  "EnableDisableTime": null,
+  "Duration": 12.622,
+  "SampleTime": null,
+  "RunDirectory": "C:\\Users\\abuj\\Code\\Reinforcement-Learning-Furuta-Inverted-Pendulum\\results\\model_vs_hardware\\swingup_500hz_long_hardware_20260707\\20260707_174521_hardware_closed_loop",
+  "ChannelLayout": [
+    "theta1",
+    "theta2",
+    "omega1",
+    "omega2",
+    "theta2_wrapped",
+    "enable",
+    "current_cmd",
+    "current"
+  ]
+}
