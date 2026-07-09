@@ -1,0 +1,110 @@
+Training console diary: C:\Users\abuj\Code\Reinforcement-Learning-Furuta-Inverted-Pendulum\results\TD3\run_20260708_140535_td3_mathworks_style_pi_current_1c_500hz_theta1_offset_noexplore_smoke\training_console.log
+Episode:   1/100 | Episode reward:  1995.04 | Episode steps: 2500 | Average reward:  1995.04 | Step Count: 2500 | Episode Q0:    28.33
+Episode:   2/100 | Episode reward:  1995.01 | Episode steps: 2500 | Average reward:  1995.02 | Step Count: 5000 | Episode Q0:    28.33
+Episode:   3/100 | Episode reward:  1995.23 | Episode steps: 2500 | Average reward:  1995.09 | Step Count: 7500 | Episode Q0:    28.33
+Episode:   4/100 | Episode reward:  1996.58 | Episode steps: 2500 | Average reward:  1995.46 | Step Count: 10000 | Episode Q0:    28.33
+Episode:   5/100 | Episode reward:  1996.86 | Episode steps: 2500 | Average reward:  1995.74 | Step Count: 12500 | Episode Q0:    28.33
+Episode:   6/100 | Episode reward:  1996.00 | Episode steps: 2500 | Average reward:  1995.79 | Step Count: 15000 | Episode Q0:    28.33
+Episode:   7/100 | Episode reward:  1992.66 | Episode steps: 2500 | Average reward:  1995.34 | Step Count: 17500 | Episode Q0:    28.33
+Episode:   8/100 | Episode reward:  1996.09 | Episode steps: 2500 | Average reward:  1995.43 | Step Count: 20000 | Episode Q0:    28.33
+Episode:   9/100 | Episode reward:  2000.04 | Episode steps: 2500 | Average reward:  1995.95 | Step Count: 22500 | Episode Q0:    28.33
+Episode:  10/100 | Episode reward:  1998.80 | Episode steps: 2500 | Average reward:  1996.23 | Step Count: 25000 | Episode Q0:    28.33
+Episode:  11/100 | Episode reward:  1996.70 | Episode steps: 2500 | Average reward:  1996.40 | Step Count: 27500 | Episode Q0:    28.33
+Episode:  12/100 | Episode reward:  1992.28 | Episode steps: 2500 | Average reward:  1996.12 | Step Count: 30000 | Episode Q0:    28.33
+Episode:  13/100 | Episode reward:  1998.45 | Episode steps: 2500 | Average reward:  1996.45 | Step Count: 32500 | Episode Q0:    28.33
+Episode:  14/100 | Episode reward:  1999.63 | Episode steps: 2500 | Average reward:  1996.75 | Step Count: 35000 | Episode Q0:    28.33
+Episode:  15/100 | Episode reward:  2000.65 | Episode steps: 2500 | Average reward:  1997.13 | Step Count: 37500 | Episode Q0:    28.33
+Episode:  16/100 | Episode reward:  1997.94 | Episode steps: 2500 | Average reward:  1997.32 | Step Count: 40000 | Episode Q0:    28.33
+Episode:  17/100 | Episode reward:  1992.46 | Episode steps: 2500 | Average reward:  1997.30 | Step Count: 42500 | Episode Q0:    28.33
+Episode:  18/100 | Episode reward:  1997.32 | Episode steps: 2500 | Average reward:  1997.43 | Step Count: 45000 | Episode Q0:    28.33
+Episode:  19/100 | Episode reward:  1995.19 | Episode steps: 2500 | Average reward:  1996.94 | Step Count: 47500 | Episode Q0:    28.33
+Episode:  20/100 | Episode reward:  1996.27 | Episode steps: 2500 | Average reward:  1996.69 | Step Count: 50000 | Episode Q0:    28.33
+Episode:  21/100 | Episode reward:  1996.38 | Episode steps: 2500 | Average reward:  1996.66 | Step Count: 52500 | Episode Q0:    28.33
+Episode:  22/100 | Episode reward:  1995.18 | Episode steps: 2500 | Average reward:  1996.95 | Step Count: 55000 | Episode Q0:    28.33
+Episode:  23/100 | Episode reward:  2000.05 | Episode steps: 2500 | Average reward:  1997.11 | Step Count: 57500 | Episode Q0:    28.33
+Episode:  24/100 | Episode reward:  1998.27 | Episode steps: 2500 | Average reward:  1996.97 | Step Count: 60000 | Episode Q0:    28.33
+Episode:  25/100 | Episode reward:  1996.65 | Episode steps: 2500 | Average reward:  1996.57 | Step Count: 62500 | Episode Q0:    28.33
+Episode:  26/100 | Episode reward:  1995.69 | Episode steps: 2500 | Average reward:  1996.35 | Step Count: 65000 | Episode Q0:    28.33
+Episode:  27/100 | Episode reward:  2000.05 | Episode steps: 2500 | Average reward:  1997.11 | Step Count: 67500 | Episode Q0:    28.33
+Episode:  28/100 | Episode reward:  1993.75 | Episode steps: 2500 | Average reward:  1996.75 | Step Count: 70000 | Episode Q0:    28.33
+Episode:  29/100 | Episode reward:  1999.77 | Episode steps: 2500 | Average reward:  1997.21 | Step Count: 72500 | Episode Q0:    28.33
+Episode:  30/100 | Episode reward:  1995.81 | Episode steps: 2500 | Average reward:  1997.16 | Step Count: 75000 | Episode Q0:    28.33
+Episode:  31/100 | Episode reward:  1998.19 | Episode steps: 2500 | Average reward:  1997.34 | Step Count: 77500 | Episode Q0:    28.33
+Episode:  32/100 | Episode reward:  1995.61 | Episode steps: 2500 | Average reward:  1997.38 | Step Count: 80000 | Episode Q0:    28.33
+Episode:  33/100 | Episode reward:  1994.82 | Episode steps: 2500 | Average reward:  1996.86 | Step Count: 82500 | Episode Q0:    28.33
+Episode:  34/100 | Episode reward:  2001.35 | Episode steps: 2500 | Average reward:  1997.17 | Step Count: 85000 | Episode Q0:    28.33
+Episode:  35/100 | Episode reward:  1995.82 | Episode steps: 2500 | Average reward:  1997.09 | Step Count: 87500 | Episode Q0:    28.33
+Episode:  36/100 | Episode reward:  1995.03 | Episode steps: 2500 | Average reward:  1997.02 | Step Count: 90000 | Episode Q0:    28.33
+Episode:  37/100 | Episode reward:  1997.63 | Episode steps: 2500 | Average reward:  1996.78 | Step Count: 92500 | Episode Q0:    28.33
+Episode:  38/100 | Episode reward:  1994.27 | Episode steps: 2500 | Average reward:  1996.83 | Step Count: 95000 | Episode Q0:    28.33
+Episode:  39/100 | Episode reward:  1995.66 | Episode steps: 2500 | Average reward:  1996.42 | Step Count: 97500 | Episode Q0:    28.33
+Episode:  40/100 | Episode reward:  1992.86 | Episode steps: 2500 | Average reward:  1996.12 | Step Count: 100000 | Episode Q0:    28.33
+Episode:  41/100 | Episode reward:  2004.15 | Episode steps: 2500 | Average reward:  1996.72 | Step Count: 102500 | Episode Q0:    28.33
+Episode:  42/100 | Episode reward:  1993.81 | Episode steps: 2500 | Average reward:  1996.54 | Step Count: 105000 | Episode Q0:    28.33
+Episode:  43/100 | Episode reward:  1996.92 | Episode steps: 2500 | Average reward:  1996.75 | Step Count: 107500 | Episode Q0:    28.33
+Episode:  44/100 | Episode reward:  1999.38 | Episode steps: 2500 | Average reward:  1996.55 | Step Count: 110000 | Episode Q0:    28.33
+Episode:  45/100 | Episode reward:  1992.09 | Episode steps: 2500 | Average reward:  1996.18 | Step Count: 112500 | Episode Q0:    28.33
+Episode:  46/100 | Episode reward:  1996.06 | Episode steps: 2500 | Average reward:  1996.28 | Step Count: 115000 | Episode Q0:    28.33
+Episode:  47/100 | Episode reward:  1993.06 | Episode steps: 2500 | Average reward:  1995.83 | Step Count: 117500 | Episode Q0:    28.33
+Episode:  48/100 | Episode reward:  1999.11 | Episode steps: 2500 | Average reward:  1996.31 | Step Count: 120000 | Episode Q0:    28.33
+Episode:  49/100 | Episode reward:  2004.47 | Episode steps: 2500 | Average reward:  1997.19 | Step Count: 122500 | Episode Q0:    28.33
+Episode:  50/100 | Episode reward:  1995.77 | Episode steps: 2500 | Average reward:  1997.48 | Step Count: 125000 | Episode Q0:    28.33
+Episode:  51/100 | Episode reward:  1998.52 | Episode steps: 2500 | Average reward:  1996.92 | Step Count: 127500 | Episode Q0:    28.33
+Episode:  52/100 | Episode reward:  1994.23 | Episode steps: 2500 | Average reward:  1996.96 | Step Count: 130000 | Episode Q0:    28.33
+Episode:  53/100 | Episode reward:  1995.44 | Episode steps: 2500 | Average reward:  1996.81 | Step Count: 132500 | Episode Q0:    28.33
+Episode:  54/100 | Episode reward:  1993.10 | Episode steps: 2500 | Average reward:  1996.19 | Step Count: 135000 | Episode Q0:    28.33
+Episode:  55/100 | Episode reward:  1998.89 | Episode steps: 2500 | Average reward:  1996.87 | Step Count: 137500 | Episode Q0:    28.33
+Episode:  56/100 | Episode reward:  1995.60 | Episode steps: 2500 | Average reward:  1996.82 | Step Count: 140000 | Episode Q0:    28.33
+Episode:  57/100 | Episode reward:  1998.95 | Episode steps: 2500 | Average reward:  1997.41 | Step Count: 142500 | Episode Q0:    28.33
+Episode:  58/100 | Episode reward:  1994.53 | Episode steps: 2500 | Average reward:  1996.95 | Step Count: 145000 | Episode Q0:    28.33
+Episode:  59/100 | Episode reward:  1991.92 | Episode steps: 2500 | Average reward:  1995.70 | Step Count: 147500 | Episode Q0:    28.33
+Episode:  60/100 | Episode reward:  1993.84 | Episode steps: 2500 | Average reward:  1995.50 | Step Count: 150000 | Episode Q0:    28.33
+Episode:  61/100 | Episode reward:  1994.30 | Episode steps: 2500 | Average reward:  1995.08 | Step Count: 152500 | Episode Q0:    28.33
+Episode:  62/100 | Episode reward:  1992.31 | Episode steps: 2500 | Average reward:  1994.89 | Step Count: 155000 | Episode Q0:    28.33
+Episode:  63/100 | Episode reward:  1998.69 | Episode steps: 2500 | Average reward:  1995.21 | Step Count: 157500 | Episode Q0:    28.33
+Episode:  64/100 | Episode reward:  2000.89 | Episode steps: 2500 | Average reward:  1995.99 | Step Count: 160000 | Episode Q0:    28.33
+Episode:  65/100 | Episode reward:  1995.38 | Episode steps: 2500 | Average reward:  1995.64 | Step Count: 162500 | Episode Q0:    28.33
+Episode:  66/100 | Episode reward:  1993.37 | Episode steps: 2500 | Average reward:  1995.42 | Step Count: 165000 | Episode Q0:    28.33
+Episode:  67/100 | Episode reward:  1994.95 | Episode steps: 2500 | Average reward:  1995.02 | Step Count: 167500 | Episode Q0:    28.33
+Episode:  68/100 | Episode reward:  1994.35 | Episode steps: 2500 | Average reward:  1995.00 | Step Count: 170000 | Episode Q0:    28.33
+Episode:  69/100 | Episode reward:  1994.01 | Episode steps: 2500 | Average reward:  1995.21 | Step Count: 172500 | Episode Q0:    28.33
+Episode:  70/100 | Episode reward:  1996.84 | Episode steps: 2500 | Average reward:  1995.51 | Step Count: 175000 | Episode Q0:    28.33
+Episode:  71/100 | Episode reward:  1991.95 | Episode steps: 2500 | Average reward:  1995.28 | Step Count: 177500 | Episode Q0:    28.33
+Episode:  72/100 | Episode reward:  1990.71 | Episode steps: 2500 | Average reward:  1995.12 | Step Count: 180000 | Episode Q0:    28.33
+Episode:  73/100 | Episode reward:  2000.53 | Episode steps: 2500 | Average reward:  1995.30 | Step Count: 182500 | Episode Q0:    28.33
+Episode:  74/100 | Episode reward:  1995.29 | Episode steps: 2500 | Average reward:  1994.74 | Step Count: 185000 | Episode Q0:    28.33
+Episode:  75/100 | Episode reward:  1999.70 | Episode steps: 2500 | Average reward:  1995.17 | Step Count: 187500 | Episode Q0:    28.33
+Episode:  76/100 | Episode reward:  1995.88 | Episode steps: 2500 | Average reward:  1995.42 | Step Count: 190000 | Episode Q0:    28.33
+Episode:  77/100 | Episode reward:  1995.93 | Episode steps: 2500 | Average reward:  1995.52 | Step Count: 192500 | Episode Q0:    28.33
+Episode:  78/100 | Episode reward:  1994.73 | Episode steps: 2500 | Average reward:  1995.56 | Step Count: 195000 | Episode Q0:    28.33
+Episode:  79/100 | Episode reward:  2001.77 | Episode steps: 2500 | Average reward:  1996.33 | Step Count: 197500 | Episode Q0:    28.33
+Episode:  80/100 | Episode reward:  1997.41 | Episode steps: 2500 | Average reward:  1996.39 | Step Count: 200000 | Episode Q0:    28.33
+Episode:  81/100 | Episode reward:  1999.48 | Episode steps: 2500 | Average reward:  1997.14 | Step Count: 202500 | Episode Q0:    28.33
+Episode:  82/100 | Episode reward:  1998.37 | Episode steps: 2500 | Average reward:  1997.91 | Step Count: 205000 | Episode Q0:    28.33
+Episode:  83/100 | Episode reward:  1999.77 | Episode steps: 2500 | Average reward:  1997.83 | Step Count: 207500 | Episode Q0:    28.33
+Episode:  84/100 | Episode reward:  1995.07 | Episode steps: 2500 | Average reward:  1997.81 | Step Count: 210000 | Episode Q0:    28.33
+Episode:  85/100 | Episode reward:  1993.01 | Episode steps: 2500 | Average reward:  1997.14 | Step Count: 212500 | Episode Q0:    28.33
+Episode:  86/100 | Episode reward:  1997.61 | Episode steps: 2500 | Average reward:  1997.31 | Step Count: 215000 | Episode Q0:    28.33
+Episode:  87/100 | Episode reward:  1994.13 | Episode steps: 2500 | Average reward:  1997.13 | Step Count: 217500 | Episode Q0:    28.33
+Episode:  88/100 | Episode reward:  1997.81 | Episode steps: 2500 | Average reward:  1997.44 | Step Count: 220000 | Episode Q0:    28.33
+Episode:  89/100 | Episode reward:  1988.18 | Episode steps: 2500 | Average reward:  1996.08 | Step Count: 222500 | Episode Q0:    28.33
+Episode:  90/100 | Episode reward:  1993.04 | Episode steps: 2500 | Average reward:  1995.65 | Step Count: 225000 | Episode Q0:    28.33
+Episode:  91/100 | Episode reward:  1992.64 | Episode steps: 2500 | Average reward:  1994.96 | Step Count: 227500 | Episode Q0:    28.33
+Episode:  92/100 | Episode reward:  1996.65 | Episode steps: 2500 | Average reward:  1994.79 | Step Count: 230000 | Episode Q0:    28.33
+Episode:  93/100 | Episode reward:  1990.96 | Episode steps: 2500 | Average reward:  1993.91 | Step Count: 232500 | Episode Q0:    28.33
+Episode:  94/100 | Episode reward:  1990.26 | Episode steps: 2500 | Average reward:  1993.43 | Step Count: 235000 | Episode Q0:    28.33
+Episode:  95/100 | Episode reward:  1991.45 | Episode steps: 2500 | Average reward:  1993.27 | Step Count: 237500 | Episode Q0:    28.33
+Episode:  96/100 | Episode reward:  1993.22 | Episode steps: 2500 | Average reward:  1992.83 | Step Count: 240000 | Episode Q0:    28.33
+Episode:  97/100 | Episode reward:  1993.59 | Episode steps: 2500 | Average reward:  1992.78 | Step Count: 242500 | Episode Q0:    28.33
+Episode:  98/100 | Episode reward:  1994.96 | Episode steps: 2500 | Average reward:  1992.49 | Step Count: 245000 | Episode Q0:    28.33
+Episode:  99/100 | Episode reward:  1995.04 | Episode steps: 2500 | Average reward:  1993.18 | Step Count: 247500 | Episode Q0:    28.33
+Episode: 100/100 | Episode reward:  1996.01 | Episode steps: 2500 | Average reward:  1993.48 | Step Count: 250000 | Episode Q0:    28.33
+
+Running short fixed evaluation (7 cases)...
+Finished evaluating case: 7
+Finished evaluating case: 2
+Finished evaluating case: 1
+Finished evaluating case: 6
+Finished evaluating case: 4
+Finished evaluating case: 3
+Finished evaluating case: 5

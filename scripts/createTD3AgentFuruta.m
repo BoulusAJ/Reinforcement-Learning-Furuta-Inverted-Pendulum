@@ -78,40 +78,8 @@ end
 
 function agent = createDefaultTD3Agent(obsInfo, actInfo, agentCfg)
 initOpts = rlAgentInitializationOptions(NumHiddenUnit=agentCfg.NumHiddenUnit);
-agentOptions = createTD3Options(agentCfg);
+agentOptions = createTD3OptionsFuruta(agentCfg);
 agent = rlTD3Agent(obsInfo, actInfo, initOpts, agentOptions);
-end
-
-function agentOptions = createTD3Options(agentCfg)
-agentOptions = rlTD3AgentOptions( ...
-    SampleTime=agentCfg.SampleTime, ...
-    DiscountFactor=0.99, ...
-    LearningFrequency=agentCfg.LearningFrequency, ...
-    PolicyUpdateFrequency=agentCfg.PolicyUpdateFrequency, ...
-    TargetUpdateFrequency=agentCfg.TargetUpdateFrequency, ...
-    TargetSmoothFactor=agentCfg.TargetSmoothFactor, ...
-    MiniBatchSize=agentCfg.MiniBatchSize, ...
-    ExperienceBufferLength=agentCfg.ExperienceBufferLength, ...
-    NumWarmStartSteps=agentCfg.NumWarmStartSteps, ...
-    NumEpoch=agentCfg.NumEpoch, ...
-    MaxMiniBatchPerEpoch=agentCfg.MaxMiniBatchPerEpoch);
-
-agentOptions.ActorOptimizerOptions.Algorithm = "sgdm";
-agentOptions.ActorOptimizerOptions.LearnRate = agentCfg.ActorLearnRate;
-agentOptions.ActorOptimizerOptions.GradientThreshold = agentCfg.GradientThreshold;
-for idx = 1:numel(agentOptions.CriticOptimizerOptions)
-    agentOptions.CriticOptimizerOptions(idx).Algorithm = "sgdm";
-    agentOptions.CriticOptimizerOptions(idx).LearnRate = agentCfg.CriticLearnRate;
-    agentOptions.CriticOptimizerOptions(idx).GradientThreshold = agentCfg.GradientThreshold;
-end
-
-agentOptions.ExplorationModel.StandardDeviationMin = agentCfg.ExplorationNoiseStdMin;
-agentOptions.ExplorationModel.StandardDeviation = agentCfg.ExplorationNoiseStd;
-agentOptions.ExplorationModel.StandardDeviationDecayRate = agentCfg.ExplorationNoiseDecayRate;
-
-agentOptions.TargetPolicySmoothModel.StandardDeviation = agentCfg.TargetPolicyNoiseStd;
-agentOptions.TargetPolicySmoothModel.LowerLimit = -agentCfg.TargetPolicyNoiseLimit;
-agentOptions.TargetPolicySmoothModel.UpperLimit = agentCfg.TargetPolicyNoiseLimit;
 end
 
 function actorNetwork = createDefaultStyleActorNetwork(numObs, numAct, hiddenLayerSizes)

@@ -1,0 +1,355 @@
+{
+  "ProjectName": "FurutaRL",
+  "ProjectRoot": "C:\\Users\\abuj\\Code\\Reinforcement-Learning-Furuta-Inverted-Pendulum",
+  "Model": {
+    "TrainingName": "inv_rot_pen_RL_cntr_simscape_sim_1c_train",
+    "EvaluationName": "inv_rot_pen_RL_cntr_simscape_sim_1c_analysis",
+    "Name": "inv_rot_pen_RL_cntr_simscape_sim_1c_train",
+    "TrainingAgentBlock": "inv_rot_pen_RL_cntr_simscape_sim_1c_train/RL Agent",
+    "EvaluationAgentBlock": "inv_rot_pen_RL_cntr_simscape_sim_1c_analysis/RL Agent",
+    "AgentBlock": "inv_rot_pen_RL_cntr_simscape_sim_1c_train/RL Agent",
+    "PlantSampleTime": 5E-5,
+    "TrainingFile": "C:\\Users\\abuj\\Code\\Reinforcement-Learning-Furuta-Inverted-Pendulum\\scripts\\inv_rot_pen_RL_cntr_simscape_sim_1c_train.slx",
+    "EvaluationFile": "C:\\Users\\abuj\\Code\\Reinforcement-Learning-Furuta-Inverted-Pendulum\\scripts\\inv_rot_pen_RL_cntr_simscape_sim_1c_analysis.slx"
+  },
+  "Agent": {
+    "Algorithm": "TD3",
+    "UseDevice": "cpu",
+    "SampleTime": 0.002,
+    "LearningFrequency": -1,
+    "PolicyUpdateFrequency": 2,
+    "TargetUpdateFrequency": 2,
+    "MiniBatchSize": 1024,
+    "ExperienceBufferLength": 2.5E+6,
+    "NumWarmStartSteps": 2500,
+    "NumEpoch": 10,
+    "MaxMiniBatchPerEpoch": 100,
+    "TargetSmoothFactor": 0.005,
+    "TargetPolicyNoiseStd": 0.2,
+    "TargetPolicyNoiseLimit": 0.5,
+    "ExplorationNoiseStd": 0.08,
+    "ExplorationNoiseStdMin": 0.01,
+    "ExplorationNoiseDecayRate": 2E-6,
+    "ActorLearnRate": 0.0002,
+    "CriticLearnRate": 0.0005,
+    "GradientThreshold": 1,
+    "NetworkStyle": "default",
+    "NumHiddenUnit": 64
+  },
+  "Reference": {
+    "Root": "C:\\Users\\abuj\\Code\\Reinforcement-Learning-Furuta-Inverted-Pendulum\\references\\zhaw_rotary_pendulum_lab",
+    "LabModelDir": "C:\\Users\\abuj\\Code\\Reinforcement-Learning-Furuta-Inverted-Pendulum\\references\\zhaw_rotary_pendulum_lab\\lab_model",
+    "CourseLabDir": "C:\\Users\\abuj\\Code\\Reinforcement-Learning-Furuta-Inverted-Pendulum\\references\\zhaw_rotary_pendulum_lab\\course_lab_p5"
+  },
+  "Motor": {
+    "R": 4.5320000000000009,
+    "L": 0.00131,
+    "km": 0.0975
+  },
+  "Limits": {
+    "SupplyVoltage": 24,
+    "PwmOffset": 0.09,
+    "VoltageMax": 21.84,
+    "CurrentMax": 1.5,
+    "MotorSpeedMax": 200
+  },
+  "Observation": {
+    "Names": [
+      "sinTheta1Error",
+      "cosTheta1Error",
+      "sinTheta2Error",
+      "cosTheta2Error",
+      "omega1Error",
+      "omega2Error",
+      "previousAction"
+    ],
+    "Dimension": 7,
+    "AngularVelocityScale": 25
+  },
+  "Action": {
+    "Name": "a_rl",
+    "Min": -1,
+    "Max": 1,
+    "IsNormalized": true,
+    "PhysicalInterface": "current",
+    "CurrentScale": 1.5,
+    "TorqueScale": 0.14625
+  },
+  "Safety": {
+    "MaxAbsArmAngle": 1.5707963267948966,
+    "MaxAbsPendulumAngle": 3.1415926535897931,
+    "MaxAbsAngularVelocity": 200,
+    "PendulumEnableAngle": 0.52359877559829882,
+    "PendulumDisableAngle": 0.17453292519943295
+  },
+  "Training": {
+    "SavePrefix": "FurutaTD3_mathworks_style_pi_current_1c_500hz_capture_tune_from_scratch7000",
+    "ResultsDir": "C:\\Users\\abuj\\Code\\Reinforcement-Learning-Furuta-Inverted-Pendulum\\results\\TD3",
+    "RunName": "run_20260709_065958_td3_mathworks_style_pi_current_1c_500hz_capture_tune_from_scratch7000",
+    "OutputRoot": "C:\\Users\\abuj\\Code\\Reinforcement-Learning-Furuta-Inverted-Pendulum\\results\\TD3\\run_20260709_065958_td3_mathworks_style_pi_current_1c_500hz_capture_tune_from_scratch7000",
+    "StageDir": "C:\\Users\\abuj\\Code\\Reinforcement-Learning-Furuta-Inverted-Pendulum\\results\\TD3\\run_20260709_065958_td3_mathworks_style_pi_current_1c_500hz_capture_tune_from_scratch7000\\stages",
+    "EvalDir": "C:\\Users\\abuj\\Code\\Reinforcement-Learning-Furuta-Inverted-Pendulum\\results\\TD3\\run_20260709_065958_td3_mathworks_style_pi_current_1c_500hz_capture_tune_from_scratch7000\\evaluation",
+    "ConfigDir": "C:\\Users\\abuj\\Code\\Reinforcement-Learning-Furuta-Inverted-Pendulum\\results\\TD3\\run_20260709_065958_td3_mathworks_style_pi_current_1c_500hz_capture_tune_from_scratch7000\\config",
+    "SavedAgentDir": "C:\\Users\\abuj\\Code\\Reinforcement-Learning-Furuta-Inverted-Pendulum\\results\\TD3\\run_20260709_065958_td3_mathworks_style_pi_current_1c_500hz_capture_tune_from_scratch7000\\saved_agents",
+    "FinalSaveName": "FurutaTD3_mathworks_style_pi_current_1c_500hz_capture_tune_from_scratch7000_final.mat",
+    "EpisodeDuration": 5,
+    "StopTrainingCriteria": "none",
+    "StopTrainingValue": [],
+    "ScoreAveragingWindowLength": 10,
+    "Verbose": true,
+    "PlotMode": "none",
+    "RunInBackground": true,
+    "DisableScopes": true,
+    "DisableSignalLogging": true,
+    "UseFastRestart": true,
+    "UseParallel": true,
+    "RequestedWorkers": 22,
+    "ParallelMode": "async",
+    "StepsUntilDataIsSent": 2500,
+    "MaxEpisodes": 2000,
+    "SaveAgentCriteria": "EpisodeReward",
+    "SaveAgentValue": 1300,
+    "Reset": {
+      "Name": "mathworks_style_wide_random",
+      "Theta1ErrorRange": [
+        -0.78539816339744828,
+        0.78539816339744828
+      ],
+      "Theta2ErrorRange": [
+        -1.5707963267948966,
+        1.5707963267948966
+      ],
+      "Omega1ErrorRange": [
+        -2,
+        2
+      ],
+      "Omega2ErrorRange": [
+        -2,
+        2
+      ],
+      "DomainRandomization": {
+        "Enabled": false,
+        "CurrentBiasRange_A": [
+          -0.01,
+          0.01
+        ],
+        "CurrentNoiseStdRange_A": [
+          0.004,
+          0.02
+        ],
+        "IStaticCompRange_A": [
+          0,
+          0.03
+        ],
+        "IStaticCompTightRange_A": [
+          0.01,
+          0.03
+        ],
+        "Theta1ViscousScalingFactorRange": [
+          3.75,
+          15
+        ],
+        "Theta1CoulombStaticScalingFactorRange": [
+          1.15,
+          4.6
+        ]
+      }
+    },
+    "UseInitialAgent": true,
+    "InitialAgentRunDir": "C:\\Users\\abuj\\Code\\Reinforcement-Learning-Furuta-Inverted-Pendulum\\results\\TD3\\run_20260708_222715_td3_mathworks_style_pi_current_1c_500hz_long_detailed_scratch7000",
+    "InitialAgentPath": "C:\\Users\\abuj\\Code\\Reinforcement-Learning-Furuta-Inverted-Pendulum\\results\\TD3\\run_20260708_222715_td3_mathworks_style_pi_current_1c_500hz_long_detailed_scratch7000\\FurutaTD3_mathworks_style_pi_current_1c_500hz_long_detailed_scratch7000_final.mat",
+    "UseDiary": true,
+    "ResetInitialAgentExperienceBuffer": true
+  },
+  "Evaluation": {
+    "UsePostStageEvaluation": false,
+    "UseCustomEvaluatorDuringTraining": false,
+    "UseStandardEvaluatorDuringTraining": false,
+    "UseShortEvaluation": true,
+    "UseFullEvaluation": true,
+    "UseParallel": true,
+    "RequestedWorkers": 22,
+    "AllowPoolRestart": false
+  },
+  "Reward": {
+    "RewardMode": 2,
+    "theta2Weight": 1,
+    "theta2Scale": 0.26179938779914941,
+    "theta1Weight": 0.1,
+    "theta1Scale": 0.52359877559829882,
+    "omega1Weight": 0.05,
+    "omega1Scale": 5,
+    "omega2Weight": 0.02,
+    "omega2Scale": 5,
+    "lambda_u": 0.001,
+    "lambda_du": 0.03,
+    "aliveBonus": 0.02,
+    "uprightBonus": 0.2,
+    "uprightTolerance": 0.13962634015954636,
+    "unsafePenalty": 10,
+    "aliveReward": 1,
+    "costWeight": 0.1,
+    "angularVelocityWeight": 0.01,
+    "actionSmoothnessWeight": 0.3,
+    "aliveTheta1Limit": 1.5707963267948966,
+    "aliveOmega1Limit": 30,
+    "duWarmupSteps": 1,
+    "EnableUprightCaptureShaping": true,
+    "UprightCaptureAngle": 0.43633231299858238,
+    "UprightCaptureTheta2Scale": 0.17453292519943295,
+    "UprightCaptureOmega1Scale": 5,
+    "UprightCaptureOmega2Scale": 5,
+    "UprightCaptureBonusWeight": 0.8,
+    "UprightCaptureTheta2Weight": 0.8,
+    "UprightCaptureOmega1Weight": 0.05,
+    "UprightCaptureOmega2Weight": 0.25,
+    "UprightCaptureSmoothnessWeight": 0.1
+  },
+  "Curriculum": [
+    {
+      "Name": "near_upright_stabilization",
+      "MaxEpisodes": 800,
+      "Reset": {
+        "Theta1ErrorRange": [
+          0,
+          0
+        ],
+        "Theta2ErrorRange": [
+          -0.087266462599716474,
+          0.087266462599716474
+        ],
+        "Omega1ErrorRange": [
+          0,
+          0
+        ],
+        "Omega2ErrorRange": [
+          -1,
+          1
+        ]
+      },
+      "NoiseStd": 0.1
+    },
+    {
+      "Name": "medium_upright_recovery",
+      "MaxEpisodes": 500,
+      "Reset": {
+        "Theta1ErrorRange": [
+          -0.17453292519943295,
+          0.17453292519943295
+        ],
+        "Theta2ErrorRange": [
+          -0.43633231299858238,
+          0.43633231299858238
+        ],
+        "Omega1ErrorRange": [
+          -2,
+          2
+        ],
+        "Omega2ErrorRange": [
+          -5,
+          5
+        ]
+      },
+      "NoiseStd": 0.2
+    },
+    {
+      "Name": "large_angle_recovery",
+      "MaxEpisodes": 1000,
+      "Reset": {
+        "Theta1ErrorRange": [
+          -0.3490658503988659,
+          0.3490658503988659
+        ],
+        "Theta2ErrorRange": [
+          -1.5707963267948966,
+          1.5707963267948966
+        ],
+        "Omega1ErrorRange": [
+          -5,
+          5
+        ],
+        "Omega2ErrorRange": [
+          -10,
+          10
+        ]
+      },
+      "NoiseStd": 0.3
+    },
+    {
+      "Name": "full_swingup",
+      "MaxEpisodes": 2000,
+      "Reset": {
+        "Theta1ErrorRange": [
+          -0.78539816339744828,
+          0.78539816339744828
+        ],
+        "Theta2ErrorRange": [
+          -3.1415926535897931,
+          3.1415926535897931
+        ],
+        "Omega1ErrorRange": [
+          -8,
+          8
+        ],
+        "Omega2ErrorRange": [
+          -12,
+          12
+        ]
+      },
+      "NoiseStd": 0.35
+    }
+  ],
+  "DetailedModel": {
+    "Enabled": true,
+    "fc_diff_theta1_Hz": 100,
+    "fc_diff_theta2_Hz": 100,
+    "TsFast": 5E-5,
+    "EncoderNotchFrequencyHz": 680,
+    "EncoderNotchDamping": 0.6,
+    "CurrentCommandLpfFrequencyHz": 500,
+    "CurrentCommandLpfDamping": 0.9,
+    "PiRolloffFrequencyHz": 3000,
+    "EncoderTheta1CountsPerRev": 16384,
+    "EncoderTheta2CountsPerRev": 4096,
+    "currentBias_A": 0.0026,
+    "currentNoiseStd_A": 0.0084,
+    "I_static_comp_A": 0.0205,
+    "Friction": {
+      "Theta1": {
+        "B": 1E-5,
+        "CoulombCurrent_A": 0.015,
+        "OmegaS": 0.1,
+        "OmegaEps": 0.01,
+        "viscousScalingFactor": 7.5,
+        "coulombStaticScalingFactor": 2.3
+      }
+    }
+  },
+  "DomainRandomization": {
+    "Enabled": false,
+    "CurrentBiasRange_A": [
+      -0.01,
+      0.01
+    ],
+    "CurrentNoiseStdRange_A": [
+      0.004,
+      0.02
+    ],
+    "IStaticCompRange_A": [
+      0,
+      0.03
+    ],
+    "IStaticCompTightRange_A": [
+      0.01,
+      0.03
+    ],
+    "Theta1ViscousScalingFactorRange": [
+      3.75,
+      15
+    ],
+    "Theta1CoulombStaticScalingFactorRange": [
+      1.15,
+      4.6
+    ]
+  }
+}
