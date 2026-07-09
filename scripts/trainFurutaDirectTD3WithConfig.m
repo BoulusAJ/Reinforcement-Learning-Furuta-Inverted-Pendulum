@@ -127,7 +127,31 @@ if ~isfield(loadedAgent, "agent")
 end
 
 agent = loadedAgent.agent;
+agent = applyAgentOptionsFromConfig(agent, cfg.Agent);
 agent = resetInitialAgentExperienceBufferIfRequested(agent, cfg);
+end
+
+function agent = applyAgentOptionsFromConfig(agent, agentCfg)
+newOptions = createTD3OptionsFuruta(agentCfg);
+
+if isprop(agent, "AgentOptions")
+    optionsPropertyName = "AgentOptions";
+elseif isprop(agent, "Options")
+    optionsPropertyName = "Options";
+else
+    warning("trainFurutaDirectTD3WithConfig:AgentOptionsPropertyMissing", ...
+        "Loaded agent has no public AgentOptions property. Config TD3 options were not reapplied.");
+    return;
+end
+
+try
+    agent.(optionsPropertyName) = newOptions;
+    fprintf("Applied TD3 options from cfg to loaded initial agent (%s): ExplorationStd=%.4g, ExplorationStdMin=%.4g, NumWarmStartSteps=%d.\n", ...
+        optionsPropertyName, agentCfg.ExplorationNoiseStd, agentCfg.ExplorationNoiseStdMin, agentCfg.NumWarmStartSteps);
+catch err
+    warning("trainFurutaDirectTD3WithConfig:ApplyLoadedAgentOptionsFailed", ...
+        "Could not apply cfg TD3 options to loaded initial agent. MATLAB reported: %s", err.message);
+end
 end
 
 function agent = resetInitialAgentExperienceBufferIfRequested(agent, cfg)

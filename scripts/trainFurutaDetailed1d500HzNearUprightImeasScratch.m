@@ -1,0 +1,6 @@
+function trainFurutaDetailed1d500HzNearUprightImeasScratch()
+%TRAINFURUTADETAILED1D500HZNEARUPRIGHTIMEASSCRATCH Train 1d I_meas scratch run.
+
+cfg = makeFurutaDetailed1d500HzNearUprightImeasScratchTD3Config();
+trainFurutaDirectTD3WithConfig(cfg);
+end

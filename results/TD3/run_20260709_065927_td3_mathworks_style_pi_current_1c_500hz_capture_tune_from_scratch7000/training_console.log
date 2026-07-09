@@ -1,0 +1,6 @@
+Training console diary: C:\Users\abuj\Code\Reinforcement-Learning-Furuta-Inverted-Pendulum\results\TD3\run_20260709_065927_td3_mathworks_style_pi_current_1c_500hz_capture_tune_from_scratch7000\training_console.log
+Starting parallel pool (parpool) using the 'Processes' profile ...
+Preserving jobs with IDs: 1 8 because they contain crash dump files.
+You can use 'delete(myCluster.Jobs)' to remove all jobs created with profile Processes. To create 'myCluster' use 'myCluster = parcluster('Processes')'.
+Parallel pool using the 'Processes' profile is shutting down.
+

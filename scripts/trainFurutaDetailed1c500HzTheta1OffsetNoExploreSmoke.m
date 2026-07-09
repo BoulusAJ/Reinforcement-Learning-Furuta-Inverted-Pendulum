@@ -1,0 +1,6 @@
+function trainFurutaDetailed1c500HzTheta1OffsetNoExploreSmoke()
+%TRAINFURUTADETAILED1C500HZTHETA1OFFSETNOEXPLORESMOKE Smoke-test loaded policy.
+
+cfg = makeFurutaDetailed1c500HzTheta1OffsetNoExploreSmokeTD3Config();
+trainFurutaDirectTD3WithConfig(cfg);
+end

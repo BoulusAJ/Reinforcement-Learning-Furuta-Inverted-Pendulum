@@ -1,0 +1,110 @@
+Training console diary: C:\Users\abuj\Code\Reinforcement-Learning-Furuta-Inverted-Pendulum\results\TD3\run_20260708_135319_td3_mathworks_style_pi_current_1c_500hz_theta1_offset_noexplore_smoke\training_console.log
+Episode:   1/100 | Episode reward:  2068.76 | Episode steps: 2500 | Average reward:  2068.76 | Step Count: 2500 | Episode Q0:    28.33
+Episode:   2/100 | Episode reward:  2075.28 | Episode steps: 2500 | Average reward:  2072.02 | Step Count: 5000 | Episode Q0:    32.00
+Episode:   3/100 | Episode reward:  2084.63 | Episode steps: 2500 | Average reward:  2076.23 | Step Count: 7500 | Episode Q0:    32.00
+Episode:   4/100 | Episode reward:  2082.93 | Episode steps: 2500 | Average reward:  2077.90 | Step Count: 10000 | Episode Q0:    32.00
+Episode:   5/100 | Episode reward:  2079.68 | Episode steps: 2500 | Average reward:  2078.26 | Step Count: 12500 | Episode Q0:    32.00
+Episode:   6/100 | Episode reward:  2102.19 | Episode steps: 2500 | Average reward:  2082.25 | Step Count: 15000 | Episode Q0:    32.00
+Episode:   7/100 | Episode reward:  2083.47 | Episode steps: 2500 | Average reward:  2082.42 | Step Count: 17500 | Episode Q0:    32.00
+Episode:   8/100 | Episode reward:  2058.43 | Episode steps: 2500 | Average reward:  2079.42 | Step Count: 20000 | Episode Q0:    32.00
+Episode:   9/100 | Episode reward:  2074.47 | Episode steps: 2500 | Average reward:  2078.87 | Step Count: 22500 | Episode Q0:    32.00
+Episode:  10/100 | Episode reward:  2084.00 | Episode steps: 2500 | Average reward:  2079.38 | Step Count: 25000 | Episode Q0:    32.00
+Episode:  11/100 | Episode reward:  2055.92 | Episode steps: 2500 | Average reward:  2078.10 | Step Count: 27500 | Episode Q0:    32.00
+Episode:  12/100 | Episode reward:  2070.20 | Episode steps: 2500 | Average reward:  2077.59 | Step Count: 30000 | Episode Q0:    32.00
+Episode:  13/100 | Episode reward:  2095.69 | Episode steps: 2500 | Average reward:  2078.70 | Step Count: 32500 | Episode Q0:    32.00
+Episode:  14/100 | Episode reward:  2101.12 | Episode steps: 2500 | Average reward:  2080.52 | Step Count: 35000 | Episode Q0:    32.00
+Episode:  15/100 | Episode reward:  2082.51 | Episode steps: 2500 | Average reward:  2080.80 | Step Count: 37500 | Episode Q0:    32.00
+Episode:  16/100 | Episode reward:  2063.22 | Episode steps: 2500 | Average reward:  2076.90 | Step Count: 40000 | Episode Q0:    32.00
+Episode:  17/100 | Episode reward:  2094.40 | Episode steps: 2500 | Average reward:  2078.00 | Step Count: 42500 | Episode Q0:    32.00
+Episode:  18/100 | Episode reward:  2083.78 | Episode steps: 2500 | Average reward:  2080.53 | Step Count: 45000 | Episode Q0:    32.00
+Episode:  19/100 | Episode reward:  2095.53 | Episode steps: 2500 | Average reward:  2082.64 | Step Count: 47500 | Episode Q0:    32.00
+Episode:  20/100 | Episode reward:  2089.80 | Episode steps: 2500 | Average reward:  2083.22 | Step Count: 50000 | Episode Q0:    32.00
+Episode:  21/100 | Episode reward:  2097.40 | Episode steps: 2500 | Average reward:  2087.37 | Step Count: 52500 | Episode Q0:    32.00
+Episode:  22/100 | Episode reward:  2077.41 | Episode steps: 2500 | Average reward:  2088.09 | Step Count: 55000 | Episode Q0:    32.00
+Episode:  23/100 | Episode reward:  2099.14 | Episode steps: 2500 | Average reward:  2088.43 | Step Count: 57500 | Episode Q0:    90.35
+Episode:  24/100 | Episode reward:  2076.26 | Episode steps: 2500 | Average reward:  2085.94 | Step Count: 60000 | Episode Q0:    90.35
+Episode:  25/100 | Episode reward:  2083.95 | Episode steps: 2500 | Average reward:  2086.09 | Step Count: 62500 | Episode Q0:    90.35
+Episode:  26/100 | Episode reward:  2071.17 | Episode steps: 2500 | Average reward:  2086.88 | Step Count: 65000 | Episode Q0:    90.35
+Episode:  27/100 | Episode reward:  2070.83 | Episode steps: 2500 | Average reward:  2084.53 | Step Count: 67500 | Episode Q0:    90.35
+Episode:  28/100 | Episode reward:  2089.34 | Episode steps: 2500 | Average reward:  2085.08 | Step Count: 70000 | Episode Q0:    90.35
+Episode:  29/100 | Episode reward:  2075.81 | Episode steps: 2500 | Average reward:  2083.11 | Step Count: 72500 | Episode Q0:    90.35
+Episode:  30/100 | Episode reward:  2075.06 | Episode steps: 2500 | Average reward:  2081.64 | Step Count: 75000 | Episode Q0:    90.35
+Episode:  31/100 | Episode reward:  2066.01 | Episode steps: 2500 | Average reward:  2078.50 | Step Count: 77500 | Episode Q0:    90.35
+Episode:  32/100 | Episode reward:  2079.10 | Episode steps: 2500 | Average reward:  2078.67 | Step Count: 80000 | Episode Q0:    90.35
+Episode:  33/100 | Episode reward:  2098.55 | Episode steps: 2500 | Average reward:  2078.61 | Step Count: 82500 | Episode Q0:    90.35
+Episode:  34/100 | Episode reward:  2029.45 | Episode steps: 2500 | Average reward:  2073.93 | Step Count: 85000 | Episode Q0:    90.35
+Episode:  35/100 | Episode reward:  2093.32 | Episode steps: 2500 | Average reward:  2074.86 | Step Count: 87500 | Episode Q0:    90.35
+Episode:  36/100 | Episode reward:  2074.23 | Episode steps: 2500 | Average reward:  2075.17 | Step Count: 90000 | Episode Q0:    90.35
+Episode:  37/100 | Episode reward:  2100.55 | Episode steps: 2500 | Average reward:  2078.14 | Step Count: 92500 | Episode Q0:    90.35
+Episode:  38/100 | Episode reward:  2073.56 | Episode steps: 2500 | Average reward:  2076.56 | Step Count: 95000 | Episode Q0:    90.35
+Episode:  39/100 | Episode reward:  2100.17 | Episode steps: 2500 | Average reward:  2079.00 | Step Count: 97500 | Episode Q0:    90.35
+Episode:  40/100 | Episode reward:  2068.58 | Episode steps: 2500 | Average reward:  2078.35 | Step Count: 100000 | Episode Q0:    90.35
+Episode:  41/100 | Episode reward:  2054.96 | Episode steps: 2500 | Average reward:  2077.25 | Step Count: 102500 | Episode Q0:    90.35
+Episode:  42/100 | Episode reward:  2069.63 | Episode steps: 2500 | Average reward:  2076.30 | Step Count: 105000 | Episode Q0:    90.35
+Episode:  43/100 | Episode reward:  2081.03 | Episode steps: 2500 | Average reward:  2074.55 | Step Count: 107500 | Episode Q0:    90.35
+Episode:  44/100 | Episode reward:  2065.65 | Episode steps: 2500 | Average reward:  2078.17 | Step Count: 110000 | Episode Q0:    90.35
+Episode:  45/100 | Episode reward:  2043.16 | Episode steps: 2500 | Average reward:  2073.15 | Step Count: 112500 | Episode Q0:    90.35
+Episode:  46/100 | Episode reward:   252.22 | Episode steps:  500 | Average reward:  1890.95 | Step Count: 113000 | Episode Q0:    90.35
+Episode:  47/100 | Episode reward:   284.85 | Episode steps:  500 | Average reward:  1709.38 | Step Count: 113500 | Episode Q0:    90.35
+Episode:  48/100 | Episode reward:   261.83 | Episode steps:  500 | Average reward:  1528.21 | Step Count: 114000 | Episode Q0:    90.35
+Episode:  49/100 | Episode reward:   264.10 | Episode steps:  500 | Average reward:  1344.60 | Step Count: 114500 | Episode Q0:    90.35
+Episode:  50/100 | Episode reward:   296.74 | Episode steps:  500 | Average reward:  1167.42 | Step Count: 115000 | Episode Q0:    89.66
+Episode:  51/100 | Episode reward:   264.70 | Episode steps:  500 | Average reward:   988.39 | Step Count: 115500 | Episode Q0:    89.66
+Episode:  52/100 | Episode reward:   291.81 | Episode steps:  500 | Average reward:   810.61 | Step Count: 116000 | Episode Q0:    89.66
+Episode:  53/100 | Episode reward:   295.19 | Episode steps:  500 | Average reward:   632.02 | Step Count: 116500 | Episode Q0:    89.66
+Episode:  54/100 | Episode reward:   279.80 | Episode steps:  500 | Average reward:   453.44 | Step Count: 117000 | Episode Q0:    89.66
+Episode:  55/100 | Episode reward:   191.75 | Episode steps:  435 | Average reward:   268.30 | Step Count: 117435 | Episode Q0:    89.66
+Episode:  56/100 | Episode reward:   217.07 | Episode steps:  500 | Average reward:   264.78 | Step Count: 117935 | Episode Q0:    89.66
+Episode:  57/100 | Episode reward:   256.76 | Episode steps:  500 | Average reward:   261.97 | Step Count: 118435 | Episode Q0:    89.66
+Episode:  58/100 | Episode reward:   143.05 | Episode steps:  203 | Average reward:   250.10 | Step Count: 118638 | Episode Q0:    89.66
+Episode:  59/100 | Episode reward:   225.25 | Episode steps:  480 | Average reward:   246.21 | Step Count: 119118 | Episode Q0:    89.66
+Episode:  60/100 | Episode reward:   287.11 | Episode steps:  500 | Average reward:   245.25 | Step Count: 119618 | Episode Q0:    89.66
+Episode:  61/100 | Episode reward:   248.01 | Episode steps:  500 | Average reward:   243.58 | Step Count: 120118 | Episode Q0:    89.66
+Episode:  62/100 | Episode reward:   352.61 | Episode steps:  587 | Average reward:   249.66 | Step Count: 120705 | Episode Q0:    89.66
+Episode:  63/100 | Episode reward:   228.11 | Episode steps:  490 | Average reward:   242.95 | Step Count: 121195 | Episode Q0:    89.66
+Episode:  64/100 | Episode reward:   290.67 | Episode steps:  500 | Average reward:   244.04 | Step Count: 121695 | Episode Q0:    89.66
+Episode:  65/100 | Episode reward:   264.21 | Episode steps:  500 | Average reward:   251.29 | Step Count: 122195 | Episode Q0:    89.66
+Episode:  66/100 | Episode reward:   270.06 | Episode steps:  500 | Average reward:   256.58 | Step Count: 122695 | Episode Q0:    89.66
+Episode:  67/100 | Episode reward:   164.42 | Episode steps:  334 | Average reward:   247.35 | Step Count: 123029 | Episode Q0:    89.66
+Episode:  68/100 | Episode reward:   138.05 | Episode steps:  295 | Average reward:   246.85 | Step Count: 123324 | Episode Q0:    89.66
+Episode:  69/100 | Episode reward:   166.60 | Episode steps:  326 | Average reward:   240.99 | Step Count: 123650 | Episode Q0:    89.66
+Episode:  70/100 | Episode reward:   152.81 | Episode steps:  308 | Average reward:   227.56 | Step Count: 123958 | Episode Q0:    89.66
+Episode:  71/100 | Episode reward:   216.55 | Episode steps:  389 | Average reward:   224.41 | Step Count: 124347 | Episode Q0:    89.66
+Episode:  72/100 | Episode reward:   127.38 | Episode steps:  280 | Average reward:   201.89 | Step Count: 124627 | Episode Q0:    89.66
+Episode:  73/100 | Episode reward:   115.73 | Episode steps:  263 | Average reward:   190.65 | Step Count: 124890 | Episode Q0:    89.66
+Episode:  74/100 | Episode reward:   127.78 | Episode steps:  288 | Average reward:   174.36 | Step Count: 125178 | Episode Q0:    89.66
+Episode:  75/100 | Episode reward:   220.66 | Episode steps:  402 | Average reward:   170.01 | Step Count: 125580 | Episode Q0:    89.66
+Episode:  76/100 | Episode reward:   258.27 | Episode steps:  431 | Average reward:   168.83 | Step Count: 126011 | Episode Q0:    89.66
+Episode:  77/100 | Episode reward:   160.25 | Episode steps:  324 | Average reward:   168.41 | Step Count: 126335 | Episode Q0:    89.66
+Episode:  78/100 | Episode reward:   191.88 | Episode steps:  269 | Average reward:   173.79 | Step Count: 126604 | Episode Q0:    89.66
+Episode:  79/100 | Episode reward:   149.02 | Episode steps:  299 | Average reward:   172.03 | Step Count: 126903 | Episode Q0:    89.66
+Episode:  80/100 | Episode reward:   190.82 | Episode steps:  367 | Average reward:   175.84 | Step Count: 127270 | Episode Q0:    89.66
+Episode:  81/100 | Episode reward:   133.32 | Episode steps:  283 | Average reward:   167.51 | Step Count: 127553 | Episode Q0:    89.66
+Episode:  82/100 | Episode reward:   173.53 | Episode steps:  352 | Average reward:   172.13 | Step Count: 127905 | Episode Q0:    87.97
+Episode:  83/100 | Episode reward:   188.64 | Episode steps:  294 | Average reward:   179.42 | Step Count: 128199 | Episode Q0:    87.97
+Episode:  84/100 | Episode reward:   153.42 | Episode steps:  309 | Average reward:   181.98 | Step Count: 128508 | Episode Q0:    87.97
+Episode:  85/100 | Episode reward:   118.66 | Episode steps:  268 | Average reward:   171.78 | Step Count: 128776 | Episode Q0:    87.97
+Episode:  86/100 | Episode reward:   188.20 | Episode steps:  355 | Average reward:   164.77 | Step Count: 129131 | Episode Q0:    87.97
+Episode:  87/100 | Episode reward:   201.27 | Episode steps:  372 | Average reward:   168.88 | Step Count: 129503 | Episode Q0:    87.97
+Episode:  88/100 | Episode reward:   176.48 | Episode steps:  335 | Average reward:   167.34 | Step Count: 129838 | Episode Q0:    87.97
+Episode:  89/100 | Episode reward:   129.91 | Episode steps:  289 | Average reward:   165.42 | Step Count: 130127 | Episode Q0:    87.97
+Episode:  90/100 | Episode reward:   111.93 | Episode steps:  257 | Average reward:   157.54 | Step Count: 130384 | Episode Q0:    87.97
+Episode:  91/100 | Episode reward:   142.31 | Episode steps:  303 | Average reward:   158.43 | Step Count: 130687 | Episode Q0:    87.97
+Episode:  92/100 | Episode reward:   177.31 | Episode steps:  333 | Average reward:   158.81 | Step Count: 131020 | Episode Q0:    87.97
+Episode:  93/100 | Episode reward:   265.51 | Episode steps:  460 | Average reward:   166.50 | Step Count: 131480 | Episode Q0:    87.97
+Episode:  94/100 | Episode reward:    77.04 | Episode steps:  214 | Average reward:   158.86 | Step Count: 131694 | Episode Q0:    87.79
+Episode:  95/100 | Episode reward:    63.75 | Episode steps:  196 | Average reward:   153.37 | Step Count: 131890 | Episode Q0:    87.79
+Episode:  96/100 | Episode reward:    89.91 | Episode steps:  240 | Average reward:   143.54 | Step Count: 132130 | Episode Q0:    87.79
+Episode:  97/100 | Episode reward:    93.91 | Episode steps:  253 | Average reward:   132.81 | Step Count: 132383 | Episode Q0:    87.79
+Episode:  98/100 | Episode reward:    86.03 | Episode steps:  243 | Average reward:   123.76 | Step Count: 132626 | Episode Q0:    87.79
+Episode:  99/100 | Episode reward:    88.75 | Episode steps:  235 | Average reward:   119.64 | Step Count: 132861 | Episode Q0:    87.79
+Episode: 100/100 | Episode reward:    79.86 | Episode steps:  227 | Average reward:   116.44 | Step Count: 133088 | Episode Q0:    87.79
+
+Running short fixed evaluation (7 cases)...
+Finished evaluating case: 3
+Finished evaluating case: 4
+Finished evaluating case: 1
+Finished evaluating case: 6
+Finished evaluating case: 5
+Finished evaluating case: 2
+Finished evaluating case: 7
