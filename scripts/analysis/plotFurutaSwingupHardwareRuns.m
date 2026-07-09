@@ -21,6 +21,7 @@ arguments
     options.TimeStep (1,1) double = NaN
     options.MaxTime (1,1) double = NaN
     options.MinRunsForAverage (1,1) double = 2
+    options.AverageRunIndices (1,:) double = NaN
     options.SaveOutput (1,1) logical = false
     options.OutputRoot (1,1) string = ""
 end
@@ -34,18 +35,23 @@ if numel(runFiles) < 1
 end
 
 runs = localLoadRuns(runFiles);
-timeStep = localTimeStep(runs, options.TimeStep);
-maxTime = localMaxTime(runs, options.MaxTime);
+averageRunIndices = localAverageRunIndices(numel(runs), options.AverageRunIndices);
+averageRuns = runs(averageRunIndices);
+timeStep = localTimeStep(averageRuns, options.TimeStep);
+maxTime = localMaxTime(averageRuns, options.MaxTime);
 tGrid = (0:timeStep:maxTime).';
 
-average = localAverageRuns(runs, options.Fields, tGrid, options.MinRunsForAverage);
+average = localAverageRuns(averageRuns, options.Fields, tGrid, options.MinRunsForAverage);
 
 overlayFigure = localOverlayPlot(runs, options.Fields, options.Label);
-averageFigure = localAveragePlot(average, options.Fields, options.Label);
+comparisonRuns = runs(setdiff(1:numel(runs), averageRunIndices));
+averageFigure = localAveragePlot(average, comparisonRuns, options.Fields, options.Label);
 
 analysis = struct();
 analysis.runFiles = runFiles;
 analysis.runs = runs;
+analysis.averageRunIndices = averageRunIndices;
+analysis.comparisonRunIndices = setdiff(1:numel(runs), averageRunIndices);
 analysis.tGrid = tGrid;
 analysis.average = average;
 analysis.overlayFigure = overlayFigure;
@@ -53,6 +59,19 @@ analysis.averageFigure = averageFigure;
 
 if options.SaveOutput
     analysis.outputDir = localSaveOutput(analysis, options);
+end
+end
+
+function averageRunIndices = localAverageRunIndices(numRuns, requestedIndices)
+if numel(requestedIndices) == 1 && isnan(requestedIndices)
+    averageRunIndices = 1:numRuns;
+    return
+end
+
+averageRunIndices = requestedIndices(:).';
+if any(averageRunIndices < 1) || any(averageRunIndices > numRuns)
+    error("plotFurutaSwingupHardwareRuns:AverageRunIndexOutOfRange", ...
+        "AverageRunIndices must be between 1 and the number of runs.");
 end
 end
 
@@ -209,11 +228,16 @@ end
 xlabel("time since enable on [s]")
 end
 
-function fig = localAveragePlot(average, fields, label)
+function fig = localAveragePlot(average, comparisonRuns, fields, label)
 fig = figure("Color", "w", "Name", label + " average");
 layout = tiledlayout(fig, numel(fields), 1, ...
     "TileSpacing", "compact", "Padding", "compact");
-title(layout, label + " - average on common grid", "Interpreter", "none");
+title(layout, label + " - average and comparison runs", "Interpreter", "none");
+
+colors = lines(max(2, numel(comparisonRuns) + 1));
+meanColor = colors(1, :);
+comparisonColors = colors(2:end, :);
+countColor = [0.45 0.45 0.45];
 
 for fieldIdx = 1:numel(fields)
     fieldName = fields(fieldIdx);
@@ -228,21 +252,37 @@ for fieldIdx = 1:numel(fields)
 
     nexttile
     hold on
-    localShadedStd(t, meanY, stdY);
-    plot(t, meanY, "k", "LineWidth", 1.8, "DisplayName", "mean");
+    localShadedStd(t, meanY, stdY, meanColor);
+    plot(t, meanY, "Color", meanColor, "LineWidth", 1.9, ...
+        "DisplayName", "average");
+
+    for runIdx = 1:numel(comparisonRuns)
+        signals = comparisonRuns(runIdx).signals;
+        if ~isfield(signals, fieldName)
+            continue
+        end
+
+        y = localPlotUnits(signals.(fieldName), fieldName);
+        plot(signals.t, y, ...
+            "Color", comparisonColors(runIdx, :), ...
+            "LineWidth", 1.2, ...
+            "DisplayName", comparisonRuns(runIdx).label);
+    end
+
     yyaxis right
-    plot(t, count, "Color", [0.45 0.45 0.45], "LineStyle", ":", ...
+    plot(t, count, "Color", countColor, "LineStyle", ":", ...
         "LineWidth", 0.9, "DisplayName", "run count");
     ylabel("run count")
     yyaxis left
     grid on
     ylabel(localYAxisLabel(fieldName))
+    legend("Location", "best", "Interpreter", "none")
 end
 
 xlabel("time since enable on [s]")
 end
 
-function localShadedStd(t, meanY, stdY)
+function localShadedStd(t, meanY, stdY, color)
 valid = isfinite(meanY) & isfinite(stdY);
 if nnz(valid) < 2
     return
@@ -250,7 +290,7 @@ end
 
 x = [t(valid); flipud(t(valid))];
 y = [meanY(valid) - stdY(valid); flipud(meanY(valid) + stdY(valid))];
-fill(x, y, [0.75 0.82 0.92], ...
+fill(x, y, color, ...
     "EdgeColor", "none", "FaceAlpha", 0.35, ...
     "DisplayName", "mean +/- 1 std");
 end
@@ -315,7 +355,13 @@ exportgraphics(analysis.overlayFigure, fullfile(plotDir, "overlay.png"), ...
     "Resolution", 170);
 exportgraphics(analysis.averageFigure, fullfile(plotDir, "average.png"), ...
     "Resolution", 170);
-save(fullfile(outputDir, "swingup_overlay_average.mat"), "analysis", "-v7.3");
+
+savedAnalysis = analysis;
+savedAnalysis.overlayFigure = [];
+savedAnalysis.averageFigure = [];
+savedAnalysis.overlayPlotPath = fullfile(plotDir, "overlay.png");
+savedAnalysis.averagePlotPath = fullfile(plotDir, "average.png");
+save(fullfile(outputDir, "swingup_overlay_average.mat"), "savedAnalysis", "-v7.3");
 end
 
 function outputRoot = localDefaultOutputRoot()

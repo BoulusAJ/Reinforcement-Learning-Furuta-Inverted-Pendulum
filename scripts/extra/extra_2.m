@@ -90,3 +90,28 @@ param.Friction.Theta1.coulombStaticScalingFactor = 2.3; % latest % 2.3 another g
 
 %%
 %load C:\Users\abuj\Code\Reinforcement-Learning-Furuta-Inverted-Pendulum\results\model_vs_hardware\test1_constant_current_0p2a_disable_0p8s\20260622_201704_hardware\run.mat signals
+
+%%
+Ts_filter = cfg.Agent.SampleTime;              % 500 Hz
+
+% e = abs(theta2Error);    % rad
+% eNear = deg2rad(10);
+% eFar  = deg2rad(60);
+% 
+% s = min(max((e - eNear) / (eFar - eNear), 0), 1);
+% 
+% fcNear = 5;              % Hz, strong filtering near upright
+% fcFar  = 40;             % Hz, light filtering during swing-up
+% 
+% fc = fcNear + s * (fcFar - fcNear);
+Ts_filter = 0.002;
+%%
+fc = 20;
+tau = 1 / (2*pi*fc);
+G_i_cmd_filt = tf(1, [tau 1]);
+G_i_cmd_filt_d = c2d(G_i_cmd_filt, Ts_filter, "tustin");
+%%
+fc = 200;
+tau = 1 / (2*pi*fc);
+G_i_cmd_filt_fast = tf(1, [tau 1]);
+G_i_cmd_filt_fast_d = c2d(G_i_cmd_filt_fast, Ts_filter, "tustin");

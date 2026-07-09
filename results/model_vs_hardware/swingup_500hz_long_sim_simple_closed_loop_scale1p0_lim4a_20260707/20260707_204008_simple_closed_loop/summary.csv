@@ -1,0 +1,2 @@
+TestName,SourceType,StartTime,EndTime,NumSamples,MedianDt,MedianFs,MaxAbsTheta1,MaxAbsTheta2Wrapped,MaxAbsTheta2UprightError,MaxAbsOmega1,MaxAbsOmega2,MeanCurrentCommand,MaxAbsCurrentCommand,MaxAbsCurrent,CurrentAbsIntegral,EnableOffTime
+swingup_500hz_long_sim_simple_closed_loop_scale1p0_lim4a_20260707,simulation,0,10,200001,4.99999999998835e-05,20000.0000000466,1.095383958351,3.14159265358979,3.14159265358979,8.06220663256671,23.3129092936821,4.58948482795707e-07,3.39887070655823,0,0,NaN
