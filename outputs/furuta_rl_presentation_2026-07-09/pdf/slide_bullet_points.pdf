@@ -1,0 +1,379 @@
+%PDF-1.4
+1 0 obj
+<< /Type /Catalog /Pages 2 0 R >>
+endobj
+2 0 obj
+<< /Type /Pages /Kids [4 0 R 6 0 R 8 0 R 10 0 R 12 0 R 14 0 R 16 0 R] /Count 7 >>
+endobj
+3 0 obj
+<< /Type /Font /Subtype /Type1 /BaseFont /Helvetica >>
+endobj
+4 0 obj
+<< /Type /Page /Parent 2 0 R /MediaBox [0 0 595 842] /Resources << /Font << /F1 3 0 R >> >> /Contents 5 0 R >>
+endobj
+5 0 obj
+<< /Length 3730 >>
+stream
+BT /F1 20 Tf 1 0 0 1 48 782 Tm (Slide Bullet Points) Tj ET
+BT /F1 15 Tf 1 0 0 1 48 746 Tm (Slide 1 - Title) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 48 723 Tm (Reinforcement Learning for the Furuta Inverted Pendulum) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 62 706 Tm (- Goal: train and deploy an RL controller for swing-up and upright balance.) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 62 693 Tm (- Method: TD3, trained in Simulink/MATLAB.) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 62 680 Tm (- Final status: simulation-trained policy reached real hardware swing-up) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 48 667 Tm (  attempts; robust low-jitter balance remains open.) Tj ET
+BT /F1 15 Tf 1 0 0 1 48 643 Tm (Slide 2 - What Started The Project) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 62 620 Tm (- Start from a real Furuta inverted pendulum setup at ZHAW.) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 62 607 Tm (- Learn a controller that can swing up and balance the pendulum.) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 62 594 Tm (- Explore whether model-free or grey-box RL can reduce manual controller) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 48 581 Tm (  design effort.) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 62 568 Tm (- Build a workflow that can be handed over: configs, results, scripts,) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 48 555 Tm (  documentation.) Tj ET
+BT /F1 15 Tf 1 0 0 1 48 531 Tm (Slide 3 - System And Control Path) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 62 508 Tm (- Plant: rotary arm plus pendulum.) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 62 495 Tm (- Action: one continuous RL action in `[-1, 1]`.) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 62 482 Tm (- Hardware-oriented action path:) Tj ET
+BT /F1 8.5 Tf 1 0 0 1 62 465 Tm (a_rl -> current scaling/clamp -> SLDRT/UART -> uC current PI loop -> motor) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 62 450 Tm (- Policy rate tested: 200 Hz and 500 Hz.) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 62 437 Tm (- Firmware/current loop runs faster than the RL policy.) Tj ET
+BT /F1 15 Tf 1 0 0 1 48 413 Tm (Slide 4 - Why TD3) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 62 390 Tm (- Continuous action fits motor current/torque command.) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 62 377 Tm (- Twin critics reduce over-optimistic Q estimates.) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 62 364 Tm (- Delayed actor updates improve stability.) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 62 351 Tm (- Target-policy smoothing helps avoid sharp brittle action choices.) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 62 338 Tm (- Deployment only needs the actor network.) Tj ET
+BT /F1 15 Tf 1 0 0 1 48 314 Tm (Slide 4b - DDPG vs TD3 vs SAC vs PPO) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 62 291 Tm (- DDPG:) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 62 278 Tm (- off-policy, deterministic continuous actor,) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 62 265 Tm (- simple idea, but fragile in our early tests.) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 62 252 Tm (- TD3:) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 62 239 Tm (- DDPG improved with twin critics, delayed actor updates, target smoothing,) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 62 226 Tm (- became our main successful baseline.) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 62 213 Tm (- SAC:) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 62 200 Tm (- off-policy, stochastic actor with entropy/exploration objective,) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 62 187 Tm (- good candidate for swing-up, but changes more assumptions.) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 62 174 Tm (- PPO:) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 62 161 Tm (- on-policy policy-gradient method,) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 62 148 Tm (- useful for discrete or continuous policies; in the Brian Douglas example it) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 48 135 Tm (    chooses the controller mode.) Tj ET
+BT /F1 15 Tf 1 0 0 1 48 111 Tm (Slide 5 - Observation And Action Design) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 62 88 Tm (- Initial local observation:) Tj ET
+BT /F1 8.5 Tf 1 0 0 1 62 71 Tm (theta1Error, theta2Error, omega1Error, omega2Error) Tj ET
+endstream
+endobj
+6 0 obj
+<< /Type /Page /Parent 2 0 R /MediaBox [0 0 595 842] /Resources << /Font << /F1 3 0 R >> >> /Contents 7 0 R >>
+endobj
+7 0 obj
+<< /Length 4042 >>
+stream
+BT /F1 10.5 Tf 1 0 0 1 62 790 Tm (- Later global swing-up observation:) Tj ET
+BT /F1 8.5 Tf 1 0 0 1 62 773 Tm (sin\(theta1Error\), cos\(theta1Error\)) Tj ET
+BT /F1 8.5 Tf 1 0 0 1 62 762 Tm (sin\(theta2Error\), cos\(theta2Error\)) Tj ET
+BT /F1 8.5 Tf 1 0 0 1 62 751 Tm (omega1Error, omega2Error, previousAction) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 62 736 Tm (- Sin/cos avoids the angle wrap discontinuity.) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 62 723 Tm (- `previousAction` helps when action smoothness and actuator dynamics matter.) Tj ET
+BT /F1 15 Tf 1 0 0 1 48 699 Tm (Slide 6 - Early Attempts And Lessons) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 62 676 Tm (- DDPG did not reliably learn even local upright stabilization.) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 62 663 Tm (- Early TD3 was better but slow and fragile.) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 62 650 Tm (- Frequent in-episode learning made training expensive.) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 62 637 Tm (- Raw wrapped angle observations were not ideal for swing-up.) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 62 624 Tm (- Training reward alone was misleading.) Tj ET
+BT /F1 15 Tf 1 0 0 1 48 600 Tm (Slide 7 - Key Shift: MathWorks-Style TD3) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 62 577 Tm (- Changed to a simpler, cleaner training setup.) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 62 564 Tm (- No staged curriculum for the first strong baseline.) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 62 551 Tm (- Episode-end learning with `LearningFrequency = -1`.) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 62 538 Tm (- Larger mini-batches and fixed evaluation sets.) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 62 525 Tm (- 7-state sin/cos observation.) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 62 512 Tm (- Result: first clearly useful swing-up/stabilization policy.) Tj ET
+BT /F1 15 Tf 1 0 0 1 48 488 Tm (Slide 8 - Best Simple-Model Baselines) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 48 465 Tm (200 Hz wide baseline:) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 62 448 Tm (- Run: `run_20260616_012625_td3_mathworks_style_wide`) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 62 435 Tm (- 297-case full evaluation.) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 62 422 Tm (- Failure rate: `14.5%`.) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 62 409 Tm (- Mean final theta2 MAE: `7.23 deg`.) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 62 396 Tm (- Main failures: arm-limit related.) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 48 379 Tm (500 Hz PI/current long baseline:) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 62 362 Tm (- Run: `run_20260618_223832_td3_mathworks_style_pi_current_1b_500hz_long`) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 62 349 Tm (- Corrected full fixed-workspace failure rate: `5.39%`.) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 62 336 Tm (- Mean final theta2 MAE: `0.063 rad`.) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 62 323 Tm (- Best current hardware candidate so far.) Tj ET
+BT /F1 15 Tf 1 0 0 1 48 299 Tm (Slide 8b - 500 Hz Long Training Config) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 62 276 Tm (- Model and timing:) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 62 263 Tm (- simple `1b` PI/current training model,) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 62 250 Tm (- plant step `5e-5 s` / 20 kHz,) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 62 237 Tm (- agent step `0.002 s` / 500 Hz,) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 62 224 Tm (- `5 s` episode = max `2500` agent steps.) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 62 211 Tm (- Training length:) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 62 198 Tm (- planned `5000` episodes,) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 62 185 Tm (- no average-reward stop criterion,) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 62 172 Tm (- checkpoints saved when episode reward exceeded `1800`.) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 62 159 Tm (- TD3 learning:) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 62 146 Tm (- `LearningFrequency = -1`: learn at episode end,) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 62 133 Tm (- minibatch size `1024`,) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 62 120 Tm (- `NumEpoch = 10`,) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 62 107 Tm (- max `100` minibatches per epoch.) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 62 94 Tm (- Maximum update count:) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 62 81 Tm (- up to `5000 * 10 * 100 = 5,000,000` minibatch updates,) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 62 68 Tm (- actor updates delayed: actor updates every 2 critic-update steps.) Tj ET
+endstream
+endobj
+8 0 obj
+<< /Type /Page /Parent 2 0 R /MediaBox [0 0 595 842] /Resources << /Font << /F1 3 0 R >> >> /Contents 9 0 R >>
+endobj
+9 0 obj
+<< /Length 3931 >>
+stream
+BT /F1 10.5 Tf 1 0 0 1 62 790 Tm (- Action:) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 62 777 Tm (- normalized action scaled to current command,) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 62 764 Tm (- `CurrentScale = 4 A`, `CurrentMax = 4 A`.) Tj ET
+BT /F1 15 Tf 1 0 0 1 48 740 Tm (Slide 9 - Hardware Transfer) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 62 717 Tm (- The 500 Hz long TD3 policy was deployed through SLDRT/current command.) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 62 704 Tm (- It attempted swing-up on the real Furuta hardware.) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 62 691 Tm (- Sign conventions and gross dynamics were correct enough to transfer.) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 62 678 Tm (- Main problem on hardware: jitter and current chatter near upright.) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 62 665 Tm (- Reduced action scaling helped:) Tj ET
+BT /F1 8.5 Tf 1 0 0 1 62 648 Tm (I_cmd = action * CurrentScale * 0.4) Tj ET
+BT /F1 15 Tf 1 0 0 1 48 626 Tm (Slide 10 - Hardware Data Recorded) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 62 603 Tm (- Saved hardware swing-up batches on 2026-07-07.) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 62 590 Tm (- Two main deployment conditions:) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 62 577 Tm (- scale `0.4`, current clamp `+/-4 A`.) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 62 564 Tm (- scale `1.0`, current clamp `+/-4 A`.) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 62 551 Tm (- Recorded at 500 Hz.) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 62 538 Tm (- Runs saved under `results/model_vs_hardware`.) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 62 525 Tm (- Overlay and average plots align time at motor enable.) Tj ET
+BT /F1 15 Tf 1 0 0 1 48 501 Tm (Slide 11 - Model vs Hardware Diagnostics) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 62 478 Tm (- Open-loop Test 1:) Tj ET
+BT /F1 8.5 Tf 1 0 0 1 62 461 Tm (I_cmd = 0.2 A) Tj ET
+BT /F1 8.5 Tf 1 0 0 1 62 450 Tm (disable motor at 0.8 s) Tj ET
+BT /F1 8.5 Tf 1 0 0 1 62 439 Tm (duration = 4 s) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 62 424 Tm (- Purpose: compare friction, damping, and free response.) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 62 411 Tm (- Broad behavior matched before disable.) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 62 398 Tm (- After disable, model and hardware diverged more strongly.) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 62 385 Tm (- Interpretation: real friction/stiction/dead-zone effects matter.) Tj ET
+BT /F1 15 Tf 1 0 0 1 48 361 Tm (Slide 12 - Weto Meeting Inputs) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 48 338 Tm (Suggestions tested or prepared:) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 62 321 Tm (- Smaller networks.) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 62 308 Tm (- Reduced observation representation.) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 62 295 Tm (- State-dependent reward shaping.) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 62 282 Tm (- More hardware-like model.) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 62 269 Tm (- Add actuator/controller state such as measured current or PI output.) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 62 256 Tm (- Domain randomization after nominal model works.) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 48 239 Tm (What happened:) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 62 222 Tm (- 1x64 actor and 1x64 critic failed.) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 62 209 Tm (- 1x64 actor with 2x64 critic learned, but was not better for balance.) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 62 196 Tm (- Pure unsigned arc-distance observation failed/interrupted.) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 62 183 Tm (- Detailed model was built, but nominal detailed training exposed a reward) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 48 170 Tm (  loophole: survival/swinging instead of capture.) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 62 157 Tm (- Domain randomization was delayed because the nominal detailed model still) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 48 144 Tm (  needs to learn capture and balance.) Tj ET
+BT /F1 15 Tf 1 0 0 1 48 120 Tm (Slide 12b - Why Not The Brian Douglas Hybrid SAC/PPO Route?) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 48 97 Tm (Reference architecture:) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 62 80 Tm (- classical controller for upright balance,) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 62 67 Tm (- SAC agent for swing-up reference/action,) Tj ET
+endstream
+endobj
+10 0 obj
+<< /Type /Page /Parent 2 0 R /MediaBox [0 0 595 842] /Resources << /Font << /F1 3 0 R >> >> /Contents 11 0 R >>
+endobj
+11 0 obj
+<< /Length 3951 >>
+stream
+BT /F1 10.5 Tf 1 0 0 1 62 790 Tm (- PPO agent for mode selection between swing-up and balance.) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 48 773 Tm (Why we did not follow it directly:) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 62 756 Tm (- project goal was to test a direct RL controller, not only RL-assisted) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 48 743 Tm (  switching around a classical stabilizer,) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 62 730 Tm (- adapting the hybrid QUBE/Raspberry Pi workflow to our ZHAW Furuta/uC/SLDRT) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 48 717 Tm (  stack would add major integration work,) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 62 704 Tm (- it introduces two RL agents plus a classical controller and supervisor,) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 48 691 Tm (  making debugging harder,) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 62 678 Tm (- TD3 was the closest next step after DDPG and changed fewer assumptions.) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 48 661 Tm (Takeaway:) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 62 644 Tm (- hybrid SAC/PPO remains a strong future architecture if direct TD3 capture) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 48 631 Tm (  remains too brittle.) Tj ET
+BT /F1 15 Tf 1 0 0 1 48 607 Tm (Slide 13 - Smaller Network Experiments) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 48 584 Tm (Symmetric actor 1x64 / critic 1x64:) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 62 567 Tm (- Failed to learn useful swing-up.) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 62 554 Tm (- Likely critic under-capacity.) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 48 537 Tm (Actor 1x64 / critic 2x64:) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 62 520 Tm (- Learned meaningful behavior.) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 62 507 Tm (- Not better overall than the baseline.) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 62 494 Tm (- Slightly fewer full-grid failures at 500 Hz, but worse balance quality,) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 48 481 Tm (  energy, final theta2 error, and action variation.) Tj ET
+BT /F1 15 Tf 1 0 0 1 48 457 Tm (Slide 14 - Reduced Observation Experiments) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 62 434 Tm (- Tried unsigned arc-distance observation:) Tj ET
+BT /F1 8.5 Tf 1 0 0 1 62 417 Tm (theta1_arc, theta2_arc, scaled omega1, scaled omega2, previousAction) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 62 402 Tm (- Training failed/interrupted with poor learning trace.) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 62 389 Tm (- Likely problem: removed too much directional information.) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 62 376 Tm (- Lesson: compact observations are attractive, but not if they break) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 48 363 Tm (  controllability/Markov information.) Tj ET
+BT /F1 15 Tf 1 0 0 1 48 339 Tm (Slide 15 - Detailed Model Work) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 48 316 Tm (Detailed model includes or documents:) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 62 299 Tm (- measured current noise and bias,) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 62 286 Tm (- encoder quantization,) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 62 273 Tm (- velocity filtering,) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 62 260 Tm (- current-setpoint low-pass,) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 62 247 Tm (- uC current PI behavior,) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 62 234 Tm (- static friction/current compensation,) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 62 221 Tm (- theta1 plant friction,) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 62 208 Tm (- more hardware-like sensing and actuation.) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 48 191 Tm (Purpose:) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 62 174 Tm (- reduce sim-to-real gap before domain randomization.) Tj ET
+BT /F1 15 Tf 1 0 0 1 48 150 Tm (Slide 16 - Detailed Model Results) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 48 127 Tm (Nominal detailed 1c model:) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 62 110 Tm (- Scratch and fine-tune runs survived long episodes.) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 62 97 Tm (- But they learned continuous swinging rather than capture and balance.) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 62 84 Tm (- In one late failure mode, the agent effectively learned to hold/hover the) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 48 71 Tm (  pendulum around a sideways region with jitter, instead of completing swing-up.) Tj ET
+endstream
+endobj
+12 0 obj
+<< /Type /Page /Parent 2 0 R /MediaBox [0 0 595 842] /Resources << /Font << /F1 3 0 R >> >> /Contents 13 0 R >>
+endobj
+13 0 obj
+<< /Length 3969 >>
+stream
+BT /F1 10.5 Tf 1 0 0 1 48 790 Tm (Latest 1c detailed 7000-episode scratch run at 1.5 A:) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 62 773 Tm (- Failure rate: `0`.) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 62 760 Tm (- Mean final theta2 MAE: `1.645 rad`.) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 62 747 Tm (- Mean final theta2 peak-to-peak: `6.235 rad`.) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 62 734 Tm (- Smooth action, wrong behavior.) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 48 717 Tm (Interpretation:) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 62 700 Tm (- The reward can still be exploited by staying alive while swinging.) Tj ET
+BT /F1 15 Tf 1 0 0 1 48 676 Tm (Slide 17 - Current Technical Bottleneck) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 48 653 Tm (The problem is no longer just:) Tj ET
+BT /F1 8.5 Tf 1 0 0 1 62 636 Tm (Can RL move the pendulum?) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 48 621 Tm (It is:) Tj ET
+BT /F1 8.5 Tf 1 0 0 1 62 604 Tm (Can RL swing up, capture upright, and remain quiet under hardware-like dynamics?) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 48 589 Tm (Open issues:) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 62 572 Tm (- capture reward,) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 62 559 Tm (- upright damping,) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 62 546 Tm (- current/action jitter,) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 62 533 Tm (- friction and dead zones,) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 62 520 Tm (- preserving a working policy during fine-tuning,) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 62 507 Tm (- evaluating hardware-like models honestly.) Tj ET
+BT /F1 15 Tf 1 0 0 1 48 483 Tm (Slide 18 - Do's) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 62 460 Tm (- Use fixed evaluation; training reward misled us several times.) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 62 447 Tm (- Inspect quality metrics, not only failure rate:) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 62 434 Tm (- final theta2 error,) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 62 421 Tm (- end-window oscillation,) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 62 408 Tm (- action variation,) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 62 395 Tm (- electrical effort.) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 62 382 Tm (- Keep training/evaluation/deployment sample time and current scaling matched.) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 62 369 Tm (- Change one major thing at a time:) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 62 356 Tm (- network,) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 62 343 Tm (- observation,) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 62 330 Tm (- reward,) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 62 317 Tm (- model fidelity,) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 62 304 Tm (- current limit.) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 62 291 Tm (- Run zero-exploration smoke tests before fine-tuning a working policy.) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 62 278 Tm (- Log every hardware run with metadata and plots.) Tj ET
+BT /F1 15 Tf 1 0 0 1 48 254 Tm (Slide 19 - Don'ts) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 62 231 Tm (- Do not present "survived the episode" as "balanced the pendulum.") Tj ET
+BT /F1 10.5 Tf 1 0 0 1 62 218 Tm (- Do not trust old 500 Hz eval artifacts unless the fixed-workspace config was) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 48 205 Tm (  used.) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 62 192 Tm (- Do not shrink the critic just because the deployed actor should be small.) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 62 179 Tm (- Do not remove angle direction information just to reduce observation size.) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 62 166 Tm (- Do not add domain randomization before the nominal detailed model can capture.) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 62 153 Tm (- Do not compare hardware and simulation unless action scaling and clamps match.) Tj ET
+BT /F1 15 Tf 1 0 0 1 48 129 Tm (Slide 20 - Handover: Repository Structure) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 48 106 Tm (Important folders:) Tj ET
+BT /F1 8.5 Tf 1 0 0 1 62 89 Tm (docs/                  project notes and decisions) Tj ET
+BT /F1 8.5 Tf 1 0 0 1 62 78 Tm (scripts/               configs, training, evaluation, analysis) Tj ET
+BT /F1 8.5 Tf 1 0 0 1 62 67 Tm (scripts/analysis/      hardware/simulation save and compare tools) Tj ET
+BT /F1 8.5 Tf 1 0 0 1 62 56 Tm (results/TD3/           training runs and evaluation artifacts) Tj ET
+endstream
+endobj
+14 0 obj
+<< /Type /Page /Parent 2 0 R /MediaBox [0 0 595 842] /Resources << /Font << /F1 3 0 R >> >> /Contents 15 0 R >>
+endobj
+15 0 obj
+<< /Length 4024 >>
+stream
+BT /F1 8.5 Tf 1 0 0 1 62 790 Tm (results/model_vs_hardware/ hardware/simulation comparison runs) Tj ET
+BT /F1 8.5 Tf 1 0 0 1 62 779 Tm (outputs/               meeting/presentation prep artifacts) Tj ET
+BT /F1 8.5 Tf 1 0 0 1 62 768 Tm (references/            source/reference models and docs) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 48 753 Tm (Important current docs:) Tj ET
+BT /F1 8.5 Tf 1 0 0 1 62 736 Tm (docs/hardware_swingup_scaled_current_tests_2026-07-07.md) Tj ET
+BT /F1 8.5 Tf 1 0 0 1 62 725 Tm (docs/detailed_model_training_results_2026-07-05.md) Tj ET
+BT /F1 8.5 Tf 1 0 0 1 62 714 Tm (docs/weto_inputs_progress_2026-07-01.md) Tj ET
+BT /F1 8.5 Tf 1 0 0 1 62 703 Tm (docs/domain_randomization_preparation.md) Tj ET
+BT /F1 15 Tf 1 0 0 1 48 681 Tm (Slide 21 - Demo Plan) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 48 658 Tm (Show:) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 62 641 Tm (- saved hardware swing-up overlay/average plot,) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 62 628 Tm (- one hardware quicklook plot,) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 62 615 Tm (- one simulation vs hardware comparison plot,) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 62 602 Tm (- key result folders and docs,) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 62 589 Tm (- how to save a new hardware run,) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 62 576 Tm (- how to compare runs.) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 48 559 Tm (Optional live demo:) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 62 542 Tm (- open SLDRT Simulink model,) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 62 529 Tm (- show current command path and safety clamps,) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 62 516 Tm (- run only if hardware setup is ready and safe.) Tj ET
+BT /F1 15 Tf 1 0 0 1 48 492 Tm (Slide 22 - Future Work) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 48 469 Tm (Immediate next step:) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 62 452 Tm (- fix nominal detailed-model capture and balance before domain randomization.) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 48 435 Tm (Recommended path:) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 62 418 Tm (1. Capture-tune the latest detailed 1c agent with upright-region shaping.) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 62 405 Tm (2. Add state-dependent action/current penalties near upright.) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 62 392 Tm (3. Preserve old policy behavior during fine-tuning.) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 62 379 Tm (4. Add actuator state if needed: `I_meas`, current command, PI output.) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 62 366 Tm (5. Add domain randomization gradually.) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 62 353 Tm (6. Use hardware logs to tune randomization and residual corrections.) Tj ET
+BT /F1 15 Tf 1 0 0 1 48 329 Tm (Slide 22b - Sim-To-Real Research Directions) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 62 306 Tm (- SimOpt / adaptive domain randomization:) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 62 293 Tm (- use real rollouts to adjust simulation randomization ranges.) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 62 280 Tm (- Residual RL:) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 62 267 Tm (- keep a useful base policy and learn a correction.) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 62 254 Tm (- EPOpt / model ensembles:) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 62 241 Tm (- train on difficult sampled model variants for robustness.) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 62 228 Tm (- Multi-fidelity RL:) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 62 215 Tm (- move systematically from simple simulation to detailed simulation/hardware.) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 62 202 Tm (- Policy distillation / learning without forgetting:) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 62 189 Tm (- fine-tune without destroying the old working policy.) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 48 172 Tm (Practical conclusion:) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 62 155 Tm (- do not jump straight to broad randomization,) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 62 142 Tm (- preserve the working `500Hz_long` behavior,) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 62 129 Tm (- adapt gently on the detailed model,) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 62 116 Tm (- use hardware logs to tune mismatch.) Tj ET
+BT /F1 15 Tf 1 0 0 1 48 92 Tm (Slide 23 - Final Takeaway) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 62 69 Tm (- TD3 worked enough to produce real hardware swing-up attempts.) Tj ET
+endstream
+endobj
+16 0 obj
+<< /Type /Page /Parent 2 0 R /MediaBox [0 0 595 842] /Resources << /Font << /F1 3 0 R >> >> /Contents 17 0 R >>
+endobj
+17 0 obj
+<< /Length 464 >>
+stream
+BT /F1 10.5 Tf 1 0 0 1 62 790 Tm (- The project now has a reproducible training/evaluation/hardware logging) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 48 777 Tm (  workflow.) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 62 764 Tm (- The hard remaining part is sim-to-real robust capture and quiet balance.) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 62 751 Tm (- The repository is ready for continuation with clear baselines, results, and) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 48 738 Tm (  next experiments.) Tj ET
+endstream
+endobj
+xref
+0 18
+0000000000 65535 f 
+0000000009 00000 n 
+0000000058 00000 n 
+0000000155 00000 n 
+0000000225 00000 n 
+0000000351 00000 n 
+0000004132 00000 n 
+0000004258 00000 n 
+0000008351 00000 n 
+0000008477 00000 n 
+0000012459 00000 n 
+0000012587 00000 n 
+0000016590 00000 n 
+0000016718 00000 n 
+0000020739 00000 n 
+0000020867 00000 n 
+0000024943 00000 n 
+0000025071 00000 n 
+trailer
+<< /Size 18 /Root 1 0 R >>
+startxref
+25586
+%%EOF

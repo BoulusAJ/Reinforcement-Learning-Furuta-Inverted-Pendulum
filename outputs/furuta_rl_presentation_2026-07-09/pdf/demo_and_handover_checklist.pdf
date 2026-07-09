@@ -1,0 +1,176 @@
+%PDF-1.4
+1 0 obj
+<< /Type /Catalog /Pages 2 0 R >>
+endobj
+2 0 obj
+<< /Type /Pages /Kids [4 0 R 6 0 R 8 0 R] /Count 3 >>
+endobj
+3 0 obj
+<< /Type /Font /Subtype /Type1 /BaseFont /Helvetica >>
+endobj
+4 0 obj
+<< /Type /Page /Parent 2 0 R /MediaBox [0 0 595 842] /Resources << /Font << /F1 3 0 R >> >> /Contents 5 0 R >>
+endobj
+5 0 obj
+<< /Length 3537 >>
+stream
+BT /F1 20 Tf 1 0 0 1 48 782 Tm (Demo And Handover Checklist) Tj ET
+BT /F1 15 Tf 1 0 0 1 48 746 Tm (Recommended Demo Order) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 48 723 Tm (Use this order if you have only a few minutes.) Tj ET
+BT /F1 12 Tf 1 0 0 1 48 699 Tm (1. Show Hardware Swing-Up Data) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 48 680 Tm (Open:) Tj ET
+BT /F1 8.5 Tf 1 0 0 1 62 663 Tm (results/model_vs_hardware/comparisons/20260707_173214_selected_500hz_long_hardware_swing_ups/plots/overlay.png) Tj ET
+BT /F1 8.5 Tf 1 0 0 1 62 652 Tm (results/model_vs_hardware/comparisons/20260707_173214_selected_500hz_long_hardware_swing_ups/plots/average.png) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 48 637 Tm (Say:) Tj ET
+BT /F1 8.5 Tf 1 0 0 1 62 620 Tm (These are real hardware runs of the 500 Hz long TD3 agent. The runs are aligned) Tj ET
+BT /F1 8.5 Tf 1 0 0 1 62 609 Tm (at motor enable and averaged on a common time grid.) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 48 594 Tm (Mention:) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 62 577 Tm (- agent: `run_20260618_223832_td3_mathworks_style_pi_current_1b_500hz_long`,) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 62 564 Tm (- deployment scaling: `I_cmd = action * CurrentScale * 0.4`,) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 62 551 Tm (- final clamp: `+/-4 A`,) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 62 538 Tm (- logging rate: 500 Hz,) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 62 525 Tm (- runs saved with metadata and `run.mat`.) Tj ET
+BT /F1 12 Tf 1 0 0 1 48 501 Tm (2. Show A Quicklook Hardware Run) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 48 482 Tm (Open one example:) Tj ET
+BT /F1 8.5 Tf 1 0 0 1 62 465 Tm (results/model_vs_hardware/swingup_500hz_long_hardware_scale0p4_lim4a_20260707/20260707_171152_hardware_closed_) Tj ET
+BT /F1 8.5 Tf 1 0 0 1 62 454 Tm (loop/plots/quicklook.png) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 48 439 Tm (Point out:) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 62 422 Tm (- theta1/theta2 behavior,) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 62 409 Tm (- current command,) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 62 396 Tm (- measured current,) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 62 383 Tm (- enable window.) Tj ET
+BT /F1 12 Tf 1 0 0 1 48 359 Tm (3. Show Simple Model-vs-Hardware Diagnostic) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 48 340 Tm (Open:) Tj ET
+BT /F1 8.5 Tf 1 0 0 1 62 323 Tm (results/model_vs_hardware/comparisons/20260622_205659_test1_hardware_vs_model/plots/overlay.png) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 48 308 Tm (Say:) Tj ET
+BT /F1 8.5 Tf 1 0 0 1 62 291 Tm (This was an open-loop diagnostic with 0.2 A current command and motor disable) Tj ET
+BT /F1 8.5 Tf 1 0 0 1 62 280 Tm (at 0.8 s. It helped separate plant mismatch from policy behavior.) Tj ET
+BT /F1 12 Tf 1 0 0 1 48 258 Tm (4. Show Detailed Simulation Comparison) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 48 239 Tm (Open:) Tj ET
+BT /F1 8.5 Tf 1 0 0 1 62 222 Tm (results/model_vs_hardware/comparisons/20260708_230429_hardware_scale1p0_lim3a_vs_detailed_sim_v1_closed_loop/p) Tj ET
+BT /F1 8.5 Tf 1 0 0 1 62 211 Tm (lots/overlay.png) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 48 196 Tm (Say:) Tj ET
+BT /F1 8.5 Tf 1 0 0 1 62 179 Tm (The detailed model is closer to hardware, but the policy/reward still needs) Tj ET
+BT /F1 8.5 Tf 1 0 0 1 62 168 Tm (work for capture and quiet balance.) Tj ET
+BT /F1 12 Tf 1 0 0 1 48 146 Tm (5. Show Repository Handover Structure) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 48 127 Tm (Open these folders:) Tj ET
+BT /F1 8.5 Tf 1 0 0 1 62 110 Tm (docs/) Tj ET
+BT /F1 8.5 Tf 1 0 0 1 62 99 Tm (scripts/) Tj ET
+BT /F1 8.5 Tf 1 0 0 1 62 88 Tm (scripts/analysis/) Tj ET
+BT /F1 8.5 Tf 1 0 0 1 62 77 Tm (results/TD3/) Tj ET
+BT /F1 8.5 Tf 1 0 0 1 62 66 Tm (results/model_vs_hardware/) Tj ET
+endstream
+endobj
+6 0 obj
+<< /Type /Page /Parent 2 0 R /MediaBox [0 0 595 842] /Resources << /Font << /F1 3 0 R >> >> /Contents 7 0 R >>
+endobj
+7 0 obj
+<< /Length 3702 >>
+stream
+BT /F1 10.5 Tf 1 0 0 1 48 790 Tm (Show these docs:) Tj ET
+BT /F1 8.5 Tf 1 0 0 1 62 773 Tm (docs/hardware_swingup_scaled_current_tests_2026-07-07.md) Tj ET
+BT /F1 8.5 Tf 1 0 0 1 62 762 Tm (docs/detailed_model_training_results_2026-07-05.md) Tj ET
+BT /F1 8.5 Tf 1 0 0 1 62 751 Tm (docs/weto_inputs_progress_2026-07-01.md) Tj ET
+BT /F1 8.5 Tf 1 0 0 1 62 740 Tm (docs/domain_randomization_preparation.md) Tj ET
+BT /F1 15 Tf 1 0 0 1 48 718 Tm (Optional Live Hardware Demo) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 48 695 Tm (Only do this if the hardware is already safe and ready.) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 48 678 Tm (Suggested condition:) Tj ET
+BT /F1 8.5 Tf 1 0 0 1 62 661 Tm (agent: 500Hz_long) Tj ET
+BT /F1 8.5 Tf 1 0 0 1 62 650 Tm (deployment scaling: 0.4) Tj ET
+BT /F1 8.5 Tf 1 0 0 1 62 639 Tm (current clamp: +/-4 A) Tj ET
+BT /F1 8.5 Tf 1 0 0 1 62 628 Tm (logging enabled) Tj ET
+BT /F1 8.5 Tf 1 0 0 1 62 617 Tm (emergency stop ready) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 48 602 Tm (Do not run a live test if:) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 62 585 Tm (- the encoder zeroing is unclear,) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 62 572 Tm (- current command scaling is unclear,) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 62 559 Tm (- motor enable/disable logic is not checked,) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 62 546 Tm (- logging is off,) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 62 533 Tm (- safety clamp is not visible.) Tj ET
+BT /F1 15 Tf 1 0 0 1 48 509 Tm (How To Save A Hardware Run) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 48 486 Tm (Relevant scripts:) Tj ET
+BT /F1 8.5 Tf 1 0 0 1 62 469 Tm (scripts/analysis/saveCurrentWorkspaceSwingupHardwareRun.m) Tj ET
+BT /F1 8.5 Tf 1 0 0 1 62 458 Tm (scripts/analysis/inspectCurrentWorkspaceSwingupHardwareRun.m) Tj ET
+BT /F1 8.5 Tf 1 0 0 1 62 447 Tm (scripts/analysis/plotFurutaSwingupHardwareRuns.m) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 48 432 Tm (Typical workflow:) Tj ET
+BT /F1 8.5 Tf 1 0 0 1 62 415 Tm (addpath\(genpath\("scripts"\)\);) Tj ET
+BT /F1 8.5 Tf 1 0 0 1 62 400 Tm (% after a hardware run has written simout:) Tj ET
+BT /F1 8.5 Tf 1 0 0 1 62 389 Tm (run\("scripts/analysis/saveCurrentWorkspaceSwingupHardwareRun.m"\);) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 48 374 Tm (Each run should save:) Tj ET
+BT /F1 8.5 Tf 1 0 0 1 62 357 Tm (run.mat) Tj ET
+BT /F1 8.5 Tf 1 0 0 1 62 346 Tm (metadata.json) Tj ET
+BT /F1 8.5 Tf 1 0 0 1 62 335 Tm (summary.csv) Tj ET
+BT /F1 8.5 Tf 1 0 0 1 62 324 Tm (plots/quicklook.png) Tj ET
+BT /F1 15 Tf 1 0 0 1 48 302 Tm (How To Compare Runs) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 48 279 Tm (Relevant scripts:) Tj ET
+BT /F1 8.5 Tf 1 0 0 1 62 262 Tm (scripts/analysis/compareFurutaModelVsHardwareRuns.m) Tj ET
+BT /F1 8.5 Tf 1 0 0 1 62 251 Tm (scripts/analysis/rerunFourSwingupSimHardwareComparisons.m) Tj ET
+BT /F1 8.5 Tf 1 0 0 1 62 240 Tm (scripts/analysis/plotCurrentHardwareSwingupBatches.m) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 48 225 Tm (Useful output:) Tj ET
+BT /F1 8.5 Tf 1 0 0 1 62 208 Tm (plots/overlay.png) Tj ET
+BT /F1 8.5 Tf 1 0 0 1 62 197 Tm (plots/average.png) Tj ET
+BT /F1 8.5 Tf 1 0 0 1 62 186 Tm (swingup_overlay_average.mat) Tj ET
+BT /F1 8.5 Tf 1 0 0 1 62 175 Tm (comparison_metrics.csv) Tj ET
+BT /F1 15 Tf 1 0 0 1 48 153 Tm (Important Training Entry Points) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 48 130 Tm (Original useful 500 Hz hardware baseline:) Tj ET
+BT /F1 8.5 Tf 1 0 0 1 62 113 Tm (scripts/trainFurutaDirectTD3MathWorksStylePICurrent1b500HzLong.m) Tj ET
+BT /F1 8.5 Tf 1 0 0 1 62 102 Tm (scripts/makeFurutaMathWorksStylePICurrent1b500HzLongTD3Config.m) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 48 87 Tm (Detailed 1c model:) Tj ET
+BT /F1 8.5 Tf 1 0 0 1 62 70 Tm (scripts/trainFurutaDetailed1c500HzLongScratch7000.m) Tj ET
+BT /F1 8.5 Tf 1 0 0 1 62 59 Tm (scripts/makeFurutaDetailed1c500HzLongScratch7000TD3Config.m) Tj ET
+endstream
+endobj
+8 0 obj
+<< /Type /Page /Parent 2 0 R /MediaBox [0 0 595 842] /Resources << /Font << /F1 3 0 R >> >> /Contents 9 0 R >>
+endobj
+9 0 obj
+<< /Length 2832 >>
+stream
+BT /F1 10.5 Tf 1 0 0 1 48 790 Tm (Capture-tune follow-up:) Tj ET
+BT /F1 8.5 Tf 1 0 0 1 62 773 Tm (scripts/trainFurutaDetailed1c500HzCaptureTuneFromScratch7000.m) Tj ET
+BT /F1 8.5 Tf 1 0 0 1 62 762 Tm (scripts/makeFurutaDetailed1c500HzCaptureTuneFromScratch7000TD3Config.m) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 48 747 Tm (Measured-current 1d path:) Tj ET
+BT /F1 8.5 Tf 1 0 0 1 62 730 Tm (scripts/trainFurutaDetailed1d500HzLongImeasScratch7000.m) Tj ET
+BT /F1 8.5 Tf 1 0 0 1 62 719 Tm (scripts/makeFurutaDetailed1d500HzLongImeasScratch7000TD3Config.m) Tj ET
+BT /F1 15 Tf 1 0 0 1 48 697 Tm (Important Result Runs) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 48 674 Tm (Best 200 Hz baseline:) Tj ET
+BT /F1 8.5 Tf 1 0 0 1 62 657 Tm (results/TD3/run_20260616_012625_td3_mathworks_style_wide) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 48 642 Tm (Best 500 Hz hardware-tested baseline:) Tj ET
+BT /F1 8.5 Tf 1 0 0 1 62 625 Tm (results/TD3/run_20260618_223832_td3_mathworks_style_pi_current_1b_500hz_long) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 48 610 Tm (Small actor / stronger critic comparison:) Tj ET
+BT /F1 8.5 Tf 1 0 0 1 62 593 Tm (results/TD3/run_20260629_130518_td3_mathworks_style_pi_current_1b_500hz_long_actor1x64_critic2x64) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 48 578 Tm (Detailed 1c long scratch result:) Tj ET
+BT /F1 8.5 Tf 1 0 0 1 62 561 Tm (results/TD3/run_20260708_222715_td3_mathworks_style_pi_current_1c_500hz_long_detailed_scratch7000) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 48 546 Tm (Hardware swing-up data:) Tj ET
+BT /F1 8.5 Tf 1 0 0 1 62 529 Tm (results/model_vs_hardware/swingup_500hz_long_hardware_scale0p4_lim4a_20260707) Tj ET
+BT /F1 8.5 Tf 1 0 0 1 62 518 Tm (results/model_vs_hardware/swingup_500hz_long_hardware_scale1p0_lim4a_20260707) Tj ET
+BT /F1 15 Tf 1 0 0 1 48 496 Tm (Handover Warnings) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 62 473 Tm (- Some older 500 Hz evaluation files were affected by a parallel-worker) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 48 460 Tm (  workspace config bug. Prefer corrected `full_fixed_workspace_*` files where) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 48 447 Tm (  available.) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 62 434 Tm (- Do not compare runs unless the agent sample time, action scaling, current) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 48 421 Tm (  limit, and active model path are known.) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 62 408 Tm (- A low failure rate does not mean good balance. Check final theta2 error,) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 48 395 Tm (  end-window oscillation, action variation, and electrical energy.) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 62 382 Tm (- Hardware tests with action scale `0.4` are not the same controller as raw) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 48 369 Tm (  training scale `1.0`.) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 62 356 Tm (- Domain randomization should stay paused until the nominal detailed model can) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 48 343 Tm (  capture and balance.) Tj ET
+endstream
+endobj
+xref
+0 10
+0000000000 65535 f 
+0000000009 00000 n 
+0000000058 00000 n 
+0000000127 00000 n 
+0000000197 00000 n 
+0000000323 00000 n 
+0000003911 00000 n 
+0000004037 00000 n 
+0000007790 00000 n 
+0000007916 00000 n 
+trailer
+<< /Size 10 /Root 1 0 R >>
+startxref
+10799
+%%EOF

@@ -1,0 +1,902 @@
+%PDF-1.4
+1 0 obj
+<< /Type /Catalog /Pages 2 0 R >>
+endobj
+2 0 obj
+<< /Type /Pages /Kids [4 0 R 6 0 R 8 0 R 10 0 R 12 0 R 14 0 R 16 0 R 18 0 R 20 0 R 22 0 R 24 0 R 26 0 R 28 0 R 30 0 R 32 0 R 34 0 R] /Count 16 >>
+endobj
+3 0 obj
+<< /Type /Font /Subtype /Type1 /BaseFont /Helvetica >>
+endobj
+4 0 obj
+<< /Type /Page /Parent 2 0 R /MediaBox [0 0 595 842] /Resources << /Font << /F1 3 0 R >> >> /Contents 5 0 R >>
+endobj
+5 0 obj
+<< /Length 3893 >>
+stream
+BT /F1 20 Tf 1 0 0 1 48 782 Tm (Project-Specific Do's, Don'ts, Failures, And) Tj ET
+BT /F1 20 Tf 1 0 0 1 48 757 Tm (Future Work) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 48 728 Tm (This is not generic RL advice. It is the postmortem from this Furuta project,) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 48 715 Tm (based on the project docs and saved results.) Tj ET
+BT /F1 15 Tf 1 0 0 1 48 691 Tm (Top Lessons To Put On Slides) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 48 668 Tm (These are the best high-signal lessons for a short presentation.) Tj ET
+BT /F1 12 Tf 1 0 0 1 48 644 Tm (1. Do Not Trust Training Reward Alone) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 48 625 Tm (What happened:) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 62 608 Tm (- Early TD3 stages learned to survive training episodes, but fixed evaluation) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 48 595 Tm (  still failed too often.) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 62 582 Tm (- The first MathWorks-style narrow run had `FailureRate = 0`, but mean final) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 48 569 Tm (  theta2 error was still about `30.7 deg`.) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 62 556 Tm (- The detailed 1c runs survived full episodes and reached high average rewards,) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 48 543 Tm (  but learned repeated swinging instead of upright capture.) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 48 526 Tm (Concrete example:) Tj ET
+BT /F1 8.5 Tf 1 0 0 1 62 509 Tm (detailed 1c scratch7000:) Tj ET
+BT /F1 8.5 Tf 1 0 0 1 62 498 Tm (FailureRate = 0) Tj ET
+BT /F1 8.5 Tf 1 0 0 1 62 487 Tm (MeanFinalTheta2MAE = 1.645 rad) Tj ET
+BT /F1 8.5 Tf 1 0 0 1 62 476 Tm (MeanTheta2EndPeakToPeak = 6.235 rad) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 48 461 Tm (Lesson:) Tj ET
+BT /F1 8.5 Tf 1 0 0 1 62 444 Tm (Surviving an episode is not the same as balancing the pendulum.) Tj ET
+BT /F1 12 Tf 1 0 0 1 48 422 Tm (2. Fixed Evaluation Saved The Project More Than Once) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 48 403 Tm (What happened:) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 62 386 Tm (- Training traces often looked promising.) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 62 373 Tm (- Fixed-case evaluation exposed arm-limit failures, loose final balance,) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 48 360 Tm (  persistent oscillation, and later the detailed-model survival loophole.) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 62 347 Tm (- The 297-case grid made it possible to compare agents fairly.) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 48 330 Tm (Lesson:) Tj ET
+BT /F1 8.5 Tf 1 0 0 1 62 313 Tm (Every serious run needs fixed short and full evaluations, not only training) Tj ET
+BT /F1 8.5 Tf 1 0 0 1 62 302 Tm (reward plots.) Tj ET
+BT /F1 12 Tf 1 0 0 1 48 280 Tm (3. The Reward Was Often Technically Correct But Practically Weak) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 48 261 Tm (What happened:) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 62 244 Tm (- In the direct Stage 1 run, the theta2 reward near upright was extremely small.) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 62 231 Tm (- A `0.5 deg` pendulum oscillation cost was almost free relative to survival.) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 62 218 Tm (- Velocity penalties were also tiny compared with alive/upright bonuses.) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 62 205 Tm (- In the detailed model, the alive/survival reward could be exploited by) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 48 192 Tm (  continuous swinging.) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 62 179 Tm (- A late observed variant was even more concrete: the agent learned to hold or) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 48 166 Tm (  hover the pendulum around a sideways region with jitter instead of completing) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 48 153 Tm (  swing-up and capture.) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 48 136 Tm (Lesson:) Tj ET
+BT /F1 8.5 Tf 1 0 0 1 62 119 Tm (Reward terms must be scaled so the behavior we actually care about is visible) Tj ET
+BT /F1 8.5 Tf 1 0 0 1 62 108 Tm (to the critic.) Tj ET
+BT /F1 12 Tf 1 0 0 1 48 86 Tm (4. Do Not Confuse Safety Failure Rate With Control Quality) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 48 67 Tm (What happened:) Tj ET
+endstream
+endobj
+6 0 obj
+<< /Type /Page /Parent 2 0 R /MediaBox [0 0 595 842] /Resources << /Font << /F1 3 0 R >> >> /Contents 7 0 R >>
+endobj
+7 0 obj
+<< /Length 4310 >>
+stream
+BT /F1 10.5 Tf 1 0 0 1 62 790 Tm (- The detailed 1c 7000-episode run had `FailureRate = 0`, but did not balance.) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 62 777 Tm (- The actor-small 500 Hz run had slightly fewer full-grid safety failures than) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 48 764 Tm (  the baseline, but worse final theta2 error, higher oscillation, higher action) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 48 751 Tm (  variation, and higher electrical energy.) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 48 734 Tm (Lesson:) Tj ET
+BT /F1 8.5 Tf 1 0 0 1 62 717 Tm (A lower failure rate can hide worse balance. Always inspect final error,) Tj ET
+BT /F1 8.5 Tf 1 0 0 1 62 706 Tm (oscillation, action variation, and energy.) Tj ET
+BT /F1 12 Tf 1 0 0 1 48 684 Tm (5. Observation Design Is A Control Decision) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 48 665 Tm (What happened:) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 62 648 Tm (- Raw wrapped angle observations were unsuitable for global swing-up because of) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 48 635 Tm (  the wrap discontinuity.) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 62 622 Tm (- Switching to sin/cos angle observations was a major improvement.) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 62 609 Tm (- The later unsigned arc-distance observation reduced dimension, but removed) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 48 596 Tm (  too much direction information and failed badly.) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 48 579 Tm (Lesson:) Tj ET
+BT /F1 8.5 Tf 1 0 0 1 62 562 Tm (Compact observations are useful only if they preserve the information needed) Tj ET
+BT /F1 8.5 Tf 1 0 0 1 62 551 Tm (to choose the control direction.) Tj ET
+BT /F1 12 Tf 1 0 0 1 48 529 Tm (6. The Critic Can Be The Bottleneck) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 48 510 Tm (What happened:) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 62 493 Tm (- Actor 1x64 / critic 1x64 failed and barely acted.) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 62 480 Tm (- Actor 1x64 / critic 2x64 learned meaningful behavior.) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 62 467 Tm (- The smaller actor was deployable-looking, but not better overall for balance.) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 48 450 Tm (Lesson:) Tj ET
+BT /F1 8.5 Tf 1 0 0 1 62 433 Tm (You can make the deployed actor smaller, but the critic still needs enough) Tj ET
+BT /F1 8.5 Tf 1 0 0 1 62 422 Tm (capacity to train a useful policy.) Tj ET
+BT /F1 12 Tf 1 0 0 1 48 400 Tm (7. Match Training, Evaluation, And Deployment Timing) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 48 381 Tm (What happened:) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 62 364 Tm (- Early TD3 became very slow because learning updates happened too often during) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 48 351 Tm (  long surviving episodes.) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 62 338 Tm (- `LearningFrequency = -1` moved learning to episode end and made the workflow) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 48 325 Tm (  closer to MathWorks examples.) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 62 312 Tm (- A later 500 Hz parallel evaluation bug initialized workers with the default) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 48 299 Tm (  200 Hz config, contaminating old 500 Hz evaluation artifacts.) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 48 282 Tm (Lesson:) Tj ET
+BT /F1 8.5 Tf 1 0 0 1 62 265 Tm (Sample time and workspace config are part of the experiment. If they are wrong,) Tj ET
+BT /F1 8.5 Tf 1 0 0 1 62 254 Tm (the comparison is wrong.) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 48 239 Tm (500 Hz long reference:) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 62 222 Tm (- Baseline run:) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 48 209 Tm (  `results/TD3/run_20260618_223832_td3_mathworks_style_pi_current_1b_500hz_long`) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 62 196 Tm (- Training model: `inv_rot_pen_RL_cntr_simscape_sim_1b_train`) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 62 183 Tm (- Plant sample time: `5e-5 s` / 20 kHz.) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 62 170 Tm (- Agent sample time: `0.002 s` / 500 Hz.) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 62 157 Tm (- Episode duration: `5 s`.) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 62 144 Tm (- Maximum steps per full episode: `5 / 0.002 = 2500` agent steps.) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 62 131 Tm (- Planned training length: `5000` episodes.) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 62 118 Tm (- Maximum environment interaction:) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 48 105 Tm (  `5000 * 2500 = 12,500,000` agent steps.) Tj ET
+BT /F1 12 Tf 1 0 0 1 48 81 Tm (8. Hardware Scaling Is Part Of The Controller) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 48 62 Tm (What happened:) Tj ET
+endstream
+endobj
+8 0 obj
+<< /Type /Page /Parent 2 0 R /MediaBox [0 0 595 842] /Resources << /Font << /F1 3 0 R >> >> /Contents 9 0 R >>
+endobj
+9 0 obj
+<< /Length 4079 >>
+stream
+BT /F1 10.5 Tf 1 0 0 1 62 790 Tm (- The 500 Hz policy was trained with a 4 A current scale.) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 62 777 Tm (- On hardware, full authority caused more strain and jitter.) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 62 764 Tm (- Scaling to `0.4 * CurrentScale` gave more stable hardware operation.) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 48 747 Tm (Lesson:) Tj ET
+BT /F1 8.5 Tf 1 0 0 1 62 730 Tm (If a hardware limiter or scale factor changes the behavior, it should be) Tj ET
+BT /F1 8.5 Tf 1 0 0 1 62 719 Tm (documented and eventually mirrored in training/evaluation.) Tj ET
+BT /F1 12 Tf 1 0 0 1 48 697 Tm (9. Fine-Tuning Can Destroy A Working Policy) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 48 678 Tm (What happened:) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 62 661 Tm (- Near-upright detailed-model fine-tuning from the old `500Hz_long` agent) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 48 648 Tm (  initially improved, then collapsed around episodes `46-55`.) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 62 635 Tm (- A smoke test suggested that loaded agent options/exploration/warm-start) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 48 622 Tm (  needed to be reapplied carefully.) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 48 605 Tm (Lesson:) Tj ET
+BT /F1 8.5 Tf 1 0 0 1 62 588 Tm (When adapting a working policy, use gentle updates, low exploration, clear) Tj ET
+BT /F1 8.5 Tf 1 0 0 1 62 577 Tm (option overrides, and possibly policy-preserving regularization.) Tj ET
+BT /F1 12 Tf 1 0 0 1 48 555 Tm (10. Do Not Add Domain Randomization Too Early) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 48 536 Tm (What happened:) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 62 519 Tm (- After hardware mismatch was observed, domain randomization looked attractive.) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 62 506 Tm (- Detailed-model training then showed the nominal detailed model still did not) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 48 493 Tm (  learn clean capture/balance.) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 48 476 Tm (Lesson:) Tj ET
+BT /F1 8.5 Tf 1 0 0 1 62 459 Tm (Randomizing a nominal model that cannot solve the task just makes a harder) Tj ET
+BT /F1 8.5 Tf 1 0 0 1 62 448 Tm (unsolved task.) Tj ET
+BT /F1 15 Tf 1 0 0 1 48 426 Tm (Detailed Mistakes And What We Learned) Tj ET
+BT /F1 12 Tf 1 0 0 1 48 396 Tm (Mistake 1 - Early DDPG Was Pushed Too Long) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 48 377 Tm (What failed:) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 62 360 Tm (- DDPG did not reliably learn local upright stabilization.) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 62 347 Tm (- It produced high-frequency oscillatory torque around `125 Hz`.) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 62 334 Tm (- Fixed post-stage cases kept failing.) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 48 317 Tm (What we learned:) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 62 300 Tm (- The plant and sampled controller path were controllable, because the) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 48 287 Tm (  classical/state-space controller could stabilize small errors.) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 62 274 Tm (- The DDPG actor/critic training was too fragile for this delayed, saturated,) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 48 261 Tm (  unstable system.) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 62 248 Tm (- TD3 was a better next step because it changed fewer assumptions than SAC) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 48 235 Tm (  while addressing DDPG overestimation and unstable policy updates.) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 48 218 Tm (Do:) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 62 201 Tm (- Move on when a method repeatedly fails controlled diagnostics.) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 48 184 Tm (Do not:) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 62 167 Tm (- Keep retuning DDPG blindly when the algorithmic failure mode is visible.) Tj ET
+BT /F1 12 Tf 1 0 0 1 48 143 Tm (Mistake 2 - Early Reward Could Prefer Quick Failure Or Weak Survival) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 48 124 Tm (What failed:) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 62 107 Tm (- The original reward could make quick failure less costly than a longer,) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 48 94 Tm (  unstable survival attempt.) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 62 81 Tm (- Later, survival/alive reward could dominate fine behavior and allow) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 48 68 Tm (  continuous swinging.) Tj ET
+endstream
+endobj
+10 0 obj
+<< /Type /Page /Parent 2 0 R /MediaBox [0 0 595 842] /Resources << /Font << /F1 3 0 R >> >> /Contents 11 0 R >>
+endobj
+11 0 obj
+<< /Length 4089 >>
+stream
+BT /F1 10.5 Tf 1 0 0 1 48 790 Tm (What we learned:) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 62 773 Tm (- Terminal penalties and alive rewards need sane relative scale.) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 62 760 Tm (- Very large unsafe penalties can create harsh critic targets.) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 62 747 Tm (- Very generous survival reward can create a loophole where staying alive is) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 48 734 Tm (  enough.) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 48 717 Tm (Do:) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 62 700 Tm (- Inspect reward components numerically.) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 62 687 Tm (- Log reward diagnosis signals.) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 62 674 Tm (- Ask whether the reward differentiates "excellent" from "barely acceptable.") Tj ET
+BT /F1 10.5 Tf 1 0 0 1 48 657 Tm (Do not:) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 62 640 Tm (- Assume a reward formula is good because it is mathematically reasonable.) Tj ET
+BT /F1 12 Tf 1 0 0 1 48 616 Tm (Mistake 3 - We Judged Some Runs Too Broadly Or Too Narrowly At First) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 48 597 Tm (What failed:) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 62 580 Tm (- Stage 1 direct TD3 was evaluated on a broad 297-case swing-up grid even) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 48 567 Tm (  though it was only trained for near-upright behavior.) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 62 554 Tm (- Conversely, some early training reward/survival looked good until fixed) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 48 541 Tm (  grids exposed failures.) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 48 524 Tm (What we learned:) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 62 507 Tm (- Evaluation must match the training question.) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 62 494 Tm (- A local-balance stage needs a local-balance grid.) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 62 481 Tm (- A final swing-up controller needs the broad grid.) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 48 464 Tm (Do:) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 62 447 Tm (- Use both task-specific evaluation and final broad evaluation.) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 48 430 Tm (Do not:) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 62 413 Tm (- Declare a local stage useless only because it fails the final full task.) Tj ET
+BT /F1 12 Tf 1 0 0 1 48 389 Tm (Mistake 4 - Frequent In-Episode TD3 Updates Made Training Painful) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 48 370 Tm (What failed:) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 62 353 Tm (- With 1 kHz agent rate and `LearningFrequency = 4`, a full 1 s episode could) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 48 340 Tm (  trigger about `250` learning events.) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 62 327 Tm (- With off-policy mini-batch limits, the option-level upper bound could become) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 48 314 Tm (  very large.) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 62 301 Tm (- Training slowed as episodes survived longer.) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 48 284 Tm (What we learned:) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 62 267 Tm (- Simulink plant simulation was not the main slowdown; learner updates were.) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 62 254 Tm (- `LearningFrequency = 40` reduced pressure.) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 62 241 Tm (- `LearningFrequency = -1` moved learning to episode end and gave a cleaner) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 48 228 Tm (  rollout.) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 48 211 Tm (Do:) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 62 194 Tm (- Estimate update counts before long runs.) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 48 177 Tm (Do not:) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 62 160 Tm (- Treat sample time and learning frequency as independent details.) Tj ET
+BT /F1 12 Tf 1 0 0 1 48 136 Tm (Mistake 4b - We Needed To Understand End-Of-Episode Learning Quantitatively) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 48 117 Tm (This became important for the `500Hz_long` run because the controller was fast) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 48 104 Tm (enough and long enough that "one training run" was no longer a small object.) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 48 87 Tm (The key settings from the deployed baseline were:) Tj ET
+BT /F1 8.5 Tf 1 0 0 1 62 70 Tm (Run: run_20260618_223832_td3_mathworks_style_pi_current_1b_500hz_long) Tj ET
+BT /F1 8.5 Tf 1 0 0 1 62 59 Tm (Agent sample time: 0.002 s / 500 Hz) Tj ET
+endstream
+endobj
+12 0 obj
+<< /Type /Page /Parent 2 0 R /MediaBox [0 0 595 842] /Resources << /Font << /F1 3 0 R >> >> /Contents 13 0 R >>
+endobj
+13 0 obj
+<< /Length 4494 >>
+stream
+BT /F1 8.5 Tf 1 0 0 1 62 790 Tm (Plant sample time: 5e-5 s / 20 kHz) Tj ET
+BT /F1 8.5 Tf 1 0 0 1 62 779 Tm (Episode duration: 5 s) Tj ET
+BT /F1 8.5 Tf 1 0 0 1 62 768 Tm (Max episodes: 5000) Tj ET
+BT /F1 8.5 Tf 1 0 0 1 62 757 Tm (LearningFrequency: -1) Tj ET
+BT /F1 8.5 Tf 1 0 0 1 62 746 Tm (MiniBatchSize: 1024) Tj ET
+BT /F1 8.5 Tf 1 0 0 1 62 735 Tm (NumEpoch: 10) Tj ET
+BT /F1 8.5 Tf 1 0 0 1 62 724 Tm (MaxMiniBatchPerEpoch: 100) Tj ET
+BT /F1 8.5 Tf 1 0 0 1 62 713 Tm (PolicyUpdateFrequency: 2) Tj ET
+BT /F1 8.5 Tf 1 0 0 1 62 702 Tm (ExperienceBufferLength: 2.5e6) Tj ET
+BT /F1 8.5 Tf 1 0 0 1 62 691 Tm (CurrentScale: 4 A) Tj ET
+BT /F1 8.5 Tf 1 0 0 1 62 680 Tm (CurrentMax: 4 A) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 48 665 Tm (What `LearningFrequency = -1` means:) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 62 648 Tm (- MATLAB collects rollout data during the episode.) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 62 635 Tm (- It performs the learning phase at the end of the episode.) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 62 622 Tm (- This avoids interrupting Simulink rollout with frequent learner updates.) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 62 609 Tm (- It also makes the computational cost easier to reason about.) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 48 592 Tm (Maximum environment steps:) Tj ET
+BT /F1 8.5 Tf 1 0 0 1 62 575 Tm (MaxEpisodes * EpisodeDuration / AgentSampleTime) Tj ET
+BT /F1 8.5 Tf 1 0 0 1 62 564 Tm (= 5000 * 5 / 0.002) Tj ET
+BT /F1 8.5 Tf 1 0 0 1 62 553 Tm (= 12,500,000 agent steps) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 48 538 Tm (Maximum minibatch updates:) Tj ET
+BT /F1 8.5 Tf 1 0 0 1 62 521 Tm (MaxEpisodes * NumEpoch * MaxMiniBatchPerEpoch) Tj ET
+BT /F1 8.5 Tf 1 0 0 1 62 510 Tm (= 5000 * 10 * 100) Tj ET
+BT /F1 8.5 Tf 1 0 0 1 62 499 Tm (= 5,000,000 minibatch updates) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 48 484 Tm (This is an upper bound, not a guaranteed exact count. The actual number can be) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 48 471 Tm (lower if:) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 62 454 Tm (- the replay buffer is not ready early in training,) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 62 441 Tm (- episodes terminate early,) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 62 428 Tm (- the toolbox skips or reduces some updates because of available data,) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 62 415 Tm (- the run is interrupted or stopped manually.) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 48 398 Tm (Mini-batch size vs maximum number of minibatches:) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 62 381 Tm (- `MiniBatchSize = 1024` is how many stored transitions are sampled for one) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 48 368 Tm (  gradient update.) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 62 355 Tm (- `MaxMiniBatchPerEpoch = 100` limits how many such gradient updates can happen) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 48 342 Tm (  in one epoch.) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 62 329 Tm (- `NumEpoch = 10` repeats that end-of-episode learning pass up to 10 times.) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 48 312 Tm (For TD3 specifically:) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 62 295 Tm (- the critics are updated at the main update rate,) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 62 282 Tm (- `PolicyUpdateFrequency = 2` means the actor is updated only every second) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 48 269 Tm (  critic-update step,) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 62 256 Tm (- this delayed actor update is part of TD3's stability improvement over DDPG.) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 48 239 Tm (Training time:) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 62 222 Tm (- The exact original `500Hz_long` wall-clock runtime was not documented with a) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 48 209 Tm (  clean start/end diary.) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 62 196 Tm (- A closely related `500 Hz long` actor1x64/critic2x64 comparison run was) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 48 183 Tm (  initialized at about `2026-06-29 13:05` and wrote the final agent around) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 48 170 Tm (  `16:41`, about `3 h 36 min`.) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 62 157 Tm (- Later detailed 500 Hz 5000-episode runs were documented as taking "several) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 48 144 Tm (  hours" of active training, while timestamp-derived durations included idle or) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 48 131 Tm (  waiting time.) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 48 114 Tm (Do:) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 62 97 Tm (- Quote `500Hz_long` runtime as "several hours" unless a precise diary is found.) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 62 84 Tm (- Quote exact update counts as upper bounds.) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 62 71 Tm (- Separate environment interaction count from neural-network update count.) Tj ET
+endstream
+endobj
+14 0 obj
+<< /Type /Page /Parent 2 0 R /MediaBox [0 0 595 842] /Resources << /Font << /F1 3 0 R >> >> /Contents 15 0 R >>
+endobj
+15 0 obj
+<< /Length 3767 >>
+stream
+BT /F1 10.5 Tf 1 0 0 1 48 790 Tm (Do not:) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 62 773 Tm (- Say "5000 episodes" as if that alone describes training cost.) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 62 760 Tm (- Confuse 12.5 million agent steps with 5 million minibatch updates.) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 62 747 Tm (- Forget that each minibatch update samples 1024 transitions.) Tj ET
+BT /F1 12 Tf 1 0 0 1 48 723 Tm (Mistake 5 - Raw Wrapped Angles Were A Bad Global Observation) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 48 704 Tm (What failed:) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 62 687 Tm (- Near-upright raw errors were acceptable locally, but global swing-up has) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 48 674 Tm (  angle wrapping.) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 62 661 Tm (- The scalar wrapped `theta2Error` jumps at the downward position.) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 48 644 Tm (What we learned:) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 62 627 Tm (- Sin/cos observations avoid exposing the discontinuity to the network.) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 62 614 Tm (- The scalar wrapped error can still be used for diagnostics and reward if) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 48 601 Tm (  handled carefully.) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 48 584 Tm (Do:) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 62 567 Tm (- Use circular representations for global angle tasks.) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 48 550 Tm (Do not:) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 62 533 Tm (- Feed a discontinuous wrapped scalar into the policy and expect smooth global) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 48 520 Tm (  learning.) Tj ET
+BT /F1 12 Tf 1 0 0 1 48 496 Tm (Mistake 6 - The First Strong MathWorks-Style Run Still Had Hidden Weaknesses) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 48 477 Tm (What failed:) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 62 460 Tm (- The narrow MathWorks-style run had zero failures but poor final upright) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 48 447 Tm (  accuracy.) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 62 434 Tm (- Survival and safety did not imply tight stabilization.) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 48 417 Tm (What we learned:) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 62 400 Tm (- The MathWorks-style pattern was useful, but only fixed metrics showed what) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 48 387 Tm (  quality was missing.) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 62 374 Tm (- Wider reset and longer training improved the controller.) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 48 357 Tm (Do:) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 62 340 Tm (- Keep the successful workflow, but evaluate quality beyond survival.) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 48 323 Tm (Do not:) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 62 306 Tm (- Present "0 failures" as "solved.") Tj ET
+BT /F1 12 Tf 1 0 0 1 48 282 Tm (Mistake 7 - Direct Voltage Was A Useful Diagnostic But Not A Winner) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 48 263 Tm (What failed:) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 62 246 Tm (- Direct voltage reduced final oscillation in some easy cases.) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 62 233 Tm (- But broad robustness was worse than PI/current.) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 62 220 Tm (- Analytical-active versus Simscape-active evaluation diverged strongly.) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 48 203 Tm (What we learned:) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 62 186 Tm (- The actuator interface and active plant model are separate confounds.) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 62 173 Tm (- Simscape is not just visualization if it is active in the feedback loop.) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 48 156 Tm (Do:) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 62 139 Tm (- Train and evaluate with the same active plant unless intentionally testing) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 48 126 Tm (  transfer.) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 48 109 Tm (Do not:) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 62 92 Tm (- Mix analytical-active and Simscape-active results as if they are the same) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 48 79 Tm (  environment.) Tj ET
+endstream
+endobj
+16 0 obj
+<< /Type /Page /Parent 2 0 R /MediaBox [0 0 595 842] /Resources << /Font << /F1 3 0 R >> >> /Contents 17 0 R >>
+endobj
+17 0 obj
+<< /Length 3800 >>
+stream
+BT /F1 12 Tf 1 0 0 1 48 790 Tm (Mistake 8 - Model Logging Assumptions Broke Evaluation) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 48 771 Tm (What failed:) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 62 754 Tm (- The voltage model logged `voltage_command` instead of `current_command`.) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 62 741 Tm (- The signal extractor initially expected the current-command name.) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 48 724 Tm (What we learned:) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 62 707 Tm (- Analysis scripts must understand the actuator interface.) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 62 694 Tm (- A generic "actuator command" abstraction is safer than hard-coding one) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 48 681 Tm (  signal name.) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 48 664 Tm (Do:) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 62 647 Tm (- Make extraction code tolerant to expected model variants.) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 48 630 Tm (Do not:) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 62 613 Tm (- Let a logging name silently define what can be evaluated.) Tj ET
+BT /F1 12 Tf 1 0 0 1 48 589 Tm (Mistake 9 - Old 500 Hz Evaluation Was Contaminated By Workspace Config) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 48 570 Tm (What failed:) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 62 553 Tm (- Parallel evaluation workers initialized with the default config.) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 62 540 Tm (- The default config used 200 Hz sample time.) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 62 527 Tm (- Some older 500 Hz eval artifacts were therefore sample-time contaminated.) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 48 510 Tm (What we learned:) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 62 493 Tm (- Parallel workers need the saved run config, not a generic default config.) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 62 480 Tm (- The fix was carrying `evalCfg.WorkspaceConfig = cfg`.) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 48 463 Tm (Do:) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 62 446 Tm (- Prefer corrected `full_fixed_workspace_*` evaluations for 500 Hz comparisons.) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 48 429 Tm (Do not:) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 62 412 Tm (- Trust old 500 Hz parallel eval files without checking the workspace config) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 48 399 Tm (  path.) Tj ET
+BT /F1 12 Tf 1 0 0 1 48 375 Tm (Mistake 10 - Smaller Network Was Tested In The Right Way, And Failed In A Useful) Tj ET
+BT /F1 12 Tf 1 0 0 1 48 360 Tm (Way) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 48 341 Tm (What failed:) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 62 324 Tm (- Symmetric actor 1x64 / critic 1x64 failed and barely acted.) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 62 311 Tm (- It mostly failed with too little control effort, not violent commands.) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 48 294 Tm (What we learned:) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 62 277 Tm (- The critic was likely too small.) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 62 264 Tm (- Actor 1x64 / critic 2x64 restored learning.) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 62 251 Tm (- But smaller actor did not automatically reduce jitter or improve balance.) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 48 234 Tm (Do:) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 62 217 Tm (- Keep critic capacity when testing a smaller deployed actor.) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 48 200 Tm (Do not:) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 62 183 Tm (- Equate a smaller network with smoother or safer behavior.) Tj ET
+BT /F1 12 Tf 1 0 0 1 48 159 Tm (Mistake 11 - Pure Unsigned Arc-Distance Observation Removed Too Much Direction) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 48 140 Tm (What failed:) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 62 123 Tm (- The reduced observation run reached 1837 episodes but still terminated after) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 48 110 Tm (  tens of steps.) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 62 97 Tm (- Last average reward was around `-1073`.) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 48 80 Tm (What we learned:) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 62 63 Tm (- One scalar can give distance without wrap, but it loses side/direction.) Tj ET
+endstream
+endobj
+18 0 obj
+<< /Type /Page /Parent 2 0 R /MediaBox [0 0 595 842] /Resources << /Font << /F1 3 0 R >> >> /Contents 19 0 R >>
+endobj
+19 0 obj
+<< /Length 3960 >>
+stream
+BT /F1 10.5 Tf 1 0 0 1 62 790 Tm (- `theta1` especially needs sign for arm centering and arm-limit avoidance.) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 48 773 Tm (Do:) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 62 756 Tm (- Restore at least signed `theta1` if testing compact observations.) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 48 739 Tm (Do not:) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 62 722 Tm (- Remove directional angle information just to reduce observation dimension.) Tj ET
+BT /F1 12 Tf 1 0 0 1 48 698 Tm (Mistake 12 - Detailed Model Training Found A Reward Loophole) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 48 679 Tm (What failed:) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 62 662 Tm (- Detailed 1c scratch and fine-tune runs survived but did not balance.) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 62 649 Tm (- The latest 1c 7000-episode 1.5 A run learned smooth repeated swinging.) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 62 636 Tm (- One late-week agent showed a sideways-hold failure mode: it did not learn a) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 48 623 Tm (  clean swing-up, but it could keep the pendulum near a side position with) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 48 610 Tm (  jitter, which the reward treated as preferable to quick failure.) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 48 593 Tm (What we learned:) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 62 576 Tm (- Detailed dynamics changed the reward landscape.) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 62 563 Tm (- The old survival reward was not enough for capture.) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 62 550 Tm (- The next reward needs upright capture and damping terms.) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 48 533 Tm (Do:) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 62 516 Tm (- Fix nominal detailed-model capture before randomization.) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 48 499 Tm (Do not:) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 62 482 Tm (- Interpret full-length detailed-model episodes as success.) Tj ET
+BT /F1 12 Tf 1 0 0 1 48 458 Tm (Mistake 13 - Fine-Tuning Was Too Easy To Corrupt) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 48 439 Tm (What failed:) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 62 422 Tm (- A loaded policy initially looked good on a near-upright detailed-model) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 48 409 Tm (  fine-tune, then collapsed.) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 62 396 Tm (- A smoke test revealed that loaded agent TD3 options needed to be overridden) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 48 383 Tm (  from the new config.) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 48 366 Tm (What we learned:) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 62 349 Tm (- Loading a trained agent also brings old options/noise/warm-start behavior.) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 62 336 Tm (- Fine-tuning should reapply options explicitly.) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 62 323 Tm (- A working policy should be protected during adaptation.) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 48 306 Tm (Do:) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 62 289 Tm (- Run zero-exploration smoke tests before fine-tuning.) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 62 276 Tm (- Reapply agent options after loading.) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 48 259 Tm (Do not:) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 62 242 Tm (- Assume the config automatically changes every option inside a loaded agent.) Tj ET
+BT /F1 12 Tf 1 0 0 1 48 218 Tm (Mistake 14 - Hardware Scaling Was Treated As A Test Patch First) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 48 199 Tm (What happened:) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 62 182 Tm (- The policy trained with 4 A authority.) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 62 169 Tm (- Hardware ran better when action was scaled by `0.4` before the current clamp.) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 48 152 Tm (What we learned:) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 62 135 Tm (- Scaling changes the effective policy.) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 62 122 Tm (- If scale `0.4` is the safer behavior, future training should include that) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 48 109 Tm (  current authority or at least evaluate it explicitly.) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 48 92 Tm (Do:) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 62 75 Tm (- Document current scaling in every hardware run.) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 48 58 Tm (Do not:) Tj ET
+endstream
+endobj
+20 0 obj
+<< /Type /Page /Parent 2 0 R /MediaBox [0 0 595 842] /Resources << /Font << /F1 3 0 R >> >> /Contents 21 0 R >>
+endobj
+21 0 obj
+<< /Length 4426 >>
+stream
+BT /F1 10.5 Tf 1 0 0 1 62 790 Tm (- Compare hardware and simulation without matching action scaling and clamps.) Tj ET
+BT /F1 12 Tf 1 0 0 1 48 766 Tm (Mistake 15 - Domain Randomization Was Tempting Too Early) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 48 747 Tm (What happened:) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 62 730 Tm (- After hardware mismatch, the natural instinct was to randomize model) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 48 717 Tm (  parameters.) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 62 704 Tm (- But the nominal detailed model still did not learn capture.) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 48 687 Tm (What we learned:) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 62 670 Tm (- Domain randomization is for robustness around a solvable nominal task.) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 62 657 Tm (- It is not a substitute for a reward/observation/model that can solve the) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 48 644 Tm (  base task.) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 48 627 Tm (Do:) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 62 610 Tm (- Add randomization gradually after nominal capture works.) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 48 593 Tm (Do not:) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 62 576 Tm (- Randomize many parameters at once to hide a known nominal failure.) Tj ET
+BT /F1 15 Tf 1 0 0 1 48 552 Tm (Why We Did Not Use The Brian Douglas Hybrid SAC/PPO Architecture) Tj ET
+BT /F1 15 Tf 1 0 0 1 48 533 Tm (Directly) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 48 510 Tm (The Brian Douglas / MathWorks QUBE Servo2 reference in `references/` uses a) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 48 497 Tm (hybrid architecture:) Tj ET
+BT /F1 8.5 Tf 1 0 0 1 62 480 Tm (classical feedback controller: upright balance) Tj ET
+BT /F1 8.5 Tf 1 0 0 1 62 469 Tm (SAC agent: swing-up behavior / reference) Tj ET
+BT /F1 8.5 Tf 1 0 0 1 62 458 Tm (PPO agent: mode selection between swing-up and balance) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 48 443 Tm (The reference also runs the RL agents more slowly than many of our early tests:) Tj ET
+BT /F1 8.5 Tf 1 0 0 1 62 426 Tm (feedback control period Tc = 0.005 s  -> 200 Hz) Tj ET
+BT /F1 8.5 Tf 1 0 0 1 62 415 Tm (RL sample time Ts = Tc * 4 = 0.020 s  -> 50 Hz) Tj ET
+BT /F1 8.5 Tf 1 0 0 1 62 404 Tm (episode length Tf = 10 s) Tj ET
+BT /F1 8.5 Tf 1 0 0 1 62 393 Tm (RL steps per episode = 500) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 48 378 Tm (Why this architecture is attractive:) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 62 361 Tm (- classical control handles the region where linearization works well,) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 62 348 Tm (- RL only needs to learn the nonlinear swing-up part or switching logic,) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 62 335 Tm (- the mode selector separates "when to swing" from "when to balance",) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 62 322 Tm (- it is closer to a practical supervised/hybrid controller than pure end-to-end) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 48 309 Tm (  RL.) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 48 292 Tm (Why we did not follow it directly:) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 62 275 Tm (1. Different project question.) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 48 258 Tm (   This project intentionally tested a direct learned controller for the Furuta) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 48 245 Tm (   model. Using classical control for balance from the beginning would have made) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 48 232 Tm (   the result more like RL-assisted switching and less like direct RL control.) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 62 215 Tm (2. Integration cost.) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 48 198 Tm (   The Brian Douglas example targets the Quanser QUBE/Raspberry Pi workflow.) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 48 185 Tm (   Our setup has the ZHAW Furuta model, SLDRT, UART, a microcontroller current) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 48 172 Tm (   PI loop, and different hardware signal conventions. Porting the full hybrid) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 48 159 Tm (   architecture would have added a large second integration project.) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 62 142 Tm (3. Debugging complexity.) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 48 125 Tm (   The hybrid system has three controllers to debug: SAC swing-up, PPO mode) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 48 112 Tm (   selector, and classical balance controller. Early on, we were still finding) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 48 99 Tm (   issues in reward scale, action scaling, sample time, observations, logging,) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 48 86 Tm (   active plant choice, and hardware communication. Direct TD3 gave a cleaner) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 48 73 Tm (   baseline.) Tj ET
+endstream
+endobj
+22 0 obj
+<< /Type /Page /Parent 2 0 R /MediaBox [0 0 595 842] /Resources << /Font << /F1 3 0 R >> >> /Contents 23 0 R >>
+endobj
+23 0 obj
+<< /Length 4065 >>
+stream
+BT /F1 10.5 Tf 1 0 0 1 62 790 Tm (4. Controlled algorithm progression.) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 48 773 Tm (   We started from DDPG. TD3 was the closest next step because it keeps the same) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 48 760 Tm (   deterministic continuous-action actor but fixes major DDPG weaknesses with) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 48 747 Tm (   twin critics, delayed actor updates, and target smoothing. SAC/PPO would have) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 48 734 Tm (   changed more assumptions at once.) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 48 717 Tm (What we learned from it anyway:) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 62 700 Tm (- The hybrid reference strongly supports using sin/cos angle observations.) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 62 687 Tm (- It supports slower RL rates with a faster low-level controller underneath.) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 62 674 Tm (- It shows that swing-up and balance can be separated into different control) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 48 661 Tm (  tasks.) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 62 648 Tm (- It remains a good future architecture if direct TD3 capture stays brittle.) Tj ET
+BT /F1 15 Tf 1 0 0 1 48 624 Tm (DDPG vs TD3 vs SAC vs PPO) Tj ET
+BT /F1 12 Tf 1 0 0 1 48 594 Tm (DDPG) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 48 575 Tm (DDPG is an off-policy actor-critic method for continuous action spaces.) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 48 558 Tm (In plain language:) Tj ET
+BT /F1 8.5 Tf 1 0 0 1 62 541 Tm (actor: maps observation -> deterministic action) Tj ET
+BT /F1 8.5 Tf 1 0 0 1 62 530 Tm (critic: estimates Q\(observation, action\)) Tj ET
+BT /F1 8.5 Tf 1 0 0 1 62 519 Tm (replay buffer: reuses old transitions for learning) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 48 504 Tm (Why it was attractive:) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 62 487 Tm (- one continuous motor command,) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 62 474 Tm (- actor can be deployed directly,) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 62 461 Tm (- simpler than SAC/PPO hybrid architectures.) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 48 444 Tm (What happened here:) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 62 427 Tm (- DDPG did not reliably learn local upright stabilization,) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 62 414 Tm (- fixed post-stage cases failed,) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 62 401 Tm (- the actor produced high-frequency oscillatory torque,) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 62 388 Tm (- the method was too fragile for our delayed, saturated, unstable setup.) Tj ET
+BT /F1 12 Tf 1 0 0 1 48 364 Tm (TD3) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 48 345 Tm (TD3 is essentially a stronger DDPG-family method.) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 48 328 Tm (Key changes:) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 62 311 Tm (- two critics reduce over-optimistic Q estimates,) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 62 298 Tm (- actor updates are delayed relative to critic updates,) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 62 285 Tm (- target action smoothing discourages brittle sharp Q peaks.) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 48 268 Tm (Why it became our main method:) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 62 251 Tm (- still gives a deterministic actor for deployment,) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 62 238 Tm (- closest controlled step after DDPG,) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 62 225 Tm (- MathWorks QUBE direct TD3 example gave a useful template,) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 62 212 Tm (- produced the first useful Furuta swing-up/stabilization baseline.) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 48 195 Tm (Main limitation observed:) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 62 178 Tm (- TD3 can still exploit reward loopholes,) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 62 165 Tm (- fine-tuning can corrupt a working policy,) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 62 152 Tm (- it does not automatically solve sim-to-real mismatch or jitter.) Tj ET
+BT /F1 12 Tf 1 0 0 1 48 128 Tm (SAC) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 48 109 Tm (SAC is Soft Actor-Critic. It is off-policy like TD3, but uses a stochastic actor) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 48 96 Tm (and an entropy term.) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 48 79 Tm (In plain language:) Tj ET
+BT /F1 8.5 Tf 1 0 0 1 62 62 Tm (learn high reward while also keeping the policy exploratory/robust) Tj ET
+endstream
+endobj
+24 0 obj
+<< /Type /Page /Parent 2 0 R /MediaBox [0 0 595 842] /Resources << /Font << /F1 3 0 R >> >> /Contents 25 0 R >>
+endobj
+25 0 obj
+<< /Length 3947 >>
+stream
+BT /F1 10.5 Tf 1 0 0 1 48 790 Tm (Why it is interesting:) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 62 773 Tm (- strong exploration,) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 62 760 Tm (- often good for swing-up and contact-rich/nonlinear tasks,) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 62 747 Tm (- used in the Brian Douglas hybrid QUBE example for swing-up.) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 48 730 Tm (Why we did not switch to it during the main path:) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 62 713 Tm (- it would change more assumptions than TD3,) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 62 700 Tm (- the policy architecture and training behavior differ more,) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 62 687 Tm (- our immediate need after DDPG was a controlled comparison,) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 62 674 Tm (- deployment would still need careful deterministic/exploitation handling.) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 48 657 Tm (Good future use:) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 62 640 Tm (- SAC for a dedicated swing-up policy,) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 62 627 Tm (- especially inside a hybrid architecture with classical balance or a) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 48 614 Tm (  supervisor.) Tj ET
+BT /F1 12 Tf 1 0 0 1 48 590 Tm (PPO) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 48 571 Tm (PPO is Proximal Policy Optimization. It is an on-policy policy-gradient method.) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 48 554 Tm (In plain language:) Tj ET
+BT /F1 8.5 Tf 1 0 0 1 62 537 Tm (collect trajectories with the current policy,) Tj ET
+BT /F1 8.5 Tf 1 0 0 1 62 526 Tm (update the policy without changing it too aggressively,) Tj ET
+BT /F1 8.5 Tf 1 0 0 1 62 515 Tm (discard old data,) Tj ET
+BT /F1 8.5 Tf 1 0 0 1 62 504 Tm (repeat.) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 48 489 Tm (It can be used for discrete or continuous actions. In the Brian Douglas hybrid) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 48 476 Tm (example, PPO is used for the discrete mode-selection policy:) Tj ET
+BT /F1 8.5 Tf 1 0 0 1 62 459 Tm (mode 0: use one reference/controller behavior) Tj ET
+BT /F1 8.5 Tf 1 0 0 1 62 448 Tm (mode 1: use swing-up output / another behavior) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 48 433 Tm (Why it was not our main controller:) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 62 416 Tm (- our motor command is continuous current, where TD3/SAC are more direct) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 48 403 Tm (  choices,) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 62 390 Tm (- PPO is on-policy and can be sample-hungry,) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 62 377 Tm (- the place where PPO naturally fits here is a supervisor/mode selector, not) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 48 364 Tm (  necessarily the low-level current command.) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 48 347 Tm (Good future use:) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 62 330 Tm (- choose between swing-up, capture, and balance modes,) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 62 317 Tm (- choose between RL and classical fallback,) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 62 304 Tm (- learn a supervisor around safer lower-level controllers.) Tj ET
+BT /F1 15 Tf 1 0 0 1 48 280 Tm (Weto Inputs: What Worked And What Did Not) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 48 257 Tm (After the meeting with Thomas Weinmann, we tested suggestions as controlled) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 48 244 Tm (experiments.) Tj ET
+BT /F1 12 Tf 1 0 0 1 48 220 Tm (Smaller Networks) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 48 201 Tm (Suggestion:) Tj ET
+BT /F1 8.5 Tf 1 0 0 1 62 184 Tm (try a smaller network, especially because upright balance is locally close to) Tj ET
+BT /F1 8.5 Tf 1 0 0 1 62 173 Tm (a linear control problem.) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 48 158 Tm (Test 1:) Tj ET
+BT /F1 8.5 Tf 1 0 0 1 62 141 Tm (actor 1x64) Tj ET
+BT /F1 8.5 Tf 1 0 0 1 62 130 Tm (critic 1x64) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 48 115 Tm (Result:) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 62 98 Tm (- failed,) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 62 85 Tm (- did not learn useful swing-up,) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 62 72 Tm (- failed while using very little control effort,) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 62 59 Tm (- likely underfit or critic too weak.) Tj ET
+endstream
+endobj
+26 0 obj
+<< /Type /Page /Parent 2 0 R /MediaBox [0 0 595 842] /Resources << /Font << /F1 3 0 R >> >> /Contents 27 0 R >>
+endobj
+27 0 obj
+<< /Length 3658 >>
+stream
+BT /F1 10.5 Tf 1 0 0 1 48 790 Tm (Test 2:) Tj ET
+BT /F1 8.5 Tf 1 0 0 1 62 773 Tm (actor 1x64) Tj ET
+BT /F1 8.5 Tf 1 0 0 1 62 762 Tm (critic 2x64) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 48 747 Tm (Result:) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 62 730 Tm (- learned meaningful behavior,) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 62 717 Tm (- confirmed that a small actor can be trained if the critic remains stronger,) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 62 704 Tm (- but not better overall than the deployed 500 Hz baseline,) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 62 691 Tm (- worse final theta2 error, oscillation, action variation, and electrical) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 48 678 Tm (  energy.) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 48 661 Tm (Conclusion:) Tj ET
+BT /F1 8.5 Tf 1 0 0 1 62 644 Tm (Small actor is possible, but critic capacity matters. This did not solve the) Tj ET
+BT /F1 8.5 Tf 1 0 0 1 62 633 Tm (hardware jitter problem by itself.) Tj ET
+BT /F1 12 Tf 1 0 0 1 48 611 Tm (Reduced Observation / Arc Distance) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 48 592 Tm (Suggestion:) Tj ET
+BT /F1 8.5 Tf 1 0 0 1 62 575 Tm (reduce observation size by using angle distance around the circle instead of) Tj ET
+BT /F1 8.5 Tf 1 0 0 1 62 564 Tm (sin/cos pairs.) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 48 549 Tm (Test:) Tj ET
+BT /F1 8.5 Tf 1 0 0 1 62 532 Tm (theta1_arc_norm) Tj ET
+BT /F1 8.5 Tf 1 0 0 1 62 521 Tm (theta2_arc_norm) Tj ET
+BT /F1 8.5 Tf 1 0 0 1 62 510 Tm (omega1_scaled_norm) Tj ET
+BT /F1 8.5 Tf 1 0 0 1 62 499 Tm (omega2_scaled_norm) Tj ET
+BT /F1 8.5 Tf 1 0 0 1 62 488 Tm (previous_action) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 48 473 Tm (Result:) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 62 456 Tm (- failed/interrupted,) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 62 443 Tm (- after 1837 episodes, episodes were still only tens of steps,) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 62 430 Tm (- likely removed too much direction information.) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 48 413 Tm (Conclusion:) Tj ET
+BT /F1 8.5 Tf 1 0 0 1 62 396 Tm (The observation became compact but ambiguous. Future reduced observations) Tj ET
+BT /F1 8.5 Tf 1 0 0 1 62 385 Tm (should keep at least signed theta1.) Tj ET
+BT /F1 12 Tf 1 0 0 1 48 363 Tm (State-Dependent Reward Shaping) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 48 344 Tm (Suggestion:) Tj ET
+BT /F1 8.5 Tf 1 0 0 1 62 327 Tm (make reward terms depend on state; near upright, punish jitter/current/delta-u) Tj ET
+BT /F1 8.5 Tf 1 0 0 1 62 316 Tm (more strongly than during swing-up.) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 48 301 Tm (Status:) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 62 284 Tm (- not fully solved yet,) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 62 271 Tm (- capture-tune config prepared,) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 62 258 Tm (- latest detailed 1c result makes this the most important next direction.) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 48 241 Tm (Conclusion:) Tj ET
+BT /F1 8.5 Tf 1 0 0 1 62 224 Tm (This is likely more important now than more network-size experiments.) Tj ET
+BT /F1 12 Tf 1 0 0 1 48 202 Tm (Add Actuator / Controller State) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 48 183 Tm (Suggestion:) Tj ET
+BT /F1 8.5 Tf 1 0 0 1 62 166 Tm (add measured current, PI output, saturated voltage, or another actuator state) Tj ET
+BT /F1 8.5 Tf 1 0 0 1 62 155 Tm (to improve the Markov property.) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 48 140 Tm (What we tried:) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 62 123 Tm (- 1d near-upright scratch with `I_meas` as an 8th observation.) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 48 106 Tm (Result:) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 62 89 Tm (- both initial scratch attempts failed fixed eval,) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 62 76 Tm (- not enough to prove `I_meas` is bad,) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 62 63 Tm (- likely the scratch setup/reward/timeout was too harsh.) Tj ET
+endstream
+endobj
+28 0 obj
+<< /Type /Page /Parent 2 0 R /MediaBox [0 0 595 842] /Resources << /Font << /F1 3 0 R >> >> /Contents 29 0 R >>
+endobj
+29 0 obj
+<< /Length 3710 >>
+stream
+BT /F1 10.5 Tf 1 0 0 1 48 790 Tm (Conclusion:) Tj ET
+BT /F1 8.5 Tf 1 0 0 1 62 773 Tm (Actuator state remains plausible, but should be tested with a clearer reward) Tj ET
+BT /F1 8.5 Tf 1 0 0 1 62 762 Tm (and gentler setup.) Tj ET
+BT /F1 12 Tf 1 0 0 1 48 740 Tm (Improved Detailed Model) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 48 721 Tm (Suggestion:) Tj ET
+BT /F1 8.5 Tf 1 0 0 1 62 704 Tm (model encoder quantization, filters, static friction, current-loop behavior,) Tj ET
+BT /F1 8.5 Tf 1 0 0 1 62 693 Tm (dead-zone compensation, and measured-current noise.) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 48 678 Tm (Result:) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 62 661 Tm (- detailed 1c/1d model path was built,) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 62 648 Tm (- nominal detailed training exposed the current reward loophole,) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 62 635 Tm (- it did not immediately improve control, but it clarified the next problem.) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 48 618 Tm (Conclusion:) Tj ET
+BT /F1 8.5 Tf 1 0 0 1 62 601 Tm (This was the most productive Weto direction. It shifted the project from) Tj ET
+BT /F1 8.5 Tf 1 0 0 1 62 590 Tm (simple-model success to real sim-to-real bottlenecks.) Tj ET
+BT /F1 15 Tf 1 0 0 1 48 568 Tm (Sim-To-Real Research Summary) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 48 545 Tm (The latest detailed-model results look less like "train longer" and more like a) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 48 532 Tm (transfer/adaptation problem:) Tj ET
+BT /F1 8.5 Tf 1 0 0 1 62 515 Tm (simple model policy works partly on hardware,) Tj ET
+BT /F1 8.5 Tf 1 0 0 1 62 504 Tm (detailed model changes dynamics enough that naive fine-tuning can fail,) Tj ET
+BT /F1 8.5 Tf 1 0 0 1 62 493 Tm (hardware logs show scaling/friction/current-loop mismatch.) Tj ET
+BT /F1 12 Tf 1 0 0 1 48 471 Tm (SimOpt / Adaptive Domain Randomization) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 48 452 Tm (Paper:) Tj ET
+BT /F1 8.5 Tf 1 0 0 1 62 435 Tm (Closing the Sim-to-Real Loop: Adapting Simulation Randomization with Real World Experience) Tj ET
+BT /F1 8.5 Tf 1 0 0 1 62 424 Tm (https://arxiv.org/abs/1810.05687) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 48 409 Tm (Idea:) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 62 392 Tm (- do not guess randomization ranges forever,) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 62 379 Tm (- use real-world rollouts to adapt the simulator/randomization distribution.) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 48 362 Tm (Relevance:) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 62 345 Tm (- hardware logs can tune friction, current scaling, delay, and dead-zone ranges.) Tj ET
+BT /F1 12 Tf 1 0 0 1 48 321 Tm (Residual Reinforcement Learning) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 48 302 Tm (Paper:) Tj ET
+BT /F1 8.5 Tf 1 0 0 1 62 285 Tm (Residual Reinforcement Learning for Robot Control) Tj ET
+BT /F1 8.5 Tf 1 0 0 1 62 274 Tm (https://arxiv.org/abs/1812.03201) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 48 259 Tm (Idea:) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 62 242 Tm (- keep a useful base controller,) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 62 229 Tm (- learn an additive correction.) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 48 212 Tm (Relevance:) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 62 195 Tm (- the `500Hz_long` policy already has useful behavior,) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 62 182 Tm (- residual correction near upright may be safer than full TD3 fine-tuning.) Tj ET
+BT /F1 12 Tf 1 0 0 1 48 158 Tm (EPOpt / Robust Model Ensembles) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 48 139 Tm (Paper:) Tj ET
+BT /F1 8.5 Tf 1 0 0 1 62 122 Tm (EPOpt: Learning Robust Neural Network Policies Using Model Ensembles) Tj ET
+BT /F1 8.5 Tf 1 0 0 1 62 111 Tm (https://arxiv.org/abs/1610.01283) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 48 96 Tm (Idea:) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 62 79 Tm (- train over sampled model variants,) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 62 66 Tm (- emphasize difficult cases.) Tj ET
+endstream
+endobj
+30 0 obj
+<< /Type /Page /Parent 2 0 R /MediaBox [0 0 595 842] /Resources << /Font << /F1 3 0 R >> >> /Contents 31 0 R >>
+endobj
+31 0 obj
+<< /Length 3460 >>
+stream
+BT /F1 10.5 Tf 1 0 0 1 48 790 Tm (Relevance:) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 62 773 Tm (- useful after nominal detailed capture works,) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 62 760 Tm (- could train robustness to friction/current/dead-zone variants.) Tj ET
+BT /F1 12 Tf 1 0 0 1 48 736 Tm (Multi-Fidelity RL) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 48 717 Tm (Paper:) Tj ET
+BT /F1 8.5 Tf 1 0 0 1 62 700 Tm (Multi-Fidelity Reinforcement Learning with Gaussian Processes) Tj ET
+BT /F1 8.5 Tf 1 0 0 1 62 689 Tm (https://arxiv.org/abs/1712.06489) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 48 674 Tm (Idea:) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 62 657 Tm (- combine cheap/simple models and expensive/accurate models.) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 48 640 Tm (Relevance:) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 62 623 Tm (- matches our path:) Tj ET
+BT /F1 8.5 Tf 1 0 0 1 62 606 Tm (simple analytical model -> detailed hardware-like model -> hardware logs) Tj ET
+BT /F1 12 Tf 1 0 0 1 48 584 Tm (Meta-RL For Adaptation) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 48 565 Tm (Paper:) Tj ET
+BT /F1 8.5 Tf 1 0 0 1 62 548 Tm (Learning to Adapt in Dynamic, Real-World Environments Through Meta-Reinforcement Learning) Tj ET
+BT /F1 8.5 Tf 1 0 0 1 62 537 Tm (https://arxiv.org/abs/1803.11347) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 48 522 Tm (Idea:) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 62 505 Tm (- train policies that can adapt quickly to changed dynamics.) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 48 488 Tm (Relevance:) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 62 471 Tm (- less immediate, but relevant if friction/offsets vary over time.) Tj ET
+BT /F1 12 Tf 1 0 0 1 48 447 Tm (Policy Distillation / Learning Without Forgetting) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 48 428 Tm (Papers:) Tj ET
+BT /F1 8.5 Tf 1 0 0 1 62 411 Tm (Policy Distillation) Tj ET
+BT /F1 8.5 Tf 1 0 0 1 62 400 Tm (https://arxiv.org/abs/1511.06295) Tj ET
+BT /F1 8.5 Tf 1 0 0 1 62 385 Tm (Learning without Forgetting) Tj ET
+BT /F1 8.5 Tf 1 0 0 1 62 374 Tm (https://arxiv.org/abs/1606.09282) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 48 359 Tm (Idea:) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 62 342 Tm (- transfer or fine-tune while preserving useful old behavior.) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 48 325 Tm (Relevance:) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 62 308 Tm (- our fine-tuning collapse suggests an action-deviation penalty, teacher) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 48 295 Tm (  regularization, or residual policy could help preserve the original) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 48 282 Tm (  `500Hz_long` behavior.) Tj ET
+BT /F1 12 Tf 1 0 0 1 48 258 Tm (Practical Research Takeaway) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 48 239 Tm (For this project:) Tj ET
+BT /F1 8.5 Tf 1 0 0 1 62 222 Tm (1. Do not jump straight to broad randomization.) Tj ET
+BT /F1 8.5 Tf 1 0 0 1 62 211 Tm (2. Preserve the working simple-model policy.) Tj ET
+BT /F1 8.5 Tf 1 0 0 1 62 200 Tm (3. Adapt gently on the detailed model.) Tj ET
+BT /F1 8.5 Tf 1 0 0 1 62 189 Tm (4. Use hardware logs to tune mismatch ranges.) Tj ET
+BT /F1 8.5 Tf 1 0 0 1 62 178 Tm (5. Add domain randomization only after nominal capture works.) Tj ET
+BT /F1 15 Tf 1 0 0 1 48 156 Tm (Future Work Recommendations) Tj ET
+BT /F1 12 Tf 1 0 0 1 48 126 Tm (Immediate Next Step) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 48 107 Tm (Continue from:) Tj ET
+BT /F1 8.5 Tf 1 0 0 1 62 90 Tm (results/TD3/run_20260708_222715_td3_mathworks_style_pi_current_1c_500hz_long_detailed_scratch7000) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 48 75 Tm (Run:) Tj ET
+BT /F1 8.5 Tf 1 0 0 1 62 58 Tm (scripts/trainFurutaDetailed1c500HzCaptureTuneFromScratch7000.m) Tj ET
+endstream
+endobj
+32 0 obj
+<< /Type /Page /Parent 2 0 R /MediaBox [0 0 595 842] /Resources << /Font << /F1 3 0 R >> >> /Contents 33 0 R >>
+endobj
+33 0 obj
+<< /Length 3480 >>
+stream
+BT /F1 10.5 Tf 1 0 0 1 48 790 Tm (Goal:) Tj ET
+BT /F1 8.5 Tf 1 0 0 1 62 773 Tm (Preserve the learned swing-up-like behavior, but make upright capture and) Tj ET
+BT /F1 8.5 Tf 1 0 0 1 62 762 Tm (damping more valuable than continued swinging.) Tj ET
+BT /F1 12 Tf 1 0 0 1 48 740 Tm (Reward Direction) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 48 721 Tm (Use state-dependent shaping:) Tj ET
+BT /F1 8.5 Tf 1 0 0 1 62 704 Tm (far from upright:) Tj ET
+BT /F1 8.5 Tf 1 0 0 1 62 693 Tm (    allow energy injection) Tj ET
+BT /F1 8.5 Tf 1 0 0 1 62 678 Tm (near upright:) Tj ET
+BT /F1 8.5 Tf 1 0 0 1 62 667 Tm (    reward capture) Tj ET
+BT /F1 8.5 Tf 1 0 0 1 62 656 Tm (    penalize theta2 error) Tj ET
+BT /F1 8.5 Tf 1 0 0 1 62 645 Tm (    penalize omega2 and omega1) Tj ET
+BT /F1 8.5 Tf 1 0 0 1 62 634 Tm (    penalize action/current chatter) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 48 619 Tm (Potential additions:) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 62 602 Tm (- upright capture bonus,) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 62 589 Tm (- local theta2 cost inside 25 deg,) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 62 576 Tm (- local velocity damping,) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 62 563 Tm (- near-upright action-difference/current penalty,) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 62 550 Tm (- pre-capture arm travel or reversal metrics before reward changes.) Tj ET
+BT /F1 12 Tf 1 0 0 1 48 526 Tm (Fine-Tuning Direction) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 48 507 Tm (Try:) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 62 490 Tm (- lower actor/critic learning rates,) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 62 477 Tm (- lower exploration noise,) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 62 464 Tm (- replay reset when changing model fidelity,) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 62 451 Tm (- zero-exploration smoke tests,) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 62 438 Tm (- teacher-policy/action-deviation penalty,) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 62 425 Tm (- residual policy on top of the baseline.) Tj ET
+BT /F1 12 Tf 1 0 0 1 48 401 Tm (Observation Direction) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 48 382 Tm (Keep the 7-state sin/cos baseline unless testing a specific hypothesis.) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 48 365 Tm (If adding actuator state, test one at a time:) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 62 348 Tm (- `I_meas`,) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 62 335 Tm (- current command,) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 62 322 Tm (- saturated PI voltage/output,) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 62 309 Tm (- PI/integrator state if exposed.) Tj ET
+BT /F1 12 Tf 1 0 0 1 48 285 Tm (Detailed Model Direction) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 48 266 Tm (Continue using open-loop hardware tests for calibration:) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 62 249 Tm (- friction,) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 62 236 Tm (- dead-zone/static current compensation,) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 62 223 Tm (- current-loop filtering,) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 62 210 Tm (- encoder quantization,) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 62 197 Tm (- velocity filtering,) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 62 184 Tm (- current measurement noise.) Tj ET
+BT /F1 12 Tf 1 0 0 1 48 160 Tm (Domain Randomization Direction) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 48 141 Tm (Add only after nominal detailed capture works.) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 48 124 Tm (Recommended phases:) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 62 107 Tm (1. theta1 friction and damping,) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 62 94 Tm (2. current scale and current limit,) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 62 81 Tm (3. delay/filter/dead-zone compensation,) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 62 68 Tm (4. sensor noise and quantization,) Tj ET
+endstream
+endobj
+34 0 obj
+<< /Type /Page /Parent 2 0 R /MediaBox [0 0 595 842] /Resources << /Font << /F1 3 0 R >> >> /Contents 35 0 R >>
+endobj
+35 0 obj
+<< /Length 893 >>
+stream
+BT /F1 10.5 Tf 1 0 0 1 62 790 Tm (5. physical masses/inertias if needed.) Tj ET
+BT /F1 12 Tf 1 0 0 1 48 766 Tm (Hardware Data Direction) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 48 747 Tm (Use hardware logs first for:) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 62 730 Tm (- validation,) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 62 717 Tm (- mismatch diagnosis,) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 62 704 Tm (- action/current scaling checks,) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 62 691 Tm (- estimating friction/dead-zone ranges.) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 48 674 Tm (Use for residual learning or offline replay only after:) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 62 657 Tm (- enable windows are segmented,) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 62 644 Tm (- signals are synchronized,) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 62 631 Tm (- unsafe or disabled intervals are excluded,) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 62 618 Tm (- the reward/isDone semantics are clear.) Tj ET
+endstream
+endobj
+xref
+0 36
+0000000000 65535 f 
+0000000009 00000 n 
+0000000058 00000 n 
+0000000219 00000 n 
+0000000289 00000 n 
+0000000415 00000 n 
+0000004359 00000 n 
+0000004485 00000 n 
+0000008846 00000 n 
+0000008972 00000 n 
+0000013102 00000 n 
+0000013230 00000 n 
+0000017371 00000 n 
+0000017499 00000 n 
+0000022045 00000 n 
+0000022173 00000 n 
+0000025992 00000 n 
+0000026120 00000 n 
+0000029972 00000 n 
+0000030100 00000 n 
+0000034112 00000 n 
+0000034240 00000 n 
+0000038718 00000 n 
+0000038846 00000 n 
+0000042963 00000 n 
+0000043091 00000 n 
+0000047090 00000 n 
+0000047218 00000 n 
+0000050928 00000 n 
+0000051056 00000 n 
+0000054818 00000 n 
+0000054946 00000 n 
+0000058458 00000 n 
+0000058586 00000 n 
+0000062118 00000 n 
+0000062246 00000 n 
+trailer
+<< /Size 36 /Root 1 0 R >>
+startxref
+63190
+%%EOF

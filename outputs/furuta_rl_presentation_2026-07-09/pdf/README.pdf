@@ -1,0 +1,71 @@
+%PDF-1.4
+1 0 obj
+<< /Type /Catalog /Pages 2 0 R >>
+endobj
+2 0 obj
+<< /Type /Pages /Kids [4 0 R] /Count 1 >>
+endobj
+3 0 obj
+<< /Type /Font /Subtype /Type1 /BaseFont /Helvetica >>
+endobj
+4 0 obj
+<< /Type /Page /Parent 2 0 R /MediaBox [0 0 595 842] /Resources << /Font << /F1 3 0 R >> >> /Contents 5 0 R >>
+endobj
+5 0 obj
+<< /Length 3847 >>
+stream
+BT /F1 20 Tf 1 0 0 1 48 782 Tm (Furuta RL Presentation Prep - 2026-07-09) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 48 753 Tm (Purpose: short presentation for the Furuta inverted pendulum RL work, demo,) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 48 740 Tm (lessons learned, repository handover, and future suggestions.) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 48 723 Tm (Use these files:) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 62 706 Tm (- `slide_bullet_points.md` - copyable slide text, without PowerPoint formatting.) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 62 693 Tm (- `speaker_notes.md` - what to say for each slide.) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 62 680 Tm (- `demo_and_handover_checklist.md` - what to showcase live and what to point to) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 48 667 Tm (  in the repository.) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 62 654 Tm (- `dos_donts_future_work.md` - compact lessons learned and next-step) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 48 641 Tm (  recommendations.) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 48 624 Tm (Recommended presentation length:) Tj ET
+BT /F1 8.5 Tf 1 0 0 1 62 607 Tm (10-15 min talk) Tj ET
+BT /F1 8.5 Tf 1 0 0 1 62 596 Tm (3-5 min demo) Tj ET
+BT /F1 8.5 Tf 1 0 0 1 62 585 Tm (5-10 min questions) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 48 570 Tm (Main story:) Tj ET
+BT /F1 8.5 Tf 1 0 0 1 62 553 Tm (The project started as an attempt to train an RL controller for a Furuta) Tj ET
+BT /F1 8.5 Tf 1 0 0 1 62 542 Tm (inverted pendulum in simulation. The useful result is that a TD3 policy trained) Tj ET
+BT /F1 8.5 Tf 1 0 0 1 62 531 Tm (on a simpler model transferred far enough to attempt swing-up on real hardware.) Tj ET
+BT /F1 8.5 Tf 1 0 0 1 62 520 Tm (The remaining hard problem is robust, low-jitter capture and balance under) Tj ET
+BT /F1 8.5 Tf 1 0 0 1 62 509 Tm (hardware-like actuator, sensor, friction, and current-loop dynamics.) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 48 494 Tm (Best files to open during the talk:) Tj ET
+BT /F1 8.5 Tf 1 0 0 1 62 477 Tm (docs/hardware_swingup_scaled_current_tests_2026-07-07.md) Tj ET
+BT /F1 8.5 Tf 1 0 0 1 62 466 Tm (docs/detailed_model_training_results_2026-07-05.md) Tj ET
+BT /F1 8.5 Tf 1 0 0 1 62 455 Tm (docs/weto_inputs_progress_2026-07-01.md) Tj ET
+BT /F1 8.5 Tf 1 0 0 1 62 444 Tm (docs/domain_randomization_preparation.md) Tj ET
+BT /F1 8.5 Tf 1 0 0 1 62 433 Tm (outputs/furuta_rl_presentation_2026-07-09/slide_bullet_points.md) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 48 418 Tm (Best plots to show:) Tj ET
+BT /F1 8.5 Tf 1 0 0 1 62 401 Tm (results/model_vs_hardware/comparisons/20260707_173214_selected_500hz_long_hardware_swing_ups/plots/overlay.png) Tj ET
+BT /F1 8.5 Tf 1 0 0 1 62 390 Tm (results/model_vs_hardware/comparisons/20260707_173214_selected_500hz_long_hardware_swing_ups/plots/average.png) Tj ET
+BT /F1 8.5 Tf 1 0 0 1 62 379 Tm (results/model_vs_hardware/comparisons/20260708_230429_hardware_scale1p0_lim3a_vs_detailed_sim_v1_closed_loop/p) Tj ET
+BT /F1 8.5 Tf 1 0 0 1 62 368 Tm (lots/overlay.png) Tj ET
+BT /F1 8.5 Tf 1 0 0 1 62 357 Tm (results/model_vs_hardware/comparisons/20260622_205659_test1_hardware_vs_model/plots/overlay.png) Tj ET
+BT /F1 8.5 Tf 1 0 0 1 62 346 Tm (results/TD3/run_20260618_223832_td3_mathworks_style_pi_current_1b_500hz_long/training_progress.png) Tj ET
+BT /F1 8.5 Tf 1 0 0 1 62 335 Tm (results/TD3/run_20260708_222715_td3_mathworks_style_pi_current_1c_500hz_long_detailed_scratch7000/training_pro) Tj ET
+BT /F1 8.5 Tf 1 0 0 1 62 324 Tm (gress.png) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 48 309 Tm (Best demo options:) Tj ET
+BT /F1 8.5 Tf 1 0 0 1 62 292 Tm (1. Show saved hardware swing-up runs and averaged overlay.) Tj ET
+BT /F1 8.5 Tf 1 0 0 1 62 281 Tm (2. Show the Simulink SLDRT/current-command path if hardware is connected.) Tj ET
+BT /F1 8.5 Tf 1 0 0 1 62 270 Tm (3. Show how a run is saved and compared using scripts/analysis.) Tj ET
+BT /F1 8.5 Tf 1 0 0 1 62 259 Tm (4. Show repository structure and key docs for handover.) Tj ET
+endstream
+endobj
+xref
+0 6
+0000000000 65535 f 
+0000000009 00000 n 
+0000000058 00000 n 
+0000000115 00000 n 
+0000000185 00000 n 
+0000000311 00000 n 
+trailer
+<< /Size 6 /Root 1 0 R >>
+startxref
+4209
+%%EOF
