@@ -1,0 +1,2 @@
+TestName,SourceType,StartTime,EndTime,NumSamples,MedianDt,MedianFs,MaxAbsTheta1,MaxAbsTheta2Wrapped,MaxAbsTheta2UprightError,MaxAbsOmega1,MaxAbsOmega2,MeanCurrentCommand,MaxAbsCurrentCommand,MaxAbsCurrent,CurrentAbsIntegral,EnableOffTime
+swingup_500hz_long_hardware_20260707,hardware,0,12.622,6312,0.002,500,1.08605802059174,3.14159265358979,3.14159265358979,14.5125682922469,25.220508121365,0.381153407739106,3.94382667541504,3.24960732460022,11.7084649147691,0
