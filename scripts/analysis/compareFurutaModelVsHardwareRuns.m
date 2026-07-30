@@ -197,5 +197,6 @@ end
 function outputRoot = localDefaultOutputRoot()
 scriptDir = fileparts(mfilename("fullpath"));
 repoRoot = fileparts(fileparts(scriptDir));
-outputRoot = fullfile(repoRoot, "results", "model_vs_hardware", "comparisons");
+paths = getFurutaPaths(ProjectRoot=repoRoot);
+outputRoot = fullfile(paths.ResultsRoot, "model_vs_hardware", "comparisons");
 end

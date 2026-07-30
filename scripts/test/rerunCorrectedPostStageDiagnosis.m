@@ -6,15 +6,17 @@
 clear
 clc
 
-repoRoot = "C:\Users\abuj\Code\Reinforcement-Learning-Furuta-Inverted-Pendulum";
+scriptDir = fileparts(mfilename("fullpath"));
+repoRoot = fileparts(fileparts(scriptDir));
 cd(repoRoot)
 addpath(genpath(fullfile(repoRoot, "scripts")))
+paths = getFurutaPaths(ProjectRoot=repoRoot);
 
-runDir = fullfile(repoRoot, "results", "DDPG", "run_20260604_existing_stage_results");
+runDir = fullfile(paths.ResultsRoot, "DDPG", "run_20260604_existing_stage_results");
 stageIndices = [1 2];
 
 stamp = string(datetime("now", "Format", "yyyyMMdd_HHmmss"));
-diagnosticDir = fullfile(repoRoot, "results", "diagnostics", "corrected_eval_" + stamp);
+diagnosticDir = fullfile(paths.ResultsRoot, "diagnostics", "corrected_eval_" + stamp);
 if ~isfolder(diagnosticDir)
     mkdir(diagnosticDir);
 end

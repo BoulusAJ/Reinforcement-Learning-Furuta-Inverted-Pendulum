@@ -6,11 +6,8 @@
 %   theta2 = 180 deg -> pendulum upright
 
 
-agentFile = "C:\Users\abuj\Code\Reinforcement-Learning-Furuta-Inverted-Pendulum\results\TD3\run_20260728_153540_td3_matlab_analytical_100hz_fast\FurutaTD3_matlab_analytical_100hz_fast_actor1x64_critic2x64_final.mat"; % Empty selects the newest MATLAB analytical final agent.
-%agentFile = "C:\Users\abuj\Code\Reinforcement-Learning-Furuta-Inverted-Pendulum\results\TD3\run_20260730_181326_td3_matlab_ode3_student_100hz\FurutaTD3_matlab_ode3_student_100hz_actor1x64_critic2x64_final.mat"; % Empty selects the newest MATLAB analytical final agent.
-%agentFile = "C:\Users\abuj\Code\Reinforcement-Learning-Furuta-Inverted-Pendulum\results\TD3\run_20260730_195820_td3_matlab_ode3_student_100hz_actor1x32_critic2x32\FurutaTD3_matlab_ode3_student_100hz_actor1x32_critic2x32_final.mat"; % Empty selects the newest MATLAB analytical final agent.
-%agentFile = "C:\Users\abuj\Code\Reinforcement-Learning-Furuta-Inverted-Pendulum\results\TD3\run_20260730_220652_985_resume_20260730_195820_td3_matlab_ode3_student_100hz_actor1x32_critic2x32\FurutaTD3_matlab_ode3_student_100hz_actor1x32_critic2x32_continued_final.mat"; % Empty selects the newest MATLAB analytical final agent.
-%agentFile = "C:\Users\abuj\Code\Reinforcement-Learning-Furuta-Inverted-Pendulum\results\TD3\run_20260730_210332_882_td3_matlab_ode3_student_100hz_actor1x16_critic2x16\FurutaTD3_matlab_ode3_student_100hz_actor1x16_critic2x16_final.mat"; % Empty selects the newest MATLAB analytical final agent.
+agentRun = "run_20260728_153540_td3_matlab_analytical_100hz_fast";
+agentName = "FurutaTD3_matlab_analytical_100hz_fast_actor1x64_critic2x64_final.mat";
 
 theta1InitialDeg = 0;
 theta2InitialDeg = 0;
@@ -28,9 +25,11 @@ scriptDir = fileparts(mfilename("fullpath"));
 repoRoot = fileparts(scriptDir);
 cd(repoRoot)
 addpath(genpath(fullfile(repoRoot, "scripts")))
-
-if strlength(agentFile) == 0
-    agentFile = localNewestFinalAgent(repoRoot);
+paths = getFurutaPaths(ProjectRoot=repoRoot);
+if strlength(agentRun) == 0 || strlength(agentName) == 0
+    agentFile = localNewestFinalAgent(paths.ResultsRoot);
+else
+    agentFile = fullfile(paths.ResultsRoot, "TD3", agentRun, agentName);
 end
 
 loaded = load(agentFile, "agent", "cfg");
@@ -216,8 +215,8 @@ end
 value = double(action(1));
 end
 
-function agentPath = localNewestFinalAgent(repoRoot)
-pattern = fullfile(repoRoot, "results", "TD3", ...
+function agentPath = localNewestFinalAgent(resultsRoot)
+pattern = fullfile(resultsRoot, "TD3", ...
     "run_*_td3_matlab_analytical_*", "*final.mat");
 files = dir(pattern);
 if isempty(files)

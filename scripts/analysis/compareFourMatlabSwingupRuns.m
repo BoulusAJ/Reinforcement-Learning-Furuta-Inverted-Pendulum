@@ -4,6 +4,7 @@ scriptDir = fileparts(mfilename("fullpath"));
 repoRoot = fileparts(fileparts(scriptDir));
 cd(repoRoot)
 addpath(genpath(fullfile(repoRoot, "scripts")))
+paths = getFurutaPaths(ProjectRoot=repoRoot);
 
 outputDir = fullfile(repoRoot, "outputs", "matlab_swingup_four_run_comparison");
 if ~isfolder(outputDir)
@@ -35,7 +36,7 @@ colors = lines(numel(runs));
 summaryRows = cell(numel(runs), 18);
 
 for runIndex = 1:numel(runs)
-    runFolder = fullfile(repoRoot, "results", "TD3", runs(runIndex).Folder);
+    runFolder = fullfile(paths.ResultsRoot, "TD3", runs(runIndex).Folder);
     agentFile = fullfile(runFolder, runs(runIndex).FinalFile);
     loaded = load(agentFile, "agent", "cfg", "trainingStats", "resumeInfo");
     rollout = localRollout(loaded.agent, loaded.cfg);

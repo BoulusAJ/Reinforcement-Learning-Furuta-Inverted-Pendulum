@@ -11,8 +11,14 @@ function comparison = compareWetoInputRuns(runDirs, options)
 
 arguments
     runDirs (:,1) string
-    options.OutputCsv (1,1) string = fullfile("results", "weto_input_comparison_summary.csv")
+    options.OutputCsv (1,1) string = ""
     options.IncludeMissing (1,1) logical = true
+end
+
+if strlength(options.OutputCsv) == 0
+    paths = getFurutaPaths();
+    options.OutputCsv = fullfile(paths.ResultsRoot, ...
+        "weto_input_comparison_summary.csv");
 end
 
 rows = table();

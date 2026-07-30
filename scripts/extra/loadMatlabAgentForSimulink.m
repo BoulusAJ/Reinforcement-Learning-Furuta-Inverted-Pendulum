@@ -2,11 +2,12 @@
 
 scriptDir = fullfile(pwd, "scripts");
 addpath(genpath(scriptDir));
+paths = getFurutaPaths(ProjectRoot=pwd);
 
 %% Select agent and Simulink model
 
 agentFile = fullfile( ...
-    "results", "TD3", ...
+    paths.ResultsRoot, "TD3", ...
     "run_20260728_153540_td3_matlab_analytical_100hz_fast", ...
     "FurutaTD3_matlab_analytical_100hz_fast_actor1x64_critic2x64_final.mat");
 

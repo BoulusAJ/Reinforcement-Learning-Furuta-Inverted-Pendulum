@@ -3,8 +3,9 @@ function cfg = makeFurutaConfig()
 
 cfg.ProjectName = "FurutaRL";
 
-scriptDir = fileparts(mfilename("fullpath"));
-cfg.ProjectRoot = fileparts(scriptDir);
+paths = getFurutaPaths();
+cfg.ProjectRoot = paths.ProjectRoot;
+cfg.ResultsRoot = paths.ResultsRoot;
 
 % Keep a stripped model for training and a richer model for evaluation and
 % signal inspection. cfg.Model.Name remains the training/default model for
@@ -85,7 +86,7 @@ cfg.Safety.PendulumEnableAngle = deg2rad(30);
 cfg.Safety.PendulumDisableAngle = deg2rad(10);
 
 cfg.Training.SavePrefix = "Furuta" + cfg.Agent.Algorithm + "_direct_swingup";
-cfg.Training.ResultsDir = fullfile(cfg.ProjectRoot, "results", cfg.Agent.Algorithm);
+cfg.Training.ResultsDir = fullfile(cfg.ResultsRoot, cfg.Agent.Algorithm);
 cfg.Training.RunName = "run_" + string(datetime("now", "Format", "yyyyMMdd_HHmmss")) + "_" + lower(cfg.Agent.Algorithm) + "_direct_swingup";
 cfg.Training.OutputRoot = fullfile(cfg.Training.ResultsDir, cfg.Training.RunName);
 cfg.Training.StageDir = fullfile(cfg.Training.OutputRoot, "stages");

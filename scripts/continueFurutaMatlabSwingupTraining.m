@@ -4,8 +4,8 @@
 % overwritten. The continued agent, evaluator checkpoints, and statistics
 % are written to a new results directory.
 
-sourceRunFolder = fullfile("results", "TD3", ...
-    "run_20260730_195820_td3_matlab_ode3_student_100hz_actor1x32_critic2x32");
+sourceRunName = ...
+    "run_20260730_195820_td3_matlab_ode3_student_100hz_actor1x32_critic2x32";
 checkpointPreference = "final"; % "best" or "final"
 additionalEpisodes = 2000;
 if ~exist("startTraining", "var")
@@ -16,7 +16,9 @@ scriptDir = fileparts(mfilename("fullpath"));
 repoRoot = fileparts(scriptDir);
 cd(repoRoot)
 addpath(genpath(fullfile(repoRoot, "scripts")))
+paths = getFurutaPaths(ProjectRoot=repoRoot);
 
+sourceRunFolder = fullfile(paths.ResultsRoot, "TD3", sourceRunName);
 sourceRunFolder = localAbsolutePath(sourceRunFolder, repoRoot);
 sourceAgentFile = localSelectCheckpoint(sourceRunFolder, checkpointPreference);
 loaded = load(sourceAgentFile, "agent", "cfg", "evaluationSummary");
@@ -38,6 +40,8 @@ cfg.Training.ResumeAdditionalEpisodes = additionalEpisodes;
 cfg.Training.MaxEpisodes = additionalEpisodes;
 cfg.Training.RunName = "run_" + resumeStamp + "_resume_" + ...
     erase(sourceRunName, "run_");
+cfg.ResultsRoot = paths.ResultsRoot;
+cfg.Training.ResultsDir = fullfile(paths.ResultsRoot, "TD3");
 cfg.Training.OutputRoot = fullfile(cfg.Training.ResultsDir, cfg.Training.RunName);
 cfg.Training.ConfigDir = fullfile(cfg.Training.OutputRoot, "config");
 cfg.Training.SavedAgentDir = fullfile(cfg.Training.OutputRoot, "saved_agents");

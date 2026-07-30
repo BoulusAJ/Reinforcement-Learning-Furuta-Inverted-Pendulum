@@ -5,11 +5,13 @@
 clear
 clc
 
-repoRoot = "C:\Users\abuj\Code\Reinforcement-Learning-Furuta-Inverted-Pendulum";
+scriptDir = fileparts(mfilename("fullpath"));
+repoRoot = fileparts(fileparts(scriptDir));
 cd(repoRoot)
 addpath(genpath(fullfile(repoRoot, "scripts")))
+paths = getFurutaPaths(ProjectRoot=repoRoot);
 
-runDir = fullfile(repoRoot, "results", "DDPG", "run_20260604_existing_stage_results");
+runDir = fullfile(paths.ResultsRoot, "DDPG", "run_20260604_existing_stage_results");
 stageIndices = [1 2];
 
 theta0Raw = [0; pi + deg2rad(1)];
@@ -19,7 +21,7 @@ fprintf("Raw theta0 = [%.6f; %.6f] rad\n", theta0Raw(1), theta0Raw(2));
 fprintf("Expected theta2Error0 = %.6f rad = %.3f deg\n\n", ...
     theta2Error0, rad2deg(theta2Error0));
 
-diagnosticDir = fullfile(repoRoot, "results", "diagnostics");
+diagnosticDir = fullfile(paths.ResultsRoot, "diagnostics");
 if ~isfolder(diagnosticDir)
     mkdir(diagnosticDir);
 end

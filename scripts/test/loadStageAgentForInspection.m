@@ -3,7 +3,7 @@
 cd("C:\Users\abuj\Code\Reinforcement-Learning-Furuta-Inverted-Pendulum")
 addpath(genpath("scripts"))
 
-runDir = fullfile("results", "DDPG", "run_20260604_existing_stage_results");
+runDir = furutaResultsPath("DDPG", "run_20260604_existing_stage_results");
 stageIndex = 1;
 
 loaded = loadFurutaStageAgent(runDir, stageIndex);

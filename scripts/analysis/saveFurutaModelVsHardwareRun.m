@@ -185,7 +185,8 @@ end
 function outputRoot = localDefaultOutputRoot()
 scriptDir = fileparts(mfilename("fullpath"));
 repoRoot = fileparts(fileparts(scriptDir));
-outputRoot = fullfile(repoRoot, "results", "model_vs_hardware");
+paths = getFurutaPaths(ProjectRoot=repoRoot);
+outputRoot = fullfile(paths.ResultsRoot, "model_vs_hardware");
 end
 
 function slug = localSlug(value)

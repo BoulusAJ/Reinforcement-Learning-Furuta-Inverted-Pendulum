@@ -43,7 +43,7 @@ for hiddenUnits = bench.HiddenUnits
     end
 end
 
-diagnosticDir = fullfile(cfg.ProjectRoot, "results", "diagnostics");
+diagnosticDir = fullfile(cfg.ResultsRoot, "diagnostics");
 if ~isfolder(diagnosticDir)
     mkdir(diagnosticDir);
 end

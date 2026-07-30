@@ -25,6 +25,9 @@ __pycache__/
 Thumbs.db
 .vscode/
 .worktrees/
+
+# Per-user project paths (copy config/userConfig.example.json)
+config/userConfig.json
 outputs/**/edge-profile/
 scripts/inv_rot_pen_RL_cntr_simscape_sim_corrupted.slx
 scripts/inv_rot_pen_RL_cntr_simscape_sim_1b.slx.original

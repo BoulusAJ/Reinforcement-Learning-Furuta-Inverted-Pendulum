@@ -8,13 +8,17 @@ function summary = plotRecentFurutaTrainingProgress(options)
 %   trainingStats MAT file first, then the existing plotter is used.
 
 arguments
-    options.ResultsRoot (1,1) string = fullfile(pwd, "results")
+    options.ResultsRoot (1,1) string = ""
     options.NumRuns (1,1) double {mustBeInteger, mustBePositive} = 15
     options.SummaryName (1,1) string = "recent_training_progress_summary.csv"
     options.Visible (1,1) logical = false
 end
 
 resultsRoot = string(options.ResultsRoot);
+if strlength(resultsRoot) == 0
+    paths = getFurutaPaths();
+    resultsRoot = paths.ResultsRoot;
+end
 runDirs = findRunDirs(resultsRoot);
 if isempty(runDirs)
     error("plotRecentFurutaTrainingProgress:NoRuns", ...

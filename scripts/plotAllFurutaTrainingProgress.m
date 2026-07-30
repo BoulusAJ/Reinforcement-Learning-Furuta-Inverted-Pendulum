@@ -6,7 +6,7 @@ function summary = plotAllFurutaTrainingProgress(options)
 %   table to results/training_progress_batch_summary.csv.
 
 arguments
-    options.ResultsRoot (1,1) string = "results"
+    options.ResultsRoot (1,1) string = ""
     options.OutputName (1,1) string = "training_progress"
     options.RewardOnlyOutputName (1,1) string = "training_reward"
     options.SummaryName (1,1) string = "training_progress_batch_summary.csv"
@@ -14,6 +14,10 @@ arguments
 end
 
 resultsRoot = string(options.ResultsRoot);
+if strlength(resultsRoot) == 0
+    paths = getFurutaPaths();
+    resultsRoot = paths.ResultsRoot;
+end
 if ~isfolder(resultsRoot)
     error("plotAllFurutaTrainingProgress:MissingResultsRoot", ...
         "Results root does not exist: %s", resultsRoot);
