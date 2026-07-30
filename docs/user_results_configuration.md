@@ -1,21 +1,22 @@
-# User results configuration
+# User artifact storage configuration
 
-Training runs and experimental data can be stored outside the Git repository.
-All current workflows resolve their results directory through
+Training runs, experimental data, and generated analysis output can be stored
+outside the Git repository. Current workflows resolve these directories through
 `scripts/getFurutaPaths.m`.
 
 Resolution order:
 
-1. `FURUTA_RESULTS_ROOT` environment variable
-2. `config/userConfig.json`
-3. the repository-local `results/` directory
+1. `FURUTA_RESULTS_ROOT` and `FURUTA_OUTPUTS_ROOT` environment variables
+2. `resultsRoot` and `outputsRoot` in `config/userConfig.json`
+3. the repository-local `results/` and `outputs/` directories
 
 For a persistent machine-specific location, copy
 `config/userConfig.example.json` to `config/userConfig.json` and set:
 
 ```json
 {
-  "resultsRoot": "D:/Furuta-RL/results"
+  "resultsRoot": "D:/Furuta-RL/results",
+  "outputsRoot": "D:/Furuta-RL/outputs"
 }
 ```
 
@@ -28,11 +29,15 @@ calling a project script:
 
 ```matlab
 setenv("FURUTA_RESULTS_ROOT", "D:/Furuta-RL/results")
+setenv("FURUTA_OUTPUTS_ROOT", "D:/Furuta-RL/outputs")
 ```
 
-Without either override, a fresh clone uses its curated repository-local
-`results/` directory. Training configurations expose the resolved location as
+Without overrides, a fresh clone uses its repository-local `results/` and
+`outputs/` directories. Training configurations expose the result location as
 `cfg.ResultsRoot`; algorithm-specific runs use `cfg.Training.ResultsDir`.
+Generated plots and analysis packages should use `paths.OutputsRoot` or
+`furutaOutputsPath(...)`. Outputs selected for publication should be copied into
+`docs/` and referenced there explicitly.
 
 To inspect the active resolution:
 

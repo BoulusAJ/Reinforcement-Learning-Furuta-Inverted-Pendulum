@@ -17,7 +17,7 @@ function out = plotLqrCaptureRegionSlices(options)
 %
 % Optional name-value arguments:
 %
-%   OutputDir     string, default "outputs/lqr_capture_region"
+%   OutputDir     string, optional explicit output directory
 %   Visible       logical, default true
 %   SaveFig       logical, default true
 %   IMax          double, default 1.5
@@ -25,7 +25,7 @@ function out = plotLqrCaptureRegionSlices(options)
 %   Omega1Slices  double vector, default [5 2 0 -2 -5]
 
 arguments
-    options.OutputDir (1,1) string = "outputs/lqr_capture_region"
+    options.OutputDir (1,1) string = ""
     options.Visible (1,1) logical = true
     options.SaveFig (1,1) logical = true
     options.IMax (1,1) double = 1.5
@@ -54,7 +54,15 @@ else
 end
 rhos = unique(rhos, "stable");
 
-outDir = fullfile(repoRoot, options.OutputDir);
+if strlength(options.OutputDir) == 0
+    paths = getFurutaPaths(ProjectRoot=repoRoot);
+    outDir = fullfile(paths.OutputsRoot, "lqr_capture_region");
+else
+    outDir = options.OutputDir;
+    if ~localIsAbsolutePath(outDir)
+        outDir = fullfile(repoRoot, outDir);
+    end
+end
 if ~exist(outDir, "dir")
     mkdir(outDir);
 end
@@ -96,6 +104,15 @@ out = struct( ...
 
 save(fullfile(outDir, "lqr_capture_region_data.mat"), ...
     "A", "B", "K", "P", "poles", "Q", "R", "rhos", "rhoCurrentLimit");
+end
+
+function tf = localIsAbsolutePath(pathValue)
+if ispc
+    tf = ~isempty(regexp(pathValue, "^[A-Za-z]:[\\/]", "once")) ...
+        || startsWith(pathValue, "\\");
+else
+    tf = startsWith(pathValue, "/");
+end
 end
 
 function fig = localPlotTheta2Omega2(P, rhos, labels, colors, visible)

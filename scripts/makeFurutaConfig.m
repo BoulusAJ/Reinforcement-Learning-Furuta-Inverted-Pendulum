@@ -6,6 +6,7 @@ cfg.ProjectName = "FurutaRL";
 paths = getFurutaPaths();
 cfg.ProjectRoot = paths.ProjectRoot;
 cfg.ResultsRoot = paths.ResultsRoot;
+cfg.OutputsRoot = paths.OutputsRoot;
 
 % Keep a stripped model for training and a richer model for evaluation and
 % signal inspection. cfg.Model.Name remains the training/default model for

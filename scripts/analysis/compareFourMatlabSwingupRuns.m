@@ -6,7 +6,7 @@ cd(repoRoot)
 addpath(genpath(fullfile(repoRoot, "scripts")))
 paths = getFurutaPaths(ProjectRoot=repoRoot);
 
-outputDir = fullfile(repoRoot, "outputs", "matlab_swingup_four_run_comparison");
+outputDir = fullfile(paths.OutputsRoot, "matlab_swingup_four_run_comparison");
 if ~isfolder(outputDir)
     mkdir(outputDir);
 end
