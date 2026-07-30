@@ -86,3 +86,20 @@ Before retraining, evaluate the current 100 Hz policy while updating it at
 only a robustness experiment: the policy was trained with a 10 ms previous
 action and state-transition interval, so success at 20 Hz is possible but is
 not guaranteed.
+
+### 20 Hz ZOH result
+
+The existing 100 Hz policy was evaluated from the nominal hanging state at
+20 Hz with a 50 ms zero-order hold. It did not succeed. The rollout terminated
+on the arm-angle safety guard after 0.20 s:
+
+```text
+theta1 = 1.6067 rad (about 92.1 deg)
+theta2 = -2.5521 rad
+omega1 = -9.5933 rad/s
+omega2 = -12.7368 rad/s
+```
+
+The arm limit is 90 degrees. This indicates that the existing policy depends
+on its 100 Hz update rate and should not be deployed at 20 Hz unchanged. A
+new 20 Hz policy can still be trained and evaluated as a separate experiment.
