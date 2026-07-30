@@ -103,3 +103,50 @@ omega2 = -12.7368 rad/s
 The arm limit is 90 degrees. This indicates that the existing policy depends
 on its 100 Hz update rate and should not be deployed at 20 Hz unchanged. A
 new 20 Hz policy can still be trained and evaluated as a separate experiment.
+
+## Reduced-update student experiment
+
+The convention-correct ODE3 run
+`run_20260730_181326_td3_matlab_ode3_student_100hz` tested whether substantially
+reducing TD3 learning work per episode could make training practical on an
+average student laptop. It retained the 1x64 actor and 2x64 critics, but used a
+smaller update budget than the successful July 28 fast baseline.
+
+| Setting | Successful July 28 fast baseline | July 30 student run |
+|---|---:|---:|
+| Actor hidden layers | 1x64 | 1x64 |
+| Critic hidden layers | 2x64 | 2x64 |
+| Mini-batch size | 256 | 128 |
+| Epochs per learning burst | 1 | 1 |
+| Maximum updates per episode | 25 | 10 |
+| Maximum replay samples processed per episode | 6,400 | 1,280 |
+| Maximum episodes | 5,000 | 3,000 |
+| Episode duration | 5 s | 3 s |
+| Observation convention | Legacy positive-state signs | Simulink reference minus measurement |
+| Fixed-step integration | RK4 | ODE3-equivalent |
+
+For context, an earlier heavyweight proposal used batch size 1,024, 10 epochs,
+and up to 100 mini-batches per epoch. Its theoretical maximum was 1,000 updates
+and 1,024,000 replay samples per episode. Moving first to 256/25 and then to
+128/10 greatly reduced the pause caused by learning after each episode.
+
+The July 30 result does **not** show that the observation convention caused the
+failure, nor that fewer updates solve the overall training-time problem. It
+shows that the reduced update budget made individual episodes advance faster,
+but 3,000 episodes were not enough for this run to learn a successful swing-up
+policy. The reward and Q0 trends suggested that another roughly 2,000 to 3,000
+episodes might have been required.
+
+The working hypothesis is that this task needs a minimum total amount of useful
+TD3 optimization before swing-up emerges. Reducing updates per episode can
+therefore require proportionally more episodes and may leave total wall-clock
+training time similar. This motivated the subsequent network-size experiments:
+keep a more adequate update budget while reducing actor and critic computation.
+Those experiments found that 1x32/2x32 could learn swing-up but was less smooth
+than the successful 1x64/2x64 policy, while 1x16/2x16 was too oscillatory.
+
+This is an empirical conclusion from a small number of runs, not proof that all
+configurations require exactly the same number of updates. A controlled follow-up
+should hold the plant, reward, observation convention, reset distribution, and
+random seed policy constant, then compare success against cumulative gradient
+updates and wall-clock time rather than episode count alone.
