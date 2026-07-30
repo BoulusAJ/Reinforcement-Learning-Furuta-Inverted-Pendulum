@@ -56,7 +56,8 @@ end
 function reward = localCopyCaptureFields(reward, done)
 fields = ["KCapture", "PCapture", "RhoCapture", "CurrentLimit", ...
     "Theta1Guard", "Theta2Guard", "Omega1Guard", "Omega2Guard", ...
-    "ObservationOmegaIsScaled", "ObservationOmegaScale"];
+    "ObservationOmegaIsScaled", "ObservationOmegaScale", ...
+    "EnableTimeout", "MaxSteps"];
 for idx = 1:numel(fields)
     reward.(fields(idx)) = done.(fields(idx));
 end

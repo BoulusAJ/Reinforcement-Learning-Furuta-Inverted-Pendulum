@@ -30,6 +30,12 @@ omega1Unsafe = abs(omega1) > safetyParams.MaxAbsAngularVelocity;
 omega2Unsafe = abs(omega2) > safetyParams.MaxAbsAngularVelocity;
 isUnsafe = theta1Unsafe || theta2Unsafe || omega1Unsafe || omega2Unsafe;
 
+timeout = false;
+if isfield(rewardParams, "EnableTimeout") && rewardParams.EnableTimeout && ...
+        isfield(rewardParams, "MaxSteps")
+    timeout = stepCount >= rewardParams.MaxSteps;
+end
+
 % Global swing-up progress. This is high near upright and low near downward.
 uprightProgress = cos(theta2Error);
 
@@ -53,10 +59,15 @@ rewardTermAction = -rewardParams.ActionWeight * actionCost;
 rewardTermActionSmoothness = -actionDiffWeight * actionSmoothnessCost;
 rewardTermCaptureBonus = rewardParams.CaptureBonus * double(captured);
 rewardTermUnsafePenalty = -rewardParams.UnsafePenalty * double(isUnsafe);
+rewardTermTimeoutPenalty = 0;
+if isfield(rewardParams, "TimeoutPenalty")
+    rewardTermTimeoutPenalty = ...
+        -rewardParams.TimeoutPenalty * double(timeout && ~captured && ~isUnsafe);
+end
 
 reward = rewardTermProgress + rewardTermTheta1 + rewardTermOmega1 + ...
     rewardTermOmega2Near + rewardTermAction + rewardTermActionSmoothness + ...
-    rewardTermCaptureBonus + rewardTermUnsafePenalty;
+    rewardTermCaptureBonus + rewardTermUnsafePenalty + rewardTermTimeoutPenalty;
 
 diagnosis = struct( ...
     "theta1Unsafe", theta1Unsafe, ...
@@ -76,7 +87,8 @@ diagnosis = struct( ...
     "rewardTerm_actionEffort", rewardTermAction, ...
     "rewardTerm_actionSmoothness", rewardTermActionSmoothness, ...
     "rewardTerm_uprightBonus", rewardTermCaptureBonus, ...
-    "rewardTerm_unsafePenalty", rewardTermUnsafePenalty);
+    "rewardTerm_unsafePenalty", ...
+        rewardTermUnsafePenalty + rewardTermTimeoutPenalty);
 end
 
 function weight = localActionDiffWeight(params)

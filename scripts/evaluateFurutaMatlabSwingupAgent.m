@@ -5,12 +5,24 @@
 %   theta2 = 0 deg   -> pendulum hanging down
 %   theta2 = 180 deg -> pendulum upright
 
-agentFile = ""; % Empty selects the newest MATLAB analytical final agent.
+
+agentFile = "C:\Users\abuj\Code\Reinforcement-Learning-Furuta-Inverted-Pendulum\results\TD3\run_20260728_153540_td3_matlab_analytical_100hz_fast\FurutaTD3_matlab_analytical_100hz_fast_actor1x64_critic2x64_final.mat"; % Empty selects the newest MATLAB analytical final agent.
+%agentFile = "C:\Users\abuj\Code\Reinforcement-Learning-Furuta-Inverted-Pendulum\results\TD3\run_20260730_181326_td3_matlab_ode3_student_100hz\FurutaTD3_matlab_ode3_student_100hz_actor1x64_critic2x64_final.mat"; % Empty selects the newest MATLAB analytical final agent.
+%agentFile = "C:\Users\abuj\Code\Reinforcement-Learning-Furuta-Inverted-Pendulum\results\TD3\run_20260730_195820_td3_matlab_ode3_student_100hz_actor1x32_critic2x32\FurutaTD3_matlab_ode3_student_100hz_actor1x32_critic2x32_final.mat"; % Empty selects the newest MATLAB analytical final agent.
+%agentFile = "C:\Users\abuj\Code\Reinforcement-Learning-Furuta-Inverted-Pendulum\results\TD3\run_20260730_220652_985_resume_20260730_195820_td3_matlab_ode3_student_100hz_actor1x32_critic2x32\FurutaTD3_matlab_ode3_student_100hz_actor1x32_critic2x32_continued_final.mat"; % Empty selects the newest MATLAB analytical final agent.
+%agentFile = "C:\Users\abuj\Code\Reinforcement-Learning-Furuta-Inverted-Pendulum\results\TD3\run_20260730_210332_882_td3_matlab_ode3_student_100hz_actor1x16_critic2x16\FurutaTD3_matlab_ode3_student_100hz_actor1x16_critic2x16_final.mat"; % Empty selects the newest MATLAB analytical final agent.
 
 theta1InitialDeg = 0;
 theta2InitialDeg = 0;
 omega1Initial = 0; % rad/s
 omega2Initial = 0; % rad/s
+
+% Policy update rate for evaluation. The agent was trained at 100 Hz.
+% Set this to 20 to test the existing policy with a 50 ms zero-order hold.
+% A value assigned before running this script is preserved for batch tests.
+if ~exist("evaluationAgentHz", "var")
+    evaluationAgentHz = 100;
+end
 
 scriptDir = fileparts(mfilename("fullpath"));
 repoRoot = fileparts(scriptDir);
@@ -33,12 +45,29 @@ else
     cfg = makeFurutaMatlabSwingupTD3Config();
 end
 
+cfg.Agent.SampleTime = 1 / evaluationAgentHz;
+ratio = cfg.Agent.SampleTime / cfg.MatlabEnvironment.IntegrationStep;
+cfg.MatlabEnvironment.Substeps = round(ratio);
+if abs(ratio - cfg.MatlabEnvironment.Substeps) > 1e-12
+    error("Evaluation agent period must be an integer multiple of the plant step.");
+end
+cfg.Done.MaxSteps = ceil(cfg.Training.EpisodeDuration / cfg.Agent.SampleTime);
+cfg.Termination = cfg.Done;
+cfg.IsDone = cfg.Done;
+cfg.Reward.AgentSampleTime = cfg.Agent.SampleTime;
+
 cfg.MatlabEnvironment.Reset.Theta1Range = deg2rad(theta1InitialDeg) * [1 1];
 cfg.MatlabEnvironment.Reset.Theta2Range = deg2rad(theta2InitialDeg) * [1 1];
 cfg.MatlabEnvironment.Reset.Omega1Range = omega1Initial * [1 1];
 cfg.MatlabEnvironment.Reset.Omega2Range = omega2Initial * [1 1];
 
-env = createFurutaAnalyticalSwingupEnv(cfg);
+usesSimulinkConvention = isfield(cfg.Observation, "ErrorConvention") && ...
+    string(cfg.Observation.ErrorConvention) == "reference_minus_measurement";
+if usesSimulinkConvention
+    env = createFurutaAnalyticalSwingupEnvSimulinkConvention(cfg);
+else
+    env = createFurutaAnalyticalSwingupEnv(cfg);
+end
 maxSteps = cfg.Done.MaxSteps;
 Ts = cfg.Agent.SampleTime;
 
@@ -109,6 +138,13 @@ end
 fprintf("Agent: %s\n", agentFile);
 fprintf("Initial state: theta1=%.2f deg, theta2=%.2f deg, omega1=%.2f rad/s, omega2=%.2f rad/s\n", ...
     theta1InitialDeg, theta2InitialDeg, omega1Initial, omega2Initial);
+fprintf("Policy evaluation rate: %.1f Hz (ZOH %.3f s)\n", ...
+    evaluationAgentHz, cfg.Agent.SampleTime);
+if usesSimulinkConvention
+    fprintf("Observation convention: Simulink reference-minus-measurement; integrator: ode3.\n");
+else
+    fprintf("Observation convention: legacy MATLAB positive-state signs; integrator: RK4.\n");
+end
 fprintf("Outcome: %s at %.3f s; return = %.3f\n", ...
     outcome, stateTime(end), sum(reward));
 
