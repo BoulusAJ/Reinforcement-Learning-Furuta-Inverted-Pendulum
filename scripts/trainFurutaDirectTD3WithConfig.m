@@ -24,6 +24,12 @@ env.ResetFcn = @localResetFcnFurutaCurriculum;
 assignin("base", "curriculumParams", cfg.Training.Reset);
 assignin("base", "rewardParams", cfg.Reward);
 assignin("base", "safetyParams", cfg.Safety);
+if isfield(cfg, "Done")
+    assignin("base", "doneParams", cfg.Done);
+    assignin("base", "isDoneParams", cfg.Done);
+    assignin("base", "terminationParams", cfg.Done);
+    assignin("base", "captureParams", cfg.Done);
+end
 
 agent = createTrainingAgent(obsInfo, actInfo, cfg);
 evalCfg = makeFurutaMathWorksStyleEvalConfig(cfg);
@@ -54,6 +60,10 @@ trainOpts = rlTrainingOptions( ...
     SaveAgentValue=cfg.Training.SaveAgentValue, ...
     SaveAgentDirectory=cfg.Training.SavedAgentDir, ...
     UseParallel=cfg.Training.UseParallel);
+
+if isfield(cfg.Training, "StopTrainingValue")
+    trainOpts.StopTrainingValue = cfg.Training.StopTrainingValue;
+end
 
 if cfg.Training.UseParallel
     trainOpts.ParallelizationOptions.Mode = cfg.Training.ParallelMode;

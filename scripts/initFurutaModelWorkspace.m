@@ -92,6 +92,12 @@ ws.V_oben = V_oben;
 ws.K = K;
 ws.rewardParams = cfg.Reward;
 ws.safetyParams = cfg.Safety;
+if isfield(cfg, "Done")
+    ws.doneParams = cfg.Done;
+    ws.isDoneParams = cfg.Done;
+    ws.terminationParams = cfg.Done;
+    ws.captureParams = cfg.Done;
+end
 ws.FurutaRewardDiagnosisBus = createFurutaRewardDiagnosisBus(AssignToBase=false);
 ws = localMergeStructs(ws, detailedWs);
 
