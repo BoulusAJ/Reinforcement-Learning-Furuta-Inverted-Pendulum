@@ -76,7 +76,7 @@ Treat it as a calibration candidate, not a final physical constant.
 
 ## Suggested 5011 Next Steps
 
-1. Merge or cherry-pick this side branch into `weto-inputs`.
+1. Merge or cherry-pick this side branch into `dev/weto-inputs`.
 2. Verify the detailed model opens and simulates with the final `500Hz_long`
    agent loaded.
 3. Confirm filter initial conditions behave correctly for nonzero `theta0` and

@@ -4,11 +4,12 @@ Branch: `dev/weto-inputs-side`
 
 This was a short-lived, low-conflict preparation branch used while current
 training work and unpushed results could still exist on another PC. It supported
-the main `weto-inputs` experiment branch and was merged into it on July 3, 2026.
+the main `dev/weto-inputs` experiment branch and was merged into it on July 3,
+2026.
 
 ## Purpose
 
-The main `weto-inputs` branch was applying suggestions from Thomas Weinmann
+The main `dev/weto-inputs` branch was applying suggestions from Thomas Weinmann
 (ZHAW), initially through controlled network-size and observation experiments.
 This side branch allowed model-fidelity analysis and detailed-plant preparation
 to continue without disturbing those runs or their training configuration.
@@ -23,7 +24,7 @@ Its work had two stages:
 
 - Added the initial 200 Hz and 500 Hz 1x64 TD3 configurations and training
   scripts. The completed run results and conclusions were later committed on
-  `weto-inputs`.
+  `dev/weto-inputs`.
 - Analyzed uncontrolled current measurements, including bias, noise
   distribution, spectrum, and possible mains harmonics.
 - Prepared the first detailed `1c` analytical-plant, training, analysis, and
@@ -41,7 +42,7 @@ completed detailed training campaign or establish that the approach worked.
 
 ## Outcome
 
-The preparation was successfully merged into `weto-inputs`. Subsequent work on
+The preparation was successfully merged into `dev/weto-inputs`. Subsequent work on
 that branch showed that the detailed plant was useful for evaluating existing
 agents and exposing model-to-hardware mismatches, but the tested scratch and
 fine-tuning runs did not produce a reliable new swing-up-and-balance policy.
@@ -60,16 +61,16 @@ preparation checkpoint, not as a separate successful controller result.
 - `scripts/inv_rot_pen_RL_cntr_simscape_sim_1c*.slx`
 - `data/system_measurements/`
 
-## Relationship to `weto-inputs`
+## Relationship to `dev/weto-inputs`
 
-`dev/weto-inputs-side` was merged into `weto-inputs` in commit `a56a612`.
-Consequently, the final `weto-inputs` branch contains the files prepared here as
+`dev/weto-inputs-side` was merged into `dev/weto-inputs` in commit `a56a612`.
+Consequently, the final `dev/weto-inputs` branch contains the files prepared here as
 well as the later training results, hardware comparisons, `1d` work, and July 9
-presentation material. Use the `weto-inputs` README for the complete outcome.
+presentation material. Use the `dev/weto-inputs` README for the complete outcome.
 
 ## Archive Decision
 
 Keep this branch as a compact record of where the detailed-model preparation
 originated. Do not merge it separately into the final main branch because its
-useful content is already present in `weto-inputs`. Select only maintained
+useful content is already present in `dev/weto-inputs`. Select only maintained
 model-fidelity documentation or helpers needed by the final project.
