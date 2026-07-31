@@ -82,6 +82,24 @@ config/       Example per-user paths for generated results and outputs
 Generated training runs are not stored in `main`. Configure an external results
 folder as described in [`docs/reproduction_guide.md`](docs/reproduction_guide.md).
 
+## Acknowledgment
+
+This project was developed as part of a research project at the Zurich
+University of Applied Sciences (ZHAW). The work was carried out by Boulus Abu
+Joudom during his employment at the Institute of Mechatronics (IMS), ZHAW.
+
+## License
+
+Copyright (C) 2026 Zurich University of Applied Sciences (ZHAW).
+
+The project is licensed under the GNU General Public License version 3. You may
+use, study, modify, and redistribute it under the terms of that license.
+Commercial use is permitted by GPLv3; distributed modified versions must follow
+the GPLv3 source and license requirements.
+
+See [`LICENSE`](LICENSE), [`NOTICE`](NOTICE), and
+[`THIRD_PARTY_NOTICES.md`](THIRD_PARTY_NOTICES.md).
+
 ## Project Status
 
 - TD3 swing-up and balance: successful in simulation and on the Nucleo.

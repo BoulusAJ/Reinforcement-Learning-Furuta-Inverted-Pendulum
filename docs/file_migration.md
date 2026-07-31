@@ -5,6 +5,9 @@ This file records how the clean `main` snapshot was assembled on July 31, 2026.
 ## New Files
 
 - `README.md`: new project entry point.
+- `LICENSE`: GNU General Public License version 3.
+- `NOTICE`: ZHAW rights holder and author acknowledgment.
+- `THIRD_PARTY_NOTICES.md`: external firmware, MATLAB, and Simulink notes.
 - `startupFurutaProject.m`: adds maintained folders to the MATLAB path.
 - `shared/configuration/findFurutaProjectRoot.m`: finds the repository root from
   nested scripts.
