@@ -1,12 +1,11 @@
 # 2026-06-30 Onboard RL Success
 
-Milestone firmware from the Nucleo policy deployment prototype.
+Milestone firmware from the successful Nucleo policy demonstrator.
 
 ## Source
 
-Built from the `codex/nucleo-policy-deploy` worktree before this milestone
-commit. The commit containing this manifest should be treated as the source
-identifier for the artifacts.
+Built in the worktree that became branch `dev/nucleo-policy-deploy`. Commit
+`8b711dd` contains this manifest and the archived deployment source.
 
 ## Test Notes
 
@@ -18,6 +17,9 @@ identifier for the artifacts.
   behavior closely; `ucCurrentCmd` controlled swing-up and balance from SLDRT.
 - Nucleo `rl_policy_current_cmd` matched the Simulink-side command after adding
   about two agent-sample delay compensation in the scope comparison.
+- The deployed agent was the older combined swing-up-and-balance TD3 policy.
+- Its action used a 4 A scale, while this firmware limited the policy command to
+  0.5 A before the current offset. The final 4 A clamp was a separate bound.
 
 ## Important Config
 

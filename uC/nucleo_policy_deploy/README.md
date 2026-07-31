@@ -1,9 +1,15 @@
-# Nucleo Policy Deployment Prototype
+# Nucleo Policy Deployment Demonstrator
 
-This folder is a sidecar prototype for deploying the trained Furuta TD3 actor
-on the Nucleo firmware used by the `drehpendel` project. It is intentionally
-laid out like a small PlatformIO/mbed project so the pieces can later be copied
-or merged into the standalone firmware repository.
+This folder contains the Nucleo deployment demonstrator for a trained Furuta
+TD3 actor. It is intentionally laid out like a small PlatformIO/mbed project so
+the pieces can later be copied or merged into the standalone firmware repository.
+
+## Recorded result
+
+The onboard controller successfully performed swing-up and upright balance on
+2026-06-30. This was the older combined swing-up-and-balance policy, not the
+later TD3-swing-up plus LQR design. See `BRANCH_STATUS.md` and the preserved
+firmware manifest for the result, limitations, and parts recommended for reuse.
 
 The current target policy is:
 
@@ -21,17 +27,21 @@ policy sample time:    0.002 s / 500 Hz
 action scale:          normalized [-1, 1], then current = 4 A * action
 ```
 
+The 4 A value is the trained policy's action scale. During the successful
+onboard test, firmware first limited the policy command to 0.5 A, applied the
+0.0205 A sign-dependent offset, and retained a separate final 4 A bound.
+
 Only the actor is deployed. The TD3 critics are training-only and are not used
 on the microcontroller.
 
-Set this in `include/rl_policy_config.h` to compile the prototype in original
+Set this in `include/rl_policy_config.h` to compile the demonstrator in original
 drehpendel current-command mode:
 
 ```cpp
 #define RL_POLICY_CONTROLLER_ENABLE 0
 ```
 
-This is the safe default for the prototype. With this flag disabled, the NN policy thread and generated weights are not
+With this flag disabled, the NN policy thread and generated weights are not
 compiled, the UART response is the original 3-float response, and the host
 `current_cmd` input drives the current loop.
 

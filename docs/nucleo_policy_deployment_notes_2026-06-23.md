@@ -1,5 +1,11 @@
 # Nucleo Policy Deployment Notes - 2026-06-23
 
+Status update, 2026-06-30: this plan became a working demonstrator. The older
+combined swing-up-and-balance TD3 actor ran onboard at 500 Hz and completed
+swing-up and balance. The successful firmware used the policy's 4 A action scale
+with a 0.5 A policy-command clamp before the current offset. See
+`uC/nucleo_policy_deploy/BRANCH_STATUS.md` for the final branch summary.
+
 This note summarizes the side discussion about deploying the trained TD3 actor
 policy on the Nucleo F446RE as a demonstrator.
 
