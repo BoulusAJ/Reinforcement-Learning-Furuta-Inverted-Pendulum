@@ -2,11 +2,18 @@
 
 Branch: `weto-inputs`
 
-This branch records the work before and after the project meeting with Thomas
-Weinmann, the detailed-plant experiments that followed his input, and the
-preparation for the July 9 project presentation. It is retained as a historical
-branch. Its useful conclusions and selected files should later be carried into
-the final repository; the complete branch should not be merged unchanged.
+This was the primary experiment and results branch for applying the suggestions
+from the June 24 project meeting with Thomas Weinmann (ZHAW). Its purpose was to
+test smaller TD3 networks and alternate observations in controlled runs, then
+evaluate whether greater plant and signal-chain fidelity improved transfer and
+training. It also became the working branch for hardware comparisons and the
+July 9 project presentation.
+
+Some preparatory work was deliberately developed on `dev/weto-inputs-side` to
+avoid conflicts with runs and unpushed state on another PC. That branch was
+merged here on July 3 in commit `a56a612`. The final branch therefore contains
+both the side branch's preparation files and the experiments performed directly
+on `weto-inputs`; the chronology below distinguishes them.
 
 ## Chronology
 
@@ -40,21 +47,46 @@ factor at a time:
 5. Consider additional actuator state such as measured current or saturated
    voltage where the original observation hides important dynamics.
 
+### Work prepared on `dev/weto-inputs-side`
+
+The side branch prepared the initial 1x64 training configurations and the first
+detailed-model path without modifying active work elsewhere. It contributed:
+
+- 200 Hz and 500 Hz 1x64 TD3 training setups and comparison criteria;
+- uncontrolled-current noise analysis and reference measurements;
+- the initial detailed `1c` analytical, training, analysis, and comparison
+  models;
+- encoder, filter, friction, current-loop, and domain-randomization notes;
+- ramp-consistent velocity-filter initialization;
+- the result-comparison helper and the `5011` detailed-training handoff.
+
+These were preparation and handoff artifacts. The completed experiment results
+and conclusions were produced on the main `weto-inputs` line after the merge.
+
+See branch `dev/weto-inputs-side` and
+[`docs/weto_input_side_workflow.md`](docs/weto_input_side_workflow.md).
+
+### Work performed on `weto-inputs`
+
 The early network experiments showed that a one-layer 64-unit actor could learn
 the task if the critics remained stronger. A one-layer 64-unit critic was too
 small. The 1x64 actor / 2x64 critic policy was viable but more oscillatory and
 not better overall than `500Hz_long`.
 
-The pure unsigned arc-distance observation experiment failed. Removing angle
-direction, especially for the arm angle, made centering and limit avoidance much
-harder.
+The pure unsigned arc-distance observation experiment also failed. Removing
+angle direction, especially for the arm angle, made centering and limit
+avoidance much harder. The main branch collected these run results, continued
+the detailed `1c` scratch and fine-tuning experiments, added the `1d`
+measured-current and scaled-velocity variants, and recorded hardware swing-up
+comparisons.
 
 ### Detailed plant and July 9 preparation
 
-After the meeting, most of the model-fidelity suggestions were implemented and
-used to test both existing and newly trained agents. This work improved the
-realism of evaluation and exposed likely sim-to-real issues, but training on the
-detailed plant did not produce a successful swing-up-and-balance agent.
+After the meeting, the side branch prepared much of the first detailed model;
+after it was merged, `weto-inputs` used and extended that model to test existing
+and newly trained agents. This improved evaluation realism and exposed likely
+sim-to-real issues, but training on the detailed plant did not produce a
+successful swing-up-and-balance agent.
 
 From-scratch policies often learned to keep swinging without capturing upright.
 Fine-tuning the working `500Hz_long` policy could quickly destroy its initially
@@ -179,6 +211,9 @@ selectively retain:
 - detailed-model and model-vs-hardware conclusions,
 - relevant evaluation scripts,
 - the July 9 presentation and concise supporting evidence.
+
+Archive `dev/weto-inputs-side` separately as the provenance of the preparation
+work, but do not import it again: its useful commits were already merged here.
 
 The later MATLAB analytical swing-up plus LQR work is maintained on
 `dev/swing-up`. The embedded deployment pipeline is maintained on
