@@ -89,8 +89,8 @@ University of Applied Sciences (ZHAW). The work was carried out by Boulus Abu
 Joudom (abuj) during his employment at the Institute of Mechatronics (IMS),
 ZHAW.
 
-Thanks to colleagues Michael Peter (pmic) and Ruprecht Altenburger (altb) for
-their support and input during the project.
+Thanks to colleague Michael Peter (pmic) and project supervisor Ruprecht
+Altenburger (altb) for their support and input during the project.
 
 ## License
 
