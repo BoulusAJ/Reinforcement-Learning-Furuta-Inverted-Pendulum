@@ -5,7 +5,7 @@ Branch: `direct-td3-swingup`
 This branch records the transition from the earlier upright-stabilization/DDPG
 work to direct TD3 swing-up and balance. Its main result was a successful
 simulation-trained controller and the first useful hardware-transfer evidence.
-Later model-fidelity and robustness work continued on `weto-inputs`.
+Later model-fidelity and robustness work continued on `dev/weto-inputs`.
 
 ## Main result
 
@@ -108,7 +108,7 @@ detailed plant.
 - The learned combined controller could be aggressive and oscillatory near
   upright.
 - Some early 500 Hz evaluation artifacts used the wrong worker initialization
-  and were corrected later on `weto-inputs`.
+  and were corrected later on `dev/weto-inputs`.
 - Training and result directories are historical and not organized as a clean
   public release.
 
@@ -129,7 +129,7 @@ detailed plant.
 The work concluded with the June 24 meeting with Thomas Weinmann from ZHAW.
 His advice led to controlled network-size and observation experiments, followed
 by more detailed actuator, sensor, friction, and hardware-oriented modeling.
-That continuation is documented on branch `weto-inputs`.
+That continuation is documented on branch `dev/weto-inputs`.
 
 Archive this branch after the README is pushed. Do not merge it wholesale into
 the final repository. Retain the successful `500Hz_long` provenance, the
