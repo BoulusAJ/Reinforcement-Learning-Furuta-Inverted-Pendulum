@@ -1,84 +1,75 @@
-# Reinforcement Learning for a Furuta Inverted Pendulum
+# Weto Inputs Side Branch Archive
 
-This repository is the starting point for a Furuta inverted pendulum reinforcement-learning project. It continues the workflow learned from the water-tank DDPG project, but frames the pendulum work as a controlled comparison:
+Branch: `dev/weto-inputs-side`
 
-- build or import a simulation model,
-- implement a classical baseline such as LQR and/or PID,
-- train an RL controller for near-upright stabilization in simulation,
-- test robustness with parameter randomization and disturbances,
-- only then move toward hardware dry runs with safety fallback.
+This was a short-lived, low-conflict preparation branch used while current
+training work and unpushed results could still exist on another PC. It supported
+the main `weto-inputs` experiment branch and was merged into it on July 3, 2026.
 
-The goal is not "RL solves the Furuta pendulum." The stronger story is:
+## Purpose
 
-> RL is tested as a learned controller under safety constraints, compared against a classical baseline, with sim-to-real considerations.
+The main `weto-inputs` branch was applying suggestions from Thomas Weinmann
+(ZHAW), initially through controlled network-size and observation experiments.
+This side branch allowed model-fidelity analysis and detailed-plant preparation
+to continue without disturbing those runs or their training configuration.
 
-## Current Status
+Its work had two stages:
 
-The repo is intentionally lightweight until the lab-model details are available. Add the measured/provided hardware information in `docs/hardware_info_template.md`, then use those values to complete the simulation model and control limits.
+1. Prepare the explicit 1x64 TD3 actor/critic experiment and comparison notes.
+2. Prepare the more detailed `1c` plant, measurements, analysis tools, and a
+   handoff for training on a second PC.
 
-The current hardware-fidelity work is moving the simulation from an idealized
-plant/current-command model toward a detailed model of the real signal chain:
-current measurement bias/noise, command dead-zone compensation, theta1
-friction, encoder quantization/filtering, firmware current-loop dynamics,
-communication-rate effects, and hardware-style velocity estimation. The
-summary and future implementation notes are in
-`docs/domain_randomization_preparation.md`.
+## Work Done Here
 
-The current Weto-input experiment is a controlled network-size comparison:
-keep the 1b PI/current setup fixed and replace the default-style two-hidden-
-layer TD3 actor/critic networks with explicit `1x64` actor and critic
-networks. The experiment plan and prepared scripts are documented in
-`docs/weto_1x64_training_experiment_2026-06-26.md`.
+- Added the initial 200 Hz and 500 Hz 1x64 TD3 configurations and training
+  scripts. The completed run results and conclusions were later committed on
+  `weto-inputs`.
+- Analyzed uncontrolled current measurements, including bias, noise
+  distribution, spectrum, and possible mains harmonics.
+- Prepared the first detailed `1c` analytical-plant, training, analysis, and
+  model-vs-hardware Simulink variants.
+- Added current, friction, encoder, filtering, and communication-fidelity notes
+  for later model calibration and domain randomization.
+- Added ramp-consistent state initialization for the velocity filters.
+- Added `compareWetoInputRuns.m` for comparing result folders produced on
+  another machine.
+- Wrote the `5011` handoff for detailed-model fine-tuning from the working
+  `500Hz_long` policy.
 
-## Project Plan
+This branch prepared the detailed-model path; it did not contain the later
+completed detailed training campaign or establish that the approach worked.
 
-The current 20-day plan is captured in `docs/20_day_plan.md`.
+## Outcome
 
-## Repository Layout
+The preparation was successfully merged into `weto-inputs`. Subsequent work on
+that branch showed that the detailed plant was useful for evaluating existing
+agents and exposing model-to-hardware mismatches, but the tested scratch and
+fine-tuning runs did not produce a reliable new swing-up-and-balance policy.
 
-| Path | Purpose |
-|---|---|
-| `models/` | Simulink models, MATLAB plant models, and derived linearizations. |
-| `scripts/` | Training, reward, reset, baseline, and evaluation scripts. |
-| `hardware/` | Hardware interface notes, safety checks, and dry-run scripts. |
-| `references/` | External ZHAW rotary pendulum lab/course material used as source references. |
-| `data/` | Logged experiment data. Large generated files are ignored by default. |
-| `results/` | Training curves, comparison plots, videos, and exported metrics. |
-| `docs/` | Planning notes, model details, experiment design, and lab notes. |
+The side branch should therefore be read as an engineering handoff and model
+preparation checkpoint, not as a separate successful controller result.
 
-## First Milestones
+## Key Files
 
-1. Fill in `docs/hardware_info_template.md` with the Furuta lab model signals, actuator limits, encoder units, sample time, and safety constraints.
-2. Add or build the simulation model in `models/`.
-3. Implement and validate an LQR/PID baseline before training RL.
-4. Run RL only for near-upright stabilization first.
-5. Compare controllers using the same initial conditions, disturbances, and safety limits.
+- [`docs/weto_input_side_workflow.md`](docs/weto_input_side_workflow.md)
+- [`docs/5011_training_handoff.md`](docs/5011_training_handoff.md)
+- [`docs/domain_randomization_preparation.md`](docs/domain_randomization_preparation.md)
+- [`docs/weto_1x64_training_experiment_2026-06-26.md`](docs/weto_1x64_training_experiment_2026-06-26.md)
+- [`scripts/compareWetoInputRuns.m`](scripts/compareWetoInputRuns.m)
+- [`scripts/functions/rampConsistentFilterX0.m`](scripts/functions/rampConsistentFilterX0.m)
+- `scripts/inv_rot_pen_RL_cntr_simscape_sim_1c*.slx`
+- `data/system_measurements/`
 
-## Water-Tank Lessons to Reuse
+## Relationship to `weto-inputs`
 
-- Make task design explicit before training.
-- Normalize reward terms so critic values stay numerically reasonable.
-- Use reset distributions as a curriculum instead of jumping to the full task immediately.
-- Log angle, angular velocity, arm position, action, reward, termination reason, and safety flags.
-- Keep deterministic evaluation separate from exploratory training.
-- Treat hardware as a guarded validation step, not as a training playground.
+`dev/weto-inputs-side` was merged into `weto-inputs` in commit `a56a612`.
+Consequently, the final `weto-inputs` branch contains the files prepared here as
+well as the later training results, hardware comparisons, `1d` work, and July 9
+presentation material. Use the `weto-inputs` README for the complete outcome.
 
-## Suggested MATLAB Entry Points
+## Archive Decision
 
-These files are stubs until the lab model is known:
-
-- `scripts/makeFurutaConfig.m`
-- `scripts/trainFurutaStabilizationDDPG.m`
-- `scripts/rewardFcnFuruta.m`
-- `scripts/localResetFcnFurutaCurriculum.m`
-- `scripts/runBaselineComparison.m`
-- `scripts/evaluateFurutaController.m`
-
-Run the project from MATLAB after adding the model:
-
-```matlab
-addpath(genpath("scripts"))
-cfg = makeFurutaConfig();
-```
-
-Then fill in the model and block names in `makeFurutaConfig.m`.
+Keep this branch as a compact record of where the detailed-model preparation
+originated. Do not merge it separately into the final main branch because its
+useful content is already present in `weto-inputs`. Select only maintained
+model-fidelity documentation or helpers needed by the final project.
