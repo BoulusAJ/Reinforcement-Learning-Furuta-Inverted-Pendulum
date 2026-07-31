@@ -86,7 +86,11 @@ folder as described in [`docs/reproduction_guide.md`](docs/reproduction_guide.md
 
 This project was developed as part of a research project at the Zurich
 University of Applied Sciences (ZHAW). The work was carried out by Boulus Abu
-Joudom during his employment at the Institute of Mechatronics (IMS), ZHAW.
+Joudom (abuj) during his employment at the Institute of Mechatronics (IMS),
+ZHAW.
+
+Thanks to colleagues Michael Peter (pmic) and Ruprecht Altenburger (altb) for
+their support and input during the project.
 
 ## License
 

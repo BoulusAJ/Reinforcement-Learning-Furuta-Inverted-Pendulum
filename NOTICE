@@ -4,7 +4,11 @@ Copyright (C) 2026 Zurich University of Applied Sciences (ZHAW)
 
 This project was developed as part of a research project at the Zurich
 University of Applied Sciences (ZHAW). The work was carried out by Boulus Abu
-Joudom during his employment at the Institute of Mechatronics (IMS), ZHAW.
+Joudom (abuj) during his employment at the Institute of Mechatronics (IMS),
+ZHAW.
+
+Acknowledgments: Michael Peter (pmic) and Ruprecht Altenburger (altb), colleagues
+whose support and input contributed to the project.
 
 The project is distributed under the GNU General Public License version 3. See
 LICENSE for the complete terms.
