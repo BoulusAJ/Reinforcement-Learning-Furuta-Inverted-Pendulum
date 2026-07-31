@@ -18,6 +18,9 @@ This file records how the clean `main` snapshot was assembled on July 31, 2026.
   `docs/project_history.md`, `docs/lessons_learned.md`, and
   `docs/archive_branches.md`.
 - `docs/verification.md`: checks run against the clean folder layout.
+- `approaches/td3_swingup_lqr_balance/scripts/initializeTd3SwingupLqrSimulink.m`:
+  initializes the included Simulink model, plant parameters, LQR gains, and
+  saved swing-up agent from the clean repository paths.
 
 ## TD3 Swing-Up and Balance
 
@@ -60,6 +63,10 @@ Plant files came from
 configuration, and the selected configuration chain came from `scripts/`.
 Paths inside copied configuration and training files were updated for the new
 folder layout.
+
+`initFurutaModelWorkspace.m` and `createFurutaRewardDiagnosisBus.m` were moved
+from the combined-controller script folder to `shared/` because both controller
+approaches use the same Simulink workspace setup.
 
 ## Nucleo
 

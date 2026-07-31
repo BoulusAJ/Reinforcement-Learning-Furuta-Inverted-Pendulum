@@ -1,7 +1,5 @@
 # MATLAB analytical swing-up result
 
-Date: 2026-07-30
-
 ## Result
 
 The MATLAB-only analytical TD3 agent successfully performs the Furuta
@@ -9,12 +7,17 @@ pendulum swing-up and reaches the configured LQR capture region. When the
 existing LQR balancing controller takes over at capture, the combined
 RL-swing-up and LQR-balancing controller succeeds in simulation.
 
-The successful combination was tested with:
+The successful combination is included in the clean repository as:
 
-- `scripts/evaluateFurutaMatlabSwingupAgent.m`
-- `scripts/inv_rot_pen_RL_swingup_1_test_agent_alt.slx`
-- the final agent from
-  `results/TD3/run_20260728_153540_td3_matlab_analytical_100hz_fast/`
+- `approaches/td3_swingup_lqr_balance/scripts/evaluateFurutaMatlabSwingupAgent.m`
+- `approaches/td3_swingup_lqr_balance/models/inv_rot_pen_RL_swingup_1_test_agent_alt.slx`
+- `approaches/td3_swingup_lqr_balance/agents/FurutaTD3_swingup_100Hz_final.mat`
+
+The training history for this policy is shown below. The final policy was kept
+because it gave the fastest capture and smoothest current command in the
+four-agent comparison.
+
+![Training progress for the included 1x64 actor and 2x64 critics](../outputs/matlab_swingup_four_run_comparison/training_progress_1.png)
 
 The MATLAB evaluation also exports `furutaMatlabCurrentCommand`. Replaying
 this current command through the analytical Simulink plant reproduces the
@@ -104,15 +107,14 @@ The arm limit is 90 degrees. This indicates that the existing policy depends
 on its 100 Hz update rate and should not be deployed at 20 Hz unchanged. A
 new 20 Hz policy can still be trained and evaluated as a separate experiment.
 
-## Reduced-update student experiment
+## Reduced-update training experiment
 
-The convention-correct ODE3 run
-`run_20260730_181326_td3_matlab_ode3_student_100hz` tested whether substantially
-reducing TD3 learning work per episode could make training practical on an
-average student laptop. It retained the 1x64 actor and 2x64 critics, but used a
-smaller update budget than the successful July 28 fast baseline.
+The convention-correct ODE3 experiment tested whether substantially reducing
+TD3 learning work per episode could make training practical on an average
+laptop. It retained the 1x64 actor and 2x64 critics, but used a smaller update
+budget than the successful 100 Hz reference setup.
 
-| Setting | Successful July 28 fast baseline | July 30 student run |
+| Setting | Successful 100 Hz reference setup | Reduced-update ODE3 setup |
 |---|---:|---:|
 | Actor hidden layers | 1x64 | 1x64 |
 | Critic hidden layers | 2x64 | 2x64 |
@@ -130,12 +132,12 @@ and up to 100 mini-batches per epoch. Its theoretical maximum was 1,000 updates
 and 1,024,000 replay samples per episode. Moving first to 256/25 and then to
 128/10 greatly reduced the pause caused by learning after each episode.
 
-The July 30 result does **not** show that the observation convention caused the
-failure, nor that fewer updates solve the overall training-time problem. It
-shows that the reduced update budget made individual episodes advance faster,
-but 3,000 episodes were not enough for this run to learn a successful swing-up
-policy. The reward and Q0 trends suggested that another roughly 2,000 to 3,000
-episodes might have been required.
+The reduced-update result does **not** show that the observation convention
+caused the failure, nor that fewer updates solve the overall training-time
+problem. It shows that the reduced update budget made individual episodes
+advance faster, but 3,000 episodes were not enough for this run to learn a
+successful swing-up policy. The reward and Q0 trends suggested that another
+roughly 2,000 to 3,000 episodes might have been required.
 
 The working hypothesis is that this task needs a minimum total amount of useful
 TD3 optimization before swing-up emerges. Reducing updates per episode can

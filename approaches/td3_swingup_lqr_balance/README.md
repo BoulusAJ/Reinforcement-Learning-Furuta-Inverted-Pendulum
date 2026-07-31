@@ -58,6 +58,20 @@ Edit the initial angles and velocities near the top of the example or the
 evaluation script. It plots all four states, current command, reward, and the
 time at which the LQR controller should take over.
 
+To open and run the included Simulink evaluation model, initialize the plant,
+LQR controller, reward parameters, initial state, and saved agent first:
+
+```matlab
+ws = initializeTd3SwingupLqrSimulink( ...
+    InitialTheta=[0; 0], ...
+    InitialOmega=[0; 0]);
+```
+
+This opens `inv_rot_pen_RL_swingup_1_test_agent_alt.slx`. The initializer also
+replaces the absolute development paths stored in the saved agent configuration
+with paths from the current repository. The model retains the tested `-1`
+observation adapter required by the included policy.
+
 Training:
 
 ```matlab

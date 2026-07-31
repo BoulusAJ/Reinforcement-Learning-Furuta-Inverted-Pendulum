@@ -1,12 +1,11 @@
 # MATLAB TD3 swing-up training comparison
 
-Date: 2026-07-30
-
 ## Purpose
 
 This note compares four MATLAB analytical-plant TD3 training runs. The main
 question is whether smaller networks and continued training reduce the cost of
-student training while retaining a smooth and reliable Furuta swing-up policy.
+training on an average laptop while retaining a smooth and reliable Furuta
+swing-up policy.
 
 The final saved agent from each run was evaluated from the same physical initial
 state:
@@ -24,14 +23,14 @@ the LQR controller would take over.
 
 | Run | Actor / critics | Episodes | Training time | Capture time | Current RMS | Current variation | Variation rate | Current-effort integral |
 |---|---:|---:|---:|---:|---:|---:|---:|---:|
-| `run_20260728_153540_td3_matlab_analytical_100hz_fast` | 1x64 / 2x64 | 5000 | about 3 h 32 min | **0.81 s** | **0.429 A** | **7.64 A** | **9.44 A/s** | **0.149 A^2 s** |
-| `run_20260730_195820_td3_matlab_ode3_student_100hz_actor1x32_critic2x32` | 1x32 / 2x32 | 3100 | about 1 h 51 min | 1.21 s | 0.663 A | 23.33 A | 19.28 A/s | 0.532 A^2 s |
-| `run_20260730_210332_882_td3_matlab_ode3_student_100hz_actor1x16_critic2x16` | 1x16 / 2x16 | 3250 | about 1 h 20 min | 3.33 s | 0.855 A | 362.23 A | 108.78 A/s | 2.432 A^2 s |
-| `run_20260730_220652_985_resume_20260730_195820_td3_matlab_ode3_student_100hz_actor1x32_critic2x32` | 1x32 / 2x32 | 150 additional | 4 min 38 s | 1.12 s | 0.579 A | 42.64 A | 38.07 A/s | 0.375 A^2 s |
+| Initial 1x64 / 2x64 | 1x64 / 2x64 | 5000 | about 3 h 32 min | **0.81 s** | **0.429 A** | **7.64 A** | **9.44 A/s** | **0.149 A^2 s** |
+| Compact 1x32 / 2x32 | 1x32 / 2x32 | 3100 | about 1 h 51 min | 1.21 s | 0.663 A | 23.33 A | 19.28 A/s | 0.532 A^2 s |
+| Small 1x16 / 2x16 | 1x16 / 2x16 | 3250 | about 1 h 20 min | 3.33 s | 0.855 A | 362.23 A | 108.78 A/s | 2.432 A^2 s |
+| Continued 1x32 / 2x32 | 1x32 / 2x32 | 150 additional | 4 min 38 s | 1.12 s | 0.579 A | 42.64 A | 38.07 A/s | 0.375 A^2 s |
 
-The first three durations are estimates from the run-name start timestamp to
-the final agent-file timestamp. The continued run records an exact elapsed time
-in `resumeInfo`.
+The first three durations are estimates from each run's start timestamp to the
+final agent-file timestamp. The continued run records an exact elapsed time in
+`resumeInfo`.
 
 All four final agents reach the capture region in this nominal rollout. The
 original 64-neuron agent is the best of these agents: it captures fastest and
@@ -81,9 +80,9 @@ analytical training plant omits the PI current loop, winding inductance, driver
 losses, supply limits, and a detailed regeneration model. For comparing these
 policies, `SquaredCurrentIntegral` is the cleaner model-independent metric.
 
-## Training progress
+## Training progress for MATLAB-based training
 
-### 1. Original 1x64 actor and 2x64 critics
+### 1. Initial 1x64 actor and 2x64 critics, trained from scratch
 
 ![Training progress for original 64-neuron run](../outputs/matlab_swingup_four_run_comparison/training_progress_1.png)
 
@@ -126,9 +125,9 @@ meaningful cross-run measures here.
 
 ## Best agent evaluation
 
-The best final agent in this comparison is:
+The best final agent in this comparison is included at:
 
-`run_20260728_153540_td3_matlab_analytical_100hz_fast`
+`approaches/td3_swingup_lqr_balance/agents/FurutaTD3_swingup_100Hz_final.mat`
 
 ### States
 
@@ -144,7 +143,7 @@ The best final agent in this comparison is:
 
 ## Observation convention compatibility
 
-Yes, the evaluation script works for the original July 28 agent despite its
+The evaluation script works for the initial 1x64 agent despite its
 different observation convention. It selects the environment from the saved
 configuration:
 
@@ -153,13 +152,13 @@ usesSimulinkConvention = isfield(cfg.Observation, "ErrorConvention") && ...
     string(cfg.Observation.ErrorConvention) == "reference_minus_measurement";
 ```
 
-The July 28 configuration has no `ErrorConvention` field, so evaluation uses
+The initial 1x64 configuration has no `ErrorConvention` field, so evaluation uses
 `createFurutaAnalyticalSwingupEnv`, which provides the legacy convention on
 which that agent was trained. New configurations declare
 `reference_minus_measurement` and use
 `createFurutaAnalyticalSwingupEnvSimulinkConvention`.
 
-This automatic selection is essential. Feeding the July 28 agent the newer
+This automatic selection is essential. Feeding the initial 1x64 agent the newer
 observation signs would not be an equivalent evaluation. In Simulink, the
 previously tested multiplication of the error vector by `-1` performs the
 corresponding conversion for that legacy agent.
@@ -167,7 +166,7 @@ corresponding conversion for that legacy agent.
 ## Interpretation limits
 
 The comparison is useful but is not a controlled network-size experiment. The
-July 28 run uses the legacy observation convention and RK4 integration, while
+initial 1x64 run uses the legacy observation convention and RK4 integration, while
 the newer runs use the established Simulink error convention and ODE3. Reward
 parameters also changed. Therefore the results identify the best saved agent,
 but do not prove that 64 neurons alone caused the improvement.
@@ -176,13 +175,13 @@ A stronger teaching comparison should evaluate multiple initial conditions and
 random seeds, save the best fixed-case checkpoint, and hold the observation
 convention, solver, reward, update count, and stopping rule constant.
 
-The separate 1x64/2x64 convention-correct student run
-`run_20260730_181326_td3_matlab_ode3_student_100hz` is intentionally not one of
-the four policy rollouts above because it did not produce a successful final
-swing-up policy. It is nevertheless an important training-cost experiment. Its
+The separate 1x64/2x64 convention-correct reduced-update experiment is
+intentionally not one of the four policy rollouts above because it did not
+produce a successful final swing-up policy. It is nevertheless an important
+training-cost experiment. Its
 batch-128, 10-update-per-episode budget processed at most 1,280 replay samples
 per episode, compared with batch 256, 25 updates, and 6,400 samples per episode
-for the successful July 28 fast baseline. The smaller budget shortened learning
+for the successful 100 Hz reference setup. The smaller budget shortened learning
 pauses, but the reward progression indicated that 3,000 episodes were
 insufficient and perhaps another 2,000 to 3,000 would have been needed.
 
@@ -191,18 +190,17 @@ misleading. If swing-up requires a broadly similar cumulative number of useful
 updates, fewer updates per episode merely move the work into more episodes and
 may not reduce end-to-end training time. This observation led to the 32- and
 16-neuron experiments as an alternative way to reduce update cost. See
-`docs/matlab_analytical_swingup_result_2026-07-30.md` for the full configuration
-comparison and interpretation.
+[training_result.md](training_result.md) for the full configuration comparison
+and interpretation.
 
 ## Reproduction files
 
-The plots and summary table are generated by:
-
-`scripts/analysis/compareFourMatlabSwingupRuns.m`
+The comparison script remains in the archived development branch. The generated
+plots and numeric summary needed for the handover are included here.
 
 Machine-readable results and MATLAB figures are in:
 
-`outputs/matlab_swingup_four_run_comparison/`
+`approaches/td3_swingup_lqr_balance/outputs/matlab_swingup_four_run_comparison/`
 
 The `.fig` versions can be opened in MATLAB for zooming, data cursors, and plot
 editing. The CSV contains the numeric summary used in this note.
