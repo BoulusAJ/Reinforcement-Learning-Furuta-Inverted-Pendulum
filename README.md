@@ -1,6 +1,6 @@
 # Weto Inputs Branch Archive
 
-Branch: `weto-inputs`
+Branch: `dev/weto-inputs`
 
 This was the primary experiment and results branch for applying the suggestions
 from the June 24 project meeting with Thomas Weinmann (ZHAW). Its purpose was to
@@ -13,7 +13,7 @@ Some preparatory work was deliberately developed on `dev/weto-inputs-side` to
 avoid conflicts with runs and unpushed state on another PC. That branch was
 merged here on July 3 in commit `a56a612`. The final branch therefore contains
 both the side branch's preparation files and the experiments performed directly
-on `weto-inputs`; the chronology below distinguishes them.
+on `dev/weto-inputs`; the chronology below distinguishes them.
 
 ## Chronology
 
@@ -61,12 +61,12 @@ detailed-model path without modifying active work elsewhere. It contributed:
 - the result-comparison helper and the `5011` detailed-training handoff.
 
 These were preparation and handoff artifacts. The completed experiment results
-and conclusions were produced on the main `weto-inputs` line after the merge.
+and conclusions were produced on the main `dev/weto-inputs` line after the merge.
 
 See branch `dev/weto-inputs-side` and
 [`docs/weto_input_side_workflow.md`](docs/weto_input_side_workflow.md).
 
-### Work performed on `weto-inputs`
+### Work performed on `dev/weto-inputs`
 
 The early network experiments showed that a one-layer 64-unit actor could learn
 the task if the critics remained stronger. A one-layer 64-unit critic was too
@@ -83,7 +83,7 @@ comparisons.
 ### Detailed plant and July 9 preparation
 
 After the meeting, the side branch prepared much of the first detailed model;
-after it was merged, `weto-inputs` used and extended that model to test existing
+after it was merged, `dev/weto-inputs` used and extended that model to test existing
 and newly trained agents. This improved evaluation realism and exposed likely
 sim-to-real issues, but training on the detailed plant did not produce a
 successful swing-up-and-balance agent.

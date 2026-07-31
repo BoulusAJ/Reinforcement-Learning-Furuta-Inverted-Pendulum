@@ -7,7 +7,7 @@ state may still exist on another machine.
 
 ## Purpose
 
-The main `weto-inputs` branch prepared a controlled experiment from Thomas
+The main `dev/weto-inputs` branch prepared a controlled experiment from Thomas
 Weinmann's feedback:
 
 - keep the 1b PI/current training and evaluation setup,

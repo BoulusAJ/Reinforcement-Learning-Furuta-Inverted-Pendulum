@@ -76,7 +76,7 @@ Treat it as a calibration candidate, not a final physical constant.
 
 ## Suggested 5011 Next Steps
 
-1. Merge or cherry-pick this side branch into `weto-inputs`.
+1. Merge or cherry-pick this side branch into `dev/weto-inputs`.
 2. Verify the detailed model opens and simulates with the final `500Hz_long`
    agent loaded.
 3. Confirm filter initial conditions behave correctly for nonzero `theta0` and
@@ -91,7 +91,7 @@ Treat it as a calibration candidate, not a final physical constant.
 8. Add domain randomization gradually, following the phased guidance in
    `docs/domain_randomization_preparation.md`.
 
-Prepared detailed-model training scripts after merging to `weto-inputs`:
+Prepared detailed-model training scripts after merging to `dev/weto-inputs`:
 
 ```text
 scripts/makeFurutaMathWorksStylePICurrent1c500HzLongDetailedTD3Config.m
