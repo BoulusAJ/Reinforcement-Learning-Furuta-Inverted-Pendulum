@@ -58,7 +58,7 @@ detailed state of the work at the end of this phase.
   sine/cosine angle observations and the previous action to preserve the Markov
   state. This produced the successful `500Hz_long` agent shown in the July 9
   presentation.
-- **`weto-inputs`** continued that work after the June 24 meeting with Thomas
+- **`dev/weto-inputs`** continued that work after the June 24 meeting with Thomas
   Weinmann (ZHAW). It tested his recommendations and introduced more detailed
   plant, sensor, filtering, and friction models. These improved evaluation
   realism, but training on the detailed plant did not produce a successful new
