@@ -29,7 +29,12 @@ action scale:          normalized [-1, 1], then current = 4 A * action
 
 The 4 A value is the trained policy's action scale. During the successful
 onboard test, firmware first limited the policy command to 0.5 A, applied the
-0.0205 A sign-dependent offset, and retained a separate final 4 A bound.
+0.0205 A sign-dependent offset, and retained a separate final 4 A bound. The
+power supply was limited to about 1.5-2 A.
+
+The 0.5 A clamp reduced aggressive current oscillation during balancing that
+was attributed to unmodeled static friction. Swing-up remained successful, but
+typically required more back-and-forth swings.
 
 Only the actor is deployed. The TD3 critics are training-only and are not used
 on the microcontroller.

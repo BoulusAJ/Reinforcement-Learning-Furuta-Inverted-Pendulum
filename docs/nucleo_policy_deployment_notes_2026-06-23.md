@@ -3,7 +3,9 @@
 Status update, 2026-06-30: this plan became a working demonstrator. The older
 combined swing-up-and-balance TD3 actor ran onboard at 500 Hz and completed
 swing-up and balance. The successful firmware used the policy's 4 A action scale
-with a 0.5 A policy-command clamp before the current offset. See
+with a 0.5 A policy-command clamp before the current offset; the power supply
+was limited to about 1.5-2 A. The clamp reduced balancing oscillation attributed
+to unmodeled static friction. Swing-up still worked but needed more swings. See
 `uC/nucleo_policy_deploy/BRANCH_STATUS.md` for the final branch summary.
 
 This note summarizes the side discussion about deploying the trained TD3 actor

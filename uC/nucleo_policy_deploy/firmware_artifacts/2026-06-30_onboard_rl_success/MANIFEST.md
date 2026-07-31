@@ -19,7 +19,10 @@ Built in the worktree that became branch `dev/nucleo-policy-deploy`. Commit
   about two agent-sample delay compensation in the scope comparison.
 - The deployed agent was the older combined swing-up-and-balance TD3 policy.
 - Its action used a 4 A scale, while this firmware limited the policy command to
-  0.5 A before the current offset. The final 4 A clamp was a separate bound.
+  0.5 A before the current offset. The supply was limited to about 1.5-2 A; the
+  final 4 A software clamp was a separate last-resort bound.
+- The 0.5 A clamp reduced balancing oscillation attributed to static friction
+  omitted from training. Swing-up still worked, with more back-and-forth swings.
 
 ## Important Config
 
