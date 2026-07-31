@@ -1,0 +1,34 @@
+# MATLAB / Simulink generated files
+*.asv
+*.slxc
+slprj/
+*_sldrt_win64/
+*.rxw64
+scripts/**/results/
+*.autosave
+*.m~
+matlab.mat
+
+# Training artifacts
+results/**/saved_agents/*.mat
+results/**/saved_agents/**/*.mat
+data/*.mat
+data/*.csv
+
+# Python / tooling if added later
+__pycache__/
+.venv/
+*.pyc
+
+# OS / editor
+.DS_Store
+Thumbs.db
+.vscode/
+.worktrees/
+
+# Per-user project paths (copy config/userConfig.example.json)
+config/userConfig.json
+outputs/**/edge-profile/
+scripts/inv_rot_pen_RL_cntr_simscape_sim_corrupted.slx
+scripts/inv_rot_pen_RL_cntr_simscape_sim_1b.slx.original
+scripts/inv_rot_pen_RL_cntr_simscape_sim_1c_old.slx

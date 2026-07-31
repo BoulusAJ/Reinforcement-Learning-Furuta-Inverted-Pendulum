@@ -1,0 +1,9 @@
+{
+  "repository": "https://github.com/altb71/drehpendel",
+  "sourceBranch": "dev_altb",
+  "rlBranch": "not-created-yet",
+  "testedRlSource": "dev/nucleo-policy-deploy at commit 8b711dd",
+  "testedPolicy": "td3_swingup_balance",
+  "hardwareStatus": "tested successfully on Nucleo",
+  "note": "Keep the full firmware in the drehpendel repository. This repository stores policy export and integration files."
+}
